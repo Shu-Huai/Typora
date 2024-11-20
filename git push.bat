@@ -15,3 +15,4 @@ set second=%datetime:~12,2%
 set formatted_time=%year%-%month%-%day% %hour%:%minute%:%second%
 
 git commit -m "%formatted_time%"
+git push
