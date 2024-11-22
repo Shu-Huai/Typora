@@ -18,3 +18,43 @@ Github：[CyberAgentAILab/TANGO: Official implementation of the paper "TANGO: Co
 
 ## 主要贡献
 
+TANGO 是一个基于运动图的框架，主要包括三个步骤
+
+<img src="http://public.file.lvshuhuai.cn/images\image-20241121230733184.png" alt="image-20241121230733184" style="zoom:50%;" />
+
+### 创建视频运动图
+
+使用一个图（Graph）
+
+图的节点定义为参考视频中的4帧非重叠剪辑，包含 RGB 图像帧和音频波形
+
+边基于3D运动空间和2D图像空间的相似性来确定：使用 SMPL-X 估计 3D 姿势，并计算 3D 空间中的姿势不相似度。2D 图像空间的相似性通过身体分割和手部边界框的交集比（IoU）来估计。
+
+### 音频条件手势检索
+
+论文提出了一个 AuMoCLIP，层次化的音频-运动联合嵌入空间，用于编码配对的音频和运动模态数据到一个接近的潜在空间中。这个空间允许基于目标语音音频检索手势。
+
+<img src="http://public.file.lvshuhuai.cn/images\image-20241121231627336.png" alt="image-20241121231627336" style="zoom:50%;" />
+
+采用双塔架构，每个编码器分为低级和高级子编码器。音频编码器使用 Wav2Vec2 和 BERT 特征，而运动编码器使用 CNN 和 Transformer。
+
+使用帧级和剪辑级对比损失来训练局部和全局跨模态对齐。
+
+训练后，使用这些特征通过动态规划（DP）在目标音频和运动之间找到最佳匹配路径
+
+### 扩散式视频帧插值
+
+论文提出了 ACInterp，一个基于扩散的插值网络，用于生成高质量的过渡帧，以确保生成的视频与参考视频在外观上保持一致。
+
+<img src="http://public.file.lvshuhuai.cn/images\image-20241121232152185.png" alt="image-20241121232152185" style="zoom:50%;" />
+
+生成过渡帧的过程分为两个阶段。
+
+- **Pose2Image 阶段**：在这一阶段，通过预训练的 VAE 编码器和解码器，以及 PoseGuider 和 ReferenceNet，从噪声中估计图像潜在表示。
+- **Image2Video 阶段**：这一阶段捕捉视频帧之间的时间依赖性，以减少 Pose2Image 阶段中的抖动效应。通过引入起始和结束帧作为时间优先级，确保人物身份的一致性。
+
+## 实验
+
+论文在 Show-Oliver 和 YouTube Video 数据集上评估 TANGO，证明了其在生成逼真视频方面优于现有的生成和检索方法。
+
+<img src="http://public.file.lvshuhuai.cn/images\image-20241121232502927.png" alt="image-20241121232502927" style="zoom:50%;" />

@@ -1,0 +1,1 @@
+# GPAvatar: Generalizable and precise head avatar from images
