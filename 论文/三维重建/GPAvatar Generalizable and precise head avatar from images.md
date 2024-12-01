@@ -24,14 +24,14 @@
 
 总体上包含两个分支，一个使用基于点的表达领域（Point-based Expression Field，PEF）捕获细粒度表情，另一个通过多三平面注意力（Multi Tri-planes Attention，MTA）整合来自多个输入的信息
 
-<img src="Z:\Public\images\image-20241129165120728.png" alt="image-20241129165120728" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20241129165120728.png" alt="image-20241129165120728" style="zoom:50%;" />
 
 ## 实验
 
 ### 定性试验
 
-<img src="Z:\Public\images\image-20241129165049980.png" alt="image-20241129165049980" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20241129165049980.png" alt="image-20241129165049980" style="zoom:50%;" />
 
 ### 定量实验
 
-<img src="Z:\Public\images\image-20241129165012108.png" alt="image-20241129165012108" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20241129165012108.png" alt="image-20241129165012108" style="zoom:50%;" />
