@@ -29,7 +29,7 @@ X 射线因其较强的穿透能力在医学成像中广泛应用，但对人体
 - 提出了一种用于高斯点云的角度姿势长方体均匀初始化策略，并在圆锥束 X 射线扫描中进行了相机校准
 - 该方法 SOTA
 
-<img src="Z:\Public\images\image-20241204180201515.png" alt="image-20241204180201515" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20241204180201515.png" alt="image-20241204180201515" style="zoom:50%;" />
 
 ### 辐射高斯点云模型
 
@@ -41,7 +41,7 @@ X 射线因其较强的穿透能力在医学成像中广泛应用，但对人体
 
 我们的模型引入了辐射强度响应函数（RIRF）来预测 3D 点的辐射强度。
 
-<img src="Z:\Public\images\image-20241204204428437.png" alt="image-20241204204428437" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20241204204428437.png" alt="image-20241204204428437" style="zoom:50%;" />
 
 每个高斯点云学习一个特征向量 $f\in\mathbb R^{N_f}$ 来表示其固有的辐射特性，任意视角方向的三维高斯中心点的辐射强度 $i\in\mathbb R$ 由 RIRF 建模为 $i(f)=RIRF(f)-Sigmoid(\lambda\odot f)$。$\mathcal G=\lbrace\mathcal G_i(\mu_i,\Sigma_i,\alpha_i,f_i)|i=1,2,\cdots,N_p\rbrace$
 
@@ -55,7 +55,7 @@ SfM 算法不适合 X 射线任务
 
 ACUI 使用 X 射线扫描仪的参数计算外部矩阵 $M_{ext}$ 和内部矩阵 $M_{int}$
 
-<img src="Z:\Public\images\image-20241204214334471.png" alt="image-20241204214334471" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20241204214334471.png" alt="image-20241204214334471" style="zoom:50%;" />
 
 其中 $L_{SO}$ 表示 X 射线源与被扫描物体之间的距离。X 射线源的仰角设置为零，保持不变
 
@@ -71,8 +71,20 @@ ACUI 的下一步是初始化 3D 高斯函数的中心位置。
 
 ### 定性试验
 
-<img src="Z:\Public\images\image-20241204214842824.png" alt="image-20241204214842824" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20241204214842824.png" alt="image-20241204214842824" style="zoom:50%;" />
 
 ### 协方差分析
 
 训练视图数量的增加，控制高斯点云大小的 3D 高斯的平均协方差减小。这表明 3D 高斯点云逐渐由粗变细，从而更能表示细粒度结构，例如腹部的小肿瘤。
+
+## 复现
+
+在茶壶上的表现还不错
+
+<img src="http://public.file.lvshuhuai.cn/images\image-20241205102950407.png" alt="image-20241205102950407" style="zoom:50%;" />
+
+有点过于抽象
+
+<img src="http://public.file.lvshuhuai.cn/images\image-20241205104726898.png" alt="image-20241205104726898" style="zoom:50%;" />
+
+<img src="http://public.file.lvshuhuai.cn/images\image-20241205103904621.png" alt="image-20241205103904621" style="zoom:50%;" />
