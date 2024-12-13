@@ -24,7 +24,49 @@
 
 总体上包含两个分支，一个使用基于点的表达领域（Point-based Expression Field，PEF）捕获细粒度表情，另一个通过多三平面注意力（Multi Tri-planes Attention，MTA）整合来自多个输入的信息
 
+$$I_t = R(\text{MTA}(E(I_i)), \text{PEF}(\text{FLAME}(s_i, e_t, p_t), \theta), p_{\text{cam}})$$
+
 <img src="http://public.file.lvshuhuai.cn/images\image-20241129165120728.png" alt="image-20241129165120728" style="zoom:50%;" />
+
+### 规范特征编码器（Canonical Feature Encoder）
+
+使用三平面表示作为标准特征空间，因为它在合成质量和速度之间取得了良好的平衡。
+
+编码器遵循 U-Net 结构，在上采样过程中使用 StyleGAN 结构。
+
+### 基于点的表情场（Point-Based Expression Field, PEF）
+
+直接使用 3DMM 点云构建基于点的表情场，避免过度处理，保留表情细节。
+
+为 PEF 中的每个 FLAME 顶点绑定可学习的权重，这些权重在不同身份间共享，因为它们具有稳定的语义。
+
+在 NeRF 采样过程中，通过查询最近的几个点来计算样本位置的最终特征，并使用相对位置编码提供方向和距离信息。
+
+$$f_{\text{exp}, x} = \sum_{i=1}^{K} \frac{w_i}{\sum_{j=1}^{K} w_j} L_p(f_i, F_{\text{pos}}(p_i - x)), \quad w_i = \frac{1}{\|p_i - x\|}$$
+
+### 多三角平面注意力（Multi Tri-planes Attention, MTA）
+
+用于融合多个图像的三平面特征，特别适用于源图像中可能存在的遮挡或闭眼等挑战性场景。
+
+$$P = \sum_{i=1}^{N} \frac{w_i}{\sum_{j=1}^{N} w_j} E(I_i), \quad w_i = L_q(Q) \cdot L_k(E(I_i))$$
+
+使用可学习的三平面查询多个三平面，生成特征融合的权重。
+
+### 体积渲染和超分辨率（Volume Rendering and Super Resolution）
+
+给定相机的内外参数，沿着这些射线进行两遍分层采样，然后进行体积渲染以获得 2D 结果。
+
+由于高分辨率体积渲染需要大量计算资源，因此使用轻量级超分辨率模块，先以 128x128 分辨率渲染低分辨率图像，然后通过超分辨率模块提升到高分辨率。
+
+### 训练策略和损失函数
+
+使用端到端的训练方法，通过从同一视频中采样原始和目标图像来构建具有相同身份但不同表情和姿态的图像对。
+
+使用 L1 和感知损失（perceptual loss）在低分辨率和高分辨率重演图像上实现目标，同时添加基于密度的范数损失以鼓励NeRF的总密度尽可能低，从而避免伪影。
+
+$$L_{\text{rec}} = \|I_{\text{lr}} - I_t\| + \|I_{\text{hr}} - I_t\| + \lambda_p (\|\phi(I_{\text{lr}}) - \phi(I_t)\| + \|\phi(I_{\text{hr}}) - \phi(I_t)\|)$$
+
+$$L_{\text{overall}} = \lambda_r L_{\text{rec}} + \lambda_n L_{\text{norm}}$$
 
 ## 实验
 
@@ -35,3 +77,7 @@
 ### 定量实验
 
 <img src="http://public.file.lvshuhuai.cn/images\image-20241129165012108.png" alt="image-20241129165012108" style="zoom:50%;" />
+
+## 复现
+
+<img src="http://public.file.lvshuhuai.cn/images\PixPin_2024-12-13_01-14-01.gif" alt="PixPin_2024-12-13_01-14-01" style="zoom:50%;" />
