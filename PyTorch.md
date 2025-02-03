@@ -6,7 +6,7 @@
 
 `torch.nn`是`PyTorch`中的一个模块，它提供了一系列用于构建和训练神经网络的类和函数。
 
-### 激活函数
+
 
 #### Sigmoid 激活函数`torch.nn.Sigmoid()`
 
