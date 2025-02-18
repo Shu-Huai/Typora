@@ -1,0 +1,27 @@
+# UNIX 家族
+
+UNIX操作系统自 1969 年在 AT&T 贝尔实验室诞生以来，经过数十年的发展，衍生出了众多分支和变种。以下是 UNIX 家族的一些主要分支：
+
+1. **AT&T Unix（原始Unix）**
+    - 1969 年，肯·汤普森（Ken Thompson）和丹尼斯·里奇（Dennis Ritchie）在贝尔实验室开发了 Unix 的最初版本。
+    - 1970 年代，Unix 迅速传播，并衍生出多个版本，如**Version 6 (V6)** 和 **Version 7 (V7)**。
+2. **BSD（Berkeley Software Distribution）**：由加州大学伯克利分校开发的UNIX版本，进一步衍生出多个子分支：
+    - **FreeBSD**：以性能和安全性著称，广泛应用于服务器领域。
+    - **OpenBSD**：以高度重视安全性而闻名，常用于需要高安全性的环境。
+    - **NetBSD**：以其高度可移植性著称，支持多种硬件平台。
+3. **System V**
+    - 1983 年，AT&T 发布 **System V Unix**，这是 Unix 商业化的标志。
+    - 主要特性包括：`init` 启动系统方式、`SVR4` 版本整合了 BSD 和 SunOS 的功能。
+4. **商业Unix**
+    - **AIX（IBM）**：IBM 开发的 Unix 版本，应用于大型服务器。
+    - **HP-UX（惠普）**：惠普开发的 Unix 系统，广泛用于企业计算。
+    - **Solaris（Sun Microsystems）**：Sun 公司开发的 Unix，后由 Oracle 接管。
+    - **IRIX（SGI）**：用于高性能图形计算。
+5. **Linux**：受 UNIX 启发，由 Linus Torvalds 于 1991 年发布的开源操作系统内核。结合 GNU 项目的工具，形成了完整的操作系统，通常称为 GNU/Linux。Linux 有多个发行版，包括：
+    - **Debian**：以稳定性和自由软件原则著称。
+    - **Ubuntu**：基于 Debian，注重用户友好性，广受欢迎。
+    - **Red Hat Enterprise Linux（RHEL）**：面向企业的商业发行版，提供商业支持。
+
+下图展示了 UNIX 家族的演化和分支情况：
+
+![Unix,linux和OSX - 鸿网互联](http://public.file.lvshuhuai.cn/images\7a899e510fb30f2440d33c63c895d143ad4b0300.jpg)
