@@ -15,7 +15,7 @@ Redis 提供五种数据类型
 3. **GEO（3.2 版新增）**
 4. **Stream（5.0 版新增）**
 
-<img src="Z:\Public\images\redis命令提纲.png" alt="img" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\redis命令提纲.png" alt="img" style="zoom:50%;" />
 
 ## redisObject
 
@@ -62,7 +62,7 @@ typedef struct redisObject {
 
 下图对应上面的结构
 
-![img](Z:\Public\images\db-redis-object-1-1741071152307-45.png)
+![img](http://public.file.lvshuhuai.cn/images\db-redis-object-1-1741071152307-45.png)
 
 **其中 type、encoding 和 ptr 是最重要的三个属性**。
 
@@ -102,7 +102,7 @@ typedef struct redisObject {
 
 下图展示了 redisObject 、Redis 所有数据类型、Redis 所有编码方式以及底层数据结构之间的关系（pdai：从6.0版本中梳理而来）：
 
-<img src="Z:\Public\images\db-redis-object-2-2-1741071209851-48.png" alt="img" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\db-redis-object-2-2-1741071209851-48.png" alt="img" style="zoom:50%;" />
 
 > 注意：`OBJ_ENCODING_ZIPMAP` 没有出现在图中，因为在 redis 2.6 开始，它不再是任何数据类型的底层结构（虽然还有 zipmap.c 的代码）；`OBJ_ENCODING_LINKEDLIST` 也不支持了，相关代码也删除了。
 
@@ -125,7 +125,7 @@ typedef struct redisObject {
 
 比如现在执行LPOP命令：
 
-![img](Z:\Public\images\db-redis-object-3-1741071846996-51.png)
+![img](http://public.file.lvshuhuai.cn/images\db-redis-object-3-1741071846996-51.png)
 
 ### 对象共享
 
@@ -136,7 +136,7 @@ typedef struct redisObject {
 - 各种命令的返回值，比如成功时返回的 OK，错误时返回的 ERROR，命令入队事务时返回的 QUEUE，等等
 - 包括 0 在内，小于 REDIS_SHARED_INTEGERS 的所有整数（REDIS_SHARED_INTEGERS 的默认值是 10000）
 
-![img](Z:\Public\images\db-redis-object-4-1741071918078-54.png)
+![img](http://public.file.lvshuhuai.cn/images\db-redis-object-4-1741071918078-54.png)
 
 > 注意：共享对象只能被字典和双向链表这类能带有指针的数据结构使用。像整数集合和压缩列表这些只能保存字符串、整数等自勉之的内存数据结构
 
@@ -165,7 +165,7 @@ typedef struct redisObject {
 
 String 是最基本的 key-value 结构，key 是唯一标识，value 是具体的值，value其实不仅是字符串， 也可以是数字（整数或浮点数），value 最多可以容纳的数据长度是 `512M`。
 
-<img src="Z:\Public\images\string.png" alt="img" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\string.png" alt="img" style="zoom:50%;" />
 
 #### 内部实现
 
@@ -179,19 +179,19 @@ SDS 和我们认识的 C 字符串不太一样，之所以没有使用 C 语言�
 
 字符串对象的内部编码（encoding）有 3 种 ：**int、raw 和 embstr**。
 
-<img src="Z:\Public\images\string结构.png" alt="img" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\string结构.png" alt="img" style="zoom:50%;" />
 
 如果一个字符串对象保存的是整数值，并且这个整数值可以用 `long` 类型来表示，那么字符串对象会将整数值保存在字符串对象结构的 `ptr` 属性里面（将 `void*` 转换成 `long`），并将字符串对象的编码设置为 `int`。
 
-<img src="Z:\Public\images\int.png" alt="img" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\int.png" alt="img" style="zoom:50%;" />
 
 如果字符串对象保存的是一个字符串，并且这个字符申的长度小于等于 32 字节（redis 2.+ 版本），那么字符串对象将使用一个简单动态字符串（SDS）来保存这个字符串，并将对象的编码设置为 `embstr`， `embstr` 编码是专门用于保存短字符串的一种优化编码方式：
 
-<img src="Z:\Public\images\embstr.png" alt="img" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\embstr.png" alt="img" style="zoom:50%;" />
 
 如果字符串对象保存的是一个字符串，并且这个字符串的长度大于 32 字节（redis 2.+ 版本），那么字符串对象将使用一个简单动态字符串（SDS）来保存这个字符串，并将对象的编码设置为 `raw`：
 
-![img](Z:\Public\images\raw.png)
+![img](http://public.file.lvshuhuai.cn/images\raw.png)
 
 注意，embstr 编码和 raw 编码的边界在 redis 不同版本中是不一样的：
 
@@ -360,13 +360,13 @@ end
 
 分布式系统单独存储 Session 流程图：
 
-![img](Z:\Public\images\Session1.png)
+![img](http://public.file.lvshuhuai.cn/images\Session1.png)
 
 因此，我们需要借助 Redis 对这些 Session 信息进行统一的存储和管理，这样无论请求发送到那台服务器，服务器都会去同一个 Redis 获取相关的 Session 信息，这样就解决了分布式系统下 Session 存储的问题。
 
 分布式系统使用同一个 Redis 存储 Session 流程图
 
-![img](Z:\Public\images\Session2.png)
+![img](http://public.file.lvshuhuai.cn/images\Session2.png)
 
 ### List
 
@@ -387,7 +387,7 @@ List 类型的底层数据结构是由**双向链表或压缩列表**实现的�
 
 ### **常用命令**
 
-<img src="Z:\Public\images\list.png" alt="img" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\list.png" alt="img" style="zoom:50%;" />
 
 ```shell
 # 将一个或多个值value插入到key列表的表头(最左边)，最后的值在最前面
@@ -420,7 +420,7 @@ List 本身就是按先进先出的顺序对数据进行存取的，所以，如
 
 List 可以使用 LPUSH + RPOP （或者反过来，RPUSH+LPOP）命令实现消息队列。
 
-<img src="Z:\Public\images\list消息队列.png" alt="img" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\list消息队列.png" alt="img" style="zoom:50%;" />
 
 - 生产者使用 `LPUSH key value[value...]` 将消息插入到队列的头部，如果 key 不存在则会创建一个空的队列再插入消息。
 - 消费者使用 `RPOP key` 依次读取队列的消息，先进先出。
@@ -433,7 +433,7 @@ List 可以使用 LPUSH + RPOP （或者反过来，RPUSH+LPOP）命令实现消
 
 为了解决这个问题，Redis提供了 BRPOP 命令。**BRPOP 命令也称为阻塞式读取，客户端在没有读到队列数据时，自动阻塞，直到有新的数据写入队列，再开始读取新数据**。和消费者程序自己不停地调用 RPOP 命令相比，这种方式能节省 CPU 开销。
 
-<img src="Z:\Public\images\消息队列.png" alt="img" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\消息队列.png" alt="img" style="zoom:50%;" />
 
 *2、如何处理重复的消息？*
 
@@ -482,7 +482,7 @@ Hash 是一个键值对（key - value）集合，其中 value 的形式入： `v
 
 Hash 与 String 对象的区别如下图所示:
 
-<img src="Z:\Public\images\hash.png" alt="img" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\hash.png" alt="img" style="zoom:50%;" />
 
 #### 内部实现
 
@@ -541,7 +541,7 @@ Hash 类型的 （key，field， value） 的结构与对象的（对象id， �
 
 Redis Hash 存储其结构如下图：
 
-<img src="Z:\Public\images\hash存储结构.png" alt="img" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\hash存储结构.png" alt="img" style="zoom:50%;" />
 
 在介绍 String 类型的应用场景时有所介绍，String + Json也是存储对象的一种方式，那么存储对象时，到底用 String + json 还是用 Hash 呢？
 
@@ -551,7 +551,7 @@ Redis Hash 存储其结构如下图：
 
 以用户 id 为 key，商品 id 为 field，商品数量为 value，恰好构成了购物车的3个要素，如下图所示。
 
-<img src="Z:\Public\images\购物车.png" alt="img" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\购物车.png" alt="img" style="zoom:50%;" />
 
 涉及的命令如下：
 
@@ -571,7 +571,7 @@ Set 类型是一个无序并唯一的键值集合，它的存储顺序不会按�
 
 一个集合最多可以存储 `2^32-1` 个元素。概念和数学中个的集合基本类似，可以交集，并集，差集等等，所以 Set 类型除了支持集合内的增删改查，同时还支持多个集合取交集、并集、差集。
 
-<img src="Z:\Public\images\set.png" alt="img" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\set.png" alt="img" style="zoom:50%;" />
 
 Set 类型和 List 类型的区别如下：
 
@@ -766,7 +766,7 @@ Zset 类型（有序集合类型）相比于 Set 类型多了一个排序属性 
 
 有序集合保留了集合不能有重复成员的特性（分值可以重复），但不同的是，有序集合中的元素可以排序。
 
-<img src="Z:\Public\images\zset.png" alt="img" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\zset.png" alt="img" style="zoom:50%;" />
 
 #### 内部实现
 
@@ -978,7 +978,7 @@ Bitmap，即位图，是一串连续的二进制数组（0和1），可以通过
 
 由于 bit 是计算机中最小的单位，使用它进行储存将非常节省空间，特别适合一些数据量大且使用**二值统计的场景**。
 
-<img src="Z:\Public\images\bitmap.png" alt="img" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\bitmap.png" alt="img" style="zoom:50%;" />
 
 #### 内部实现
 
@@ -1306,7 +1306,7 @@ Stream 消息队列操作命令：
 
 Stream 的基础方法，使用 xadd 存入消息和 xread 循环阻塞读取消息的方式可以实现简易版的消息队列，交互流程如下图所示：
 
-![img](Z:\Public\images\Stream简易.png)
+![img](http://public.file.lvshuhuai.cn/images\Stream简易.png)
 
 > 前面介绍的这些操作 List 也支持的，接下来看看 Stream 特有的功能。
 
@@ -1386,7 +1386,7 @@ Streams 会自动使用内部队列（也称为 PENDING List）留存消费组�
 
 消费确认增加了消息的可靠性，一般在业务处理完成之后，需要执行 XACK 命令确认消息已经被消费完成，整个流程的执行如下图所示：
 
-<img src="Z:\Public\images\消息确认.png" alt="img" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\消息确认.png" alt="img" style="zoom:50%;" />
 
 如果消费者没有成功处理消息，它就不会给 Streams 发送 XACK 命令，消息仍然会留存。此时，**消费者可以在重启后，用 XPENDING 命令查看已读取、但尚未确认处理完成的消息**。
 
@@ -1451,7 +1451,7 @@ Streams 会自动使用内部队列（也称为 PENDING List）留存消费组�
 
 使用一个消息队列，其实就分为三大块：**生产者、队列中间件、消费者**，所以要保证消息就是保证三个环节都不能丢失数据。
 
-<img src="Z:\Public\images\消息队列三个阶段.png" alt="img" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\消息队列三个阶段.png" alt="img" style="zoom:50%;" />
 
 Redis Stream 消息队列能不能保证三个环节都不丢失数据？
 
@@ -1510,7 +1510,7 @@ Redis 常见的五种数据类型：**String（字符串），Hash（哈希）�
 
 这五种数据类型与底层数据结构对应关系图如下，左边是 Redis 3.0版本的，也就是《Redis 设计与实现》这本书讲解的版本，现在看还是有点过时了，右边是现在 Github 最新的 Redis 代码的。
 
-![img](Z:\Public\images\9fa26a74965efbf0f56b707a03bb9b7f.png)
+![img](http://public.file.lvshuhuai.cn/images\9fa26a74965efbf0f56b707a03bb9b7f.png)
 
 可以看到，Redis 数据类型的底层数据结构随着版本的更新也有所不同，比如：
 
