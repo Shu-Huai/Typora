@@ -6,17 +6,17 @@
 
 如下是我从官方博客中找到图，这张图展示了 ELK 生态以及基于 ELK 的场景（最上方）
 
-![img](Z:\Public\images\es-introduce-1-1-1742889317298-9.png)
+![img](http://public.file.lvshuhuai.cn/images\es-introduce-1-1-1742889317298-9.png)
 
 由于 Elastic X-Pack 是面向收费的，所以我们不妨也把 X-Pack 放进去，看看哪些是由 X-Pack 带来的，在阅读官网文档时将方便你甄别重点：
 
-![img](Z:\Public\images\es-introduce-1-0-1742890078001-12.png)
+![img](http://public.file.lvshuhuai.cn/images\es-introduce-1-0-1742890078001-12.png)
 
 ### Beats
 
 Beats 是一个面向**轻量型采集器**的平台，这些采集器可以从边缘机器向 Logstash、ElasticSearch 发送数据，它是由 Go 语言进行开发的，运行效率方面比较快。从下图中可以看出，不同 Beats 的套件是针对不同的数据源。
 
-![img](Z:\Public\images\es-introduce-2-0-1742890149428-15.png)
+![img](http://public.file.lvshuhuai.cn/images\es-introduce-2-0-1742890149428-15.png)
 
 ### Logstash
 
@@ -64,11 +64,11 @@ Kibana 最早的时候是基于 Logstash 创建的工具，后被 Elastic 公司
 
 Beats 采集数据后，存储在 ES 中，有 Kibana 可视化的展示。
 
-![img](Z:\Public\images\es-introduce-2-1-1742890348850-18.png)
+![img](http://public.file.lvshuhuai.cn/images\es-introduce-2-1-1742890348850-18.png)
 
 ### beats+logstath+elasticsearch+kibana
 
-![img](Z:\Public\images\es-introduce-2-2-1742890356380-21.png)
+![img](http://public.file.lvshuhuai.cn/images\es-introduce-2-2-1742890356380-21.png)
 
 该框架是在上面的框架的基础上引入了 logstash，引入 logstash 带来的好处如下：
 
@@ -87,11 +87,11 @@ Beats 采集数据后，存储在 ES 中，有 Kibana 可视化的展示。
 
 比如：TCP，UDP 和 HTTP 协议是将数据输入 Logstash 的常用方法
 
-![img](Z:\Public\images\es-introduce-2-3-1742890459188-24.png)
+![img](http://public.file.lvshuhuai.cn/images\es-introduce-2-3-1742890459188-24.png)
 
 ### beats+MQ+logstash+elasticsearch+kibana
 
-![img](Z:\Public\images\es-introduce-2-4-1742890480839-27.png)
+![img](http://public.file.lvshuhuai.cn/images\es-introduce-2-4-1742890480839-27.png)
 
 在如上的基础上我们可以在 beats 和 logstash 中间添加一些组件 redis、kafka、RabbitMQ 等，添加中间件将会有如下好处：
 
@@ -109,26 +109,26 @@ Beats 采集数据后，存储在 ES 中，有 Kibana 可视化的展示。
 
 基本的日志系统
 
-![img](Z:\Public\images\es-introduce-2-5-1742890533125-30.png)
+![img](http://public.file.lvshuhuai.cn/images\es-introduce-2-5-1742890533125-30.png)
 
 增加数据源，和使用 MQ
 
-![img](Z:\Public\images\es-introduce-2-6-1742890560256-33.png)
+![img](http://public.file.lvshuhuai.cn/images\es-introduce-2-6-1742890560256-33.png)
 
 ### Metric 收集和 APM 性能监控
 
-![img](Z:\Public\images\es-introduce-2-7-1742890565803-36.png)
+![img](http://public.file.lvshuhuai.cn/images\es-introduce-2-7-1742890565803-36.png)
 
 ### 多数据中心方案
 
 通过冗余实现数据高可用
 
-![img](Z:\Public\images\es-introduce-2-8-1742890575058-39.png)
+![img](http://public.file.lvshuhuai.cn/images\es-introduce-2-8-1742890575058-39.png)
 
 两个数据采集中心（比如采集两个工厂的数据），采集数据后的汇聚
 
-![img](Z:\Public\images\es-introduce-2-9-1742890581496-42.png)
+![img](http://public.file.lvshuhuai.cn/images\es-introduce-2-9-1742890581496-42.png)
 
 数据分散，跨集群的搜索
 
-![img](Z:\Public\images\es-introduce-2-10-1742890587462-45.png)
+![img](http://public.file.lvshuhuai.cn/images\es-introduce-2-10-1742890587462-45.png)
