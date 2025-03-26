@@ -106,15 +106,15 @@ PUT /test-index-users
 
 执行结果
 
-![img](Z:\Public\images\es-index-manage-1.png)
+![img](http://public.file.lvshuhuai.cn/images\es-index-manage-1.png)
 
 - **插入测试数据**
 
-![img](Z:\Public\images\es-index-manage-2.png)
+![img](http://public.file.lvshuhuai.cn/images\es-index-manage-2.png)
 
 查看数据
 
-![img](Z:\Public\images\es-index-manage-3.png)
+![img](http://public.file.lvshuhuai.cn/images\es-index-manage-3.png)
 
 - 我们再**测试下不匹配的数据类型**(age)：
 
@@ -129,7 +129,7 @@ POST /test-index-users/_doc
 
 你可以看到无法类型不匹配的错误：
 
-![img](Z:\Public\images\es-index-manage-4.png)
+![img](http://public.file.lvshuhuai.cn/images\es-index-manage-4.png)
 
 ### 修改索引
 
@@ -152,7 +152,7 @@ PUT /test-index-users/_settings
 }
 ```
 
-![img](Z:\Public\images\es-index-manage-5.png)
+![img](http://public.file.lvshuhuai.cn/images\es-index-manage-5.png)
 
 再次查看状态：
 
@@ -166,19 +166,19 @@ green open test-index-users                          LSaIB57XSC6uVtGQHoPYxQ 1 1 
 
 一旦索引被关闭，那么这个索引只能显示元数据信息，**不能够进行读写操作**。
 
-![img](Z:\Public\images\es-index-manage-7.png)
+![img](http://public.file.lvshuhuai.cn/images\es-index-manage-7.png)
 
 当关闭以后，再插入数据时：
 
-![img](Z:\Public\images\es-index-manage-7.png)
+![img](http://public.file.lvshuhuai.cn/images\es-index-manage-7.png)
 
 - **打开索引**
 
-![img](Z:\Public\images\es-index-manage-9.png)
+![img](http://public.file.lvshuhuai.cn/images\es-index-manage-9.png)
 
 打开后又可以重新写数据了
 
-![img](Z:\Public\images\es-index-manage-10.png)
+![img](http://public.file.lvshuhuai.cn/images\es-index-manage-10.png)
 
 ### 删除索引
 
@@ -188,7 +188,7 @@ green open test-index-users                          LSaIB57XSC6uVtGQHoPYxQ 1 1 
 DELETE /test-index-users
 ```
 
-![img](Z:\Public\images\es-index-manage-11.png)
+![img](http://public.file.lvshuhuai.cn/images\es-index-manage-11.png)
 
 ### 查看索引
 
@@ -200,7 +200,7 @@ DELETE /test-index-users
 GET /bank/_mapping
 ```
 
-![img](Z:\Public\images\es-index-manage-12.png)
+![img](http://public.file.lvshuhuai.cn/images\es-index-manage-12.png)
 
 #### settings
 
@@ -208,10 +208,10 @@ GET /bank/_mapping
 GET /bank/_settings
 ```
 
-![img](Z:\Public\images\es-index-manage-13.png)
+![img](http://public.file.lvshuhuai.cn/images\es-index-manage-13.png)
 
 ## Kibana 管理索引
 
 在 Kibana 如下路径，我们可以查看和管理索引
 
-![img](Z:\Public\images\es-index-manage-6.png)
+![img](http://public.file.lvshuhuai.cn/images\es-index-manage-6.png)

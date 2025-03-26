@@ -13,11 +13,11 @@ PUT /customer/_doc/1
 
 为了方便测试，我们使用kibana的dev tool来进行学习测试：
 
-![img](Z:\Public\images\es-usage-1-1742952250830-48.png)
+![img](http://public.file.lvshuhuai.cn/images\es-usage-1-1742952250830-48.png)
 
 查询刚才插入的文档
 
-![img](Z:\Public\images\es-usage-2-1742952278486-51.png)
+![img](http://public.file.lvshuhuai.cn/images\es-usage-2-1742952278486-51.png)
 
 ## 学习准备：批量索引文档
 
@@ -88,7 +88,7 @@ GET /bank/_search
 
 结果
 
-![img](Z:\Public\images\es-usage-3-1742953439405-54.png)
+![img](http://public.file.lvshuhuai.cn/images\es-usage-3-1742953439405-54.png)
 
 相关字段解释
 
@@ -118,7 +118,7 @@ GET /bank/_search
 
 结果
 
-![img](Z:\Public\images\es-usage-4-1742953738702-60.png)
+![img](http://public.file.lvshuhuai.cn/images\es-usage-4-1742953738702-60.png)
 
 ### 指定字段查询：match
 
@@ -133,7 +133,7 @@ GET /bank/_search
 
 结果
 
-![img](Z:\Public\images\es-usage-5-1742953814542-63.png)
+![img](http://public.file.lvshuhuai.cn/images\es-usage-5-1742953814542-63.png)
 
 （由于 ES 底层是按照分词索引的，所以上述查询结果是 address 字段中包含 mill 或者 lane的数据）
 
@@ -150,7 +150,7 @@ GET /bank/_search
 
 结果
 
-![img](Z:\Public\images\es-usage-6-1742954059282-69.png)
+![img](http://public.file.lvshuhuai.cn/images\es-usage-6-1742954059282-69.png)
 
 ### 多条件查询: bool
 
@@ -176,7 +176,7 @@ GET /bank/_search
 
 结果
 
-![img](Z:\Public\images\es-usage-7-1742953864962-66.png)
+![img](http://public.file.lvshuhuai.cn/images\es-usage-7-1742953864962-66.png)
 
 `must`, `should`，`must_not` 和 `filter` 都是 `bool` 查询的子句。那么 `filter` 和上述 `query` 子句有啥区别呢？
 
@@ -218,7 +218,7 @@ GET /bank/_search
 
 结果
 
-![img](Z:\Public\images\es-usage-8-1742954253777-72.png)
+![img](http://public.file.lvshuhuai.cn/images\es-usage-8-1742954253777-72.png)
 
 两者都可以写查询条件，而且语法也类似。区别在于，**query 上下文的条件是用来给文档打分的，匹配越好 _score 越高；filter 的条件只产生两种结果：符合与不符合，后者被过滤掉**。
 
@@ -251,7 +251,7 @@ GET /bank/_search
 
 结果，显然无 _score
 
-![img](Z:\Public\images\es-usage-9-1742954403510-75.png)
+![img](http://public.file.lvshuhuai.cn/images\es-usage-9-1742954403510-75.png)
 
 ## 聚合查询：Aggregation
 
@@ -277,7 +277,7 @@ GET /bank/_search
 
 结果
 
-![img](Z:\Public\images\es-usage-10-1742954449520-78.png)
+![img](http://public.file.lvshuhuai.cn/images\es-usage-10-1742954449520-78.png)
 
 因为无需返回条件的具体数据, 所以设置 size=0，返回 hits 为空。
 
@@ -312,7 +312,7 @@ GET /bank/_search
 
 结果
 
-![img](Z:\Public\images\es-usage-11-1742954511881-81.png)
+![img](http://public.file.lvshuhuai.cn/images\es-usage-11-1742954511881-81.png)
 
 ### 对聚合结果排序
 
@@ -346,4 +346,4 @@ GET /bank/_search
 
 结果
 
-![img](Z:\Public\images\es-usage-12-1742954529878-84.png)
+![img](http://public.file.lvshuhuai.cn/images\es-usage-12-1742954529878-84.png)

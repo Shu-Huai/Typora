@@ -76,7 +76,7 @@ public class EsConfig {
 
 首先我的 Es 中已经有了下图的索引（可视化工具为 Kibana 有兴趣的可以去网上搜搜，我就不教怎么部署它了)
 
-![img](Z:\Public\images\1a02a4367d5649caa472a7393037b957.png)
+![img](http://public.file.lvshuhuai.cn/images\1a02a4367d5649caa472a7393037b957.png)
 
 接着在 idea 上新建实体类来映射上图字段，如下图。
 
@@ -134,11 +134,11 @@ public class NacosProviderController {
 
 触发接口，已经响应成功，并且没有报错。看看控制台是否输出了结果。
 
-![img](Z:\Public\images\df5a348e336644ceaca46c512a42a22c.png)
+![img](http://public.file.lvshuhuai.cn/images\df5a348e336644ceaca46c512a42a22c.png)
 
  很明显已经查出了结果并且输出了
 
-![img](Z:\Public\images\68d7fa4197a2463c900a5fcb73360b1b.png)
+![img](http://public.file.lvshuhuai.cn/images\68d7fa4197a2463c900a5fcb73360b1b.png)
 
 上述案例只是查询该索引的所有数据，更多 crud 请自行查找，但是基本逃不开上述测试的步骤（设置索引，封装查询，调用 search 方法。
 
