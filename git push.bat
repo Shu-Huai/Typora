@@ -1,7 +1,9 @@
 git add *
 @echo off
 :: 获取当前日期和时间
-for /f "tokens=2 delims==" %%i in ('wmic os get localdatetime /value') do set datetime=%%i
+for /f "delims=" %%i in ('powershell -command "Get-Date -Format 'yyyyMMddHHmmss'"') do set datetime=%%i
+echo %datetime%
+
 
 :: 提取并格式化日期和时间
 set year=%datetime:~0,4%
