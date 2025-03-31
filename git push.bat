@@ -16,4 +16,3 @@ set formatted_time=%year%-%month%-%day% %hour%:%minute%:%second%
 
 git commit -m "%formatted_time%"
 git push origin
-git push github
