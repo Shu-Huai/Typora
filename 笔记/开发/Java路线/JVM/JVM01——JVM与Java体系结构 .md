@@ -190,7 +190,7 @@ JVM 是运行在操作系统之上的，它与硬件没有直接的交互
 
 ![image-20200704210429535](Z:\Public\images\4ce09e21efc2533d2b80f45f97b35a48.png)
 
-## 1.8. JVM 的架构模型
+## JVM 的架构模型
 
 Java 编译器输入的指令流基本上是一种基于栈的指令集架构，另外一种指令集架构则是基于寄存器的指令集架构。
 
@@ -273,19 +273,19 @@ public int calc();
 
 时至今日，尽管嵌入式平台已经不是 Java 程序的主流运行平台了（准确来说应该是 HotSpotVM 的宿主环境已经不局限于嵌入式平台了），那么为什么不将架构更换为基于寄存器的架构呢？
 
-## 1.9. JVM 的生命周期
+## JVM 的生命周期
 
-**虚拟机的启动**
+### 虚拟机的启动
 
 Java 虚拟机的启动是通过引导类加载器（bootstrap class loader）创建一个初始类（initial class）来完成的，这个类是由虚拟机的具体实现指定的。
 
-**虚拟机的执行**
+### 虚拟机的执行
 
 - 一个运行中的 Java 虚拟机有着一个清晰的任务：执行 Java 程序。
 - 程序开始执行时他才运行，程序结束时他就停止。
 - 执行一个所谓的 Java 程序的时候，真真正正在执行的是一个叫做 Java 虚拟机的进程。
 
-**虚拟机的退出**
+### 虚拟机的退出
 
 有如下的几种情况：
 
@@ -295,7 +295,7 @@ Java 虚拟机的启动是通过引导类加载器（bootstrap class loader）�
 - 某线程调用 Runtime 类或 system 类的 exit 方法，或 Runtime 类的 halt 方法，并且 Java 安全管理器也允许这次 exit 或 halt 操作。
 - 除此之外，JNI（Java Native Interface）规范描述了用 JNI Invocation API 来加载或卸载 Java 虚拟机时，Java 虚拟机的退出情况。
 
-## X. JVM 的发展历程
+## JVM 的发展历程
 
 ### Sun Classic VM
 
