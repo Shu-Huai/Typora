@@ -14,9 +14,9 @@
 - 本地方法接口
 - 本地方法库
 
-![image-20200705080719531](Z:\Public\images\e4bc9ed374db7f35e68f23f4813205bd.png)
+![image-20200705080719531](http://public.file.lvshuhuai.cn/images\e4bc9ed374db7f35e68f23f4813205bd.png)
 
-![image-20200705080911284](Z:\Public\images\5f06cd7e27506a91940c7b87e01d0b46.png)
+![image-20200705080911284](http://public.file.lvshuhuai.cn/images\5f06cd7e27506a91940c7b87e01d0b46.png)
 
 如果自己想手写一个 Java 虚拟机的话，主要考虑哪些结构呢？
 
@@ -27,7 +27,7 @@
 
 **类加载器子系统作用**
 
-![image-20200705081813409](Z:\Public\images\3569bfb903e80b66ee7e972a6b4a5036.png)
+![image-20200705081813409](http://public.file.lvshuhuai.cn/images\3569bfb903e80b66ee7e972a6b4a5036.png)
 
 - 类加载器子系统负责从文件系统或者网络中加载 Class 文件，class 文件在文件开头有特定的文件标识。
 - ClassLoader 只负责 class 文件的加载，至于它是否可以运行，则由 Execution Engine 决定。
@@ -35,7 +35,7 @@
 
 **类加载器 ClasLoader 角色**
 
-![image-20200705081913538](Z:\Public\images\e8172076eaa7a152408633a353f06b2c.png)
+![image-20200705081913538](http://public.file.lvshuhuai.cn/images\e8172076eaa7a152408633a353f06b2c.png)
 
 - class file 存在于本地硬盘上，可以理解为设计师画在纸上的模板，而最终这个模板在执行的时候是要加载到 JVM 当中来根据这个文件实例化出 n 个一模一样的实例。
 - class file 加载到 JVM 中，被称为 DNA 元数据模板，放在方法区。
@@ -56,11 +56,11 @@ public class HelloLoader {
 
 用流程图表示上述示例代码：
 
-![image-20200705082255746](Z:\Public\images\8cc54647114c456695ac352336c74600.png)
+![image-20200705082255746](http://public.file.lvshuhuai.cn/images\8cc54647114c456695ac352336c74600.png)
 
 ### 加载阶段
 
-![image-20200705082601441](Z:\Public\images\a9497a1eeb7fae3022846b509186fdcd.png)
+![image-20200705082601441](http://public.file.lvshuhuai.cn/images\a9497a1eeb7fae3022846b509186fdcd.png)
 
 1. 通过一个类的全限定名获取定义此类的二进制字节流
 2. 将这个字节流所代表的静态存储结构转化为方法区的运行时数据结构
@@ -108,7 +108,7 @@ JVM 支持两种类型的类加载器 。分别为引导类加载器（Bootstrap
 
 无论类加载器的类型如何划分，在程序中我们最常见的类加载器始终只有 3 个，如下所示：
 
-![image-20200705094149223](Z:\Public\images\1e553c6d5254f827d2dfab537bea3ab9.png)
+![image-20200705094149223](http://public.file.lvshuhuai.cn/images\1e553c6d5254f827d2dfab537bea3ab9.png)
 
 这里的四者之间的关系是包含关系。不是上层下层，也不是子父类的继承关系。
 
@@ -157,11 +157,11 @@ JVM 支持两种类型的类加载器 。分别为引导类加载器（Bootstrap
 
 ClassLoader 类是一个抽象类，其后所有的类加载器都继承自 ClassLoader（不包括启动类加载器）
 
-![image-20200705103516138](Z:\Public\images\876534b3c2f447d3fc33e6f1db218068.png)
+![image-20200705103516138](http://public.file.lvshuhuai.cn/images\876534b3c2f447d3fc33e6f1db218068.png)
 
 sun.misc.Launcher 它是一个 java 虚拟机的入口应用
 
-![image-20200705103636003](Z:\Public\images\a22114b608dffe484041b591d486a7fd.png)
+![image-20200705103636003](http://public.file.lvshuhuai.cn/images\a22114b608dffe484041b591d486a7fd.png)
 
 ### 获取 ClassLoader 的途径
 
@@ -199,13 +199,13 @@ Java 虚拟机对 class 文件采用的是按需加载的方式，也就是说�
 2. 如果父类加载器还存在其父类加载器，则进一步向上委托，依次递归，请求最终将到达顶层的启动类加载器；
 3. 如果父类加载器可以完成类加载任务，就成功返回，倘若父类加载器无法完成此加载任务，子加载器才会尝试自己去加载，这就是双亲委派模式。
 
-![image-20200705105151258](Z:\Public\images\05fa27fcc38eeaaa5babff55a00882a3.png)
+![image-20200705105151258](http://public.file.lvshuhuai.cn/images\05fa27fcc38eeaaa5babff55a00882a3.png)
 
 ### 举例
 
 当我们加载 jdbc.jar 用于实现数据库连接的时候，首先我们需要知道的是 jdbc.jar 是基于 SPI 接口进行实现的，所以在加载的时候，会进行双亲委派，最终从根加载器中加载 SPI 核心类，然后在加载 SPI 接口类，接着在进行反向委派，通过线程上下文类加载器进行实现类 jdbc.jar 的加载。
 
-![image-20200705105810107](Z:\Public\images\bed320014f52bb27c8f3d795b3dc3b4a.png)
+![image-20200705105810107](http://public.file.lvshuhuai.cn/images\bed320014f52bb27c8f3d795b3dc3b4a.png)
 
 ### 优势
 
