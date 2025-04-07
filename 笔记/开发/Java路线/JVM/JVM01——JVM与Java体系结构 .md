@@ -9,7 +9,7 @@
 - 新项目上线，对各种 JVM 参数设置一脸茫然，直接默认吧然后就 JJ 了
 - 每次面试之前都要重新背一遍 JVM 的一些原理概念性的东西，然而面试官却经常问你在实际项目中如何调优 VM 参数，如何解决 GC、OOM 等问题，一脸懵逼
 
-![image-20200704111417472](Z:\Public\images\4f09fe3576573558bdc61985a8ad6a42.png)
+![image-20200704111417472](http://public.file.lvshuhuai.cn/images\4f09fe3576573558bdc61985a8ad6a42.png)
 
 大部分 Java 开发人员，除会在项目中使用到与 Java 平台相关的各种高精尖技术，对于 Java 技术的核心 Java 虚拟机了解甚少。
 
@@ -33,19 +33,19 @@
 
 ### Java vs C++
 
-![img](Z:\Public\images\8fd76611be7ea81ebcfe7c4065dd3294-1743402548982-38.png)
+![img](http://public.file.lvshuhuai.cn/images\8fd76611be7ea81ebcfe7c4065dd3294-1743402548982-38.png)
 
 垃圾收集机制为我们打理了很多繁琐的工作，大大提高了开发的效率，但是，垃圾收集也不是万能的，懂得 JVM 内部的内存结构、工作机制，是设计高扩展性应用和诊断运行时问题的基础，也是 Java 工程师进阶的必备能力。
 
 ## 面向人群及参考书目
 
-![image-20210507095948516](Z:\Public\images\555790a8a0b57075bdc8b6116545e461.png)
+![image-20210507095948516](http://public.file.lvshuhuai.cn/images\555790a8a0b57075bdc8b6116545e461.png)
 
-![image-20200704145340513](Z:\Public\images\33c00a1933a8fbdf47db211178125621.png)
+![image-20200704145340513](http://public.file.lvshuhuai.cn/images\33c00a1933a8fbdf47db211178125621.png)
 
-![image-20210507100021400](Z:\Public\images\f4cd25ee025347ae9481e26b89331041.png)
+![image-20210507100021400](http://public.file.lvshuhuai.cn/images\f4cd25ee025347ae9481e26b89331041.png)
 
-![image-20210507100104455](Z:\Public\images\c56a02961383aca01f642eb9a1b81ab1.png)
+![image-20210507100104455](http://public.file.lvshuhuai.cn/images\c56a02961383aca01f642eb9a1b81ab1.png)
 
 ## Java 及 JVM 简介
 
@@ -80,11 +80,11 @@ Java 是目前应用最为广泛的软件开发平台之一。随着 Java 以及
   - 就连 JDK 和 JVM 自身也有不少开源的实现，如 openJDK、Harmony。
 - 作为一个社区，Java 拥有全世界最多的技术拥护者和开源社区支持，有数不清的论坛和资料。从桌面应用软件、嵌入式开发到企业级应用、后台服务器、中间件，都可以看到 Java 的身影。其应用形式之复杂、参与人数之众多也令人咋舌。
 
-![image-20200704151731216](Z:\Public\images\69fa9f3a1421d7dffc8b193084c8ae04.png)
+![image-20200704151731216](http://public.file.lvshuhuai.cn/images\69fa9f3a1421d7dffc8b193084c8ae04.png)
 
 每个语言都需要转换成字节码文件，最后转换的字节码文件都能通过 Java 虚拟机进行运行和处理
 
-![image-20200704152052489](Z:\Public\images\a9546b59e32abb4cc36b02b2f72bddad.png)
+![image-20200704152052489](http://public.file.lvshuhuai.cn/images\a9546b59e32abb4cc36b02b2f72bddad.png)
 
 - 随着 Java7 的正式发布，Java 虚拟机的设计者们通过 JSR-292 规范基本实现在Java 虚拟机平台上运行非 Java 语言编写的程序。
 - Java 虚拟机根本不关心运行在其内部的程序到底是使用何种编程语言编写的，它只关心“字节码”文件。也就是说 Java 虚拟机拥有语言无关性，并不会单纯地与 Java 语言“终身绑定”，只要其他编程语言的编译结果满足并包含 Java 虚拟机的内部指令集、符号表以及其他的辅助信息，它就是一个有效的字节码文件，就能够被虚拟机所识别并装载运行。
@@ -111,7 +111,7 @@ Java 虚拟机非常复杂，要想真正理解它的工作原理，最好的方
 
 为之，则难者亦易矣；不为，则易者亦难矣
 
-![image-20210507102334642](Z:\Public\images\b97b2bf5eafd843f7b149e98ff4d615f.png)
+![image-20210507102334642](http://public.file.lvshuhuai.cn/images\b97b2bf5eafd843f7b149e98ff4d615f.png)
 
 ## Java 发展的重大事件
 
@@ -136,13 +136,13 @@ Java 虚拟机非常复杂，要想真正理解它的工作原理，最好的方
 - 同年，JDK11 发布，LTS 版本的 JDK，发布革命性的 ZGC，调整 JDK 授权许可
 - 2019 年，JDK12 发布，加入 RedHat 领导开发的shenandoah GC
 
-![image-20200704182035810](Z:\Public\images\577ba2f5110b972116602fb2ce3291e8-1743402666493-56.png)
+![image-20200704182035810](http://public.file.lvshuhuai.cn/images\577ba2f5110b972116602fb2ce3291e8-1743402666493-56.png)
 
 在 JDK11 之前，OracleJDK 中还会存在一些 OpenJDK 中没有的、闭源的功能。但在 JDK11 中，我们可以认为 OpenJDK 和 OracleJDK 代码实质上已经完全一致的程度。
 
 不过，主流的 JDK 8 在 2019 年 01 月之后就被宣布停止更新了。另外， JDK 11 及以后的版本也不再提供免费的长期支持（LTS），而且 JDK 15 和 JDK 16 也不是一个长期支持的版本，最新的 JDK 15 只支持 6 个月时间，到 2021 年 3 月，所以千万不要把 JDK 15 等非长期支持版本用在生产。
 
-![img](Z:\Public\images\8a37d7f7b848e7453e622270217ce7dc.png)
+![img](http://public.file.lvshuhuai.cn/images\8a37d7f7b848e7453e622270217ce7dc.png)
 
 ## 虚拟机与 Java 虚拟机
 
@@ -173,14 +173,14 @@ Java 虚拟机非常复杂，要想真正理解它的工作原理，最好的方
 
 ### JVM 的位置
 
-![image-20200704183048061](Z:\Public\images\6b5c24b8d634d5a741ef5d8a90db1123.png)
+![image-20200704183048061](http://public.file.lvshuhuai.cn/images\6b5c24b8d634d5a741ef5d8a90db1123.png)
 
 JVM 是运行在操作系统之上的，它与硬件没有直接的交互
-![image-20210507104030823](Z:\Public\images\cd8b795cf080b8ba40f6915b6242c8af.png)
+![image-20210507104030823](http://public.file.lvshuhuai.cn/images\cd8b795cf080b8ba40f6915b6242c8af.png)
 
 ## JVM 的整体结构
 
-![image-20200704183436495](Z:\Public\images\1bf0b96d082d684a818bc36a8f864a89.png)
+![image-20200704183436495](http://public.file.lvshuhuai.cn/images\1bf0b96d082d684a818bc36a8f864a89.png)
 
 - HotSpot VM 是目前市面上高性能虚拟机的代表作之一。
 - 它采用解释器与即时编译器并存的架构。
@@ -188,7 +188,7 @@ JVM 是运行在操作系统之上的，它与硬件没有直接的交互
 
 ## Java 代码执行流程
 
-![image-20200704210429535](Z:\Public\images\4ce09e21efc2533d2b80f45f97b35a48.png)
+![image-20200704210429535](http://public.file.lvshuhuai.cn/images\4ce09e21efc2533d2b80f45f97b35a48.png)
 
 ## JVM 的架构模型
 
