@@ -508,7 +508,10 @@ class CockerSpaniel extends Dog implements Friendly{
 方法执行过程中，抛出异常时的异常处理，存储在一个异常处理表，方便在发生异常的时候找到处理异常的代码
 
 ```shell
-Exception table:from to target type4	 16	  19   any19	 21	  19   any
+Exception table:
+from to target type
+4	 16	  19   any
+19	 21	  19   any
 ```
 
 本质上，方法的退出就是当前栈帧出栈的过程。此时，需要恢复上层方法的局部变量表、操作数栈、将返回值压入调用者栈帧的操作数栈、设置 PC 寄存器值等，让调用者方法继续执行下去。
