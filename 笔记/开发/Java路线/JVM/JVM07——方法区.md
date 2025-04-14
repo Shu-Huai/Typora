@@ -384,14 +384,30 @@ public class StaticFieldTest {
 ```
 
 ```java
-/** * staticobj、instanceobj、Localobj存放在哪里？ */public class StaticobjTest {    static class Test {        static ObjectHolder staticobj = new ObjectHolder();        ObjectHolder instanceobj = new ObjectHolder();        void foo(){            ObjectHolder localobj = new ObjectHolder();            System.out.println("done");        }        }    private static class ObjectHolder{        public static void main(String[] args) {            Test test = new StaticobjTest.Test();            test.foo();        }    }}
+/** * staticobj、instanceobj、Localobj存放在哪里？ */
+public class StaticobjTest {
+    static class Test {
+        static ObjectHolder staticobj = new ObjectHolder();
+        ObjectHolder instanceobj = new ObjectHolder();
+        void foo(){
+            ObjectHolder localobj = new ObjectHolder();
+            System.out.println("done");
+        }
+    }
+    private static class ObjectHolder{
+        public static void main(String[] args) {
+            Test test = new StaticobjTest.Test();
+            test.foo();
+        }
+    }
+}
 ```
 
 使用 JHSDB 工具进行分析，这里细节略掉
 
 ![image-20200708215218078](http://public.file.lvshuhuai.cn/images\e8ced63603ee4a62c9eb7d4c48ae94dd.png)
 
-staticobj 随着 Test 的类型信息存放在方法区，instanceobj 随着 Test 的对象实例存放在 Java 堆，localobject 则是存放在 foo()方法栈帧的局部变量表中。
+staticobj 随着 Test 的类型信息存放在方法区，instanceobj 随着 Test 的对象实例存放在 Java 堆，localobject 则是存放在 foo() 方法栈帧的局部变量表中。
 
 ![image-20200708215025527](https://img-blog.csdnimg.cn/img_convert/e7c6b3dd5175466ee891da9e84577418.png)
 
@@ -429,7 +445,7 @@ HotSpot 虚拟机对常量池的回收策略是很明确的，只要常量池中
 
 Java 虚拟机被允许对满足上述三个条件的无用类进行回收，这里说的仅仅是“被允许”，而并不是和对象一样，没有引用了就必然会回收。关于是否要对类型进行回收，HotSpot 虚拟机提供了`-Xnoclassgc`参数进行控制，还可以使用`-verbose:class` 以及 `-XX:+TraceClassLoading`、`-XX:+TraceClassUnLoading`查看类加载和卸载信息
 
-在大量使用反射、动态代理、CGLib 等字节码框架，动态生成 JSP 以及 OSGi 这类频繁自定义类加载器的场景中，<u>通常都需要 Java 虚拟机具备类型卸载的能力，以保证不会对方法区造成过大的内存压力</u>。
+在大量使用反射、动态代理、CGLib 等字节码框架，动态生成 JSP 以及 OSGi 这类频繁自定义类加载器的场景中，通常都需要 Java 虚拟机具备类型卸载的能力，以保证不会对方法区造成过大的内存压力。
 
 ## 总结
 
