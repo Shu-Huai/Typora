@@ -434,7 +434,7 @@ class Son extends Father {
 1. 找到操作数栈顶的第一个元素所执行的对象的实际类型，记作 C。
 2. 如果在类型 C 中找到与常量中的描述符合简单名称都相符的方法，则进行访问权限校验，如果通过则返回这个方法的直接引用，查找过程结束；如果不通过，则返回 java.lang.IllegalAccessError 异常。
 3. 否则，按照继承关系从下往上依次对 C 的各个父类进行第 2 步的搜索和验证过程。
-4. 如果始终没有找到合适的方法，则抛出 java.1ang.AbstractMethodsrror 异常。
+4. 如果始终没有找到合适的方法，则抛出 java.lang.AbstractMethodsrror 异常。
 
 #### IllegalAccessError 介绍
 
