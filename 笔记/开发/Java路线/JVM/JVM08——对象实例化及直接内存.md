@@ -14,7 +14,7 @@
 >
 > Java 对象头有什么？
 
-![image-20200709095356247](Z:\Public\images\fe7dfd78e13789563d56f9fbd1b79cad.png)
+![image-20200709095356247](http://public.file.lvshuhuai.cn/images\fe7dfd78e13789563d56f9fbd1b79cad.png)
 
 ### 创建对象的方式
 
@@ -29,7 +29,7 @@
 
 前面所述是从字节码角度看待对象的创建过程，现在从执行步骤的角度来分析：
 
-![image-20210510220743192](Z:\Public\images\504c93d37f3d51c88b1834d78c33eaa2.png)
+![image-20210510220743192](http://public.file.lvshuhuai.cn/images\504c93d37f3d51c88b1834d78c33eaa2.png)
 
 #### 判断对象对应的类是否加载、链接、初始化
 
@@ -91,7 +91,7 @@
 
 ## 对象内存布局
 
-![image-20200709151033237](Z:\Public\images\f6e34140a6bd24a85d9f766652b57d98.png)
+![image-20200709151033237](http://public.file.lvshuhuai.cn/images\f6e34140a6bd24a85d9f766652b57d98.png)
 
 ### 对象头（Header）
 
@@ -148,52 +148,52 @@ public class CustomerTest{
 
 ### 图示
 
-![image-20200709152801713](Z:\Public\images\1bba0ee2a8a614b80d6cac9fecbb3f8a.png)
+![image-20200709152801713](http://public.file.lvshuhuai.cn/images\1bba0ee2a8a614b80d6cac9fecbb3f8a.png)
 
 ### 小结
 
-![image-20210510225407119](Z:\Public\images\3be25c48b29d3cef51354f19cbe31d7d.png)
+![image-20210510225407119](http://public.file.lvshuhuai.cn/images\3be25c48b29d3cef51354f19cbe31d7d.png)
 
-## 8.3. 对象的访问定位
+## 对象的访问定位
 
-![image-20210510230045654](Z:\Public\images\375b00ca9022291e7d2e214ce2d7cbfd.png)
+![image-20210510230045654](http://public.file.lvshuhuai.cn/images\375b00ca9022291e7d2e214ce2d7cbfd.png)
 
 JVM 是如何通过栈帧中的对象引用访问到其内部的对象实例呢？
 
-![image-20200709164149920](Z:\Public\images\deab7773248ea150e5f7dee3901700cd.png)
+![image-20200709164149920](http://public.file.lvshuhuai.cn/images\deab7773248ea150e5f7dee3901700cd.png)
 
-### 8.3.1. 句柄访问
+### 句柄访问
 
-![image-20210510230241991](Z:\Public\images\59cc079fe02b7a5836ff7c2c7fffb635.png)
+![image-20210510230241991](http://public.file.lvshuhuai.cn/images\59cc079fe02b7a5836ff7c2c7fffb635.png)
 
 reference 中存储稳定句柄地址，对象被移动（垃圾收集时移动对象很普遍）时只会改变句柄中实例数据指针即可，reference 本身不需要被修改
 
-### 8.3.2. 直接指针（HotSpot 采用）
+### 直接指针（HotSpot 采用）
 
-![image-20210510230337956](Z:\Public\images\694601dcb023c6d10168a00fe000becc.png)
+![image-20210510230337956](http://public.file.lvshuhuai.cn/images\694601dcb023c6d10168a00fe000becc.png)
 
 直接指针是局部变量表中的引用，直接指向堆中的实例，在对象实例中有类型指针，指向的是方法区中的对象类型数据
 
-## 8.4. 直接内存（Direct Memory）
+## 直接内存（Direct Memory）
 
-### 8.4.1. 直接内存概述
+### 直接内存概述
 
 不是虚拟机运行时数据区的一部分，也不是《Java 虚拟机规范》中定义的内存区域。直接内存是在 Java 堆外的、直接向系统申请的内存区间。来源于 NIO，通过存在堆中的 DirectByteBuffer 操作 Native 内存。通常，访问直接内存的速度会优于 Java 堆，即读写性能高。
 
 - 因此出于性能考虑，读写频繁的场合可能会考虑使用直接内存。
 - Java 的 NIO 库允许 Java 程序使用直接内存，用于数据缓冲区
 
-### 8.4.2. 非直接缓存区
+### 非直接缓存区
 
 使用 IO 读写文件，需要与磁盘交互，需要由用户态切换到内核态。在内核态时，需要两份内存存储重复数据，效率低。
 
-![image-20210510231408607](Z:\Public\images\c691d62d73e977fb942748a81313f5e6.png)
+![image-20210510231408607](http://public.file.lvshuhuai.cn/images\c691d62d73e977fb942748a81313f5e6.png)
 
-### 8.4.3. 直接缓存区
+### 直接缓存区
 
 使用 NIO 时，操作系统划出的直接缓存区可以被 java 代码直接访问，只有一份。NIO 适合对大文件的读写操作。
 
-![image-20210510231456550](Z:\Public\images\d13b08447999ab32811a440496e4dac7.png)
+![image-20210510231456550](http://public.file.lvshuhuai.cn/images\d13b08447999ab32811a440496e4dac7.png)
 
 也可能导致 OutOfMemoryError 异常
 
@@ -212,4 +212,4 @@ Exception in thread "main" java.lang.OutOfMemoryError: Direct buffer memory
 
 直接内存大小可以通过`MaxDirectMemorySize`设置。如果不指定，默认与堆的最大值-Xmx 参数值一致
 
-![image-20200709230647277](Z:\Public\images\0ac6c50a98325c93b5652602137b9dea.png)
+![image-20200709230647277](http://public.file.lvshuhuai.cn/images\0ac6c50a98325c93b5652602137b9dea.png)
