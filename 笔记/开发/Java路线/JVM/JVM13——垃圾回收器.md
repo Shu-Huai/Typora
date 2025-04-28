@@ -233,9 +233,9 @@ Parallel Old 收集器采用了标记-压缩算法，但同样也是基于并行
 
 - `-XX:ParallelGCThreads` 设置年轻代并行收集器的线程数。一般地，最好与 CPU 数量相等，以避免过多的线程数影响垃圾收集性能。
 
-  $$ ParallelGCThreads = \begin{cases} CPU_Count & \text (CPU_Count <= 8) \\ 3 + (5 \* CPU＿Count / 8) & \text (CPU_Count > 8) \end{cases} $$
+  $$ ParallelGCThreads = \begin{cases} CPU_{Count} & \text (CPU_{Count} \le 8) \\ 3 + (5 \times CPU_{Count} / 8) & \text (CPU_{Count} > 8) \end{cases} $$
 
-- `-XX:MaxGCPauseMillis` 设置垃圾收集器最大停顿时间（即 STw 的时间）。单位是毫秒。
+- `-XX:MaxGCPauseMillis` 设置垃圾收集器最大停顿时间（即 STW 的时间）。单位是毫秒。
 
   - 为了尽可能地把停顿时间控制在 MaxGCPauseMills 以内，收集器在工作时会调整 Java 堆大小或者其他一些参数。
   - 对于用户来讲，停顿时间越短体验越好。但是在服务器端，我们注重高并发，整体的吞吐量。所以服务器端适合 Parallel，进行控制。
@@ -274,7 +274,7 @@ CMS 整个过程比之前的收集器要复杂，整个过程分为 4 个主要�
 - **重新标记**（Remark）阶段：由于在并发标记阶段中，程序的工作线程会和垃圾收集线程同时运行或者交叉运行，因此为了修正并发标记期间，因用户程序继续运作而导致标记产生变动的那一部分对象的标记记录，这个阶段的停顿时间通常会比初始标记阶段稍长一些，但也远比并发标记阶段的时间短。
 - **并发清除**（Concurrent-Sweep）阶段：此阶段清理删除掉标记阶段判断的已经死亡的对象，释放内存空间。由于不需要移动存活对象，所以这个阶段也是可以与用户线程同时并发的
 
-尽管 CMS 收集器采用的是并发回收（非独占式），但是在其初始化标记和再次标记这两个阶段中仍然需要执行“Stop-the-World”机制暂停程序中的工作线程，不过暂停时间并不会太长，因此可以说明目前所有的垃圾收集器都做不到完全不需要“stop-the-World”，只是尽可能地缩短暂停时间。
+尽管 CMS 收集器采用的是并发回收（非独占式），但是在其初始化标记和再次标记这两个阶段中仍然需要执行“Stop-the-World”机制暂停程序中的工作线程，不过暂停时间并不会太长，因此可以说明目前所有的垃圾收集器都做不到完全不需要“Stop-the-World”，只是尽可能地缩短暂停时间。
 
 由于最耗费时间的并发标记与并发清除阶段都不需要暂停工作，所以整体的回收是低停顿的。
 
@@ -301,9 +301,9 @@ CMS 收集器的垃圾收集算法采用的是标记清除算法，这意味着�
 
 ### 设置的参数
 
-- `-XX:+UseConcMarkSweepGC `手动指定使用 CMS 收集器执行内存回收任务。
+- `-XX:+UseConcMarkSweepGC` 手动指定使用 CMS 收集器执行内存回收任务。
 
-  开启该参数后会自动将`-xx:+UseParNewGC`打开。即：ParNew（Young 区用）+CMS（Old 区用）+ Serial Old 的组合。
+  开启该参数后会自动将 `-xx:+UseParNewGC` 打开。即：ParNew（Young 区用）+CMS（Old 区用）+ Serial Old 的组合。
 
 - `-XX:CMSInitiatingOccupanyFraction` 设置堆内存使用率的阈值，一旦达到该阈值，便开始进行回收。
 
