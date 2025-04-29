@@ -529,7 +529,7 @@ JVM 启动时，G1 先准备好 Eden 区，程序在运行过程中不断创建�
 
 ### G1 回收过程三：混合回收
 
-当越来越多的对象晋升到老年代 o1d region 时，为了避免堆内存被耗尽，虚拟机会触发一个混合的垃圾收集器，即 Mixed GC，该算法并不是一个 Old GC，除了回收整个 Young Region，还会回收一部分的 Old Region。这里需要注意：是一部分老年代，而不是全部老年代。可以选择哪些 Old Region 进行收集，从而可以对垃圾回收的耗时时间进行控制。也要注意的是 Mixed GC 并不是 Full GC。
+当越来越多的对象晋升到老年代 old region 时，为了避免堆内存被耗尽，虚拟机会触发一个混合的垃圾收集器，即 Mixed GC，该算法并不是一个 Old GC，除了回收整个 Young Region，还会回收一部分的 Old Region。这里需要注意：是一部分老年代，而不是全部老年代。可以选择哪些 Old Region 进行收集，从而可以对垃圾回收的耗时时间进行控制。也要注意的是 Mixed GC 并不是 Full GC。
 
 ![image-20200713225810871](http://public.file.lvshuhuai.cn/images\766b882cba7e709202005a3baeb596d0.png)
 
