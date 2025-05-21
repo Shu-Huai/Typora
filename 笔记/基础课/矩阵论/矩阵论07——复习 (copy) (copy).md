@@ -484,3 +484,93 @@ $$
 $$
 \left. \frac{d}{dt} e^{At} \right|_{t=0} = A e^{A \cdot 0} = A e^{0} = A
 $$
+
+## 矩阵的分解  
+### 考点一：矩阵的三角分解
+
+#### Doolittle 分解法（$A = LR$）
+
+矩阵特点（以三阶为例）：
+
+$$
+\displaystyle
+A = \begin{pmatrix}
+a_{11} & a_{12} & a_{13} \\
+a_{21} & a_{22} & a_{23} \\
+a_{31} & a_{32} & a_{33}
+\end{pmatrix}
+=
+\begin{pmatrix}
+1 & 0 & 0 \\
+l_{21} & 1 & 0 \\
+l_{31} & l_{32} & 1
+\end{pmatrix}
+\begin{pmatrix}
+r_{11} & r_{12} & r_{13} \\
+0 & r_{22} & r_{23} \\
+0 & 0 & r_{33}
+\end{pmatrix}
+$$
+
+其中：
+- $L$ 是**单位下三角矩阵**（红色标注：单位下三角矩阵）；
+- $R$ 是**普通上三角矩阵**（红色标注：普通上三角矩阵）；
+
+$$
+a_{1j} = \gamma_{1j} \quad (\text{即 } a_{11} = \gamma_{11}，a_{12} = \gamma_{12}，a_{13} = \gamma_{13})
+$$
+
+#### 例 1
+
+对矩阵 $A = \begin{pmatrix} 2 & -1 & 3 \\ 1 & 2 & 1 \\ 2 & 4 & 3 \end{pmatrix}$ 的 Doolittle 分解：
+
+解：
+$$
+\displaystyle
+A = 
+\begin{pmatrix}
+2 & -1 & 3 \\
+1 & 2 & 1 \\
+2 & 4 & 3
+\end{pmatrix}
+=
+\begin{pmatrix}
+1 & 0 & 0 \\
+\underline{\tfrac{1}{2}} & 1 & 0 \\
+\underline{1} & \underline{2} & 1
+\end{pmatrix}
+\begin{pmatrix}
+2 & -1 & 3 \\
+0 & \underline{2} & \underline{-1} \\
+0 & 0 & \underline{1}
+\end{pmatrix}
+$$
+
+其中：
+- $L$ 为单位下三角矩阵；
+- $R$ 为普通上三角矩阵。
+
+根据定义，有：
+
+$$
+a_{ij} = \text{L 的第 } i \text{ 行} \times \text{R 的第 } j \text{ 列}
+$$
+
+例如：
+
+$$
+a_{21} = 1 = \square \times 2 + 1 \times 0 + 0 \times 0 \Rightarrow \square = \tfrac{1}{2}
+$$
+
+然后按顺序依次计算未知部分：
+
+$$
+a_{11},\ a_{12},\ a_{13},\ a_{22},\ a_{23},\ a_{33}
+$$
+
+**注**
+
+1. $L$ 和 $R$ 矩阵特点要牢记；
+2. $a_{1j} = r_{1j}$；
+3. 按顺序求未知部分。
+
