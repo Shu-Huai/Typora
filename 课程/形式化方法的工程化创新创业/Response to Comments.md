@@ -1,4 +1,4 @@
-# Response to Review Comments
+# Response to Comments
 
 We would like to thank you for your valuable comments, which have been taken into account in the revision.
 
