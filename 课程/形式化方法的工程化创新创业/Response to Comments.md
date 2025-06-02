@@ -65,7 +65,7 @@ We respond to the comments point by point in the following.
 
     Specifically, we parsed and extracted the output variables from a Process block and saved them. Before program execution, we obtain the output of each Functional Scenario in the given Functional Scenario Path and try to find the output of the Process to which it belongs. After that, we try to check whether at least one of the output variables of the previous Functional Scenario is the same as the input variable of the following Functional Scenario between two neighboring Functional Scenarios on this path. With these check, we ensure the connectivity of the data flow, thus verifying the legitimacy of the first level. If not, an error will be reported.
 
-    <img src="Z:\Public\images\fe5be2a6c99856af074aea2f29a40733.png" alt="fe5be2a6c99856af074aea2f29a40733" style="zoom:50%;" />
+    <img src="http://public.file.lvshuhuai.cn/images\fe5be2a6c99856af074aea2f29a40733.png" alt="fe5be2a6c99856af074aea2f29a40733" style="zoom:50%;" />
 
     We have also redesigned the way variables and input are initialized and assigned, and re-factored part of the code so that it can correctly distinguish between data storage and output, and more accurately support the execution logic of the whole process.
 

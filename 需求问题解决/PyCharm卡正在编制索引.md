@@ -22,9 +22,9 @@
 
 也就是说
 
-<img src="Z:\Public\images\image-20250522202245911.png" alt="image-20250522202245911" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20250522202245911.png" alt="image-20250522202245911" style="zoom:50%;" />
 
-<img src="Z:\Public\images\image-20250522202257074.png" alt="image-20250522202257074" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20250522202257074.png" alt="image-20250522202257074" style="zoom:50%;" />
 
 全选后失效并重启，重启后就正常了。
 
