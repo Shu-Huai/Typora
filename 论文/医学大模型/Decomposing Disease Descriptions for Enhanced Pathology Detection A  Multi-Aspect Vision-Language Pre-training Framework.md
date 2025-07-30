@@ -62,7 +62,7 @@ $$
 
 #### 数据构建流程
 
-<img src="Z:\Public\images\image-20250722162332598.png" alt="image-20250722162332598" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20250722162332598.png" alt="image-20250722162332598" style="zoom:50%;" />
 
 1. **实体提取**：使用 RadGraph 提取实体与位置；
 2. **专家注释**：两位医生独立标注 23 个维度，筛选出 7 个一致维度 + Other；
@@ -75,7 +75,7 @@ $$
 
 ### 双头 Transformer 模块（Dual-Head Transformer）
 
-<img src="Z:\Public\images\image-20250722163103685.png" alt="image-20250722163103685" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20250722163103685.png" alt="image-20250722163103685" style="zoom:50%;" />
 
 整个 MAVL 网络包含两个分支：
 

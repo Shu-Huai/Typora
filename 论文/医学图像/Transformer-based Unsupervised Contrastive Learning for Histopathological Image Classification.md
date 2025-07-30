@@ -34,7 +34,7 @@ SRCL 的目标：
 - **从内存库中挖掘“语义相关的样本”作为额外正样本**；
 - 增加正样本的多样性，提高学习到的特征的判别力与泛化性。
 
-<img src="Z:\Public\images\image-20250619005703955.png" alt="image-20250619005703955" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20250619005703955.png" alt="image-20250619005703955" style="zoom:50%;" />
 
 #### 基本流程
 
@@ -60,7 +60,7 @@ SRCL 的目标：
 
 #### 结构组成
 
-<img src="Z:\Public\images\image-20250619005911208.png" alt="image-20250619005911208" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20250619005911208.png" alt="image-20250619005911208" style="zoom:50%;" />
 
 - CNN：三层卷积（3x3, 3x3, 1x1）提取局部特征；
 - Swin Transformer：

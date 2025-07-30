@@ -12,7 +12,7 @@ BERT 改变了 NLP 任务的做法：从“每个任务单独训练模型” →
 
 BERT 实际上是一个特征提取器。
 
-![LeeMeng - 進擊的BERT：NLP 界的巨人之力與遷移學習](Z:\Public\images\bert-intro.jpg)
+![LeeMeng - 進擊的BERT：NLP 界的巨人之力與遷移學習](http://public.file.lvshuhuai.cn/images\bert-intro.jpg)
 
 ## BERT 结构概览
 

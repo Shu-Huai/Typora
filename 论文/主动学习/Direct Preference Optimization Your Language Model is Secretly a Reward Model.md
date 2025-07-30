@@ -27,7 +27,7 @@
 
 ### DPO
 
-<img src="Z:\Public\images\image-20250722212659151.png" alt="image-20250722212659151" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20250722212659151.png" alt="image-20250722212659151" style="zoom:50%;" />
 
 DPO 用一个简单的 **二分类损失** 替代 RLHF 中复杂的策略优化过程，目标是让模型生成更倾向于人类喜欢的输出。
 

@@ -2,7 +2,7 @@
 
 ## 自回归是不是通用生成式人工智能的唯一路径？
 
-<img src="Z:\Public\images\image-20250726142617997.png" alt="image-20250726142617997" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20250726142617997.png" alt="image-20250726142617997" style="zoom:50%;" />
 
 ### 自回归模型
 
@@ -29,7 +29,7 @@ $$
 ### 前向过程（Forward Process）
 前向过程表示如何从原始数据逐步引入噪声，直到最终变成完全的噪声数据。
 
-<img src="Z:\Public\images\image-20250726135556829.png" alt="image-20250726135556829" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20250726135556829.png" alt="image-20250726135556829" style="zoom:50%;" />
 
 #### 步骤
 1. **Clean Data (time 0)**：表示初始的干净数据。例如数据 $R, A, D, D$。
@@ -39,7 +39,7 @@ $$
 ### 反向过程（Backward Process）
 反向过程展示了如何从噪声数据恢复回干净数据。
 
-<img src="Z:\Public\images\image-20250726135631498.png" alt="image-20250726135631498" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20250726135631498.png" alt="image-20250726135631498" style="zoom:50%;" />
 
 #### 步骤
 1. **恢复过程**：通过学习到的条件分布，逐步去除噪声，恢复数据。
@@ -52,7 +52,7 @@ $$
 
 ### 原理
 
-<img src="Z:\Public\images\image-20250726141933898.png" alt="image-20250726141933898" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20250726141933898.png" alt="image-20250726141933898" style="zoom:50%;" />
 
 #### 无监督预训练
 
@@ -99,7 +99,7 @@ VRPO通过**最优分配**和**对偶采样**来减少方差，提升算法的�
 
 ### LLaDA-V：多模态理解
 
-<img src="Z:\Public\images\image-20250726144018345.png" alt="image-20250726144018345" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20250726144018345.png" alt="image-20250726144018345" style="zoom:50%;" />
 
 - LLaDA-V 扩展了 LLaDA 的能力，加入了**视觉输入**与**文本输入**的联合推理。
 - LLaDA-V 通过**自回归模型**、**掩码预测器**与**重掩码**策略来增强其多模态理解和生成能力，适用于更复杂的跨模态任务。

@@ -31,7 +31,7 @@
 
     最后，以奖励模型作为奖励信号，对 SFT 模型进行强化学习微调，使用 Proximal Policy Optimization（PPO）算法优化输出。这个过程可以迭代进行：用当前最优策略生成新输出收集更多比较数据，更新 RM 与策略。
 
-<img src="Z:\Public\images\image-20250722191817049.png" alt="image-20250722191817049" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20250722191817049.png" alt="image-20250722191817049" style="zoom:50%;" />
 
 ### 数据集（Dataset）
 
@@ -142,4 +142,4 @@ $$
 
 ## 实验
 
-<img src="Z:\Public\images\image-20250722193003392.png" alt="image-20250722193003392" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20250722193003392.png" alt="image-20250722193003392" style="zoom:50%;" />

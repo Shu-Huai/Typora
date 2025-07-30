@@ -8,7 +8,7 @@
 
 ## 二、效果
 
-<img src="Z:\Public\images\image-20250706195940700.png" alt="image-20250706195940700" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20250706195940700.png" alt="image-20250706195940700" style="zoom:50%;" />
 
 ## 三、目前发现的问题
 

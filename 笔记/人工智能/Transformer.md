@@ -4,9 +4,9 @@
 
 Transformer 由两个主要部分组成：Encoder 和 Decoder。在 ViT 和 BERT 等模型中，常用的是 Encoder 或其变种。
 
-![transformer](Z:\Public\images\transformer-1749452689127-14.svg)
+![transformer](http://public.file.lvshuhuai.cn/images\transformer-1749452689127-14.svg)
 
-![img](Z:\Public\images\v2-4544255f3f24b7af1e520684ae38403f_1440w.jpg)
+![img](http://public.file.lvshuhuai.cn/images\v2-4544255f3f24b7af1e520684ae38403f_1440w.jpg)
 
 ### Transformer Encoder 架构组成
 

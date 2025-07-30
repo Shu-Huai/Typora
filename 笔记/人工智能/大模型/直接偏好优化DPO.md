@@ -20,7 +20,7 @@
 
 ## 训练流程
 
-<img src="Z:\Public\images\1lK6iJMz5CGh2fo7TsDn15A.png" alt="Direct Preference Optimization (DPO) of LLMs: A Paradigm Shift | by LM Po |  Medium" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\1lK6iJMz5CGh2fo7TsDn15A.png" alt="Direct Preference Optimization (DPO) of LLMs: A Paradigm Shift | by LM Po |  Medium" style="zoom:50%;" />
 
 ### 输入数据
 - prompt（输入）

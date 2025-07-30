@@ -19,7 +19,7 @@
 
 ### 数据集
 
-<img src="Z:\Public\images\image-20250728155002925.png" alt="image-20250728155002925" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20250728155002925.png" alt="image-20250728155002925" style="zoom:50%;" />
 
 收集了来自 3 个权威法医队列的 9 种不同器官的多中心数据集，共包含 2228 组视觉语言对：
 
@@ -29,7 +29,7 @@
 
 这些数据贡献了超过 1600 万 patch 图像块和 471 种不同诊断结果，其中仅 34 种诊断在所有法医中心间具有一致性
 
-<img src="Z:\Public\images\image-20250728155254429.png" alt="image-20250728155254429" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20250728155254429.png" alt="image-20250728155254429" style="zoom:50%;" />
 
 #### 数据预处理
 
@@ -58,7 +58,7 @@
 
 模型给出可能的诊断结果
 
-<img src="Z:\Public\images\image-20250731001240442.png" alt="image-20250731001240442" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20250731001240442.png" alt="image-20250731001240442" style="zoom:50%;" />
 
 #### 主要架构
 
@@ -68,7 +68,7 @@
 
 ### 原型 patch 级编码器
 
-<img src="Z:\Public\images\image-20250730215243333.png" alt="image-20250730215243333" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20250730215243333.png" alt="image-20250730215243333" style="zoom:50%;" />
 
 由实例对比学习部分和原型对比学习部分组成。
 
@@ -141,7 +141,7 @@ $$
 
 ### 门控注意力增强的多模态融合模块
 
-<img src="Z:\Public\images\image-20250731001425292.png" alt="image-20250731001425292" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20250731001425292.png" alt="image-20250731001425292" style="zoom:50%;" />
 
 #### 特征
 
@@ -167,12 +167,12 @@ $$
 
 ### 原型空间可视化
 
-<img src="Z:\Public\images\image-20250728155751545.png" alt="image-20250728155751545" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20250728155751545.png" alt="image-20250728155751545" style="zoom:50%;" />
 
 ### patch 级生成
 
-<img src="Z:\Public\images\image-20250730234356405.png" alt="image-20250730234356405" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20250730234356405.png" alt="image-20250730234356405" style="zoom:50%;" />
 
 ### 对比
 
-<img src="Z:\Public\images\image-20250731011136764.png" alt="image-20250731011136764" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20250731011136764.png" alt="image-20250731011136764" style="zoom:50%;" />

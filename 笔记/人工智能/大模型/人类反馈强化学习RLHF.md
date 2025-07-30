@@ -9,7 +9,7 @@
 
 ## 三阶段训练流程
 
-![什么是RLHF？– 基于人类反馈的强化学习简介– AWS](Z:\Public\images\ML-14874_image001.jpg)
+![什么是RLHF？– 基于人类反馈的强化学习简介– AWS](http://public.file.lvshuhuai.cn/images\ML-14874_image001.jpg)
 
 ### 监督微调（Supervised Fine-Tuning, SFT）
 

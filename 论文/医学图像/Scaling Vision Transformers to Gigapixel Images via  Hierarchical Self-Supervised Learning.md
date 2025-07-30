@@ -25,7 +25,7 @@
 - **ViT4096-256**：处理 4096×4096 区域（region-level）
 - **ViTWSI-4096**：处理整个 slide（slide-level）
 
-<img src="Z:\Public\images\image-20250611002641503.png" alt="image-20250611002641503" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20250611002641503.png" alt="image-20250611002641503" style="zoom:50%;" />
 
 ### 逐级自监督预训练（Hierarchical Pretraining）
 
@@ -60,6 +60,6 @@ DINO 是一种自监督训练的方法：
 
 ## 代码
 
-<img src="Z:\Public\images\image-20250611004005837.png" alt="image-20250611004005837" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20250611004005837.png" alt="image-20250611004005837" style="zoom:50%;" />
 
-<img src="Z:\Public\images\image-20250611014637548.png" alt="image-20250611014637548" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20250611014637548.png" alt="image-20250611014637548" style="zoom:50%;" />

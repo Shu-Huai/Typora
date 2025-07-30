@@ -50,7 +50,7 @@ APL 在 DPO 基础上引入主动学习机制。不同于一次性收集全部�
 
 这一流程被算法 1 形式化，每轮迭代称为一个 acquisition step，共进行 $T$ 轮，直到使用完 $B$ 条偏好标签预算。每轮获取 $M$ 条高分样本，使用全部已有偏好数据进行 DPO 微调，训练出新模型 $$\theta_{t+1}$$。
 
-<img src="Z:\Public\images\image-20250723161707479.png" alt="image-20250723161707479" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20250723161707479.png" alt="image-20250723161707479" style="zoom:50%;" />
 
 ### 采样函数（Acquisition Function）
 

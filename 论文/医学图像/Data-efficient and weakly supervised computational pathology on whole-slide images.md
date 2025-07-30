@@ -24,7 +24,7 @@
 
 > CLAM 是一种改进的 attention-based 多实例学习方法，适用于多分类任务。
 
-<img src="Z:\Public\images\image-20250619010214901.png" alt="image-20250619010214901" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20250619010214901.png" alt="image-20250619010214901" style="zoom:50%;" />
 
 ### 核心模块
 
@@ -111,7 +111,7 @@ $$
 
 - 硅藻
 
-![AFS_11](Z:\Public\images\AFS_11.jpg)
+![AFS_11](http://public.file.lvshuhuai.cn/images\AFS_11.jpg)
 
 ### 步骤
 
@@ -123,7 +123,7 @@ $$
 python create_patches_fp.py --source DATA_DIRECTORY --save_dir RESULTS_DIRECTORY --patch_size 256 --seg --patch --stitch
 ```
 
-![image-20250618173948599](Z:\Public\images\image-20250618173948599.png)
+![image-20250618173948599](http://public.file.lvshuhuai.cn/images\image-20250618173948599.png)
 
 - masks 文件夹保存分割结果示例图片（每个 svs 文件对应一张图片）
 - patches 文件夹保存分割结果图片存一个 h5 文件，每一行对应一个 patch 左上角坐标（每个 svs 文件对应一个h5文件）
@@ -176,4 +176,4 @@ python eval.py --drop_out 0.25 --k 10 --models_exp_code diatom_75_s1 --save_exp_
 python create_heatmaps.py --config config_template.yaml
 ```
 
-<img src="Z:\Public\images\image-20250618233253259.png" alt="image-20250618233253259" style="zoom:25%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20250618233253259.png" alt="image-20250618233253259" style="zoom:25%;" />

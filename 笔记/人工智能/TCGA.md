@@ -62,13 +62,13 @@ TCGA 数据的访问主要通过 GDC（Genomic Data Commons）平台，网址如
 
 #### 主页面
 
-<img src="Z:\Public\images\image-20250619132312680.png" alt="image-20250619132312680" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20250619132312680.png" alt="image-20250619132312680" style="zoom:50%;" />
 
 点击 Cohort Builder
 
 #### Cohort Builder
 
-![image-20250619132555042](Z:\Public\images\image-20250619132555042.png)
+![image-20250619132555042](http://public.file.lvshuhuai.cn/images\image-20250619132555042.png)
 
 选中要下载的分类，并保存一个新的 Cohort。
 
@@ -78,7 +78,7 @@ TCGA 数据的访问主要通过 GDC（Genomic Data Commons）平台，网址如
 
 我们要下载 SVS 文件
 
-<img src="Z:\Public\images\image-20250619132658143.png" alt="image-20250619132658143" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20250619132658143.png" alt="image-20250619132658143" style="zoom:50%;" />
 
 在左边筛选出 Diagnostic Slide，右边出现的就是所有的 SVS 文件。
 
@@ -86,7 +86,7 @@ Annatations 项，记录的是对应该 SVS 文件是否有标签。
 
 ## 示例
 
-![TCGA-55-8203-01Z-00-DX1.f530d261-be19-4ff0-98d0-27b789dffb23](Z:\Public\images\TCGA-55-8203-01Z-00-DX1.f530d261-be19-4ff0-98d0-27b789dffb23.jpg)
+![TCGA-55-8203-01Z-00-DX1.f530d261-be19-4ff0-98d0-27b789dffb23](http://public.file.lvshuhuai.cn/images\TCGA-55-8203-01Z-00-DX1.f530d261-be19-4ff0-98d0-27b789dffb23.jpg)
 
 | id                                   | submitter_id | entity_type | entity_id                             | category         | classification | created_datetime    | status   | notes                                                        |
 | ------------------------------------ | ------------ | ----------- | ------------------------------------- | ---------------- | -------------- | ------------------- | -------- | ------------------------------------------------------------ |
