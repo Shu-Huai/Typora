@@ -5,7 +5,7 @@
 - 通过原型跨模态对比学习进行大词汇量法医病理学分析
 - **HuggingFace**：[shenxiaochen/SongCi · Hugging Face](https://huggingface.co/shenxiaochen/SongCi)（需申请）
 - **GitHub**：[shenxiaochenn/SongCi: Official Code for Large-vocabulary forensic pathological analyses via prototypical cross-modal contrastive learning](https://github.com/shenxiaochenn/SongCi)
-- **数据集**：TCGA-LUAD、TCGA-BRCA、CAMELYON-16、CRC-100K、UniToPatho、TCGA-TIL、TCGA Uniform Tumor、PCam以及自建数据集
+- **数据集**：TCGA-LUAD、TCGA-BRCA、CAMELYON-16、CRC-100K、UniToPatho、TCGA-TIL、TCGA Uniform Tumor、PCam 以及自建数据集
 
 ## 摘要
 
@@ -176,3 +176,57 @@ $$
 ### 对比
 
 <img src="http://public.file.lvshuhuai.cn/images\image-20250731011136764.png" alt="image-20250731011136764" style="zoom:50%;" />
+
+## 实验复现
+
+### SVS 图片
+
+<img src="Z:\Public\images\image-20250731154256113.png" alt="image-20250731154256113" style="zoom:50%;" />
+
+### patch 切分
+
+![image-20250731154351353](Z:\Public\images\image-20250731154351353.png)
+
+### 原型匹配
+
+<img src="Z:\Public\images\image-20250731154442585.png" alt="image-20250731154442585" style="zoom:50%;" />
+
+并统计其原型数量信息，形成
+
+| name                | prototype                                                    | pro_num |
+| ------------------- | ------------------------------------------------------------ | ------- |
+| a21-1884_brain0.csv | {830: 1259, 555: 567, 786: 504, 535: 497, 857: 357, 965: 337, 771: 305, 286: 239, 1018: 220, 264: 189, 430: 164, 2: 148, 685: 144, 17: 140, 318: 115, 557: 114, 242: 102, 598: 101, 882: 100, 164: 91, 834: 85, 754: 83, 766: 80, 762: 79, 274: 77, 960: 74, 545: 72, 154: 61, 248: 57, 748: 51, 533: 49, 306: 47, 14: 41, 732: 41, 107: 37, 599: 35, 764: 31, 62: 29, 793: 28, 559: 27, 592: 27, 33: 23, 746: 22, 724: 20, 163: 19, 116: 19, 376: 17, 190: 15, 64: 14, 410: 13, 1002: 12, 991: 12, 787: 12, 297: 11, 715: 7, 747: 7, 988: 6, 484: 6, 739: 5, 360: 5, 435: 4, 756: 3, 877: 3, 760: 2, 485: 2, 999: 2, 478: 2, 147: 2, 367: 2, 621: 1, 424: 1, 623: 1, 120: 1, 139: 1, 922: 1, 976: 1, 401: 1, 556: 1, 768: 1, 433: 1} | 80      |
+
+### 大体描述
+
+Scattered punctate hemorrhage is observed under the occipital subcutaneous area, the dura and arachnoid are intact, and the surface and section of the brain are grayish white.
+
+枕部皮下可见散在点状出血，硬脑膜及蛛网膜完整，脑表面及切面呈灰白色。
+
+### 推理
+
+#### 如有候选诊断
+
+The hemorrhage under the scalp
+
+头皮下出血
+
+可以输出一个相似度
+
+```python
+tensor(0.8989),
+```
+
+#### 如无候选诊断
+
+他给出了共 471 个常见诊断
+
+<img src="Z:\Public\images\image-20250731155647877.png" alt="image-20250731155647877" style="zoom:50%;" />
+
+计算每个的概率，得到最可能的诊断结果
+
+```python
+['The hemorrhage under the scalp',
+ 'Cerebral hemorrhage',
+ 'Cerebral congestion']
+```
