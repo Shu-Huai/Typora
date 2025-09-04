@@ -181,15 +181,15 @@ $$
 
 ### SVS 图片
 
-<img src="Z:\Public\images\image-20250731154256113.png" alt="image-20250731154256113" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20250731154256113.png" alt="image-20250731154256113" style="zoom:50%;" />
 
 ### patch 切分
 
-![image-20250731154351353](Z:\Public\images\image-20250731154351353.png)
+![image-20250731154351353](http://public.file.lvshuhuai.cn/images\image-20250731154351353.png)
 
 ### 原型匹配
 
-<img src="Z:\Public\images\image-20250731154442585.png" alt="image-20250731154442585" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20250731154442585.png" alt="image-20250731154442585" style="zoom:50%;" />
 
 并统计其原型数量信息，形成
 
@@ -221,7 +221,7 @@ tensor(0.8989),
 
 他给出了共 471 个常见诊断
 
-<img src="Z:\Public\images\image-20250731155647877.png" alt="image-20250731155647877" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20250731155647877.png" alt="image-20250731155647877" style="zoom:50%;" />
 
 计算每个的概率，得到最可能的诊断结果
 
