@@ -7,3 +7,6 @@ This paper proposes a multi-scale EEG pipeline for schizophrenia screening: empi
 3. The authors failed to explain the reason for the consistently lower performance on Dataset B at the early scales (1–3).
 4. The manuscript excludes frequencies above 60 Hz but provides no empirical justification.
 5. Section 7.3 states that Dataset B is ‘smaller’ than Dataset A. Please revise this claim: B includes more subjects but offers less data per subject (shorter recordings, lower sampling rate), resulting in fewer usable epochs. Clarify this explicitly. otherwise it may cause misunderstanding. 
+6. The authors didn't state the runtime assumptions or the time complexity of their method.
+7. The authors should provide sufficient information in the caption of each figure to make it self-explanatory. 
+
