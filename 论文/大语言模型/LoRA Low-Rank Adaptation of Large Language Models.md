@@ -3,6 +3,7 @@
 ## 基本信息
 
 - LoRA：大型语言模型的低秩自适应
+- 一种大模型微调技术
 - ICLR 2022
 - GitHub：[microsoft/LoRA: Code for loralib, an implementation of "LoRA: Low-Rank Adaptation of Large Language Models"](https://github.com/microsoft/LoRA)
 
@@ -58,3 +59,40 @@ $$
 ## 实验
 
 <img src="Z:\Public\images\image-20251007175132325.png" alt="image-20251007175132325" style="zoom:50%;" />
+
+## 使用方法
+
+```python
+from datasets import load_dataset
+from transformers import AutoModelForCausalLM, AutoTokenizer, TrainingArguments, Trainer, DataCollatorForLanguageModeling
+from peft import LoraConfig, get_peft_model, TaskType
+
+model_name = "facebook/opt-350m"
+tok = AutoTokenizer.from_pretrained(model_name, use_fast=True)
+tok.pad_token = tok.eos_token
+
+# 示例数据：把句子拼成简单的因果LM任务
+ds = load_dataset("imdb", split="train[:2000]")
+def format_fn(ex):
+    text = f"Review: {ex['text']}\nSentiment: "
+    return {"input_ids": tok(text, truncation=True, max_length=512)["input_ids"]}
+ds = ds.map(format_fn).remove_columns([c for c in ds.column_names if c != "input_ids"])
+
+model = AutoModelForCausalLM.from_pretrained(model_name)
+peft_cfg = LoraConfig(
+    task_type=TaskType.CAUSAL_LM, r=8, lora_alpha=16, lora_dropout=0.05,
+    target_modules=["q_proj","v_proj"]  # OPT/LLama 系常见命名；按实际模型调整
+)
+model = get_peft_model(model, peft_cfg)
+
+args = TrainingArguments(
+    output_dir="out-lora", per_device_train_batch_size=4, num_train_epochs=1,
+    learning_rate=2e-4, logging_steps=50, fp16=True
+)
+data_collator = DataCollatorForLanguageModeling(tok, mlm=False)
+trainer = Trainer(model=model, args=args, train_dataset=ds, data_collator=data_collator)
+trainer.train()
+
+model.save_pretrained("out-lora/adapter")  # 保存 LoRA 适配器
+```
+
