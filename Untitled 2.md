@@ -45,11 +45,11 @@
 - 通过遍历比较该图像与每个已知诊断的相似度能够实现图像到文本的可靠输出
 - 输出 Top $K$ 个结果
 
-<img src="Z:\Public\images\908900fe-d84f-45a0-8010-3c9e021d0641.png" alt="908900fe-d84f-45a0-8010-3c9e021d0641" style="zoom: 25%;" />
+<img src="http://public.file.lvshuhuai.cn/images\908900fe-d84f-45a0-8010-3c9e021d0641.png" alt="908900fe-d84f-45a0-8010-3c9e021d0641" style="zoom: 25%;" />
 
 ### 运行结果
 
-<img src="Z:\Public\images\be08573edac1f648dd61c0e35143d14a.png" alt="be08573edac1f648dd61c0e35143d14a" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\be08573edac1f648dd61c0e35143d14a.png" alt="be08573edac1f648dd61c0e35143d14a" style="zoom:50%;" />
 
 ## 实验结论
 

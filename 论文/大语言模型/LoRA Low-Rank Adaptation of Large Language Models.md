@@ -15,7 +15,7 @@
 
 ### 低秩重参数化（LoRA 的核心机制，细化）
 
-<img src="Z:\Public\images\image-20251007175051528.png" alt="image-20251007175051528" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251007175051528.png" alt="image-20251007175051528" style="zoom:50%;" />
 
 **目标**：在不改动预训练权重 $W_0$ 的前提下，让“要学的更新” $\Delta W$ 变得极小、易训练、好部署。做法是用低秩分解 **$\Delta W = BA$**（$B\in\mathbb{R}^{d\times r},\,A\in\mathbb{R}^{r\times k},\, r\ll \min(d,k)$）替代直接学满秩更新。前向改写为：
 $$
@@ -58,7 +58,7 @@ $$
 
 ## 实验
 
-<img src="Z:\Public\images\image-20251007175132325.png" alt="image-20251007175132325" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251007175132325.png" alt="image-20251007175132325" style="zoom:50%;" />
 
 ## 使用方法
 

@@ -20,7 +20,7 @@ BLIP 提出一个同时擅长“理解”和“生成”的视觉-语言预训�
 
 ### 多模态编码器-解码器混合模型 MED
 
-<img src="Z:\Public\images\image-20251006145546743.png" alt="image-20251006145546743" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251006145546743.png" alt="image-20251006145546743" style="zoom:50%;" />
 
 **总体思路**：用一个统一的多任务架构，在**三种功能形态**间切换：
 
@@ -57,7 +57,7 @@ BLIP 在预训练时**联合优化三种目标**：**ITC（对比）+ ITM（匹�
 
 ### CapFilt：“生成 + 过滤”的数据自举
 
-<img src="Z:\Public\images\image-20251006173755661.png" alt="image-20251006173755661" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251006173755661.png" alt="image-20251006173755661" style="zoom:50%;" />
 
 **动机**：网页图文（alt-text）**嘈杂**且不总描述图像本身；单纯扩数据规模次优。CapFilt 通过**补充信息**与**去噪**把弱监督变强监督。
 
@@ -77,10 +77,10 @@ BLIP 在预训练时**联合优化三种目标**：**ITC（对比）+ ITM（匹�
 
 ## 实验
 
-<img src="Z:\Public\images\image-20251006173710345.png" alt="image-20251006173710345" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251006173710345.png" alt="image-20251006173710345" style="zoom:50%;" />
 
-<img src="Z:\Public\images\image-20251006173623607.png" alt="image-20251006173623607" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251006173623607.png" alt="image-20251006173623607" style="zoom:50%;" />
 
 ## 实验复现
 
-<img src="Z:\Public\images\image-20251007133831940.png" alt="image-20251007133831940" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251007133831940.png" alt="image-20251007133831940" style="zoom:50%;" />

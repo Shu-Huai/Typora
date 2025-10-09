@@ -15,7 +15,7 @@
 
 ### 总体思路
 
-<img src="Z:\Public\images\image-20251007194140079.png" alt="image-20251007194140079" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251007194140079.png" alt="image-20251007194140079" style="zoom:50%;" />
 
 - **存储**：将预训练基座权重 $W$ 以 **4-bit**（默认 **NF4**）量化后存储。  
 - **计算**：用到时将 $W$ **解量化到 BF16**，前向/反向均在 **BF16** 中完成。  

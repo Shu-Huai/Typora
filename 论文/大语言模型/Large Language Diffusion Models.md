@@ -14,7 +14,7 @@
 
 ### 方法概览（建模对象与基本过程）
 
-<img src="Z:\Public\images\image-20251007173137558.png" alt="image-20251007173137558" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251007173137558.png" alt="image-20251007173137558" style="zoom:50%;" />
 
 - **目标分布**：用掩码扩散（masked diffusion）直接建模 $p_\theta(x_0)$ 或条件分布 $p_\theta(x_0\mid p_0)$。定义一个前向过程 $\{x_t\}_{t\in[0,1]}$ 对序列做独立掩码；$t=0$ 完全可见，$t\in(0,1]$ 按期望比例被掩。反向过程由掩码预测器一次性预测被掩位置的 token。
 - **训练损失**：使用掩码交叉熵  
@@ -61,4 +61,4 @@
 
 ## 实验
 
-<img src="Z:\Public\images\image-20251007173149484.png" alt="image-20251007173149484" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251007173149484.png" alt="image-20251007173149484" style="zoom:50%;" />

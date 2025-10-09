@@ -2,43 +2,43 @@
 
 ## 整体生态
 
-![http://public.file.lvshuhuai.cn/](Z:\Public\images\mongo-y-echo-11-1757226456616-31.png)
+![http://public.file.lvshuhuai.cn/](http://public.file.lvshuhuai.cn/images\mongo-y-echo-11-1757226456616-31.png)
 
 ## MongoDB Server
 
 MongoDB 数据库，包含如下核心功能：
 
-![http://public.file.lvshuhuai.cn/](Z:\Public\images\mongo-y-echo-4-1757226468287-34.png)
+![http://public.file.lvshuhuai.cn/](http://public.file.lvshuhuai.cn/images\mongo-y-echo-4-1757226468287-34.png)
 
 ### [社区版本](https://www.mongodb.com/try/download/community)
 
-![http://public.file.lvshuhuai.cn/](Z:\Public\images\mongo-y-echo-10-1757226479589-37.png)
+![http://public.file.lvshuhuai.cn/](http://public.file.lvshuhuai.cn/images\mongo-y-echo-10-1757226479589-37.png)
 
 ### [企业版本](https://www.mongodb.com/try/download/enterprise)
 
-![http://public.file.lvshuhuai.cn/](Z:\Public\images\mongo-y-echo-9-1757226524001-40.png)
+![http://public.file.lvshuhuai.cn/](http://public.file.lvshuhuai.cn/images\mongo-y-echo-9-1757226524001-40.png)
 
 ## MongoDB Cloud
 
 [MongoDB Cloud](https://docs.mongodb.com/cloud/)
 
-![http://public.file.lvshuhuai.cn/](Z:\Public\images\mongo-y-echo-8-1757226539763-43.png)
+![http://public.file.lvshuhuai.cn/](http://public.file.lvshuhuai.cn/images\mongo-y-echo-8-1757226539763-43.png)
 
 ## MongoDB Drivers
 
 [MongoDB Drivers](https://docs.mongodb.com/ecosystem/drivers/)
 
-![http://public.file.lvshuhuai.cn/](Z:\Public\images\mongo-y-echo-6-1757226559707-46.png)
+![http://public.file.lvshuhuai.cn/](http://public.file.lvshuhuai.cn/images\mongo-y-echo-6-1757226559707-46.png)
 
 [驱动相关的文档](https://docs.mongodb.com/drivers/java/)
 
-![http://public.file.lvshuhuai.cn/](Z:\Public\images\mongo-y-echo-7-1757226564343-49.png)
+![http://public.file.lvshuhuai.cn/](http://public.file.lvshuhuai.cn/images\mongo-y-echo-7-1757226564343-49.png)
 
 ## 工具相关
 
 [MongoDB Tools](https://docs.mongodb.com/tools/)
 
-![http://public.file.lvshuhuai.cn/](Z:\Public\images\mongo-y-echo-5-1757226589050-52.png)
+![http://public.file.lvshuhuai.cn/](http://public.file.lvshuhuai.cn/images\mongo-y-echo-5-1757226589050-52.png)
 
 ### MongoDB Atlas Open Service Broker
 
@@ -52,7 +52,7 @@ https://www.jdon.com/49640
 
 BI 是指 Business Intelligence，众所周知的 BI 工具有 Tableau、MicroStrategy 和 Qlik 等；而 MongoDB BI Connector 充当在 mongod 或 mongos 实例与 BI 工具之间转换查询和数据的层， 这样用户就可以使用 SQL 创建查询，可视化，图形化和报告等方式来展示 MongoDB 中的数据。
 
-![http://public.file.lvshuhuai.cn/](Z:\Public\images\mongo-y-echo-1-1757226685506-55.png)
+![http://public.file.lvshuhuai.cn/](http://public.file.lvshuhuai.cn/images\mongo-y-echo-1-1757226685506-55.png)
 
 - `MongoDB DB`：数据的存储
 - `BI Connector`：提供一个关系模式（Schema），以及 BI 工具和 MongoDB 之间转换 SQL 查询
@@ -65,7 +65,7 @@ BI 是指 Business Intelligence，众所周知的 BI 工具有 Tableau、MicroSt
 
 负责 MongoDB 数据可视化的一个工具。
 
-![http://public.file.lvshuhuai.cn/](Z:\Public\images\mongo-y-echo-2-1757226779147-58.png)
+![http://public.file.lvshuhuai.cn/](http://public.file.lvshuhuai.cn/images\mongo-y-echo-2-1757226779147-58.png)
 
 ### MongoDB Command Line Interface（mongocli）
 
@@ -93,7 +93,7 @@ BI 是指 Business Intelligence，众所周知的 BI 工具有 Tableau、MicroSt
 
 MongoDB VsCode 插件
 
-![http://public.file.lvshuhuai.cn/](Z:\Public\images\mongo-y-echo-3-1757226945874-61.png)
+![http://public.file.lvshuhuai.cn/](http://public.file.lvshuhuai.cn/images\mongo-y-echo-3-1757226945874-61.png)
 
 ### MongoDB Shell
 

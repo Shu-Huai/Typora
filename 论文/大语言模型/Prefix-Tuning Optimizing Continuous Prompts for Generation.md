@@ -18,7 +18,7 @@
 - 解码式：`z = [PREFIX; x; y]`
 - 编解码式：`z = [PREFIX; x; PREFIX′; y]`（分别给编码器与解码器加前缀）
 
-<img src="Z:\Public\images\image-20251007212348530.png" alt="image-20251007212348530" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251007212348530.png" alt="image-20251007212348530" style="zoom:50%;" />
 
 ### 核心思想
 用**可训练的“前缀激活”**替换前缀位置的隐藏表示（而非只调词嵌入）。设前缀索引集为 $P_{\text{idx}}$，隐藏表示为 $h_i$：
@@ -43,7 +43,7 @@ $$
 
 ## 实验
 
-<img src="Z:\Public\images\image-20251007212410960.png" alt="image-20251007212410960" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251007212410960.png" alt="image-20251007212410960" style="zoom:50%;" />
 
 ## 使用方法
 

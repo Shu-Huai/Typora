@@ -18,7 +18,7 @@
 
 #### 数据来源与时间窗口
 
-<img src="Z:\Public\images\image-20251007152929472.png" alt="image-20251007152929472" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251007152929472.png" alt="image-20251007152929472" style="zoom:50%;" />
 
 - **Twitter（X）主语料**：依据 32 个病理子专科话题标签与相关关键词，收集英文推文与配图。
     - 推文本体时间：**2006-03-21 — 2022-11-15**。
@@ -48,7 +48,7 @@
 
 #### OpenPath 的最终规模
 
-<img src="Z:\Public\images\image-20251007153005150.png" alt="image-20251007153005150" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251007153005150.png" alt="image-20251007153005150" style="zoom:50%;" />
 
 - 将“推文本体 + 高赞回复 + PathLAION”合并、去重与合规性检查后，形成 **OpenPath：208,414** 个病理图像—文本配对样本。
 
@@ -58,7 +58,7 @@
 
 ### 模型
 
-<img src="Z:\Public\images\image-20251007153325499.png" alt="image-20251007153325499" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251007153325499.png" alt="image-20251007153325499" style="zoom:50%;" />
 
 #### 总体框架
 
@@ -98,4 +98,4 @@
 
 ## 实验
 
-<img src="Z:\Public\images\image-20251007153607405.png" alt="image-20251007153607405" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251007153607405.png" alt="image-20251007153607405" style="zoom:50%;" />
