@@ -13,6 +13,9 @@
 
 ## 研究背景
 
+- WSI（全幅切片）是千兆像素级图像，病理弱监督分类常用 **MIL**（袋级有标签、实例级无标签）。但许多深度MIL方法默认袋内实例 **i.i.d.**，忽略区域之间的**上下文与相关性**。病理医生做决策时会综合邻域上下文与跨区域相关，这与 i.i.d. 假设相悖。
+- Transformer 的**自注意力**天然刻画序列各 token 间的**成对相关**，很适合建模“实例相关”；但标准注意力是 $O(n^2)$，难以直接处理 WSI 动辄上万 patch 的长序列。
+
 ## 主要方法
 
 ### 相关多实例学习
@@ -39,19 +42,19 @@ $$
 #### 三步算法
 
 1. 形态与空间信息抽取并相加：
-  $$
+$$
   X_f\leftarrow f(X_i),\quad X_h\leftarrow h(X_i),\quad X_{fh}\leftarrow X_f+X_h\in\mathbb{R}^{n\times d}.
-  $$
+$$
 
 2. 用**Pooling 矩阵**聚合（允许**非对角项**表示实例间相关）：
-  $$
+$$
   X_P\leftarrow P\,X_{fh},\quad P\in\mathbb{R}^{n\times n}.
-  $$
+$$
 
 3. 映射得到袋级预测：
-  $$
+$$
   \hat Y_i \leftarrow g(X_P).
-  $$
+$$
 
 <img src="Z:\Public\images\image-20251113154839416.png" alt="image-20251113154839416" style="zoom:50%;" />
 
@@ -91,14 +94,14 @@ $$
 **PPEG** 的流程
 
 1. **分离**：将序列分成 patch tokens $H_f$ 与 class token $H_c$：
-  $$
+$$
   H_f,H_c\leftarrow \mathrm{Split}(H_S^{(\ell)}),\quad H_f\in\mathbb{R}^{N\times d},\ H_c\in\mathbb{R}^{1\times d}.
-  $$
+$$
 
 2. **空间还原**：把 $H_f$ 还原到 2D：
-  $$
+$$
   H^S_f\leftarrow \mathrm{Restore}(H_f),\quad H^S_f\in\mathbb{R}^{\sqrt N\times \sqrt N\times d}.
-  $$
+$$
 
 3. **组卷积**：在同一层使用不同核大小（论文图例为 3/5/7，并带零填充）做组卷积，编码不同粒度位置与上下文；随后**融合**多尺度特征。
 
@@ -121,6 +124,4 @@ CAMELYON16 是一个用于乳腺癌转移检测的公开数据集，包含 270 �
 ### 结果
 
 <img src="Z:\Public\images\image-20251113161229758.png" alt="image-20251113161229758" style="zoom:50%;" />
-
-## 复现
 
