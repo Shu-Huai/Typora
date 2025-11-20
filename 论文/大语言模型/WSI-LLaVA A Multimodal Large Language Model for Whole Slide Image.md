@@ -19,7 +19,7 @@
 
 ## 主要方法
 
-<img src="Z:\Public\images\image-20251119194010067.png" alt="image-20251119194010067" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251119194010067.png" alt="image-20251119194010067" style="zoom:50%;" />
 
 ### WSI-Bench
 
@@ -34,7 +34,7 @@
 
 #### 数据构建
 
-<img src="Z:\Public\images\image-20251119204012155.png" alt="image-20251119204012155" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251119204012155.png" alt="image-20251119204012155" style="zoom:50%;" />
 
 - 基于 TCGA 数据集
 - 涵盖 30 种癌症类型的 9,850 张 WSI 及其匹配的病理报告
@@ -43,7 +43,7 @@
 
 #### WSI 指标
 
-<img src="Z:\Public\images\image-20251119205558461.png" alt="image-20251119205558461" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251119205558461.png" alt="image-20251119205558461" style="zoom:50%;" />
 
 - WSI 精确度：从真实值中提取陈述语句，用 GPT-4o 为模型生成的结果判断其相似度打分（1/0.7/0.3/0）
 - WSI 相关性：相反
@@ -52,7 +52,7 @@
 
 #### 模型结构
 
-<img src="Z:\Public\images\image-20251119201403550.png" alt="image-20251119201403550" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251119201403550.png" alt="image-20251119201403550" style="zoom:50%;" />
 
 - DINO v2：ViT
 - LongNet：极长序列任务上的 Transformer，能够做到线性复杂度
@@ -66,4 +66,4 @@
 
 ## 实验
 
-<img src="Z:\Public\images\image-20251119202329966.png" alt="image-20251119202329966" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251119202329966.png" alt="image-20251119202329966" style="zoom:50%;" />

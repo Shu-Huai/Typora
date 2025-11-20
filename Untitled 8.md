@@ -10,7 +10,7 @@
 
 **WSI 图像**：
 
-<img src="Z:\Public\images\image-20251029204034151.png" alt="image-20251029204034151" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251029204034151.png" alt="image-20251029204034151" style="zoom:50%;" />
 
 **器官检验完整描述**：重 330g。心包腔内见淡黄色积液，量约 200mL。心内、外膜光滑，未见出血点，心肌表、切面呈淡红色、贫血状，左、右心室未见扩张。左心室壁厚 1.2cm，右心室壁厚 0.3cm；心脏各瓣膜光滑，未见增生、粘连及赘生物，各瓣膜周径测量如下：二尖瓣 10cm，三尖瓣 11cm，主动脉瓣 7cm，肺动脉瓣 7.5cm。冠状动脉开口畅，左前降支管壁轻度粥样硬化性改变，管腔狭窄程度达 I 级。
 
@@ -26,11 +26,11 @@
 
 使用多实例学习 MIL——一种弱监督手段
 
-<img src="Z:\Public\images\image-20251029204417958.png" alt="image-20251029204417958" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251029204417958.png" alt="image-20251029204417958" style="zoom:50%;" />
 
 使用分层图像特征提取器
 
-<img src="Z:\Public\images\image-20251029204646422.png" alt="image-20251029204646422" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251029204646422.png" alt="image-20251029204646422" style="zoom:50%;" />
 
 #### 2. 多图长文的统一
 
@@ -117,7 +117,7 @@ $$
 
 > 实际上简单理解：在图像/文本特征里放一排**可学习的阀门**（门控 + 噪声），训练它们：**只要能保持与“另一模态”一致的信息就放行，其他一律压掉**。最后“被保留下来的那部分”就是归因。
 
-<img src="Z:\Public\images\image-20251029215121009.png" alt="image-20251029215121009" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251029215121009.png" alt="image-20251029215121009" style="zoom:50%;" />
 
 **不看公式版**
 
@@ -174,9 +174,9 @@ $$
 
 ### 实验
 
-<img src="Z:\Public\images\image-20251029211554458.png" alt="image-20251029211554458" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251029211554458.png" alt="image-20251029211554458" style="zoom:50%;" />
 
-<img src="Z:\Public\images\image-20251029220834714.png" alt="image-20251029220834714" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251029220834714.png" alt="image-20251029220834714" style="zoom:50%;" />
 
 ## A multimodal generative AI copilot for human pathology
 

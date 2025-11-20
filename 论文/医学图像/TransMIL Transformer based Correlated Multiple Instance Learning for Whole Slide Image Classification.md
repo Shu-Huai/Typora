@@ -37,7 +37,7 @@ H(\Theta_1,\dots,\Theta_n)=\sum_{t=2}^{n} H(\Theta_t\mid \Theta_1,\dots,\Theta_{
 $$
 相关假设可能降低不确定性并为 MIL 问题带来更多有用信息。
 
-<img src="Z:\Public\images\image-20251113154649245.png" alt="image-20251113154649245" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251113154649245.png" alt="image-20251113154649245" style="zoom:50%;" />
 
 #### 三步算法
 
@@ -56,7 +56,7 @@ $$
   \hat Y_i \leftarrow g(X_P).
 $$
 
-<img src="Z:\Public\images\image-20251113154839416.png" alt="image-20251113154839416" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251113154839416.png" alt="image-20251113154839416" style="zoom:50%;" />
 
 ### 如何将 Transformer 应用于相关多实例学习
 
@@ -70,11 +70,11 @@ $$
 
 ### 用于弱监督 WSI 分类的 TransMIL
 
-<img src="Z:\Public\images\image-20251113154933048.png" alt="image-20251113154933048" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251113154933048.png" alt="image-20251113154933048" style="zoom:50%;" />
 
 #### 使用 TPT 的长实例序列建模
 
-<img src="Z:\Public\images\image-20251113155826437.png" alt="image-20251113155826437" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251113155826437.png" alt="image-20251113155826437" style="zoom:50%;" />
 
 标准自注意力的时间/显存复杂度为 $O(n^2)$。TPT 采用 Nyström 近似，将 **row-wise softmax** 的注意力写成：
 $$
@@ -87,7 +87,7 @@ $$
 
 #### 使用 PPEG 的位置编码
 
-<img src="Z:\Public\images\image-20251113160951703.png" alt="image-20251113160951703" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251113160951703.png" alt="image-20251113160951703" style="zoom:50%;" />
 
 **动机**：WSI 的 token 数随组织面积变化，需能适配**可变长度**并注入**空间上下文**。
 
@@ -123,5 +123,5 @@ CAMELYON16 是一个用于乳腺癌转移检测的公开数据集，包含 270 �
 
 ### 结果
 
-<img src="Z:\Public\images\image-20251113161229758.png" alt="image-20251113161229758" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251113161229758.png" alt="image-20251113161229758" style="zoom:50%;" />
 

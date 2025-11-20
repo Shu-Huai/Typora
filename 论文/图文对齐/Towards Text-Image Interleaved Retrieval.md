@@ -22,7 +22,7 @@
 
 #### 数据构建
 
-<img src="Z:\Public\images\image-20251011155551246.png" alt="image-20251011155551246" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251011155551246.png" alt="image-20251011155551246" style="zoom:50%;" />
 
 - **语料来源**：基于 wikiHow 教程，转换为 **15 万**条交错文档检索语料。
 - **查询生成流水线**
@@ -31,7 +31,7 @@
     3. **人工标注与过滤**：对生成的查询与图像进行人工检查，保证**合法、安全、相关、一致且无生成错误**。
 - **规模与划分**：最终得到**7,654** 组高质量**查询-文档**对用于测试，其余生成查询进入训练集；训练集规模 **73,084** 对；语料库共 **155,262** 篇文档。
 
-<img src="Z:\Public\images\image-20251011155643969.png" alt="image-20251011155643969" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251011155643969.png" alt="image-20251011155643969" style="zoom:50%;" />
 
 #### 数据分析
 
@@ -59,7 +59,7 @@
 
 #### 套娃多模态嵌入器（MME）
 
-<img src="Z:\Public\images\image-20251011160651954.png" alt="image-20251011160651954" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251011160651954.png" alt="image-20251011160651954" style="zoom:50%;" />
 
 - **动机**：多模态 LLM 作为密集检索器虽可处理交错输入，但**每张图需要数百视觉 token**，导致**序列过长**与**视觉主导**（embedding 受图像过度影响）。
 - **核心做法**：提出 **Matryoshka Multimodal Embedder (MME)**，通过在视觉侧以不同**粒度 $N$**（如 $N\in{1,2,3,4,6,8,12,24}$）**压缩视觉 token**，在保持交错顺序的同时获得更有效的序列级嵌入。
@@ -70,4 +70,4 @@
 
 ## 实验
 
-<img src="Z:\Public\images\image-20251011160746285.png" alt="image-20251011160746285" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251011160746285.png" alt="image-20251011160746285" style="zoom:50%;" />

@@ -11,7 +11,7 @@
 
 ### 需求描述
 
-<img src="Z:\Public\images\image-20251021145621022.png" alt="image-20251021145621022" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251021145621022.png" alt="image-20251021145621022" style="zoom:50%;" />
 
 - 断线重连时，Windows 网卡可能同时保留“旧前缀+新前缀”两条**全局 IPv6**；
 - DDNS-GO 若按“列表第一个/第 n 个地址”上报，容易把**旧前缀**上报，导致解析失效；
@@ -54,7 +54,7 @@ $IID='92e2:baff:fe8b:dea4';$IF='以太网 4';(Get-NetIPAddress -InterfaceAlias $
 
 ## 结果
 
-<img src="Z:\Public\images\image-20251021150244006.png" alt="image-20251021150244006" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251021150244006.png" alt="image-20251021150244006" style="zoom:50%;" />
 
 - 将上述一行命令填入 DDNS-GO 的“通过命令获取 IP（仅用 stdout 第一匹配）”后，**每次断线重连**都能稳定生成：
 

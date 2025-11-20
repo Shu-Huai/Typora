@@ -44,11 +44,11 @@
 - 大量命名实体：约 95% 的字幕至少包含 1 个实体，约 1/5 的词是实体；
 - 与 MSCOCO 等常见数据集相比，任务难度显著更高，更贴近真实新闻应用场景。
 
-<img src="Z:\Public\images\image-20251113185316460.png" alt="image-20251113185316460" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251113185316460.png" alt="image-20251113185316460" style="zoom:50%;" />
 
 ### 模型
 
-<img src="Z:\Public\images\image-20251113185549827.png" alt="image-20251113185549827" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251113185549827.png" alt="image-20251113185549827" style="zoom:50%;" />
 
 1. 首先生成模板说明，其中指示了命名实体的占位符及其相应的标签。
 2. 随后通过从文章中选择最佳匹配的实体进行替换，使我们的模型能够生成包含词汇外单词的说明
@@ -150,4 +150,4 @@ Good News
 
 ### 结果
 
-<img src="Z:\Public\images\image-20251113191152051.png" alt="image-20251113191152051" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251113191152051.png" alt="image-20251113191152051" style="zoom:50%;" />

@@ -38,4 +38,4 @@
 - 预计 12 月前初步给出有效方案
 - 12 月完善实验，并开始着手
 
-<img src="Z:\Public\images\9cb2352b-413c-406f-83fe-d55112eeaed9.png" alt="9cb2352b-413c-406f-83fe-d55112eeaed9" style="zoom:40%;" />
+<img src="http://public.file.lvshuhuai.cn/images\9cb2352b-413c-406f-83fe-d55112eeaed9.png" alt="9cb2352b-413c-406f-83fe-d55112eeaed9" style="zoom:40%;" />

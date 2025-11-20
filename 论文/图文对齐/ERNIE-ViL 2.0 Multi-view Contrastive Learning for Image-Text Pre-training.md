@@ -20,11 +20,11 @@
 
 本文提出 **ERNIE-ViL 2.0**：基于双编码器的**多视图对比学习**框架。训练时同时建模四类关系：**I2I（图↔图）**、**T2T（文↔文）**、**I2T（图→文）**、**T2I（文→图）**。每次迭代输入两种图像视图与两种文本视图（标题或标签），并对四类配对分别计算对比损失、按权重加和。 
 
-<img src="Z:\Public\images\image-20251011192603773.png" alt="image-20251011192603773" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251011192603773.png" alt="image-20251011192603773" style="zoom:50%;" />
 
 ### 构建多元化视图
 
-<img src="Z:\Public\images\image-20251011212842961.png" alt="image-20251011212842961" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251011212842961.png" alt="image-20251011212842961" style="zoom:50%;" />
 
 - **总体视图集**：从图像-标题数据构建**六个视图**——图像与标题各两种常规视图，外加由对象标签构成的**两种特殊文本视图**。
 - **图像视图（2 个）**：对同一图像做两次随机增强（如随机裁剪、抖动）得到$I_{v1}, I_{v2}$。
@@ -51,4 +51,4 @@
 
 ## 实验
 
-<img src="Z:\Public\images\image-20251013151414467.png" alt="image-20251013151414467" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251013151414467.png" alt="image-20251013151414467" style="zoom:50%;" />

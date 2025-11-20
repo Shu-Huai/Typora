@@ -16,7 +16,7 @@
 - 视觉表示学习主要有两条路线：**监督学习（image–label）** 与 **图文对比学习（image–text）**。前者依赖高质量标注，判别性强；后者来自大规模网络图文对，覆盖概念广、具零样本泛化，但判别性常不足。作者提出将两类数据统一到一个**图像–文本–标签空间**，以单一目标同时学习“广覆盖 + 强判别”的表征。  
 - 在该空间中，每个监督标签都可对应到一个**文本概念**，而每个图文对天然带有**唯一标签**，从而两类数据可在同一框架下处理。基于此提出 **Unified Contrastive Learning (UniCL)**，用统一的双向对比学习目标联合训练视觉与文本编码器，获得语义丰富且判别性强的表示，适用于零样本、线性探针、全量微调与迁移设置。  
 
-<img src="Z:\Public\images\image-20251013210142319.png" alt="image-20251013210142319" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251013210142319.png" alt="image-20251013210142319" style="zoom:50%;" />
 
 ## 主要方法
 
@@ -45,7 +45,7 @@
   P(i)=\{k\in B\mid y_k=y_i\},\qquad P(j)=\{k\in B\mid y_k=y_j\}.
   $$
 
-<img src="Z:\Public\images\image-20251013210323497.png" alt="image-20251013210323497" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251013210323497.png" alt="image-20251013210323497" style="zoom:50%;" />
 
 ### 统一图像-文本-标签对比
 
@@ -114,4 +114,4 @@ $$
 
 ## 实验
 
-<img src="Z:\Public\images\image-20251013210432825.png" alt="image-20251013210432825" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251013210432825.png" alt="image-20251013210432825" style="zoom:50%;" />
