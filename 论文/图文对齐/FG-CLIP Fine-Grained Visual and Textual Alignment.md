@@ -18,7 +18,7 @@
 
 ### 细粒度 CLIP
 
-<img src="Z:\Public\images\image-20251009162748456.png" alt="image-20251009162748456" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251009162748456.png" alt="image-20251009162748456" style="zoom:50%;" />
 
 FG-CLIP 采用两阶段训练：第一阶段进行全局对比学习（配合“长而细”的重描述数据）；第二阶段在此基础上加入区域对比学习与硬细粒度负样本学习，并以加权多任务目标联合优化：
 
@@ -64,11 +64,11 @@ $$
   5) 用 Llama-3.1-70B 为每个正样本生成 10 条困难负样本，人工抽检 3000 条中 98.9% 通过、1.1% 为可接受噪声。
 - 作用：为第二阶段的区域对齐与硬负样本学习提供大规模高质量的训练素材，使模型能在语义近邻中学会“细微区分”。
 
-<img src="Z:\Public\images\image-20251009164938351.png" alt="image-20251009164938351" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251009164938351.png" alt="image-20251009164938351" style="zoom:50%;" />
 
-<img src="Z:\Public\images\image-20251009165003075.png" alt="image-20251009165003075" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251009165003075.png" alt="image-20251009165003075" style="zoom:50%;" />
 
 ## 实验
 
-<img src="Z:\Public\images\image-20251009165034599.png" alt="image-20251009165034599" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251009165034599.png" alt="image-20251009165034599" style="zoom:50%;" />
 

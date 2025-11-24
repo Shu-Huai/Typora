@@ -9,7 +9,7 @@
 
 还有一个**挑战-应答**的通用算法 **OCRA**（RFC 6287），可支持双向认证与交易签名。
 
-<img src="Z:\Public\images\How-OTP-Works.png" alt="What is a One-Time Password (OTP) - SSL.com" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\How-OTP-Works.png" alt="What is a One-Time Password (OTP) - SSL.com" style="zoom:50%;" />
 
 ## 主流算法与数学要点
 

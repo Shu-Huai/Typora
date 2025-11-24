@@ -15,7 +15,7 @@
 - 但单一全局向量往往难以覆盖复杂样本的细粒度信息
 - MVAM 的核心思想是：为同一样本学习**多视角（multi-view）表示**，通过注意力在图像/文本的隐藏状态上生成多份互补特征并用于匹配。
 
-<img src="Z:\Public\images\image-20251013172046332.png" alt="image-20251013172046332" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251013172046332.png" alt="image-20251013172046332" style="zoom:50%;" />
 
 ## 主要方法
 
@@ -53,7 +53,7 @@ $$
 
 ### 使用多视角注意力方法（MVAM）进行编码
 
-<img src="Z:\Public\images\image-20251013172845166.png" alt="image-20251013172845166" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251013172845166.png" alt="image-20251013172845166" style="zoom:50%;" />
 
 - **思路**：在编码器输出的隐藏状态上，引入 $m$ 个可学习**视角代码** $c^1_v,\dots,c^m_v \in\mathbb{R}^D$（文本端同理），作为查询计算注意力，得到 $m$ 个视角特征并拼接为最终表示。 
 
@@ -90,4 +90,4 @@ $$
 
 ### 结果
 
-<img src="Z:\Public\images\image-20251013174709691.png" alt="image-20251013174709691" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251013174709691.png" alt="image-20251013174709691" style="zoom:50%;" />

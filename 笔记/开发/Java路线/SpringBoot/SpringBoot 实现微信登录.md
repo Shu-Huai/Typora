@@ -8,11 +8,11 @@
 
 点击登录会弹出弹窗，需要获取用户手机号进行登录。
 
-![图片](Z:\Public\images\640.png)
+![图片](http://public.file.lvshuhuai.cn/images\640.png)
 
 微信登录业务逻辑规则
 
-![图片](Z:\Public\images\640-1759986798069-1.png)
+![图片](http://public.file.lvshuhuai.cn/images\640-1759986798069-1.png)
 
 ## 思路说明
 
@@ -22,7 +22,7 @@ https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/login.ht
 
 微信官方推荐登录流程：
 
-![图片](Z:\Public\images\640-1759986798069-2.png)
+![图片](http://public.file.lvshuhuai.cn/images\640-1759986798069-2.png)
 
 注意点：
 
@@ -34,7 +34,7 @@ https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/login.ht
 
 创建一张表，用于存储用户的信息以及`openId`。
 
-![图片](Z:\Public\images\640-1759986798069-3.png)
+![图片](http://public.file.lvshuhuai.cn/images\640-1759986798069-3.png)
 
 建表语句：
 
@@ -95,27 +95,27 @@ CREATE TABLE "family_member" (
 
 测试阶段使用测试号，在微信小程序后台获取 appId 和小程序秘钥，前端和后端都需要这两个参数。
 
-![图片](Z:\Public\images\640-1759986798069-4.png)
+![图片](http://public.file.lvshuhuai.cn/images\640-1759986798069-4.png)
 
 ### 基础环境说明
 
 修改请求路径
 
-![图片](Z:\Public\images\640-1759986798069-5.png)
+![图片](http://public.file.lvshuhuai.cn/images\640-1759986798069-5.png)
 
 本地开发忽略 https 校验
 
-![图片](Z:\Public\images\640-1759986798069-6.png)
+![图片](http://public.file.lvshuhuai.cn/images\640-1759986798069-6.png)
 
 修改小程序环境的 APPID，改为自己申请的测试号 APPID。
 
-![图片](Z:\Public\images\640-1759986798069-7.png)
+![图片](http://public.file.lvshuhuai.cn/images\640-1759986798069-7.png)
 
 ## 功能实现
 
 ### 实现思路
 
-![图片](Z:\Public\images\640-1759986798069-8.png)
+![图片](http://public.file.lvshuhuai.cn/images\640-1759986798069-8.png)
 
 ### 控制层
 
@@ -337,7 +337,7 @@ public class WechatServiceImpl implements WechatService {
 
 上面的代码需要读取获取 `appId` 和 `appSecret`，所以我们在 `application.yml` 配置对于配置。
 
-![图片](Z:\Public\images\640-1759986798069-9.png)
+![图片](http://public.file.lvshuhuai.cn/images\640-1759986798069-9.png)
 
 ### 微信登录业务开发
 
@@ -515,11 +515,11 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
 
 用户登录成功之后，返回前端一个 token，这个 token 就是用来验证用户信息的，用户点击小程序中的其他操作，就会 token 携带请求头 `header` 中，方便后台去验证获取用户信息，流程如下：
 
-![图片](Z:\Public\images\640-1759986798070-10.png)
+![图片](http://public.file.lvshuhuai.cn/images\640-1759986798070-10.png)
 
 如果要验证用户的 token，我们可以使用拦截器实现。
 
-![图片](Z:\Public\images\640-1759986798070-11.png)
+![图片](http://public.file.lvshuhuai.cn/images\640-1759986798070-11.png)
 
 代码如下
 

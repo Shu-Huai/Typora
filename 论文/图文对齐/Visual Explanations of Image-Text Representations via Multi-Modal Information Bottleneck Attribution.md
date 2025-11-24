@@ -55,7 +55,7 @@ $$
 
 > 实际上简单理解：在图像/文本特征里放一排**可学习的阀门**（门控 + 噪声），训练它们：**只要能保持与“另一模态”一致的信息就放行，其他一律压掉**。最后“被保留下来的那部分”就是归因。
 
-<img src="Z:\Public\images\image-20251029215121009.png" alt="image-20251029215121009" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251029215121009.png" alt="image-20251029215121009" style="zoom:50%;" />
 
 #### 不看公式版
 
@@ -111,6 +111,6 @@ $$
 
 ## 实验
 
-<img src="Z:\Public\images\image-20251029211554458.png" alt="image-20251029211554458" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251029211554458.png" alt="image-20251029211554458" style="zoom:50%;" />
 
-<img src="Z:\Public\images\image-20251029220834714.png" alt="image-20251029220834714" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251029220834714.png" alt="image-20251029220834714" style="zoom:50%;" />

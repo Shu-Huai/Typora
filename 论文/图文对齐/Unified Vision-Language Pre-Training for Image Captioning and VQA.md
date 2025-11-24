@@ -32,7 +32,7 @@ H^0=[r_{[\text{CLS}]}, r_1,\dots,r_N, y_{[\text{SEP}]}, y_1,\dots,y_T,y_{[\text{
 $$
 整个网络由多层 Transformer 组成，自注意力掩码控制可见上下文。
 
-<img src="Z:\Public\images\image-20251022154706519.png" alt="image-20251022154706519" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251022154706519.png" alt="image-20251022154706519" style="zoom:50%;" />
 
 #### 预训练目标
 
@@ -65,4 +65,4 @@ $$
 
 ### 结果
 
-<img src="Z:\Public\images\image-20251022154955924.png" alt="image-20251022154955924" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251022154955924.png" alt="image-20251022154955924" style="zoom:50%;" />

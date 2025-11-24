@@ -22,7 +22,7 @@
 - 并提出两级架构 **Prov-GigaPath / GigaPath**：先用 **DINOv2-ViT** 得到 tile 表征，再用基于 **LongNet** 的**整片级编码器**对**超长序列**进行上下文建模，配合 MAE 式掩码重建进行自监督预训练。
 - 整体在 26 个任务（9 个分型 + 17 个 pathomics/分子预测）上评测，**25/26** 达到 SOTA。
 
-<img src="Z:\Public\images\image-20251021184341704.png" alt="image-20251021184341704" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251021184341704.png" alt="image-20251021184341704" style="zoom:50%;" />
 
 ### 预处理 WSI 图像
 
@@ -55,14 +55,14 @@
 
 ### 癌症亚型分型
 
-<img src="Z:\Public\images\image-20251021190255822.png" alt="image-20251021190255822" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251021190255822.png" alt="image-20251021190255822" style="zoom:50%;" />
 
 - **有监督微调**：在 Prov-Path 的 **9 个主要癌种**分型任务上，Prov-GigaPath 全部**优于对手**，其中 **6 个**癌种相对第二名有**显著提升**；改进主要来自**LongNet 的整片级聚合**。
 - **消融**：将预训练的 LongNet 换为随机初始化，平均 AUROC **0.903 → 0.886**（**P<2×10⁻³**）；冻结/解冻 LongNet 表现接近，说明**预训练已学到高质量整片表征**。
 
 ### 视觉-语言对齐
 
-<img src="Z:\Public\images\image-20251021190235124.png" alt="image-20251021190235124" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251021190235124.png" alt="image-20251021190235124" style="zoom:50%;" />
 
 - **数据与清洗**：构建 **17,383 对**“切片-病理报告”配对；先以少量人工清洗样本为**ICL 模板**，用 **GPT-3.5** 批量清洗，得到聚焦诊断的信息；文本嵌入用 **text-embedding-ada-002**。
 - **训练**：采用 OpenCLIP 框架，视觉编码器为继续预训练的 Prov-GigaPath，文本侧用 **PubMedBERT**；学习率 **5×10⁻⁴**、batch **32**、10 个 epoch。
@@ -70,4 +70,4 @@
 
 ## 实验
 
-<img src="Z:\Public\images\image-20251021190328033.png" alt="image-20251021190328033" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251021190328033.png" alt="image-20251021190328033" style="zoom:50%;" />

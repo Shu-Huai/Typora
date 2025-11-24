@@ -18,9 +18,9 @@ GPT‑5 由一个统一系统提供支持，它根据任务难度自动在快速
 
 当 GPT-5 使用其推理模式时，可以在它工作时看到一个精简的推理视图，并可以选择**跳过** 。点击**跳过**即可切换回 GPT-5 聊天模式，立即获得答案，而无需等待响应。
 
-<img src="Z:\Public\images\1760162913981-88.png" alt="img" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\1760162913981-88.png" alt="img" style="zoom:50%;" />
 
-<img src="Z:\Public\images\1760162913980-71.png" alt="img" style="zoom: 33%;" />
+<img src="http://public.file.lvshuhuai.cn/images\1760162913980-71.png" alt="img" style="zoom: 33%;" />
 
 也可以直接从模型选择器的顶部选择其他 GPT-5 选项：
 
@@ -73,9 +73,9 @@ GPT‑5 支持原生影片分析
 - **Plus / 商业版：**o3、o4-mini、GPT-4.1
 - **Pro：**o3、o4-mini、GPT-4.1、GPT-4.5
 
-<img src="Z:\Public\images\1760162913980-72.png" alt="img" style="zoom: 67%;" />
+<img src="http://public.file.lvshuhuai.cn/images\1760162913980-72.png" alt="img" style="zoom: 67%;" />
 
-<img src="Z:\Public\images\1760162913980-73.png" alt="img" style="zoom:33%;" />
+<img src="http://public.file.lvshuhuai.cn/images\1760162913980-73.png" alt="img" style="zoom:33%;" />
 
 如果关闭**显示其他模型** ，使用这些模型的旧聊天将转而使用最接近的 GPT-5 版本打开。具体来说：
 
@@ -91,7 +91,7 @@ GPT‑5 支持原生影片分析
 
 将鼠标悬停在消息上，点击**更多操作** （⋯），然后选择**在新聊天中分支** ，即可从该点开始一个独立的对话。
 
-<img src="Z:\Public\images\1760162913980-74.png" alt="img" style="zoom: 33%;" />
+<img src="http://public.file.lvshuhuai.cn/images\1760162913980-74.png" alt="img" style="zoom: 33%;" />
 
 此功能现已向所有**登录**的**网页版**用户开放。
 
@@ -137,7 +137,7 @@ GPT‑5 支持原生影片分析
 
 根据任务选择合适的个性化语气，例如用 **Nerd（技术宅） 模式解释技术问题**，用 **Listener（倾听者） 模式提供情感支持**
 
-<img src="Z:\Public\images\1760162913980-75.png" alt="img" style="zoom: 67%;" />
+<img src="http://public.file.lvshuhuai.cn/images\1760162913980-75.png" alt="img" style="zoom: 67%;" />
 
 ### 配色
 
@@ -145,7 +145,7 @@ GPT‑5 支持原生影片分析
 
 用户可自定义对话气泡、声音按钮等元素的颜色，以提供更舒适的界面
 
-<img src="Z:\Public\images\1760162913980-76.png" alt="img" style="zoom: 33%;" />
+<img src="http://public.file.lvshuhuai.cn/images\1760162913980-76.png" alt="img" style="zoom: 33%;" />
 
 ## ChatGPT Agent 与自主代理
 
@@ -157,7 +157,7 @@ GPT‑5 支持原生影片分析
 
 它可以在虚拟电脑上浏览网页、过滤信息、运行代码、使用终端，并结合 API 调用完成复杂任务
 
-<img src="Z:\Public\images\1760162913980-77.png" alt="img" style="zoom: 67%;" />
+<img src="http://public.file.lvshuhuai.cn/images\1760162913980-77.png" alt="img" style="zoom: 67%;" />
 
 #### 自动选择工具
 
@@ -182,7 +182,7 @@ Tasks 允许用户让 ChatGPT 在特定时间或条件下自动运行提示，�
 1. 在设置→通知→管理任务可以查看、暂停或删除任务
 2. 也可在对话中的三点菜单编辑名称、指令和时间
 
-<img src="Z:\Public\images\1760162913980-78.png" alt="img" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\1760162913980-78.png" alt="img" style="zoom:50%;" />
 
 ### 限制
 
@@ -196,7 +196,7 @@ Tasks 目前**不支持语音聊天、文件上传和 GPTs** 等功能
 
 该功能为 Plus/Enterprise 用户开放，用于教学、设计、游戏规则说明等场景
 
-![img](Z:\Public\images\1760162913980-79.png)
+![img](http://public.file.lvshuhuai.cn/images\1760162913980-79.png)
 
 ## Canvas 编辑器
 
@@ -288,7 +288,7 @@ Projects 是智能工作区，用于集中管理长期任务的聊天、文件�
 
 连接器允许 ChatGPT 安全地连接第三方应用（如 Google Drive、GitHub、Dropbox、SharePoint 等），在聊天中查询文件、抓取实时数据或做深入研究
 
-<img src="Z:\Public\images\1760162913980-80.png" alt="img" style="zoom:67%;" />
+<img src="http://public.file.lvshuhuai.cn/images\1760162913980-80.png" alt="img" style="zoom:67%;" />
 
 #### 使用方式
 
@@ -308,11 +308,11 @@ Projects 是智能工作区，用于集中管理长期任务的聊天、文件�
 
 1. **Chat connectors** 用于快速检索文件或信息
 
-    <img src="Z:\Public\images\1760162913981-81.png" alt="img" style="zoom:33%;" />
+    <img src="http://public.file.lvshuhuai.cn/images\1760162913981-81.png" alt="img" style="zoom:33%;" />
 
 2. **Deep research connectors** 用于**跨多个来源进行深度分析并提供带引文的报告**
 
-    <img src="Z:\Public\images\1760162913981-82.png" alt="img" style="zoom: 33%;" />
+    <img src="http://public.file.lvshuhuai.cn/images\1760162913981-82.png" alt="img" style="zoom: 33%;" />
 
 3. **Synced connectors** 提前同步和索引选定的文件，使回答更快并可脱机访问
 
@@ -328,7 +328,7 @@ Projects 是智能工作区，用于集中管理长期任务的聊天、文件�
 
 补充-闪卡学习功能：[ChatGPT上线闪卡学习新功能](https://mp.weixin.qq.com/s?__biz=Mzk2NDQ4ODYxMw==&mid=2247483712&idx=1&sn=ed8bf2229767b71a75cce1c61277f7ee&scene=21#wechat_redirect)
 
-![img](Z:\Public\images\1760162913981-83.png)
+![img](http://public.file.lvshuhuai.cn/images\1760162913981-83.png)
 
 ### 功能
 
@@ -336,13 +336,13 @@ Study Mode 是互动式学习体验
 
 启用后，ChatGPT 会用**苏格拉底式提问引导思考**，将**复杂概念分解为易于理解的部分**，并**根据用户的学习水平提供个性化反馈**
 
-![img](Z:\Public\images\1760162913981-84.png)
+![img](http://public.file.lvshuhuai.cn/images\1760162913981-84.png)
 
 ### 使用方法
 
 在工具菜单中选择“研究与学习”
 
-![img](Z:\Public\images\1760162913981-85.png)
+![img](http://public.file.lvshuhuai.cn/images\1760162913981-85.png)
 
 说明**学习目标**、**水平**、**截止日期**并**上传教材**
 
@@ -364,7 +364,7 @@ Study Mode 只能在**普通对话中使用**，**项目中无法启用**（实�
 
 在移动应用或桌面网页中点击聊天窗口右下角的语音图标即可开始语音对话
 
-<img src="Z:\Public\images\1760162913981-86.png" alt="img" style="zoom: 50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\1760162913981-86.png" alt="img" style="zoom: 50%;" />
 
 首次使用需要选择语音并授予麦克风权限
 
@@ -376,7 +376,7 @@ Study Mode 只能在**普通对话中使用**，**项目中无法启用**（实�
 
 用户可选择九种不同风格的声音，如 Arbor、Breeze、Cove、Ember 等
 
-<img src="Z:\Public\images\1760162913981-87.png" alt="img" style="zoom: 33%;" />
+<img src="http://public.file.lvshuhuai.cn/images\1760162913981-87.png" alt="img" style="zoom: 33%;" />
 
 **付费用户**每日语音通话**几乎无限制**
 

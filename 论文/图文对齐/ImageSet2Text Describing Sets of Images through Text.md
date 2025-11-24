@@ -6,7 +6,7 @@
 - 通过一组图片生成一段文本描述
 - Arxiv
 
-<img src="Z:\Public\images\image-20251013141003694.png" alt="image-20251013141003694" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251013141003694.png" alt="image-20251013141003694" style="zoom:50%;" />
 
 ## 摘要
 
@@ -27,7 +27,7 @@
     2. **Look and Keep**（在全量集上验证并更新图） →
     3. 直至满足停止条件后，从 **$G$** 生成描述。 
 
-<img src="Z:\Public\images\image-20251013155850433.png" alt="image-20251013155850433" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251013155850433.png" alt="image-20251013155850433" style="zoom:50%;" />
 
 ### 阶段一：子集上产生并扩展假设
 
@@ -71,4 +71,4 @@
 
 ## 实验
 
-<img src="Z:\Public\images\image-20251013155933180.png" alt="image-20251013155933180" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251013155933180.png" alt="image-20251013155933180" style="zoom:50%;" />

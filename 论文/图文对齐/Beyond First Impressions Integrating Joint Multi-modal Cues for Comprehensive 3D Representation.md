@@ -19,7 +19,7 @@
 
 ## 主要方法
 
-<img src="Z:\Public\images\image-20251022141209874.png" alt="image-20251022141209874" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251022141209874.png" alt="image-20251022141209874" style="zoom:50%;" />
 
 ### 前提条件
 
@@ -89,4 +89,4 @@ $$
 
 ### 结果
 
-<img src="Z:\Public\images\image-20251022142302179.png" alt="image-20251022142302179" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251022142302179.png" alt="image-20251022142302179" style="zoom:50%;" />

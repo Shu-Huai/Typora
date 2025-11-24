@@ -4,7 +4,7 @@
 
 - 谁在大型语言模型中推理？
 - Arxiv
-- PRCV 2025
+- NIPS 2025
 - 做了一些实验，得出自注意力机制中的 `p_proj` 层是大语言模型推理能力的关键部分
 
 ## 摘要
@@ -21,7 +21,7 @@
 
 ### 总览
 
-<img src="Z:\Public\images\image-20251020133410528.png" alt="image-20251020133410528" style="zoom: 67%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251020133410528.png" alt="image-20251020133410528" style="zoom: 67%;" />
 
 1. **Delta 听诊器**：比较“基座 A”与“推理模型 B”的逐模块权重差异，找出变化最显著的部件；
 2. **Merge 听诊器**：把 B 的某个模块（如 o_proj）替换到 A 上，无需再训练，直接观察推理与对话表现的变化；
@@ -50,8 +50,8 @@
 
 ## 实验
 
-<img src="Z:\Public\images\image-20251020133641948.png" alt="image-20251020133641948" style="zoom:67%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251020133641948.png" alt="image-20251020133641948" style="zoom:67%;" />
 
-<img src="Z:\Public\images\image-20251020133722295.png" alt="image-20251020133722295" style="zoom:67%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251020133722295.png" alt="image-20251020133722295" style="zoom:67%;" />
 
-<img src="Z:\Public\images\image-20251020133751341.png" alt="image-20251020133751341" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251020133751341.png" alt="image-20251020133751341" style="zoom:50%;" />
