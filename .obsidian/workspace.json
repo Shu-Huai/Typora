@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "论文/图文对齐/Visual Storytelling.md",
+                "file": "笔记/开发/算法/停机问题.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Visual Storytelling"
+              "title": "停机问题"
             }
           }
         ],
@@ -182,11 +182,15 @@
   "active": "29dd8a8e2e549063",
   "lastOpenFiles": [
     "笔记/开发/实现原理/力扣复杂度分析.md",
+    "论文/图文对齐/Visual Storytelling.md",
+    "笔记/开发/算法/停机问题.md",
+    "笔记/开发/算法/Untitled.md",
+    "笔记/开发/算法",
+    "笔记/开发/Untitled Folder",
     "笔记/开发/实现原理/Untitled.md",
     "笔记/开发/实现原理/力扣复杂度分析",
     "笔记/开发/实现原理/Untitled Folder",
     "笔记/开发/实现原理",
-    "笔记/开发/Untitled Folder",
     "LeetCode/443. 压缩字符串.md",
     "LeetCode/44..md",
     "LeetCode/Untitled.md",
@@ -208,9 +212,6 @@
     "组会/Java 后端学习路线.md",
     "Java 后端学习路线.md",
     "组会/2025.10.30 医学多模态小组讨论.md",
-    "2025.10.30 医学多模态小组讨论.md",
-    "论文/图文对齐/VIST-GPT Ushering in the Era of Visual Storytelling with LLMs.md",
-    "论文/图文对齐/Untitled.md",
     "笔记/人工智能",
     "笔记/Untitled Folder",
     "杂项",
@@ -220,7 +221,6 @@
     "高等数学（1）.png",
     "笔记/考研/assets/高等数学（1）/file-20241201234837926.png",
     "笔记/考研/assets/高等数学（1）/file-20241201234717504.png",
-    "笔记/考研/assets/高等数学（1）",
-    "笔记/考研/assets"
+    "笔记/考研/assets/高等数学（1）"
   ]
 }
