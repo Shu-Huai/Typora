@@ -1,0 +1,7 @@
+# 1218-NEUNET-D-25-03023_R1_reviewer
+
+This paper proposes a multi-task learning framework for mediastinal lymph node metastasis prediction based on chest CT images. The authors design a Dual-control Branch Routing Gate to guide feature routing across tasks and a Dual-Dimensional Gradient Balancing method to mitigate gradient conflicts in multi-task learning. The authors have thoroughly revised the manuscript in response to the reviewers’ comments. Yet there are still some points to be noticed.
+
+1. In 2.3, the sentence "However, the methods described fail to consider the data distribution characteristics among tasks." appears twice.
+2. The description of the gating mechanism of MOEs in the Introduction—specifically the claim that "models overlook the allocation and weighting of similar features across related tasks in their gating mechanisms"—is insufficiently detailed, leading to a lack of coherence in the contextual logic.
+3. The description of the dataset in the current Section 4.1 is relatively general. Since the paper repeatedly emphasizes the "inter-task data distribution characteristics" and discusses issues such as task dominance and uneven cross-category performance, adding a table illustrating the sample distribution in Section 4.1 would significantly enhance the persuasiveness of the paper.
