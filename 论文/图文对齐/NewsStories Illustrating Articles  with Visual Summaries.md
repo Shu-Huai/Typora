@@ -62,13 +62,13 @@
 - 每个故事簇的文章数差异很大：从 1 篇到约 4.4 万篇不等，文章特别多的簇多来自娱乐领域（如综艺节目），这些极端簇在最终过滤过程中被进一步剔除。
 - 大多数故事簇包含 **1–20 张图片**，为“长文 + 多张互补图片”的建模场景提供了足够但不冗余的数据。
 
-<img src="Z:\Public\images\image-20251203130429697.png" alt="image-20251203130429697" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251203130429697.png" alt="image-20251203130429697" style="zoom:50%;" />
 
 ### 用视觉摘要为文章配图
 
 作者将任务形式化为：**在给定若干候选“图像集合”的前提下，为一篇文章检索出最相关、最能“视觉总结”其内容的一组图片**，即“文章 → 图像集合检索”。
 
-<img src="Z:\Public\images\image-20251203132011899.png" alt="image-20251203132011899" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251203132011899.png" alt="image-20251203132011899" style="zoom:50%;" />
 
 - 设一个故事包含相关文章集合 $A$ 与图片集合 $I$（大小为 $|I| = N_I$），目标是让每篇文章 $L \in A$ 与其整个图片集合 $I$ 的语义相似度最大。文本编码器 $f_{\theta_L}$ 将文章或句子编码为向量集合 $x$，图像编码器 $g_{\theta_I}$ 将每张图编码为向量 $y_i$。
 - 检索时，模型需要输出一个“汇聚后的图像集合表示”，既能体现集合内部各图之间的互补关系，又要与文本表示对齐。
@@ -114,4 +114,4 @@ $$
 
 ## 实验
 
-<img src="Z:\Public\images\image-20251203133204561.png" alt="image-20251203133204561" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251203133204561.png" alt="image-20251203133204561" style="zoom:50%;" />

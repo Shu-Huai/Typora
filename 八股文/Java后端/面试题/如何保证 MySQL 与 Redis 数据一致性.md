@@ -38,7 +38,7 @@
 
 > 读多写少，优先推荐的通用方案。
 
-<img src="Z:\Public\images\image-20251201211911775.png" alt="image-20251201211911775" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251201211911775.png" alt="image-20251201211911775" style="zoom:50%;" />
 
 ### 核心思想
 
@@ -115,7 +115,7 @@
 
 > 目标：在高频写场景下，**强提升写性能**，同时保证最终一致性。
 
-<img src="Z:\Public\images\image-20251201211931365.png" alt="image-20251201211931365" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251201211931365.png" alt="image-20251201211931365" style="zoom:50%;" />
 
 ### 场景举例：直播点赞 / 实时计数器
 
@@ -186,7 +186,7 @@
 
 ## 方案三：双写 TCC 方案（强一致）
 
-<img src="Z:\Public\images\image-20251201211837586.png" alt="image-20251201211837586" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20251201211837586.png" alt="image-20251201211837586" style="zoom:50%;" />
 
 > 目标：**牺牲部分性能和复杂度，换取强一致性**，适用于转账、支付等金融级场景。
 
