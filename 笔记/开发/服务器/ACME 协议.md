@@ -18,7 +18,7 @@ ACME 由 [[Let's Encrypt]] 主导提出并推动标准化，目前已成为互�
 - **客户端程序**（如 Certbot、[[acme.sh]]）通过 ACME 协议与 CA 通信
 - 全流程**无需人工介入**，即可完成证书的生命周期管理
 
-![自动化证书管理-ACME-GlobalSign](Z:\Public\images\ACME_graphic.webp)
+![自动化证书管理-ACME-GlobalSign](http://public.file.lvshuhuai.cn/images\ACME_graphic.webp)
 
 ## ACME 的核心特性（Key Features）
 

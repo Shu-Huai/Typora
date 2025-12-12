@@ -10,7 +10,7 @@
 
 Let's Encrypt 通过 [[ACME 协议]]实现证书的自动申请与续签，彻底改变了传统 [[HTTPS]] 证书“昂贵 + 繁琐 + 易过期”的问题。
 
-![使用ACME部署HTTPS证书| DARK CODE](Z:\Public\images\images.png)
+![使用ACME部署HTTPS证书| DARK CODE](http://public.file.lvshuhuai.cn/images\images.png)
 
 ## Let's Encrypt 解决了什么问题
 
