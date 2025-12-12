@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "笔记/经典算法/停机问题.md",
+                "file": "笔记/开发/服务器/ACME 协议.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "停机问题"
+              "title": "ACME 协议"
             }
           }
         ],
@@ -181,6 +181,11 @@
   },
   "active": "586eadcdb132fe81",
   "lastOpenFiles": [
+    "笔记/开发/服务器/Let’s Encrypt.md",
+    "笔记/开发/服务器/ACME 协议.md",
+    "笔记/经典算法/停机问题.md",
+    "笔记/开发/服务器/Untitled.md",
+    "笔记/开发/服务器/ACME.md",
     "组会/2025.12.11 组会进展.md",
     "组会/Untitled 9 (copy).md",
     "组会/Untitled 9.md",
@@ -196,17 +201,12 @@
     "八股文/Java后端/面试题/为什么有了 HTTP 还需要 WebSocket.md",
     "八股文/Java后端/面试题/为什么 Spring 更推荐在构造函数上用 @Autowired 注入依赖.md",
     "笔记/开发/实现原理/力扣复杂度分析.md",
-    "笔记/经典算法/停机问题.md",
     "八股文/Java后端/面试题/如何保证 MySQL 与 Redis 数据一致性.md",
     "笔记/开发/数据库/MySQL.md",
     "笔记/开发/数据库/Redis/Redis简介.md",
     "笔记/开发/Redis.md",
     "笔记/开发/Java路线/SpringBoot/SpringBoot 4.0 新特性.md",
     "笔记/开发/Java路线/虚拟线程.md",
-    "笔记/开发/Java路线/Untitled.md",
-    "笔记/开发/Java路线/JVM 学习/JVM22——分析GC日志.md",
-    "笔记/开发/Java路线/JVM 学习/JVM21——JVM运行时参数.md",
-    "笔记/开发/Java路线/JVM 学习/JVM20——JVM监控及诊断工具 GUI 篇.md",
     "笔记/开发/Java路线/JVM 学习",
     "笔记/开发/Java路线/Java 基础语法",
     "笔记/经典算法",
