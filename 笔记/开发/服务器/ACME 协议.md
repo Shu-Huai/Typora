@@ -2,21 +2,23 @@
 
 ## 简介
 
-**ACME**（Automatic Certificate Management Environment）是一套用于**自动化 TLS/HTTPS 证书申请、验证、签发与续签**的开放标准协议。
+**ACME**（Automatic Certificate Management Environment）是一套用于**自动化 TLS/[[HTTPS]] 证书申请、验证、签发与续签**的开放标准协议。
 
-它的核心目标是解决传统 HTTPS 证书管理中的几个痛点：
+它的核心目标是解决传统 [[HTTPS]] 证书管理中的几个痛点：
 
 - 证书申请流程复杂（人工提交 CSR、人工验证）
-- 证书更新容易被遗忘（导致网站 HTTPS 失效）
+- 证书更新容易被遗忘（导致网站 [[HTTPS]] 失效）
 - 自动化部署困难（不适合大规模、云原生环境）
 
-ACME 由 [[Let’s Encrypt]] 主导提出并推动标准化，目前已成为互联网 HTTPS 证书自动化管理的事实标准，并被写入 **IETF RFC 8555**。
+ACME 由 [[Let's Encrypt]] 主导提出并推动标准化，目前已成为互联网 [[HTTPS]] 证书自动化管理的事实标准，并被写入 **IETF RFC 8555**。
 
 在 ACME 体系中：
 
 - **证书颁发机构（CA）** 提供 ACME Server（如 Let’s Encrypt）
-- **客户端程序**（如 Certbot、acme.sh）通过 ACME 协议与 CA 通信
+- **客户端程序**（如 Certbot、[[acme.sh]]）通过 ACME 协议与 CA 通信
 - 全流程**无需人工介入**，即可完成证书的生命周期管理
+
+![自动化证书管理-ACME-GlobalSign](Z:\Public\images\ACME_graphic.webp)
 
 ## ACME 的核心特性（Key Features）
 
@@ -181,7 +183,7 @@ _acme-challenge.example.com = <token>
 
 适合：**服务器 / 生产环境**
 
-### acme.sh
+### [[acme.sh]]
 
 - 纯 Shell 实现
 - 非常轻量
@@ -213,10 +215,10 @@ _acme-challenge.example.com = <token>
 
 - **基础设施自动化的一部分**
 - **DevOps / SRE 标配组件**
-- **Kubernetes / Ingress / 网关 HTTPS 的底座**
+- **Kubernetes / Ingress / 网关 [[HTTPS]] 的底座**
 
 例如：
 
 - Kubernetes + cert-manager（本质就是 ACME 客户端）
 - CDN / 反向代理自动证书
-- NAS / 家庭服务器 HTTPS
+- NAS / 家庭服务器 [[HTTPS]]

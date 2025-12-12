@@ -1,18 +1,20 @@
-# Let’s Encrypt
+# Let's Encrypt
 
-## Let’s Encrypt 是什么
+## Let's Encrypt 是什么
 
-**Let’s Encrypt** 是一个**免费、自动化、开放的证书颁发机构（CA, Certificate Authority）**，由 **ISRG（Internet Security Research Group）** 运营。
+**Let's Encrypt** 是一个**免费、自动化、开放的证书颁发机构（CA, Certificate Authority）**，由 **ISRG（Internet Security Research Group）** 运营。
 
 它的目标只有一个：
 
-> **让整个互联网默认使用 HTTPS，并且“人人都用得起、用得下、用得久”。**
+> **让整个互联网默认使用 [[HTTPS]]，并且“人人都用得起、用得下、用得久”。**
 
-Let’s Encrypt 通过 [[ACME 协议]]实现证书的自动申请与续签，彻底改变了传统 HTTPS 证书“昂贵 + 繁琐 + 易过期”的问题。
+Let's Encrypt 通过 [[ACME 协议]]实现证书的自动申请与续签，彻底改变了传统 [[HTTPS]] 证书“昂贵 + 繁琐 + 易过期”的问题。
 
-## Let’s Encrypt 解决了什么问题
+![使用ACME部署HTTPS证书| DARK CODE](Z:\Public\images\images.png)
 
-在 Let’s Encrypt 出现之前，HTTPS 存在几个现实问题：
+## Let's Encrypt 解决了什么问题
+
+在 Let's Encrypt 出现之前，[[HTTPS]] 存在几个现实问题：
 
 1. **证书贵**
     - 商用证书动辄几百到几千元 / 年
@@ -24,16 +26,16 @@ Let’s Encrypt 通过 [[ACME 协议]]实现证书的自动申请与续签，彻
 4. **自动化困难**
     - 不适合大规模网站、云环境
 
-Let’s Encrypt 的核心改变：
+Let's Encrypt 的核心改变：
 
-| 传统 CA           | Let’s Encrypt     |
+| 传统 CA           | Let's Encrypt     |
 | ----------------- | ----------------- |
 | 收费              | 免费              |
 | 人工流程          | 全自动            |
 | 长期证书（1~2年） | 短期证书（90 天） |
 | 人工续签          | 强制自动续签      |
 
-## Let’s Encrypt 的核心特点
+## Let's Encrypt 的核心特点
 
 ### 免费（Free）
 
@@ -41,11 +43,11 @@ Let’s Encrypt 的核心改变：
 - 没有隐藏费用
 - 没有“试用期”
 
-这是 HTTPS 普及的前提条件。
+这是 [[HTTPS]] 普及的前提条件。
 
 ### 自动化（Automated）
 
-Let’s Encrypt **不提供网页后台人工申请证书**。
+Let's Encrypt **不提供网页后台人工申请证书**。
 
 唯一方式：
 
@@ -72,11 +74,11 @@ Let’s Encrypt **不提供网页后台人工申请证书**。
 - 私钥泄露风险窗口小
 - 减少“多年未更新证书”的安全隐患
 
-## 四、Let’s Encrypt 的证书类型与限制
+## 四、Let's Encrypt 的证书类型与限制
 
 ### 证书类型：仅提供 DV 证书
 
-Let’s Encrypt **只提供 DV（Domain Validation）证书**：
+Let's Encrypt **只提供 DV（Domain Validation）证书**：
 
 - 只验证“你是否控制这个域名”
 - 不验证公司、组织、个人身份
@@ -101,7 +103,7 @@ Let’s Encrypt **只提供 DV（Domain Validation）证书**：
 
 ### 速率限制（Rate Limits，必须了解）
 
-Let’s Encrypt 对申请频率有限制，防止滥用：
+Let's Encrypt 对申请频率有限制，防止滥用：
 
 常见限制（大致理解即可）：
 
@@ -117,7 +119,7 @@ Let’s Encrypt 对申请频率有限制，防止滥用：
 - **测试阶段使用 Staging 环境**
 - 生产环境再切换到正式环境
 
-## Let’s Encrypt 的技术架构
+## Let's Encrypt 的技术架构
 
 ### 核心组件
 
@@ -135,25 +137,25 @@ Let’s Encrypt 对申请频率有限制，防止滥用：
 ```
 你的域名证书
    ↓
-Let’s Encrypt 中间证书
+Let's Encrypt 中间证书
    ↓
 ISRG Root X1
    ↓
 浏览器 / 操作系统信任库
 ```
 
-只要系统信任 ISRG Root，就能信任 Let’s Encrypt 证书。
+只要系统信任 ISRG Root，就能信任 Let's Encrypt 证书。
 
-## Let’s Encrypt 的工作原理（简化版）
+## Let's Encrypt 的工作原理（简化版）
 
 1. 客户端生成密钥对
-2. 向 Let’s Encrypt 提交证书申请（ACME Order）
-3. Let’s Encrypt 要求完成域名验证（Challenge）
+2. 向 Let's Encrypt 提交证书申请（ACME Order）
+3. Let's Encrypt 要求完成域名验证（Challenge）
 4. 客户端完成验证（HTTP / DNS）
-5. Let’s Encrypt 签发证书
+5. Let's Encrypt 签发证书
 6. 客户端保存证书并部署到 Web 服务器
 7. 定期自动续签
 
-**Let’s Encrypt 本身只关心一件事：**
+**Let's Encrypt 本身只关心一件事：**
 
 > 你是否真的控制这个域名？
