@@ -73,7 +73,7 @@ HTTPS 主要通过以下几个步骤实现安全通信：
 
 - **证书费用**
 
-    虽然有免费证书（如 Let's Encrypt），但高级证书可能有费用。
+    虽然有免费证书（如 [[Let's Encrypt]]），但高级证书可能有费用。
 
 - **复杂性增加**
 
@@ -511,55 +511,55 @@ client 第一次请求，得到返回结果，不仅仅得到了公钥，实际�
 
 - 推荐指数：★★★☆☆
 - 免费证书类型：DV 域名型
-- 免费证书品牌：Let's Encrypt
+- 免费证书品牌：[[Let's Encrypt]]
 - 免费通配符证书：支持
 - 易操作性：困难
 - 证书有效期： 90天
 - 自动更新：支持
 - 自动部署： 支持
 
-这里先说下 Let's Encrypt 证书品牌：Let's Encrypt 是免费、开放和自动化的世界知名证书颁发机构，由非盈利组织互联网安全研究小组（ISRG）运营。Let's Encrypt 已为全世界 1.8 亿个网站提供 HTTPS 证书，可放心使用。
+这里先说下 [[Let's Encrypt]] 证书品牌：[[Let's Encrypt]] 是免费、开放和自动化的世界知名证书颁发机构，由非盈利组织互联网安全研究小组（ISRG）运营。[[Let's Encrypt]] 已为全世界 1.8 亿个网站提供 HTTPS 证书，可放心使用。
 
-再说下这个[certbot](https://certbot.eff.org/)：certbot 是一个脚本类型的 Let's Encrypt 证书申请客户端，需要一定的命令行使用经验方可操作，如需自动更新，还需要添加插件，使用起来比较困难。如有自动更新和自动部署需求，建议使用下面介绍的 acme.sh 和 ohttps.com。
+再说下这个[certbot](https://certbot.eff.org/)：certbot 是一个脚本类型的 [[Let's Encrypt]] 证书申请客户端，需要一定的命令行使用经验方可操作，如需自动更新，还需要添加插件，使用起来比较困难。如有自动更新和自动部署需求，建议使用下面介绍的 [[acme.sh]] 和 ohttps.com。
 
-#### acme.sh
+#### [[acme.sh]]
 
 - 推荐指数：★★★★★
 - 免费证书类型：DV 域名型
-- 免费证书品牌：Let's Encrypt
+- 免费证书品牌：[[Let's Encrypt]]
 - 免费通配符证书：支持
 - 易操作性：一般
 - 证书有效期： 90天
 - 自动更新：支持
 - 自动部署： 支持
 
-[acme.sh](https://github.com/acmesh-official/acme.sh) 是一个知名的用于申请 Let's Encrypt 证书的开源项目，项目地址：[https://github.com/acmesh-official/acme.sh](https://github.com/acmesh-official/acme.sh?spm=a2c6h.12873639.article-detail.8.3c6b4df5XUjgAf&file=acme.sh)，也是属于脚本类型，有比较详细的文档，支持自动化更新和自动化部署。唯一缺点，如果有更新后自动部署至多个节点的需求的话，acme.sh 无法满足。如果你有一定的命令行使用经验，acme.sh 使用起来还是非常方便，强烈推荐！关于更新后自动部署至多个节点的需求，建议使用下面介绍的 ohttps.com。
+[acme.sh](https://github.com/acmesh-official/acme.sh) 是一个知名的用于申请 [[Let's Encrypt]] 证书的开源项目，项目地址：[https://github.com/acmesh-official/acme.sh](https://github.com/acmesh-official/acme.sh?spm=a2c6h.12873639.article-detail.8.3c6b4df5XUjgAf&file=acme.sh)，也是属于脚本类型，有比较详细的文档，支持自动化更新和自动化部署。唯一缺点，如果有更新后自动部署至多个节点的需求的话，[[acme.sh]] 无法满足。如果你有一定的命令行使用经验，[[acme.sh]] 使用起来还是非常方便，强烈推荐！关于更新后自动部署至多个节点的需求，建议使用下面介绍的 ohttps.com。
 
 #### freessl.cn
 
 - 推荐指数：★★★☆☆
 - 免费证书类型：DV 域名型
-- 免费证书品牌：Let's Encrypt、TrustAsia
-- 免费通配符证书：支持 Let's Encrypt 的通配符类型证书
+- 免费证书品牌：[[Let's Encrypt]]、TrustAsia
+- 免费通配符证书：支持 [[Let's Encrypt]] 的通配符类型证书
 - 易操作性：简单
-- 证书有效期： Let's Encrypt 通配符证书有效期 90 天、TrustAsia 双域名证书有效期1年
+- 证书有效期： [[Let's Encrypt]] 通配符证书有效期 90 天、TrustAsia 双域名证书有效期1年
 - 自动更新：不支持
 - 自动部署： 不支持
 
-[freessl.cn](https://freessl.cn/) 提供免费的 Let's Encrypt 和 TrustAsia 证书申请，Let's Encrypt 支持通配符类型，TrustAsia 仅支持双域名类型证书。申请界面比较友好，根据提示在域名解析记录中添加指定的 TXT 类型域名解析即可，对于不会使用命令行的小白用户来说使用起来比较简单。申请链接：https://freessl.cn/
+[freessl.cn](https://freessl.cn/) 提供免费的 [[Let's Encrypt]] 和 TrustAsia 证书申请，[[Let's Encrypt]] 支持通配符类型，TrustAsia 仅支持双域名类型证书。申请界面比较友好，根据提示在域名解析记录中添加指定的 TXT 类型域名解析即可，对于不会使用命令行的小白用户来说使用起来比较简单。申请链接：https://freessl.cn/
 
 #### ohttps.com
 
 - 推荐指数：★★★★★
 - 免费证书类型：DV 域名型
-- 免费证书品牌：Let's Encrypt
+- 免费证书品牌：[[Let's Encrypt]]
 - 免费通配符证书：支持
 - 易操作性：简单
 - 证书有效期： 90天
 - 自动更新：支持
 - 自动部署： 支持
 
-[ohttps.com](https://ohttps.com/) 提供了类似于 acme.sh 的功能，不过提供了友好的管理界面，可申请 Let's Encrypt 免费通配符类型证书，还提供了证书吊销、到期前提醒、自动更新、自动部署功能。另外比 acme.sh 增加了一些非常实用的功能，主要包括可自动部署至阿里云、腾讯云、七牛云的负载均衡、内容分发 CDN、SSL 证书列表等，并可自动部署至多个 nginx 容器中。申请链接：[https://ohttps.com](https://ohttps.com/)
+[ohttps.com](https://ohttps.com/) 提供了类似于 [[acme.sh]] 的功能，不过提供了友好的管理界面，可申请 [[Let's Encrypt ]]免费通配符类型证书，还提供了证书吊销、到期前提醒、自动更新、自动部署功能。另外比 [[acme.sh]] 增加了一些非常实用的功能，主要包括可自动部署至阿里云、腾讯云、七牛云的负载均衡、内容分发 CDN、SSL 证书列表等，并可自动部署至多个 nginx 容器中。申请链接：[https://ohttps.com](https://ohttps.com/)
 
 ## 一个例子
 

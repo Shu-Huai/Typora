@@ -1,0 +1,2 @@
+# 对你在 Obsidian 管理的这些文件强制使用 CRLF
+*.md text eol=crlf
