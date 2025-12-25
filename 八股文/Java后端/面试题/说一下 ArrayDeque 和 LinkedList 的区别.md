@@ -58,12 +58,12 @@ Java 没有提供标准的栈接口（很好奇为什么不提供），而是放
 
 ### 说一下 `ArrayDeque` 和 `LinkedList` 的区别?
 
-1. **数据结构：**在数据结构上，`ArrayDeque` 和 `LinkedList` 都实现了 Java `Deque` 双端队列接口。但 `ArrayDeque` 没有实现 Java `List` 列表接口，所以不具备根据索引位置操作的行为；
-2. **线程安全：**`ArrayDeque` 和 `LinkedList` 都不考虑线程同步，不保证线程安全；
-3. **底层实现：**在底层实现上，`ArrayDeque` 是基于动态数组的，而 `LinkedList` 是基于双向链表的。
-4. **在遍历速度上：**`ArrayDeque` 是一块连续内存空间，基于局部性原理能够更好地命中 CPU 缓存行，而 `LinkedList` 是离散的内存空间对缓存行不友好；
-5. **在操作速度上：**`ArrayDeque` 和 `LinkedList` 的栈和队列行为都是 $O(1)$ 时间复杂度，`ArrayDeque` 的入栈和入队有可能会触发扩容，但从均摊分析上看依然是 $O(1)$ 时间复杂度；
-6. **额外内存消耗上：**`ArrayDeque` 在数组的头指针和尾指针外部有闲置空间，而 `LinkedList` 在节点上增加了前驱和后继指针。
+1. **数据结构**：在数据结构上，`ArrayDeque` 和 `LinkedList` 都实现了 Java `Deque` 双端队列接口。但 `ArrayDeque` 没有实现 Java `List` 列表接口，所以不具备根据索引位置操作的行为；
+2. **线程安全**：`ArrayDeque` 和 `LinkedList` 都不考虑线程同步，不保证线程安全；
+3. **底层实现**：在底层实现上，`ArrayDeque` 是基于动态数组的，而 `LinkedList` 是基于双向链表的。
+4. **在遍历速度上**：`ArrayDeque` 是一块连续内存空间，基于局部性原理能够更好地命中 CPU 缓存行，而 `LinkedList` 是离散的内存空间对缓存行不友好；
+5. **在操作速度上**：`ArrayDeque` 和 `LinkedList` 的栈和队列行为都是 $O(1)$ 时间复杂度，`ArrayDeque` 的入栈和入队有可能会触发扩容，但从均摊分析上看依然是 $O(1)$ 时间复杂度；
+6. **额外内存消耗上**：`ArrayDeque` 在数组的头指针和尾指针外部有闲置空间，而 `LinkedList` 在节点上增加了前驱和后继指针。
 
 ## 如何使用数组实现栈和队列？
 
@@ -101,7 +101,7 @@ Java 没有提供标准的栈接口（很好奇为什么不提供），而是放
 
 可以看到，在每次搬运 $K$ 个次数后，随后的 $K - 1$ 次入栈操作就只是简单的 $O(1)$ 操作，$K$ 次入栈操作涉及到 $K$ 个数据搬运和 $K$ 次赋值操作。那我们从整体看，如果把复杂度较高的 1 次入栈操作的耗时，均摊到其他复杂度较低的操作上，就等于说 1 次入栈操作只需要搬运 1 个数据和 1 次赋值操作，所以入栈的均摊时间复杂度就是 $O(1)$。
 
-![img](Z:\Public\images\09c46fa6-9170-46aa-9088-7f7bc561100f.png)
+![img](http://public.file.lvshuhuai.cn/images\09c46fa6-9170-46aa-9088-7f7bc561100f.png)
 
 ### 使用数组实现队列结构
 
@@ -116,13 +116,13 @@ Java 没有提供标准的栈接口（很好奇为什么不提供），而是放
 
 但是我们发现，栈的 `top == n` 表示栈空间不足，扩容没有问题，而队列的 `tail == n` 却不一定表示队列空间不足。因为入队和出队发生在不同方向，有可能出现 `tail == n` 但队头依然有非常多剩余空间的情况。此时，扩容显得没有必要。
 
-![img](Z:\Public\images\6a8dc414-04c8-4beb-9012-6f6eb444bef5.png)
+![img](http://public.file.lvshuhuai.cn/images\6a8dc414-04c8-4beb-9012-6f6eb444bef5.png)
 
 那么，怎么避免没有必要的扩容和数据搬移呢？—— 循环数组。
 
 我们在逻辑上将数组的首尾相连，当 `tail == n` 时，如果数组头部还有空闲位置，我们就把 `tail` 指针调整到数组头部，在数组头部添加数据。我们下面要分析的 `ArrayDeque` 数据结构，就是采用了循环数组的实现。
 
-![img](Z:\Public\images\547ff63c-3776-48b7-92e4-f90bd8a3c00e.png)
+![img](http://public.file.lvshuhuai.cn/images\547ff63c-3776-48b7-92e4-f90bd8a3c00e.png)
 
 使用循环数组后，队列空和队列满的判断条件会发生变化：
 
@@ -369,7 +369,7 @@ private void doubleCapacity() {
 
 扩容操作
 
-![img](Z:\Public\images\fe3caeb8-cf26-4621-b6fe-7db4e86e6bbb.png)
+![img](http://public.file.lvshuhuai.cn/images\fe3caeb8-cf26-4621-b6fe-7db4e86e6bbb.png)
 
 **为什么没有看到 `ArrayList` 类似的 `MAX_ARRAY_SIZE` 最大容量限制？**
 
