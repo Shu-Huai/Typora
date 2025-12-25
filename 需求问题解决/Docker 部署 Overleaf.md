@@ -317,7 +317,7 @@ services:
 
 ### 创建其他账户
 
-![img](https://i-blog.csdnimg.cn/direct/d14020b024554e3ca725f2a6ab7a75ae.png)
+![img](http://public.file.lvshuhuai.cn/images\d14020b024554e3ca725f2a6ab7a75ae-1766645923453-68.png)
 
 ![img](http://public.file.lvshuhuai.cn/images\b2f98427220f4f7fbbff1fec89641151.png)
 
