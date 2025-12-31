@@ -242,8 +242,8 @@ FutureTask 能够接收 Callable 类型的参数，用来处理有返回结果�
 ```java
 // 创建任务对象
 FutureTask<Integer> task3 = new FutureTask<>(() -> {
- log.debug("hello");
- return 100;
+    log.debug("hello");
+    return 100;
 });
 // 参数1 是任务对象; 参数2 是线程名字，推荐
 new Thread(task3, "t3").start();
@@ -342,21 +342,18 @@ public interface Callable<V> {
 - FutureTask 实现了 Runnable 接口，并重写了 Run 方法，在 Run 方法中调用了 Callable 中的 call 方法，并将返回值赋值给 outcome 变量
 - get 方法就是取出 outcome 的值。
 
+### 观察多个线程同时运行 
 
-
-## 3.2 观察多个线程同时运行 
-
-主要是理解 
+#### 主要是理解 
 
 - 交替执行 
 - 谁先谁后，不由我们控制
 
-示例代码
+#### 示例代码
 
 ```java
 @Slf4j(topic = "c.TestMultiThread")
 public class TestMultiThread {
-
     public static void main(String[] args) {
         new Thread(() -> {
             while(true) {
@@ -372,7 +369,7 @@ public class TestMultiThread {
 }
 ```
 
-运行结果：
+#### 运行结果
 
 ```sh
 23:45:26.254 c.TestMultiThread [t2] - running
@@ -387,36 +384,29 @@ public class TestMultiThread {
 23:45:26.254 c.TestMultiThread [t1] - running
 ```
 
+### 查看进程线程的方法 
 
-
-## 3.3 查看进程线程的方法 
-
-### windows 
+#### windows
 
 - 任务管理器可以查看进程和线程数，也可以用来杀死进程 
-- tasklist 查看进程 
+- `tasklist` 查看进程 
   - `tasklist` | `findstr` (查找关键字)
-- taskkill 杀死进程
-  - taskkill /F(彻底杀死）/PID(进程PID)
+- `taskkill` 杀死进程
+  - `taskkill /F（彻底杀死）/PID（进程PID）`
 
+#### Linux
 
+- `ps -fe` 查看所有进程 
+- `ps -fT -p`  查看某个进程（PID）的所有线程 
+- `kill` 杀死进程
+- `top` 按大写 H 切换是否显示线程 
+- `top -H -p`  查看某个进程（PID）的所有线程
 
-### Linux
+#### Java
 
-- ps -fe 查看所有进程 
-- ps -fT -p  查看某个进程（PID）的所有线程 
-- kill 杀死进程 top 按大写 H 切换是否显示线程 
-- top -H -p  查看某个进程（PID）的所有线程
-
-
-
-### Java 
-
-- jps 命令查看所有 Java 进程 
-- jstack  查看某个 Java 进程（PID）的所有线程状态 
-- jconsole 来查看某个 Java 进程中线程的运行情况（图形界面）
-
-
+- `jps` 命令查看所有 Java 进程 
+- `jstack`  查看某个 Java 进程（PID）的所有线程状态 
+- `jconsole` 来查看某个 Java 进程中线程的运行情况（图形界面）
 
 jconsole 远程监控配置 
 
@@ -438,11 +428,9 @@ jconsole 远程监控配置
 - 修改 jmxremote.password 和 jmxremote.access 文件的权限为 600 即文件所有者可读写 
 - 连接时填入 controlRole（用户名），R&D（密码）
 
+### 原理之线程运行
 
-
-## $\textcolor{Blue}{3.4 * 原理之线程运行} $
-
-### 栈与栈帧 
+#### 栈与栈帧
 
 Java Virtual Machine Stacks （Java 虚拟机栈） 
 
@@ -451,9 +439,7 @@ Java Virtual Machine Stacks （Java 虚拟机栈）
 - 每个栈由多个栈帧（Frame）组成，对应着每次方法调用时所占用的内存 
 - 每个线程只能有一个活动栈帧，对应着当前正在执行的那个方法
 
-
-
-### 线程上下文切换（Thread Context Switch） 
+#### 线程上下文切换（Thread Context Switch）
 
 因为以下一些原因导致 cpu 不再执行当前的线程，转而执行另一个线程的代码 
 
@@ -462,28 +448,24 @@ Java Virtual Machine Stacks （Java 虚拟机栈）
 - 有更高优先级的线程需要运行 
 - 线程自己调用了 sleep、yield、wait、join、park、synchronized、lock 等方法 
 
-当 Context Switch 发生时，需要由操作系统保存当前线程的状态，并恢复另一个线程的状态，Java 中对应的概念 就是程序计数器（Program Counter Register），它的作用是记住下一条 jvm 指令的执行地址，是线程私有的 
+当 Context Switch 发生时，需要由操作系统保存当前线程的状态，并恢复另一个线程的状态，Java 中对应的概念就是程序计数器（Program Counter Register），它的作用是记住下一条 jvm 指令的执行地址，是线程私有的 
 
 - 状态包括程序计数器、虚拟机栈中每个栈帧的信息，如局部变量、操作数栈、返回地址等 
 - Context Switch 频繁发生会影响性能
 
-
-
-## 3.5常见方法
-
-
+### 常见方法
 
 | 方法                                            | 功能                                                         | 说明                                                         |
 | ----------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| **public void start()**                         | 启动一个新线程；Java虚拟机调用此线程的run方法                | start 方法只是让线程进入就绪，里面代码不一定立刻 运行（CPU 的时间片还没分给它）。每个线程对象的 start方法只能调用一次，如果调用了多次会出现 IllegalThreadStateException |
-| **public void run()**                           | 线程启动后调用该方法                                         | 如果在构造 Thread 对象时传递了 Runnable 参数，则 线程启动后会调用 Runnable 中的 run 方法，否则默 认不执行任何操作。但可以创建 Thread 的子类对象， 来覆盖默认行为 |
+| **public void start()**                         | 启动一个新线程；Java 虚拟机调用此线程的 run 方法             | start 方法只是让线程进入就绪，里面代码不一定立刻 运行（CPU 的时间片还没分给它）。每个线程对象的 start 方法只能调用一次，如果调用了多次会出现 IllegalThreadStateException |
+| **public void run()**                           | 线程启动后调用该方法                                         | 如果在构造 Thread 对象时传递了 Runnable 参数，则 线程启动后会调用 Runnable 中的 run 方法，否则默 认不执行任何操作。但可以创建 Thread 的子类对象，来覆盖默认行为 |
 | **public void setName(String name)**            | 给当前线程取名字                                             |                                                              |
-| **public void getName()**                       | 获取当前线程的名字。线程存在默认名称：子线程是Thread-索引，主线程是main |                                                              |
+| **public void getName()**                       | 获取当前线程的名字。线程存在默认名称：子线程 Thread 索引，主线程是 main |                                                              |
 | **public static Thread currentThread()**        | 获取当前线程对象，代码在哪个线程中执行                       |                                                              |
-| **public static void sleep(long time)**         | 让当前线程休眠多少毫秒再继续执行。**Thread.sleep(0)** : 让操作系统立刻重新进行一次cpu竞争 |                                                              |
-| **public static native void yield()**           | 提示线程调度器让出当前线程对CPU的使用                        | 主要是为了测试和调试                                         |
+| **public static void sleep(long time)**         | 让当前线程休眠多少毫秒再继续执行。**Thread.sleep(0)**：让操作系统立刻重新进行一次 cpu 竞争 |                                                              |
+| **public static native void yield()**           | 提示线程调度器让出当前线程对 CPU 的使用                      | 主要是为了测试和调试                                         |
 | **public final int getPriority()**              | 返回此线程的优先级                                           |                                                              |
-| **public final void setPriority(int priority)** | 更改此线程的优先级，常用1 5 10                               | java中规定线程优先级是1~10 的整数，较大的优先级 能提高该线程被 CPU 调度的机率 |
+| **public final void setPriority(int priority)** | 更改此线程的优先级，常用 1 5 10                              | java 中规定线程优先级是 1~10 的整数，较大的优先级 能提高该线程被 CPU 调度的机率 |
 | **public void interrupt()**                     | 中断这个线程，异常处理机制                                   |                                                              |
 | **public static boolean interrupted()**         | 判断当前线程是否被打断，清除打断标记                         |                                                              |
 | **public boolean isInterrupted()**              | 判断当前线程是否被打断，不清除打断标记                       |                                                              |
@@ -491,15 +473,13 @@ Java Virtual Machine Stacks （Java 虚拟机栈）
 | **public final void join(long millis)**         | 等待这个线程死亡millis毫秒，0意味着永远等待                  |                                                              |
 | **public final native boolean isAlive()**       | 线程是否存活（还没有运行完毕）                               |                                                              |
 | **public final void setDaemon(boolean on)**     | 将此线程标记为守护线程或用户线程                             |                                                              |
-| **public long getId()**                         | 获取线程长整型 的 id                                         | id 唯一                                                      |
-| **public state getState()**                     | 获取线程状态                                                 | Java 中线程状态是用 6 个 enum 表示，分别为： NEW, RUNNABLE, BLOCKED, WAITING,  TIMED_WAITING, TERMINATED |
-| **public boolean isInterrupted()**              | 判断是否被打 断                                              | 不会清除 打断标记                                            |
+| **public long getId()**                         | 获取线程长整型的 id                                          | id 唯一                                                      |
+| **public state getState()**                     | 获取线程状态                                                 | Java 中线程状态是用 6 个 enum 表示，分别为： NEW，RUNNABLE，BLOCKED，WAITING，TIMED_WAITING，TERMINATED |
+| **public boolean isInterrupted()**              | 判断是否被中断                                               | 不会清除打断标记                                             |
 
+### start 与 run 
 
-
-## 3.6 start 与 run 
-
-### 调用 run
+#### 调用 run
 
 ```java
 public static void main(String[] args) {
@@ -526,9 +506,7 @@ public static void main(String[] args) {
 
 程序仍在 main 线程运行， FileReader.read() 方法调用还是同步的
 
-
-
-### 调用start
+#### 调用start
 
 将上述代码的 t1.run() 改为
 
@@ -547,113 +525,107 @@ t1.start();
 
 程序在 t1 线程运行， FileReader.read() 方法调用是异步的
 
-
-
-### 小结 
+#### 小结 
 
 - 直接调用 run 是在主线程中执行了 run，没有启动新的线程 
 
 - 使用 start 是启动新的线程，通过新的线程间接执行 run 中的代码
 
-  ```java
-  public static void main(String[] args) {
-      Thread t1 = new Thread("t1") {
-          @Override
-          public void run() {
-              log.debug("running...");
-          }
-      };
-      System.out.println(t1.getState());
-      t1.start();
-      System.out.println(t1.getState());
-  }
-  ```
 
-  可以看见，start方法创建了一个新线程，将线程从就绪状态切换为Runnable
+```java
+public static void main(String[] args) {
+    Thread t1 = new Thread("t1") {
+        @Override
+        public void run() {
+            log.debug("running...");
+        }
+    };
+    System.out.println(t1.getState());
+    t1.start();
+    System.out.println(t1.getState());
+}
+```
 
-  ```sh
-  NEW
-  RUNNABLE
-  03:45:12.255 c.Test5 [t1] - running...
-  ```
+可以看见，start 方法创建了一个新线程，将线程从就绪状态切换为 Runnable
 
-  
+```sh
+NEW
+RUNNABLE
+03:45:12.255 c.Test5 [t1] - running...
+```
 
-## 3.7 sleep 与 yield 
+### sleep 与 yield 
 
-### sleep 
+#### sleep 
 
 1. 调用 sleep 会让当前线程从 Running 进入 Timed Waiting 状态（阻塞） 
 
 2.  其它线程可以使用 interrupt 方法打断正在睡眠的线程，这时 sleep 方法会抛出 InterruptedException 
 
-   ```java
-   public static void main(String[] args) throws InterruptedException {
-       Thread t1 = new Thread("t1") {
-           @Override
-           public void run() {
-               log.debug("enter sleep...");
-               try {
-                   Thread.sleep(2000);
-               } catch (InterruptedException e) {
-                   log.debug("wake up...");
-                   e.printStackTrace();
-               }
-           }
-       };
-       t1.start();
-   
-       Thread.sleep(1000);
-       log.debug("interrupt...");
-       t1.interrupt();
-   }
-   ```
 
-   输出结果：
+```java
+public static void main(String[] args) throws InterruptedException {
+    Thread t1 = new Thread("t1") {
+        @Override
+        public void run() {
+            log.debug("enter sleep...");
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                log.debug("wake up...");
+                e.printStackTrace();
+            }
+        }
+    };
+    t1.start();
 
-   ```sh
-   03:47:18.141 c.Test7 [t1] - enter sleep...
-   03:47:19.132 c.Test7 [main] - interrupt...
-   03:47:19.132 c.Test7 [t1] - wake up...
-   java.lang.InterruptedException: sleep interrupted
-    at java.lang.Thread.sleep(Native Method)
-    at cn.itcast.test.Test7$1.run(Test7.java:14)
-   ```
+    Thread.sleep(1000);
+    log.debug("interrupt...");
+    t1.interrupt();
+}
+```
 
-3.  睡眠结束后的线程未必会立刻得到执行
+输出结果：
 
-4.  建议用 TimeUnit 的 sleep 代替 Thread 的 sleep 来获得更好的可读性 。其底层还是sleep方法。
+```sh
+03:47:18.141 c.Test7 [t1] - enter sleep...
+03:47:19.132 c.Test7 [main] - interrupt...
+03:47:19.132 c.Test7 [t1] - wake up...
+java.lang.InterruptedException: sleep interrupted
+ at java.lang.Thread.sleep(Native Method)
+ at cn.itcast.test.Test7$1.run(Test7.java:14)
+```
 
-   ```java
-   @Slf4j(topic = "c.Test8")
-   public class Test8 {
-   
-       public static void main(String[] args) throws InterruptedException {
-           log.debug("enter");
-           TimeUnit.SECONDS.sleep(1);
-           log.debug("end");
-   //        Thread.sleep(1000);
-       }
-   }
-   ```
+睡眠结束后的线程未必会立刻得到执行
 
-5. 在循环访问锁的过程中，可以加入sleep让线程阻塞时间，防止大量占用cpu资源。
+建议用 TimeUnit 的 sleep 代替 Thread 的 sleep 来获得更好的可读性 。其底层还是sleep方法。
 
-### yield 
+```java
+@Slf4j(topic = "c.Test8")
+public class Test8 {
+
+    public static void main(String[] args) throws InterruptedException {
+        log.debug("enter");
+        TimeUnit.SECONDS.sleep(1);
+        log.debug("end");
+//        Thread.sleep(1000);
+    }
+}
+```
+
+在循环访问锁的过程中，可以加入sleep让线程阻塞时间，防止大量占用cpu资源。
+
+#### yield 
 
 1. 调用 yield 会让当前线程从 Running 进入 Runnable 就绪状态，然后调度执行其它线程 
 1. 具体的实现依赖于操作系统的任务调度器
 
-
-
-### 线程优先级 
+#### 线程优先级 
 
 - 线程优先级会提示（hint）调度器优先调度该线程，但它仅仅是一个提示，调度器可以忽略它 
 - 如果 cpu 比较忙，那么优先级高的线程会获得更多的时间片，但 cpu 闲时，优先级几乎没作用
 
-
-
-### 测试优先级和yield
+#### 测试优先级和 yield
 
 ```java
 @Slf4j(topic = "c.TestYield")
