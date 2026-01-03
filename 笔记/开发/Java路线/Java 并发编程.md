@@ -1,3 +1,68 @@
+# Java 并发编程
+
+## 准备
+
+### `pom.xml` 依赖如下
+
+```xml
+<properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <maven.compiler.source>1.8</maven.compiler.source>
+      <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.22</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.7.22</version>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.2.3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
+```
+
+### `logback.xml` 配置如下
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date{HH:mm:ss} [%t] %logger - %m%n</pattern>
+        </encoder>
+    </appender>
+    <logger name="c" level="debug" additivity="false">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+    <root level="ERROR">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>
+```
+
 ## 进程与线程
 
 ### 进程与线程
@@ -762,7 +827,17 @@ private static void test1() throws InterruptedException {
 - 需要等待结果返回，才能继续运行就是同步
 - 不需要等待结果返回，就能继续运行就是异步
 
-![image-20220224020718153](Z:\Public\images\image-20220224020718153-1767422560184-1.png)
+```mermaid
+graph TB
+    main("main")
+    t1_start("t1.start")
+    r10("r=10")
+    t1_join("t1.join")
+    main --> t1_start
+    main --> t1_join
+    t1_start -- "1s 后" --> r10
+    r10 -- "t1 终止" --> t1_join
+```
 
 **等待多个结果** 
 
@@ -806,7 +881,45 @@ private static void test2() throws InterruptedException {
 20:45:43.239 [main] c.TestJoin - r1: 10 r2: 20 cost: 2005
 ```
 
-![image-20220224020847406](Z:\Public\images\image-20220224020847406-1767422645775-3.png)
+```mermaid
+graph TD
+    %% 左侧流程
+    LMain("main")
+    L_t1_start("t1.start")
+    L_r10("r=10")
+    L_t1_join("t1.join")
+    L_t2_start("t2.start")
+    L_r20("r=20")
+    L_t2_join("t2.join - 仅需等1s")
+    
+    LMain --> L_t1_join
+    L_t1_join --> L_t2_join
+    LMain --> L_t1_start
+    L_t1_start -- "1s 后" --> L_r10
+    L_r10 -- "t1 终止" --> L_t1_join
+    LMain --> L_t2_start
+    L_t2_start -- "2s 后" --> L_r20
+    L_r20 -- "t2 终止" --> L_t2_join
+    
+
+    %% 右侧流程
+    RMain("main")
+    R_t1_start("t1.start")
+    R_r10("r=10")
+    R_t2_start("t2.start")
+    R_r20("r=20")
+    R_t2_join("t2.join")
+    R_t1_join("t1.join - 无需等待")
+
+    RMain --> R_t1_start
+    RMain --> R_t2_join
+    R_t1_start -- "1s 后" --> R_r10
+    R_r10 -- "t1 终止" --> R_t1_join
+    RMain --> R_t2_start
+    R_t2_start -- "2s 后" --> R_r20
+    R_r20 -- "t2 终止" --> R_t2_join
+    R_t2_join --> R_t1_join
+```
 
 #### 有时效的 `join`
 
@@ -952,14 +1065,14 @@ Two Phase Termination 在一个线程 T1 中如何“优雅”终止线程 T2？
 
 ```mermaid
 graph TD
-w("while(true)") --> a
-a("有没有被打断？") -- 是 --> b(料理后事)
-b --> c(结束循环)
-a -- 否 --> d(睡眠2s)
-d -- 无异常 --> e(执行监控记录)
-d -- 有异常 --> i(设置打断标记)
-i --> w
-e --> w
+    w("while(true)") --> a
+    a("有没有被打断？") -- 是 --> b(料理后事)
+    b --> c(结束循环)
+    a -- 否 --> d(睡眠2s)
+    d -- 无异常 --> e(执行监控记录)
+    d -- 有异常 --> i(设置打断标记)
+    i --> w
+    e --> w
 ```
 
 **利用 `isInterrupted`**
@@ -1014,7 +1127,7 @@ t.stop();
 11:49:45.413 c.TwoPhaseTermination [监控线程] - 料理后事
 ```
 
-##### **利用停止标记**
+**利用停止标记**
 
 ```java
 // 停止标记用 volatile 是为了保证该变量在多个线程之间的可见性
@@ -1143,7 +1256,7 @@ private static void test4() {
 
 默认情况下，Java 进程需要等待所有线程都运行结束，才会结束。有一种特殊的线程叫做守护线程，只要其它非守护线程运行结束了，即使守护线程的代码没有执行完，也会强制结束。
 
-例
+#### 例
 
 ```java
 log.debug("开始运行...");
@@ -1159,7 +1272,7 @@ sleep(1);
 log.debug("运行结束...");
 ```
 
-输出
+#### 输出
 
 ```sh
 08:26:38.123 [main] c.TestDaemon - 开始运行... 
@@ -1167,18 +1280,16 @@ log.debug("运行结束...");
 08:26:39.215 [main] c.TestDaemon - 运行结束... 
 ```
 
-> 注意 
+> 注意
 >
 > - 垃圾回收器线程就是一种守护线程 
 > - Tomcat 中的 Acceptor 和 Poller 线程都是守护线程，所以 Tomcat 接收到 shutdown 命令后，不会等待它们处理完当前请求
 
+### 五种状态
 
+这是从**操作系统**层面来描述的
 
-## 3.12 五种状态
-
-这是从 **操作系统** 层面来描述的
-
-![image-20220224174907408](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220224174907408.png)
+![image-20220224174907408](http://public.file.lvshuhuai.cn/images\image-20220224174907408-1767425464693-7.png)
 
 - 【初始状态】仅是在语言层面创建了线程对象，还未与操作系统线程关联 
 - 【可运行状态】（就绪状态）指该线程已经被创建（与操作系统线程关联），可以由 CPU 调度执行 
@@ -1190,35 +1301,31 @@ log.debug("运行结束...");
   - 与【可运行状态】的区别是，对【阻塞状态】的线程来说只要它们一直不唤醒，调度器就一直不会考虑 调度它们
 - 【终止状态】表示线程已经执行完毕，生命周期已经结束，不会再转换为其它状态
 
-
-
-## 3.13 六种状态
+### 六种状态
 
 这是从 **Java API** 层面来描述的 
 
-根据 Thread.State 枚举，分为六种状态
+根据 `Thread.State` 枚举，分为六种状态
 
-![image-20220224175139037](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220224175139037.png)
+![image-20220224175139037](http://public.file.lvshuhuai.cn/images\image-20220224175139037-1767425483717-12.png)
 
-- NEW 线程刚被创建，但是还没有调用 start() 方法 
-- RUNNABLE 当调用了 start() 方法之后，注意，Java API 层面的 RUNNABLE 状态涵盖了 操作系统 层面的 【可运行状态】、【运行状态】和【阻塞状态】（由于 BIO 导致的线程阻塞，在 Java 里无法区分，仍然认为 是可运行） 
-- BLOCKED ， WAITING ， TIMED_WAITING 都是 Java API 层面对【阻塞状态】的细分，后面会在状态转换一节 详述 
-- TERMINATED 当线程代码运行结束
+- `NEW` 线程刚被创建，但是还没有调用 `start()` 方法
+- `RUNNABLE` 当调用了 `start()` 方法之后，注意，Java API 层面的 `RUNNABLE` 状态涵盖了 操作系统 层面的 【可运行状态】、【运行状态】和【阻塞状态】（由于 BIO 导致的线程阻塞，在 Java 里无法区分，仍然认为是可运行）
+- `BLOCKED`，`WAITING`，`TIMED_WAITING` 都是 Java API 层面对【阻塞状态】的细分，后面会在状态转换一节详述
+- `TERMINATED` 当线程代码运行结束
 
-
-
-## 3.14 习题
+### 习题
 
 阅读华罗庚《统筹方法》，给出烧水泡茶的多线程解决方案，提示 
 
 - 参考图二，用两个线程（两个人协作）模拟烧水泡茶过程 
   - 文中办法乙、丙都相当于任务串行 
   - 而图一相当于启动了 4 个线程，有点浪费 
-- 用 sleep(n) 模拟洗茶壶、洗水壶等耗费的时间
+- 用 `sleep(n)` 模拟洗茶壶、洗水壶等耗费的时间
 
-### $\textcolor{green}{* 应用之统筹（烧水泡茶）}$
+#### 应用之统筹（烧水泡茶）
 
-#### 解法1：join
+**解法1：`join`**
 
 ```java
 Thread t1 = new Thread(() -> {
@@ -1256,14 +1363,12 @@ t2.start();
 19:19:53.553 [小王] c.TestMakeTea - 泡茶
 ```
 
-解法1 的缺陷：
+解法 1 的缺陷
 
-- 上面模拟的是小王等老王的水烧开了，小王泡茶，如果反过来要实现老王等小王的茶叶拿来了，老王泡茶 呢？代码最好能适应两种情况 
-- 上面的两个线程其实是各执行各的，如果要模拟老王把水壶交给小王泡茶，或模拟小王把茶叶交给老王泡茶 呢
+- 上面模拟的是小王等老王的水烧开了，小王泡茶，如果反过来要实现老王等小王的茶叶拿来了，老王泡茶 呢？代码最好能适应两种情况
+- 上面的两个线程其实是各执行各的，如果要模拟老王把水壶交给小王泡茶，或模拟小王把茶叶交给老王泡茶呢
 
-
-
-#### 解法2：wait/notify
+**解法2：`wait/notify`**
 
 ```java
 class S2 {
@@ -1331,7 +1436,7 @@ class S2 {
 20:04:54.185 c.S2 [老王] - 拿(开水)泡(花茶) 
 ```
 
-解法2 解决了解法1 的问题，不过老王和小王需要相互等待，不如他们只负责各自的任务，泡茶交给第三人来做
+解法 2 解决了解法 1 的问题，不过老王和小王需要相互等待，不如他们只负责各自的任务，泡茶交给第三人来做
 
 ```java
 class S3 {
@@ -1388,24 +1493,685 @@ class S3 {
 20:13:24.207 c.S3 [王夫人] - 拿(开水)泡(花茶) 
 ```
 
+## 共享模型之管程
+
+### 共享带来的问题
+
+#### Java 代码示例
+
+两个线程对初始值为 0 的静态变量一个做自增，一个做自减，各做 5000 次，结果是 0 吗？
+
+```java
+static int counter = 0;
+public static void main(String[] args) throws InterruptedException {
+    Thread t1 = new Thread(() -> {
+        for (int i = 0; i < 5000; i++) {
+            counter++;
+        }
+    }, "t1");
+    Thread t2 = new Thread(() -> {
+        for (int i = 0; i < 5000; i++) {
+            counter--;
+        }
+    }, "t2");
+    t1.start();
+    t2.start();
+    t1.join();
+    t2.join();
+    log.debug("{}",counter);
+}
+```
+
+#### 问题分析
+
+以上的结果可能是正数、负数、零。为什么呢？因为 Java 中对静态变量的自增，自减并不是原子操作，要彻底理解，必须从字节码来进行分析 
+
+例如对于 `i++` 而言（`i` 为静态变量），实际会产生如下的 JVM 字节码指令
+
+```java
+getstatic i // 获取静态变量i的值
+iconst_1 // 准备常量1
+iadd // 自增
+putstatic i // 将修改后的值存入静态变量i
+```
+
+而对应 `i--` 也是类似
+
+```java
+getstatic i // 获取静态变量i的值
+iconst_1 // 准备常量1
+isub // 自减
+putstatic i // 将修改后的值存入静态变量i
+```
+
+而 Java 的内存模型如下，完成静态变量的自增，自减需要在主存和工作内存中进行数据交换
+
+![image-20220302204023824](http://public.file.lvshuhuai.cn/images\image-20220302204023824-1767426538650-14.png)
+
+如果是单线程以上 8 行代码是顺序执行（不会交错）没有问题
+
+```mermaid
+sequenceDiagram
+    participant T1 as 线程1
+    participant S as static i
+
+    S->>T1: getstatic i 读取 0
+    T1->>T1: iconst_1 准备常数 1
+    T1->>T1: iadd 加法，线程内 i = 1
+    T1->>S: putstatic i 写入 1
+    S->>T1: getstatic i 读取 1
+    T1->>T1: iconst_1 准备常数 1
+    T1->>T1: isub 减法，线程内 i = 0
+    T1->>S: putstatic i 写入 0
+
+```
+
+但多线程下这 8 行代码可能交错运行：出现负数的情况
+
+```mermaid
+sequenceDiagram
+    participant T1 as 线程1
+    participant T2 as 线程2
+    participant S as static i
+
+    S-->>T2: getstatic i 读取 0
+    T2->>T2: iconst_1 准备常数 1
+    T2->>T2: isub 减法，线程内 i = -1
+
+    T2-->>T1: 上下文切换
+
+    S-->>T1: getstatic i 读取 0
+    T1->>T1: iconst_1 准备常数 1
+    T1->>T1: iadd 加法，线程内 i = 1
+    T1-->>S: putstatic i 写入 1
+
+    T1-->>T2: 上下文切换
+
+    T2-->>S: putstatic i 写入 -1
+
+```
+
+出现正数的情况：
+
+```mermaid
+sequenceDiagram
+    participant T1 as 线程1
+    participant T2 as 线程2
+    participant S as static i
+
+    S-->>T2: getstatic i 读取 0
+
+    T1->>T1: iconst_1 准备常数 1
+    T1->>T1: iadd 加法，线程内 i = 1
+
+    T1-->>T2: 上下文切换
+
+    S-->>T2: getstatic i 读取 0
+    T2->>T2: iconst_1 准备常数 1
+    T2->>T2: isub 减法，线程内 i = -1
+    T2->>S: putstatic i 写入 -1
+
+    T2-->>T1: 上下文切换
+
+    T1->>S: putstatic i 写入 1
+
+```
+
+#### 临界区 Critical Section
+
+- 一个程序运行多个线程本身是没有问题的 
+
+- 问题出在多个线程访问**共享资源** 
+
+  - 多个线程读**共享资源**其实也没有问题 
+
+  - 在多个线程对**共享资源**读写操作时发生指令交错，就会出现问题 
+
+- 一段代码块内如果存在对共享资源的多线程读写操作，称这段代码块为**临界区**
+
+```java
+static int counter = 0;
+static void increment()
+    // 临界区
+{
+    counter++;
+}
+static void decrement()
+    // 临界区
+{
+    counter--;
+}
+```
+
+#### 竞态条件 Race Condition 
+
+多个线程在临界区内执行，由于代码的**执行序列不同**而导致结果无法预测，称之为发生了**竞态条件**
+
+### `synchronized` 解决方案
+
+#### 应用之互斥
+
+为了避免临界区的竞态条件发生，有多种手段可以达到目的。 
+
+- 阻塞式的解决方案：`synchronized`，`lock`
+- 非阻塞式的解决方案：原子变量 
+
+本次课使用阻塞式的解决方案：`synchronized`，来解决上述问题，即俗称的【对象锁】，它采用互斥的方式让同一 时刻至多只有一个线程能持有【对象锁】，其它线程再想获取这个【对象锁】时就会阻塞住。这样就能保证拥有锁 的线程可以安全的执行临界区内的代码，不用担心线程上下文切换
+
+> **注意** 
+>
+> 虽然 Java 中互斥和同步都可以采用 `synchronized` 关键字来完成，但它们还是有区别的：
+>
+> - 互斥是保证临界区的竞态条件发生，同一时刻只能有一个线程执行临界区代码 
+> - 同步是由于线程执行的先后、顺序不同、需要一个线程等待其它线程运行到某个点
+
+#### `synchronized`
+
+**语法**
+
+```java
+synchronized(对象) // 线程1， 线程2(blocked)
+{
+    临界区
+}
+```
+
+**解决**
+
+```java
+static int counter = 0;
+static final Object room = new Object();
+public static void main(String[] args) throws InterruptedException {
+    Thread t1 = new Thread(() -> {
+        for (int i = 0; i < 5000; i++) {
+            synchronized (room) {
+                counter++;
+            }
+        }
+    }, "t1");
+    Thread t2 = new Thread(() -> {
+        for (int i = 0; i < 5000; i++) {
+            synchronized (room) {
+                counter--;
+            }
+        }
+    }, "t2");
+    t1.start();
+    t2.start();
+    t1.join();
+    t2.join();
+    log.debug("{}",counter);
+}
+```
+
+**图示流程**
+
+```mermaid
+sequenceDiagram
+    participant T1 as 线程1
+    participant T2 as 线程2
+    participant S as static i
+    participant L as 锁对象
+
+    S->>L: 尝试获取锁
+    Note over T2,L: 拥有锁
+
+    S-->>T2: getstatic i 读取 0
+    T2->>T2: iconst_1 准备常数 1
+    T2->>T2: isub 减法，线程内 i = -1
+
+    T1-->>T2: 上下文切换
+    T1->>L: 尝试获取锁，被阻塞(BLOCKED)
+    T2-->>T1: 上下文切换
+
+    T2->>S: putstatic i 写入 -1
+    Note over T2,L: 拥有锁
+    S-->>L: 释放锁，并唤醒阻塞的线程
+
+    Note over T1,L: 拥有锁
+    S-->>T1: getstatic i 读取 -1
+    T1->>T1: iconst_1 准备常数 1
+    T1->>T1: iadd 加法，线程内 i = 0
+    T1->>S: putstatic i 写入 0
+    Note over T1,L: 拥有锁
+    S-->>L: 释放锁，并唤醒阻塞的线程
+```
 
 
-#### 解法3：第三者协调
 
-## 本章小结 
+#### 思考
 
-本章的重点在于掌握 
+`synchronized` 实际是用对象锁保证了临界区内代码的原子性，临界区内的代码对外是不可分割的，不会被线程切换所打断。 
 
-- 线程创建 
-- 线程重要 api，如 start，run，sleep，join，interrupt 等 
-- 线程状态 
-- 应用方面 
-  - 异步调用：主线程执行期间，其它线程异步执行耗时操作 
-  - 提高效率：并行计算，缩短运算时间 
-  - 同步等待：join 
-  - 统筹规划：合理使用线程，得到最优效果 
-- 原理方面 
-  - 线程运行流程：栈、栈帧、上下文切换、程序计数器 
-  - Thread 两种创建方式 的源码 
-- 模式方面 
-  - 终止模式之两阶段终止
+为了加深理解，请思考下面的问题
+
+- 如果把 `synchronized(obj)` 放在 for 循环的外面，如何理解？——原子性 
+- 如果 t1 `synchronized(obj1)` 而 t2 `synchronized(obj2)` 会怎样运作？——锁对象 
+- 如果 t1 `synchronized(obj)` 而 t2 没有加会怎么样？如何理解？——锁对象
+
+#### 面向对象改进
+
+把需要保护的共享变量放入一个类
+
+```java
+class Room {
+    int value = 0;
+    public void increment() {
+        synchronized (this) {
+            value++;
+        }
+    }
+    public void decrement() {
+        synchronized (this) {
+            value--;
+        }
+    }
+    public int get() {
+        synchronized (this) {
+            return value;
+        }
+    }
+}
+
+@Slf4j
+public class Test1 {
+
+    public static void main(String[] args) throws InterruptedException {
+        Room room = new Room();
+        Thread t1 = new Thread(() -> {
+            for (int j = 0; j < 5000; j++) {
+                room.increment();
+            }
+        }, "t1");
+        Thread t2 = new Thread(() -> {
+            for (int j = 0; j < 5000; j++) {
+                room.decrement();
+            }
+        }, "t2");
+        t1.start();
+        t2.start();
+        t1.join();
+        t2.join();
+        log.debug("count: {}" , room.get());
+    }
+}
+```
+
+### 方法上的 synchronized
+
+```java
+class Test{
+    public synchronized void test() {
+
+    }
+}
+//等价于
+class Test{
+    public void test() {
+        synchronized(this) {
+
+        }
+    }
+}
+class Test{
+    public synchronized static void test() {
+    }
+}
+等价于
+class Test{
+    public static void test() {
+        synchronized(Test.class) {
+
+        }
+    }
+}
+```
+
+#### 不加 `synchronized` 的方法 
+
+不加 `synchronzied` 的方法就好比不遵守规则的人，不去老实排队（好比翻窗户进去的）
+
+#### 所谓的“线程八锁” 
+
+其实就是考察 `synchronized` 锁住的是哪个对象
+
+**情况 1：12 或 21**
+
+```java
+@Slf4j(topic = "c.Number")
+class Number{
+    public synchronized void a() {
+        log.debug("1");
+    }
+    public synchronized void b() {
+        log.debug("2");
+    }
+}
+public static void main(String[] args) {
+    Number n1 = new Number();
+    new Thread(()->{ n1.a(); }).start();
+    new Thread(()->{ n1.b(); }).start();
+}
+```
+
+**情况 2：1s 后12，或 2 1s 后 1**
+
+```java
+@Slf4j(topic = "c.Number")
+class Number{
+    public synchronized void a() {
+        sleep(1);
+        log.debug("1");
+    }
+    public synchronized void b() {
+        log.debug("2");
+    }
+}
+public static void main(String[] args) {
+    Number n1 = new Number();
+    new Thread(()->{ n1.a(); }).start();
+    new Thread(()->{ n1.b(); }).start();
+}
+```
+
+**情况 3：3 1s 12 或 23 1s 1 或 32 1s 1**
+
+```java
+@Slf4j(topic = "c.Number")
+class Number{
+    public synchronized void a() {
+        sleep(1);
+        log.debug("1");
+    }
+    public synchronized void b() {
+        log.debug("2");
+    }
+    public void c() {
+        log.debug("3");
+    }
+}
+public static void main(String[] args) {
+    Number n1 = new Number();
+    new Thread(()->{ n1.a(); }).start();
+    new Thread(()->{ n1.b(); }).start();
+    new Thread(()->{ n1.c(); }).start();
+}
+```
+
+**情况 4：2 1s 后 1**
+
+```java
+@Slf4j(topic = "c.Number")
+class Number{
+    public synchronized void a() {
+        sleep(1);
+        log.debug("1");
+    }
+    public synchronized void b() {
+        log.debug("2");
+    }
+}
+public static void main(String[] args) {
+    Number n1 = new Number();
+    Number n2 = new Number();
+    new Thread(()->{ n1.a(); }).start();
+    new Thread(()->{ n2.b(); }).start();
+}
+```
+
+**情况 5：2 1s 后 1**
+
+```java
+@Slf4j(topic = "c.Number")
+class Number{
+    public static synchronized void a() {
+        sleep(1);
+        log.debug("1");
+    }
+    public synchronized void b() {
+        log.debug("2");
+    }
+}
+public static void main(String[] args) {
+    Number n1 = new Number();
+    new Thread(()->{ n1.a(); }).start();
+    new Thread(()->{ n1.b(); }).start();
+}
+```
+
+**情况 6：1s 后 12， 或 2 1s 后 1**
+
+```java
+@Slf4j(topic = "c.Number")
+class Number{
+    public static synchronized void a() {
+        sleep(1);
+        log.debug("1");
+    }
+    public static synchronized void b() {
+        log.debug("2");
+    }
+}
+public static void main(String[] args) {
+    Number n1 = new Number();
+    new Thread(()->{ n1.a(); }).start();
+    new Thread(()->{ n1.b(); }).start();
+}
+```
+
+**情况 7：2 1s 后 1**
+
+```java
+@Slf4j(topic = "c.Number")
+class Number{
+    public static synchronized void a() {
+        sleep(1);
+        log.debug("1");
+    }
+    public synchronized void b() {
+        log.debug("2");
+    }
+}
+public static void main(String[] args) {
+    Number n1 = new Number();
+    Number n2 = new Number();
+    new Thread(()->{ n1.a(); }).start();
+    new Thread(()->{ n2.b(); }).start();
+}
+```
+
+**情况 8：1s 后 12， 或 2 1s 后 1**
+
+```java
+@Slf4j(topic = "c.Number")
+class Number{
+    public static synchronized void a() {
+        sleep(1);
+        log.debug("1");
+    }
+    public static synchronized void b() {
+        log.debug("2");
+    }
+}
+public static void main(String[] args) {
+    Number n1 = new Number();
+    Number n2 = new Number();
+    new Thread(()->{ n1.a(); }).start();
+    new Thread(()->{ n2.b(); }).start();
+}
+```
+
+### 变量的线程安全分析
+
+##### **成员变量和静态变量是否线程安全？** 
+
+- 如果它们没有共享，则线程安全 
+- 如果它们被共享了，根据它们的状态是否能够改变，又分两种情况 
+  - 如果只有读操作，则线程安全 
+  - 如果有读写操作，则这段代码是临界区，需要考虑线程安全
+
+
+
+##### **局部变量是否线程安全？** 
+
+- 局部变量是线程安全的 
+- 但局部变量引用的对象则未必 
+  - 如果该对象没有逃离方法的作用访问，它是线程安全的 
+  - 如果该对象逃离方法的作用范围，需要考虑线程安全
+
+
+
+##### **局部变量线程安全分析**
+
+```java
+public static void test1() {
+    int i = 10;
+    i++;
+}
+```
+
+每个线程调用 test1() 方法时局部变量 i，会在每个线程的栈帧内存中被创建多份，因此不存在共享
+
+```java
+public static void test1();
+ descriptor: ()V 
+ flags: ACC_PUBLIC, ACC_STATIC
+ Code:
+ stack=1, locals=1, args_size=0
+ 0: bipush 10
+ 2: istore_0
+ 3: iinc 0, 1
+ 6: return
+ LineNumberTable:
+ line 10: 0
+ line 11: 3
+ line 12: 6
+ LocalVariableTable:
+ Start Length Slot Name Signature
+ 3        4     0   i      I
+```
+
+如图
+
+![image-20220303005909688](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220303005909688.png)
+
+局部变量的引用稍有不同 
+
+先看一个成员变量的例子
+
+```java
+class ThreadUnsafe {
+    ArrayList<String> list = new ArrayList<>();
+    public void method1(int loopNumber) {
+        for (int i = 0; i < loopNumber; i++) {
+            // { 临界区, 会产生竞态条件
+            method2();
+            method3();
+            // } 临界区
+        }
+    }
+    private void method2() {
+        list.add("1");
+    }
+    private void method3() {
+        list.remove(0);
+    }
+}
+```
+
+执行
+
+```java
+static final int THREAD_NUMBER = 2;
+static final int LOOP_NUMBER = 200;
+public static void main(String[] args) {
+    ThreadUnsafe test = new ThreadUnsafe();
+    for (int i = 0; i < THREAD_NUMBER; i++) {
+        new Thread(() -> {
+            test.method1(LOOP_NUMBER);
+        }, "Thread" + i).start();
+    }
+}
+```
+
+其中一种情况是，如果线程2 还未 add，线程1 remove 就会报错：
+
+```java
+Exception in thread "Thread1" java.lang.IndexOutOfBoundsException: Index: 0, Size: 0 
+ at java.util.ArrayList.rangeCheck(ArrayList.java:657) 
+ at java.util.ArrayList.remove(ArrayList.java:496) 
+ at cn.itcast.n6.ThreadUnsafe.method3(TestThreadSafe.java:35) 
+ at cn.itcast.n6.ThreadUnsafe.method1(TestThreadSafe.java:26) 
+ at cn.itcast.n6.TestThreadSafe.lambda$main$0(TestThreadSafe.java:14) 
+ at java.lang.Thread.run(Thread.java:748) 
+```
+
+分析： 
+
+- 无论哪个线程中的 method2 引用的都是同一个对象中的 list 成员变量 
+- method3 与 method2 分析相同
+
+![image-20220303010311338](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220303010311338.png)
+
+将 list 修改为局部变量
+
+```java
+class ThreadSafe {
+    public final void method1(int loopNumber) {
+        ArrayList<String> list = new ArrayList<>();
+        for (int i = 0; i < loopNumber; i++) {
+            method2(list);
+            method3(list);
+        }
+    }
+    private void method2(ArrayList<String> list) {
+        list.add("1");
+    }
+    private void method3(ArrayList<String> list) {
+        list.remove(0);
+    }
+}
+```
+
+那么就不会有上述问题了
+
+分析： 
+
+- list 是局部变量，每个线程调用时会创建其不同实例，没有共享 
+- 而 method2 的参数是从 method1 中传递过来的，与 method1 中引用同一个对象 
+- method3 的参数分析与 method2 相同
+
+![image-20220303010518661](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220303010518661.png)
+
+方法访问修饰符带来的思考，如果把 method2 和 method3 的方法修改为 public 会不会代理线程安全问题？ 
+
+- 情况1：有其它线程调用 method2 和 method3 
+- 情况2：在 情况1 的基础上，为 ThreadSafe 类添加子类，子类覆盖 method2 或 method3 方法，
+
+```java
+class ThreadSafe {
+    public final void method1(int loopNumber) {
+        ArrayList<String> list = new ArrayList<>();
+        for (int i = 0; i < loopNumber; i++) {
+            method2(list);
+            method3(list);
+        }
+    }
+    private void method2(ArrayList<String> list) {
+        list.add("1");
+    }
+    private void method3(ArrayList<String> list) {
+        list.remove(0);
+    }
+}
+class ThreadSafeSubClass extends ThreadSafe{
+    @Override
+    public void method3(ArrayList<String> list) {
+        new Thread(() -> {
+            list.remove(0);
+        }).start();
+    }
+}
+```
+
+> 从这个例子可以看出 private 或 final 提供【安全】的意义所在，请体会开闭原则中的【闭】
