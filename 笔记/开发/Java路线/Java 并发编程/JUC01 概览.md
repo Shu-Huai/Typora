@@ -16,7 +16,7 @@
 - 一个线程就是一个指令流，将指令流中的一条条指令以一定的顺序交给 CPU 执行 
 
 
-- Java 中，线程作为最小调度单位，进程作为资源分配的最小单位。 在 windows 中进程是不活动的，只是作 为线程的容器
+- Java 中，线程作为最小调度单位，进程作为资源分配的最小单位。 在 Windows 中进程是不活动的，只是作 为线程的容器
 
 
 #### 二者对比 
@@ -39,15 +39,15 @@
 
 ### 并行与并发
 
-单核 cpu下，线程实际还是**串行执行**的。操作系统中有一个组件叫做任务调度器，将 cpu 的时间片（windows 下时间片最小约为 15 毫秒）分给不同的程序使用，只是由于 cpu 在线程间（时间片很短）的切换非常快，人类感觉是同时运行的 。总结为一句话就是： **微观串行，宏观并行** 。 
+单核 CPU下，线程实际还是**串行执行**的。操作系统中有一个组件叫做任务调度器，将 CPU 的时间片（windows 下时间片最小约为 15 毫秒）分给不同的程序使用，只是由于 CPU 在线程间（时间片很短）的切换非常快，人类感觉是同时运行的 。总结为一句话就是： **微观串行，宏观并行** 。 
 
-一般会将这种线程轮流使用 CPU 的做法称为并发， concurrent
+一般会将这种线程轮流使用 CPU 的做法称为并发，concurrent
 
 | CPU  | 时间片 1 | 时间片 2 | 时间片 3 | 时间片 4 |
 | :--: | :------: | :------: | :------: | :------: |
 | core |  线程 1  |  线程 2  |  线程 3  |  线程 4  |
 
-多核 cpu下，每个 核（core） 都可以调度运行线程，这时候线程可以是并行的。
+多核 CPU 下，每个 核（core） 都可以调度运行线程，这时候线程可以是并行的。
 
 |  CPU  | 时间片 1 | 时间片 2 | 时间片 3 | 时间片 4 |
 | :---: | :------: | :------: | :------: | :------: |
@@ -70,17 +70,17 @@
 
 **设计** 
 
-多线程可以让方法执行变为异步的（即不要巴巴干等着）、比如说读取磁盘文件时，假设读取操作花费了 5 秒钟，如果没有线程调度机制，这 5 秒 cpu 什么都做不了，其它代码都得暂停... 
+多线程可以让方法执行变为异步的（即不要巴巴干等着）、比如说读取磁盘文件时，假设读取操作花费了 5 秒钟，如果没有线程调度机制，这 5 秒 CPU 什么都做不了，其它代码都得暂停... 
 
 **结论** 
 
 - 比如在项目中，视频文件需要转换格式等操作比较费时，这时开一个新线程处理视频转换，避免阻塞主线程
--  tomcat 的异步 servlet 也是类似的目的，让用户线程处理耗时较长的操作，避免阻塞 tomcat 的工作线程
-- ui 程序中，开线程进行其他操作，避免阻塞 ui 线程
+-  Tomcat 的异步 Servlet 也是类似的目的，让用户线程处理耗时较长的操作，避免阻塞 Tomcat 的工作线程
+- UI 程序中，开线程进行其他操作，避免阻塞 UI 线程
 
 #### 应用之提高效率
 
-充分利用多核 cpu 的优势，提高运行效率。想象下面的场景，执行 3 个计算，最后将计算结果汇总。
+充分利用多核 CPU 的优势，提高运行效率。想象下面的场景，执行 3 个计算，最后将计算结果汇总。
 
 ```
 计算 1 花费 10 ms
@@ -91,11 +91,11 @@
 
 - 如果是串行执行，那么总共花费的时间是 10 + 11 + 9 + 1 = 31ms 
 
-- 但如果是四核 cpu，各个核心分别使用线程 1 执行计算 1，线程 2 执行计算 2，线程 3 执行计算 3，那么 3 个 线程是并行的，花费时间只取决于最长的那个线程运行的时间，即 11ms 最后加上汇总时间只会花费 12ms
+- 但如果是四核 CPU，各个核心分别使用线程 1 执行计算 1，线程 2 执行计算 2，线程 3 执行计算 3，那么 3 个 线程是并行的，花费时间只取决于最长的那个线程运行的时间，即 11ms 最后加上汇总时间只会花费 12ms
 
 > **注意**
 >
-> 需要在多核 cpu 才能提高效率，单核仍然时是轮流执行
+> 需要在多核 CPU 才能提高效率，单核仍然时是轮流执行
 
 **设计** 
 
@@ -103,17 +103,17 @@
 
 **结论**
 
-1. 单核 cpu 下，多线程不能实际提高程序运行效率，只是为了能够在不同的任务之间切换，不同线程轮流使用 cpu ，不至于一个线程总占用 cpu，别的线程没法干活
-2. 多核 cpu 可以并行跑多个线程，但能否提高程序运行效率还是要分情况的
+1. 单核 CPU 下，多线程不能实际提高程序运行效率，只是为了能够在不同的任务之间切换，不同线程轮流使用 CPU ，不至于一个线程总占用 CPU，别的线程没法干活
+2. 多核 CPU 可以并行跑多个线程，但能否提高程序运行效率还是要分情况的
    - 有些任务，经过精心设计，将任务拆分，并行执行，当然可以提高程序的运行效率。但不是所有计算任 务都能拆分（参考后文的【阿姆达尔定律】）
    - 也不是所有任务都需要拆分，任务的目的如果不同，谈拆分和效率没啥意义
-3. IO 操作不占用 cpu，只是我们一般拷贝文件使用的是【阻塞 IO】，这时相当于线程虽然不用 cpu，但需要一 直等待 IO 结束，没能充分利用线程。所以才有后面的【非阻塞 IO】和【异步 IO】优化。
+3. IO 操作不占用 CPU，只是我们一般拷贝文件使用的是【阻塞 IO】，这时相当于线程虽然不用 CPU，但需要一 直等待 IO 结束，没能充分利用线程。所以才有后面的【非阻塞 IO】和【异步 IO】优化。
 
 ## Java 线程
 
 ### 创建和运行线程 
 
-#### 直接使用 Thread
+#### 直接使用 `Thread`
 
 ```java
 // 创建线程对象
@@ -146,12 +146,12 @@ t1.start();
 19:19:00 [t1] c.ThreadStarter - hello
 ```
 
-#### 使用 Runnable 配合 Thread
+#### 使用 `Runnable` 配合 `Thread`
 
 把【线程】和【任务】（要执行的代码）分开
 
-- Thread 代表线程
-- Runnable 可运行的任务（线程要执行的代码）
+- `Thread` 代表线程
+- `Runnable` 可运行的任务（线程要执行的代码）
 
 ```java
 Runnable runnable = new Runnable() {
@@ -196,9 +196,9 @@ Thread t2 = new Thread(task2, "t2");
 t2.start();
 ```
 
-**Thread 与 Runnable 的关系** 
+**`Thread` 与 `Runnable` 的关系** 
 
-分析 Thread 的源码，理清它与 Runnable 的关系
+分析 `Thread` 的源码，理清它与 `Runnable` 的关系
 
 ```java
 //Runnable源码
@@ -231,13 +231,13 @@ public class Thread implements Runnable {
 
 **小结** 
 
-- 方法1 是把线程和任务合并在了一起，方法2 是把线程和任务分开了 
-- 用 Runnable 更容易与线程池等高级API 配合 
-- 用 Runnable 让任务类脱离了 Thread 继承体系，更灵活
+- 方法 1 是把线程和任务合并在了一起，方法 2 是把线程和任务分开了 
+- 用 `Runnable` 更容易与线程池等高级 API 配合 
+- 用 `Runnable` 让任务类脱离了 `Thread` 继承体系，更灵活
 
-#### FutureTask 配合 Thread
+#### `FutureTask` 配合 `Thread`
 
-FutureTask 能够接收 Callable 类型的参数，用来处理有返回结果的情况
+`FutureTask` 能够接收 `Callable` 类型的参数，用来处理有返回结果的情况
 
 ```java
 // 创建任务对象
@@ -338,9 +338,9 @@ public interface Callable<V> {
 
 说明：
 
-- FutureTask 内置了一个 Callable 对象，初始化方法将指定的 Callable 赋给这个对象。
-- FutureTask 实现了 Runnable 接口，并重写了 Run 方法，在 Run 方法中调用了 Callable 中的 call 方法，并将返回值赋值给 outcome 变量
-- get 方法就是取出 outcome 的值。
+- `FutureTask` 内置了一个 `Callable` 对象，初始化方法将指定的 `Callable` 赋给这个对象。
+- `FutureTask` 实现了 `Runnable` 接口，并重写了 `run` 方法，在 `run` 方法中调用了 `Callable` 中的 `call` 方法，并将返回值赋值给 `outcome` 变量
+- `get` 方法就是取出 `outcome` 的值。
 
 ### 观察多个线程同时运行 
 
@@ -386,7 +386,7 @@ public class TestMultiThread {
 
 ### 查看进程线程的方法 
 
-#### windows
+#### Windows
 
 - 任务管理器可以查看进程和线程数，也可以用来杀死进程 
 - `tasklist` 查看进程 
@@ -408,7 +408,7 @@ public class TestMultiThread {
 - `jstack`  查看某个 Java 进程（PID）的所有线程状态 
 - `jconsole` 来查看某个 Java 进程中线程的运行情况（图形界面）
 
-jconsole 远程监控配置 
+`jconsole` 远程监控配置 
 
 - 需要以如下方式运行你的 java 类
 
@@ -420,19 +420,19 @@ jconsole 远程监控配置
 
 - 关闭防火墙，允许端口
 
-- 修改 /etc/hosts 文件将 127.0.0.1 映射至主机名 
+- 修改 `/etc/hosts` 文件将 `127.0.0.1` 映射至主机名 
 
 如果要认证访问，还需要做如下步骤 
 
-- 复制 jmxremote.password 文件 
-- 修改 jmxremote.password 和 jmxremote.access 文件的权限为 600 即文件所有者可读写 
-- 连接时填入 controlRole（用户名），R&D（密码）
+- 复制 `jmxremote.password` 文件 
+- 修改 `jmxremote.password` 和 `jmxremote.access` 文件的权限为 `600` 即文件所有者可读写 
+- 连接时填入 `controlRole`（用户名），`R&D`（密码）
 
 ### 原理之线程运行
 
 #### 栈与栈帧
 
-Java Virtual Machine Stacks （Java 虚拟机栈） 
+Java Virtual Machine Stacks（Java 虚拟机栈） 
 
 我们都知道 JVM 中由堆、栈、方法区所组成，其中栈内存是给谁用的呢？其实就是线程，每个线程启动后，虚拟 机就会为其分配一块栈内存。 
 
@@ -441,14 +441,14 @@ Java Virtual Machine Stacks （Java 虚拟机栈）
 
 #### 线程上下文切换（Thread Context Switch）
 
-因为以下一些原因导致 cpu 不再执行当前的线程，转而执行另一个线程的代码 
+因为以下一些原因导致 CPU 不再执行当前的线程，转而执行另一个线程的代码 
 
-- 线程的 cpu 时间片用完 
+- 线程的 CPU 时间片用完 
 - 垃圾回收 
 - 有更高优先级的线程需要运行 
-- 线程自己调用了 sleep、yield、wait、join、park、synchronized、lock 等方法 
+- 线程自己调用了 `sleep`、`yield`、`wait`、`join`、`park`、`synchronized`、`lock` 等方法 
 
-当 Context Switch 发生时，需要由操作系统保存当前线程的状态，并恢复另一个线程的状态，Java 中对应的概念就是程序计数器（Program Counter Register），它的作用是记住下一条 jvm 指令的执行地址，是线程私有的 
+当 Context Switch 发生时，需要由操作系统保存当前线程的状态，并恢复另一个线程的状态，Java 中对应的概念就是程序计数器（Program Counter Register），它的作用是记住下一条 JVM 指令的执行地址，是线程私有的 
 
 - 状态包括程序计数器、虚拟机栈中每个栈帧的信息，如局部变量、操作数栈、返回地址等 
 - Context Switch 频繁发生会影响性能
@@ -462,7 +462,7 @@ Java Virtual Machine Stacks （Java 虚拟机栈）
 | **public void setName(String name)**            | 给当前线程取名字                                             |                                                              |
 | **public void getName()**                       | 获取当前线程的名字。线程存在默认名称：子线程 Thread 索引，主线程是 main |                                                              |
 | **public static Thread currentThread()**        | 获取当前线程对象，代码在哪个线程中执行                       |                                                              |
-| **public static void sleep(long time)**         | 让当前线程休眠多少毫秒再继续执行。**Thread.sleep(0)**：让操作系统立刻重新进行一次 cpu 竞争 |                                                              |
+| **public static void sleep(long time)**         | 让当前线程休眠多少毫秒再继续执行。**Thread.sleep(0)**：让操作系统立刻重新进行一次 CPU 竞争 |                                                              |
 | **public static native void yield()**           | 提示线程调度器让出当前线程对 CPU 的使用                      | 主要是为了测试和调试                                         |
 | **public final int getPriority()**              | 返回此线程的优先级                                           |                                                              |
 | **public final void setPriority(int priority)** | 更改此线程的优先级，常用 1 5 10                              | java 中规定线程优先级是 1~10 的整数，较大的优先级 能提高该线程被 CPU 调度的机率 |
@@ -477,9 +477,9 @@ Java Virtual Machine Stacks （Java 虚拟机栈）
 | **public state getState()**                     | 获取线程状态                                                 | Java 中线程状态是用 6 个 enum 表示，分别为： NEW，RUNNABLE，BLOCKED，WAITING，TIMED_WAITING，TERMINATED |
 | **public boolean isInterrupted()**              | 判断是否被中断                                               | 不会清除打断标记                                             |
 
-### start 与 run 
+### `start` 与 `run` 
 
-#### 调用 run
+#### 调用 `run`
 
 ```java
 public static void main(String[] args) {
@@ -504,11 +504,11 @@ public static void main(String[] args) {
 19:39:18 [main] c.TestStart - do other things ...
 ```
 
-程序仍在 main 线程运行， FileReader.read() 方法调用还是同步的
+程序仍在 `main` 线程运行，`FileReader.read()` 方法调用还是同步的
 
-#### 调用start
+#### 调用 `start`
 
-将上述代码的 t1.run() 改为
+将上述代码的 `t1.run()` 改为
 
 ```java
 t1.start();
@@ -523,13 +523,13 @@ t1.start();
 19:41:35 [t1] c.FileReader - read [1.mp4] end ... cost: 4542 ms
 ```
 
-程序在 t1 线程运行， FileReader.read() 方法调用是异步的
+程序在 `t1` 线程运行，`FileReader.read()` 方法调用是异步的
 
 #### 小结 
 
-- 直接调用 run 是在主线程中执行了 run，没有启动新的线程 
+- 直接调用 `run` 是在主线程中执行了 `run`，没有启动新的线程 
 
-- 使用 start 是启动新的线程，通过新的线程间接执行 run 中的代码
+- 使用 `start` 是启动新的线程，通过新的线程间接执行 `run` 中的代码
 
 
 ```java
@@ -546,7 +546,7 @@ public static void main(String[] args) {
 }
 ```
 
-可以看见，start 方法创建了一个新线程，将线程从就绪状态切换为 Runnable
+可以看见，`start` 方法创建了一个新线程，将线程从就绪状态切换为 `Runnable`
 
 ```sh
 NEW
@@ -554,13 +554,13 @@ RUNNABLE
 03:45:12.255 c.Test5 [t1] - running...
 ```
 
-### sleep 与 yield 
+### `sleep` 与 `yield`
 
-#### sleep 
+#### `sleep`
 
-1. 调用 sleep 会让当前线程从 Running 进入 Timed Waiting 状态（阻塞） 
+1. 调用 `sleep` 会让当前线程从 `Running` 进入 `Timed Waiting` 状态（阻塞） 
 
-2.  其它线程可以使用 interrupt 方法打断正在睡眠的线程，这时 sleep 方法会抛出 InterruptedException 
+2.  其它线程可以使用 `interrupt` 方法打断正在睡眠的线程，这时 `sleep` 方法会抛出 `InterruptedException`
 
 
 ```java
@@ -585,7 +585,7 @@ public static void main(String[] args) throws InterruptedException {
 }
 ```
 
-输出结果：
+输出结果
 
 ```sh
 03:47:18.141 c.Test7 [t1] - enter sleep...
@@ -598,7 +598,7 @@ java.lang.InterruptedException: sleep interrupted
 
 睡眠结束后的线程未必会立刻得到执行
 
-建议用 TimeUnit 的 sleep 代替 Thread 的 sleep 来获得更好的可读性 。其底层还是sleep方法。
+建议用 `TimeUnit` 的 `sleep` 代替 `Thread` 的 `sleep` 来获得更好的可读性 。其底层还是 `sleep` 方法。
 
 ```java
 @Slf4j(topic = "c.Test8")
@@ -613,19 +613,19 @@ public class Test8 {
 }
 ```
 
-在循环访问锁的过程中，可以加入sleep让线程阻塞时间，防止大量占用cpu资源。
+在循环访问锁的过程中，可以加入 `sleep` 让线程阻塞时间，防止大量占用 CPU 资源。
 
-#### yield 
+#### `yield `
 
-1. 调用 yield 会让当前线程从 Running 进入 Runnable 就绪状态，然后调度执行其它线程 
+1. 调用 `yield` 会让当前线程从 `Running` 进入 `Runnable` 就绪状态，然后调度执行其它线程 
 1. 具体的实现依赖于操作系统的任务调度器
 
 #### 线程优先级 
 
 - 线程优先级会提示（hint）调度器优先调度该线程，但它仅仅是一个提示，调度器可以忽略它 
-- 如果 cpu 比较忙，那么优先级高的线程会获得更多的时间片，但 cpu 闲时，优先级几乎没作用
+- 如果 CPU 比较忙，那么优先级高的线程会获得更多的时间片，但 CPU 闲时，优先级几乎没作用
 
-#### 测试优先级和 yield
+#### 测试优先级和 `yield`
 
 ```java
 @Slf4j(topic = "c.TestYield")
@@ -654,7 +654,7 @@ public class TestYield {
 }
 ```
 
-测试结果：
+测试结果
 
 ```sh
 #优先级
@@ -665,15 +665,13 @@ public class TestYield {
 ---->2 101074
 ```
 
-可以看出，线程优先级和yield会对线程获取cpu时间片产生一定影响，但不会影响太大。
+可以看出，线程优先级和yield会对线程获取 CPU 时间片产生一定影响，但不会影响太大。
 
+####  应用之限制（案例 1）
 
+**`sleep` 实现** 
 
-###  $\textcolor{Green}{* 应用之限制（案例1） } $
-
-#### sleep 实现 
-
-在没有利用 cpu 来计算时，不要让 while(true) 空转浪费 cpu，这时可以使用 yield 或 sleep 来让出 cpu 的使用权 给其他程序
+在没有利用 CPU 来计算时，不要让 `while(true)` 空转浪费 CPU，这时可以使用 `yield` 或 `sleep` 来让出 CPU 的使用权 给其他程序
 
 ```java
 while(true) {
@@ -687,13 +685,9 @@ while(true) {
 
 - 可以用 wait 或 条件变量达到类似的效果 
 - 不同的是，后两种都需要加锁，并且需要相应的唤醒操作，一般适用于要进行同步的场景 
-- sleep 适用于无需锁同步的场景
+- `sleep` 适用于无需锁同步的场景
 
-
-
-
-
-#### wait 实现
+**`wait` 实现**
 
 ```java
 synchronized(锁对象) {
@@ -708,9 +702,7 @@ synchronized(锁对象) {
 }
 ```
 
-
-
-#### 条件变量实现
+**条件变量实现**
 
 ```java
 lock.lock();
@@ -727,3 +719,693 @@ try {
     lock.unlock();
 }
 ```
+
+### `join` 方法详解 
+
+#### 为什么需要 `join`
+
+下面的代码执行，打印 `r` 是什么？
+
+```java
+static int r = 0;
+public static void main(String[] args) throws InterruptedException {
+    test1();
+}
+private static void test1() throws InterruptedException {
+    log.debug("开始");
+    Thread t1 = new Thread(() -> {
+        log.debug("开始");
+        sleep(1);
+        log.debug("结束");
+        r = 10;
+    });
+    t1.start();
+    log.debug("结果为:{}", r);
+    log.debug("结束");
+}
+```
+
+分析 
+
+- 因为主线程和线程 `t1` 是并行执行的，`t1` 线程需要 1 秒之后才能算出 `r=10`
+- 而主线程一开始就要打印 `r` 的结果，所以只能打印出 `r=0`
+
+解决方法
+
+- 用 `sleep` 行不行？为什么？ 
+- 用 `join`，加在 `t1.start()` 之后即可
+
+#### 应用之同步（案例1）
+
+以调用方角度来讲，如果
+
+- 需要等待结果返回，才能继续运行就是同步
+- 不需要等待结果返回，就能继续运行就是异步
+
+![image-20220224020718153](Z:\Public\images\image-20220224020718153-1767422560184-1.png)
+
+**等待多个结果** 
+
+问，下面代码 cost 大约多少秒？
+
+```java
+static int r1 = 0;
+static int r2 = 0;
+public static void main(String[] args) throws InterruptedException {
+    test2();
+}
+private static void test2() throws InterruptedException {
+    Thread t1 = new Thread(() -> {
+        sleep(1);
+        r1 = 10;
+    });
+    Thread t2 = new Thread(() -> {
+        sleep(2);
+        r2 = 20;
+    });
+    long start = System.currentTimeMillis();
+    t1.start();
+    t2.start();
+    t1.join();
+    t2.join();
+    long end = System.currentTimeMillis();
+    log.debug("r1: {} r2: {} cost: {}", r1, r2, end - start);
+}  
+```
+
+分析如下 
+
+- 第一个 `join`：等待 `t1` 时, `t2` 并没有停止，而在运行 
+- 第二个 `join`：1s 后, 执行到此，`t2` 也运行了 1s，因此也只需再等待 1s 
+
+如果颠倒两个 join 呢？ 
+
+最终都是输出
+
+```sh
+20:45:43.239 [main] c.TestJoin - r1: 10 r2: 20 cost: 2005
+```
+
+![image-20220224020847406](Z:\Public\images\image-20220224020847406-1767422645775-3.png)
+
+#### 有时效的 `join`
+
+当线程执行时间没有超过 `join` 设定时间
+
+```java
+static int r1 = 0;
+static int r2 = 0;
+public static void main(String[] args) throws InterruptedException {
+    test3();
+}
+public static void test3() throws InterruptedException {
+    Thread t1 = new Thread(() -> {
+        sleep(1);
+        r1 = 10;
+    });
+    long start = System.currentTimeMillis();
+    t1.start();
+    // 线程执行结束会导致 join 结束
+    t1.join(1500);
+    long end = System.currentTimeMillis();
+    log.debug("r1: {} r2: {} cost: {}", r1, r2, end - start);
+}
+```
+
+输出
+
+```sh
+20:48:01.320 [main] c.TestJoin - r1: 10 r2: 0 cost: 1010
+```
+
+当执行时间超时
+
+```java
+static int r1 = 0;
+static int r2 = 0;
+public static void main(String[] args) throws InterruptedException {
+    test3();
+}
+public static void test3() throws InterruptedException {
+    Thread t1 = new Thread(() -> {
+        sleep(2);
+        r1 = 10;
+    });
+    long start = System.currentTimeMillis();
+    t1.start();
+    // 线程执行结束会导致 join 结束
+    t1.join(1500);
+    long end = System.currentTimeMillis();
+    log.debug("r1: {} r2: {} cost: {}", r1, r2, end - start);
+}
+```
+
+输出
+
+```sh
+20:52:15.623 [main] c.TestJoin - r1: 0 r2: 0 cost: 1502
+```
+
+### `interrupt` 方法详解
+
+#### `interrupt` 说明
+
+`interrupt` 的本质是将线程的打断标记设为 `true`，并调用线程的三个 `parker` 对象（C++ 实现级别）`unpark` 该线程。
+
+基于以上本质，有如下说明：
+
+- 打断线程不等于中断线程，有以下两种情况：
+  - 打断正在运行中的线程并不会影响线程的运行，但如果线程监测到了打断标记为 `true`，可以自行决定后续处理。
+  - 打断阻塞中的线程会让此线程产生一个 `InterruptedException` 异常，结束线程的运行。但如果该异常被线程捕获住，该线程依然可以自行决定后续处理（终止运行，继续运行，做一些善后工作等等）
+
+#### 打断 `sleep`，`wait`，`join` 的线程
+
+这几个方法都会让线程进入阻塞状态 
+
+打断 `sleep` 的线程, 会清空打断状态，以 `sleep` 为例
+
+```java
+private static void test1() throws InterruptedException {
+    Thread t1 = new Thread(()->{
+        sleep(1);
+    }, "t1");
+    t1.start();
+    sleep(0.5);
+    t1.interrupt();
+    log.debug(" 打断状态: {}", t1.isInterrupted());
+}
+```
+
+输出
+
+```sh
+java.lang.InterruptedException: sleep interrupted
+ at java.lang.Thread.sleep(Native Method)
+ at java.lang.Thread.sleep(Thread.java:340)
+ at java.util.concurrent.TimeUnit.sleep(TimeUnit.java:386)
+ at cn.itcast.n2.util.Sleeper.sleep(Sleeper.java:8)
+ at cn.itcast.n4.TestInterrupt.lambda$test1$3(TestInterrupt.java:59)
+ at java.lang.Thread.run(Thread.java:745)
+21:18:10.374 [main] c.TestInterrupt - 打断状态: false
+```
+
+#### 打断正常运行的线程
+
+打断正常运行的线程, 不会清空打断状态
+
+```java
+private static void test2() throws InterruptedException {
+    Thread t2 = new Thread(()->{
+        while(true) {
+            Thread current = Thread.currentThread();
+            boolean interrupted = current.isInterrupted();
+            if(interrupted) {
+                log.debug(" 打断状态: {}", interrupted);
+                break;
+            }
+        }
+    }, "t2");
+    t2.start();
+    sleep(0.5);
+    t2.interrupt();
+}
+```
+
+输出
+
+```sh
+20:57:37.964 [t2] c.TestInterrupt - 打断状态: true
+```
+
+#### 模式之两阶段终止
+
+Two Phase Termination 在一个线程 T1 中如何“优雅”终止线程 T2？这里的【优雅】指的是给 T2 一个料理后事的机会。
+
+**错误思路**
+
+- 使用线程对象的 `stop()` 方法停止线程 
+  - `stop` 方法会真正杀死线程，如果这时线程锁住了共享资源，那么当它被杀死后就再也没有机会释放锁， 其它线程将永远无法获取锁 
+- 使用 `System.exit(int)` 方法停止线程 
+  - 目的仅是停止一个线程，但这种做法会让整个程序都停止
+
+**两阶段终止模式**
+
+```mermaid
+graph TD
+w("while(true)") --> a
+a("有没有被打断？") -- 是 --> b(料理后事)
+b --> c(结束循环)
+a -- 否 --> d(睡眠2s)
+d -- 无异常 --> e(执行监控记录)
+d -- 有异常 --> i(设置打断标记)
+i --> w
+e --> w
+```
+
+**利用 `isInterrupted`**
+
+`interrupt` 可以打断正在执行的线程，无论这个线程是在 `sleep`，`wait`，还是正常运行
+
+```java
+class TPTInterrupt {
+    private Thread thread;
+    public void start(){
+        thread = new Thread(() -> {
+            while(true) {
+                Thread current = Thread.currentThread();
+                if(current.isInterrupted()) {
+                    log.debug("料理后事");
+                    break;
+                }
+                try {
+                    Thread.sleep(1000);
+                    log.debug("将结果保存");
+                } catch (InterruptedException e) {
+                    current.interrupt();
+                }
+                // 执行监控操作 
+            }
+        },"监控线程");
+        thread.start();
+    }
+    public void stop() {
+        thread.interrupt();
+    }
+}
+```
+
+调用
+
+```java
+TPTInterrupt t = new TPTInterrupt();
+t.start();
+Thread.sleep(3500);
+log.debug("stop");
+t.stop();
+```
+
+结果
+
+```sh
+11:49:42.915 c.TwoPhaseTermination [监控线程] - 将结果保存
+11:49:43.919 c.TwoPhaseTermination [监控线程] - 将结果保存
+11:49:44.919 c.TwoPhaseTermination [监控线程] - 将结果保存
+11:49:45.413 c.TestTwoPhaseTermination [main] - stop 
+11:49:45.413 c.TwoPhaseTermination [监控线程] - 料理后事
+```
+
+##### **利用停止标记**
+
+```java
+// 停止标记用 volatile 是为了保证该变量在多个线程之间的可见性
+// 我们的例子中，即主线程把它修改为 true 对 t1 线程可见
+class TPTVolatile {
+    private Thread thread;
+    private volatile boolean stop = false;
+    public void start(){
+        thread = new Thread(() -> {
+            while(true) {
+                Thread current = Thread.currentThread();
+                if(stop) {
+                    log.debug("料理后事");
+                    break;
+                }
+                try {
+                    Thread.sleep(1000);
+                    log.debug("将结果保存");
+                } catch (InterruptedException e) {
+                }
+                // 执行监控操作
+            }
+        },"监控线程");
+        thread.start();
+    }
+    public void stop() {
+        stop = true;
+        thread.interrupt();
+    }
+}
+```
+
+调用
+
+```java
+TPTVolatile t = new TPTVolatile();
+t.start();
+Thread.sleep(3500);
+log.debug("stop");
+t.stop();
+```
+
+结果
+
+```sh
+11:54:52.003 c.TPTVolatile [监控线程] - 将结果保存
+11:54:53.006 c.TPTVolatile [监控线程] - 将结果保存
+11:54:54.007 c.TPTVolatile [监控线程] - 将结果保存
+11:54:54.502 c.TestTwoPhaseTermination [main] - stop 
+11:54:54.502 c.TPTVolatile [监控线程] - 料理后事
+```
+
+#### 打断 `park` 线程
+
+打断 `park` 线程, 不会清空打断状态
+
+```java
+private static void test3() throws InterruptedException {
+    Thread t1 = new Thread(() -> {
+        log.debug("park...");
+        LockSupport.park();
+        log.debug("unpark...");
+        log.debug("打断状态：{}", Thread.currentThread().isInterrupted());
+    }, "t1");
+    t1.start();
+    sleep(0.5);
+    t1.interrupt();
+}
+```
+
+输出
+
+```sh
+21:11:52.795 [t1] c.TestInterrupt - park... 
+21:11:53.295 [t1] c.TestInterrupt - unpark... 
+21:11:53.295 [t1] c.TestInterrupt - 打断状态：true 
+```
+
+如果打断标记已经是 `true`, 则 `park` 会失效
+
+```java
+private static void test4() {
+    Thread t1 = new Thread(() -> {
+        for (int i = 0; i < 5; i++) {
+            log.debug("park...");
+            LockSupport.park();
+            log.debug("打断状态：{}", Thread.currentThread().isInterrupted());
+        }
+    });
+    t1.start();
+    sleep(1);
+    t1.interrupt();
+}
+```
+
+输出
+
+```sh
+21:13:48.783 [Thread-0] c.TestInterrupt - park... 
+21:13:49.809 [Thread-0] c.TestInterrupt - 打断状态：true 
+21:13:49.812 [Thread-0] c.TestInterrupt - park... 
+21:13:49.813 [Thread-0] c.TestInterrupt - 打断状态：true 
+21:13:49.813 [Thread-0] c.TestInterrupt - park... 
+21:13:49.813 [Thread-0] c.TestInterrupt - 打断状态：true 
+21:13:49.813 [Thread-0] c.TestInterrupt - park... 
+21:13:49.813 [Thread-0] c.TestInterrupt - 打断状态：true 
+21:13:49.813 [Thread-0] c.TestInterrupt - park... 
+21:13:49.813 [Thread-0] c.TestInterrupt - 打断状态：true 
+```
+
+> 提示 
+>
+> 可以使用 `Thread.interrupted()` 清除打断状态
+
+### 不推荐的方法
+
+还有一些不推荐使用的方法，这些方法已过时，容易破坏同步代码块，造成线程死锁
+
+|   方法名    | static |       功能说明       |
+| :---------: | :----: | :------------------: |
+|  `stop()`   |        |     停止线程运行     |
+| `suspend()` |        | 挂起（暂停）线程运行 |
+| `resume()`  |        |     恢复线程运行     |
+
+### 主线程与守护线程
+
+默认情况下，Java 进程需要等待所有线程都运行结束，才会结束。有一种特殊的线程叫做守护线程，只要其它非守护线程运行结束了，即使守护线程的代码没有执行完，也会强制结束。
+
+例
+
+```java
+log.debug("开始运行...");
+Thread t1 = new Thread(() -> {
+     log.debug("开始运行...");
+     sleep(2);
+     log.debug("运行结束...");
+}, "daemon");
+// 设置该线程为守护线程
+t1.setDaemon(true);
+t1.start();
+sleep(1);
+log.debug("运行结束...");
+```
+
+输出
+
+```sh
+08:26:38.123 [main] c.TestDaemon - 开始运行... 
+08:26:38.213 [daemon] c.TestDaemon - 开始运行... 
+08:26:39.215 [main] c.TestDaemon - 运行结束... 
+```
+
+> 注意 
+>
+> - 垃圾回收器线程就是一种守护线程 
+> - Tomcat 中的 Acceptor 和 Poller 线程都是守护线程，所以 Tomcat 接收到 shutdown 命令后，不会等待它们处理完当前请求
+
+
+
+## 3.12 五种状态
+
+这是从 **操作系统** 层面来描述的
+
+![image-20220224174907408](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220224174907408.png)
+
+- 【初始状态】仅是在语言层面创建了线程对象，还未与操作系统线程关联 
+- 【可运行状态】（就绪状态）指该线程已经被创建（与操作系统线程关联），可以由 CPU 调度执行 
+- 【运行状态】指获取了 CPU 时间片运行中的状态
+  - 当 CPU 时间片用完，会从【运行状态】转换至【可运行状态】，会导致线程的上下文切换
+- 【阻塞状态】
+  - 如果调用了阻塞 API，如 BIO 读写文件，这时该线程实际不会用到 CPU，会导致线程上下文切换，进入 【阻塞状态】 
+  - 等 BIO 操作完毕，会由操作系统唤醒阻塞的线程，转换至【可运行状态】 
+  - 与【可运行状态】的区别是，对【阻塞状态】的线程来说只要它们一直不唤醒，调度器就一直不会考虑 调度它们
+- 【终止状态】表示线程已经执行完毕，生命周期已经结束，不会再转换为其它状态
+
+
+
+## 3.13 六种状态
+
+这是从 **Java API** 层面来描述的 
+
+根据 Thread.State 枚举，分为六种状态
+
+![image-20220224175139037](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220224175139037.png)
+
+- NEW 线程刚被创建，但是还没有调用 start() 方法 
+- RUNNABLE 当调用了 start() 方法之后，注意，Java API 层面的 RUNNABLE 状态涵盖了 操作系统 层面的 【可运行状态】、【运行状态】和【阻塞状态】（由于 BIO 导致的线程阻塞，在 Java 里无法区分，仍然认为 是可运行） 
+- BLOCKED ， WAITING ， TIMED_WAITING 都是 Java API 层面对【阻塞状态】的细分，后面会在状态转换一节 详述 
+- TERMINATED 当线程代码运行结束
+
+
+
+## 3.14 习题
+
+阅读华罗庚《统筹方法》，给出烧水泡茶的多线程解决方案，提示 
+
+- 参考图二，用两个线程（两个人协作）模拟烧水泡茶过程 
+  - 文中办法乙、丙都相当于任务串行 
+  - 而图一相当于启动了 4 个线程，有点浪费 
+- 用 sleep(n) 模拟洗茶壶、洗水壶等耗费的时间
+
+### $\textcolor{green}{* 应用之统筹（烧水泡茶）}$
+
+#### 解法1：join
+
+```java
+Thread t1 = new Thread(() -> {
+    log.debug("洗水壶");
+    sleep(1);
+    log.debug("烧开水");
+    sleep(15);
+}, "老王");
+Thread t2 = new Thread(() -> {
+    log.debug("洗茶壶");
+    sleep(1);
+    log.debug("洗茶杯");
+    sleep(2);
+    log.debug("拿茶叶");
+    sleep(1);
+    try {
+        t1.join();
+    } catch (InterruptedException e) {
+        e.printStackTrace();
+    }
+    log.debug("泡茶");
+}, "小王");
+t1.start();
+t2.start();
+```
+
+输出
+
+```sh
+19:19:37.547 [小王] c.TestMakeTea - 洗茶壶
+19:19:37.547 [老王] c.TestMakeTea - 洗水壶
+19:19:38.552 [小王] c.TestMakeTea - 洗茶杯
+19:19:38.552 [老王] c.TestMakeTea - 烧开水
+19:19:40.553 [小王] c.TestMakeTea - 拿茶叶
+19:19:53.553 [小王] c.TestMakeTea - 泡茶
+```
+
+解法1 的缺陷：
+
+- 上面模拟的是小王等老王的水烧开了，小王泡茶，如果反过来要实现老王等小王的茶叶拿来了，老王泡茶 呢？代码最好能适应两种情况 
+- 上面的两个线程其实是各执行各的，如果要模拟老王把水壶交给小王泡茶，或模拟小王把茶叶交给老王泡茶 呢
+
+
+
+#### 解法2：wait/notify
+
+```java
+class S2 {
+    static String kettle = "冷水";
+    static String tea = null;
+    static final Object lock = new Object();
+    static boolean maked = false;
+    public static void makeTea() {
+        new Thread(() -> {
+            log.debug("洗水壶");
+            sleep(1);
+            log.debug("烧开水");
+            sleep(5);
+            synchronized (lock) {
+                kettle = "开水";
+                lock.notifyAll();
+                while (tea == null) {
+                    try {
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (!maked) {
+                    log.debug("拿({})泡({})", kettle, tea);
+                    maked = true;
+                }
+            }
+        }, "老王").start();
+        new Thread(() -> {
+            log.debug("洗茶壶");
+            sleep(1);
+            log.debug("洗茶杯");
+            sleep(2);
+            log.debug("拿茶叶");
+            sleep(1);
+            synchronized (lock) {
+                tea = "花茶";
+                lock.notifyAll();
+                while (kettle.equals("冷水")) {
+                    try {
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (!maked) {
+                    log.debug("拿({})泡({})", kettle, tea);
+                    maked = true;
+                }
+            }
+        }, "小王").start();
+    }
+}
+```
+
+输出
+
+```java
+20:04:48.179 c.S2 [小王] - 洗茶壶
+20:04:48.179 c.S2 [老王] - 洗水壶
+20:04:49.185 c.S2 [老王] - 烧开水
+20:04:49.185 c.S2 [小王] - 洗茶杯
+20:04:51.185 c.S2 [小王] - 拿茶叶
+20:04:54.185 c.S2 [老王] - 拿(开水)泡(花茶) 
+```
+
+解法2 解决了解法1 的问题，不过老王和小王需要相互等待，不如他们只负责各自的任务，泡茶交给第三人来做
+
+```java
+class S3 {
+    static String kettle = "冷水";
+    static String tea = null;
+    static final Object lock = new Object();
+    public static void makeTea() {
+        new Thread(() -> {
+            log.debug("洗水壶");
+            sleep(1);
+            log.debug("烧开水");
+            sleep(5);
+            synchronized (lock) {
+                kettle = "开水";
+                lock.notifyAll();
+            }
+        }, "老王").start();
+        new Thread(() -> {
+            log.debug("洗茶壶");
+            sleep(1);
+            log.debug("洗茶杯");
+            sleep(2);
+            log.debug("拿茶叶");
+            sleep(1);
+            synchronized (lock) {
+                tea = "花茶";
+                lock.notifyAll();
+            }
+        }, "小王").start();
+        new Thread(() -> {
+            synchronized (lock) {
+                while (kettle.equals("冷水") || tea == null) {
+                    try {
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                log.debug("拿({})泡({})", kettle, tea);
+            }
+        }, "王夫人").start();
+    }
+}
+```
+
+输出
+
+```sh
+20:13:18.202 c.S3 [小王] - 洗茶壶
+20:13:18.202 c.S3 [老王] - 洗水壶
+20:13:19.206 c.S3 [小王] - 洗茶杯
+20:13:19.206 c.S3 [老王] - 烧开水
+20:13:21.206 c.S3 [小王] - 拿茶叶
+20:13:24.207 c.S3 [王夫人] - 拿(开水)泡(花茶) 
+```
+
+
+
+#### 解法3：第三者协调
+
+## 本章小结 
+
+本章的重点在于掌握 
+
+- 线程创建 
+- 线程重要 api，如 start，run，sleep，join，interrupt 等 
+- 线程状态 
+- 应用方面 
+  - 异步调用：主线程执行期间，其它线程异步执行耗时操作 
+  - 提高效率：并行计算，缩短运算时间 
+  - 同步等待：join 
+  - 统筹规划：合理使用线程，得到最优效果 
+- 原理方面 
+  - 线程运行流程：栈、栈帧、上下文切换、程序计数器 
+  - Thread 两种创建方式 的源码 
+- 模式方面 
+  - 终止模式之两阶段终止
