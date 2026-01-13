@@ -1309,6 +1309,21 @@ sequenceDiagram
 顺序加锁的解决方案
 
 ```mermaid
+sequenceDiagram
+    participant T1 as 线程1
+    participant T2 as 线程2
+    participant A as 对象A
+    participant B as 对象B
+
+    T2-->>A: 尝试获取锁
+    Note over T1,A: 拥有锁
+
+    T2--xA: 尝试获取锁
+    T2-->>A: 阻塞
+
+    T1-->>B: 尝试获取锁
+    Note over T1,B: 拥有锁
+
 ```
 
 说明：
