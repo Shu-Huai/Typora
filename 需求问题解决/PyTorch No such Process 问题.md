@@ -4,7 +4,7 @@
 
 在 `nvtop / nvitop`（或类似 GPU 进程监控工具）中，某张 GPU 卡（例如 GPU1）上显示某个进程条目为 `No Such Process`，并且看起来占用了大量显存（例如 14GB）。
 
-<img src="Z:\Public\images\256ad12e-aa2c-4564-9d19-304c6b004b01.png" alt="256ad12e-aa2c-4564-9d19-304c6b004b01" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\256ad12e-aa2c-4564-9d19-304c6b004b01.png" alt="256ad12e-aa2c-4564-9d19-304c6b004b01" style="zoom:50%;" />
 
 用户希望“精准 kill 掉它”。
 

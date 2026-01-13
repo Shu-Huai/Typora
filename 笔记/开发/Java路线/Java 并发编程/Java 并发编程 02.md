@@ -1319,26 +1319,26 @@ public static void method2() {
 
 创建锁记录（Lock Record）对象，每个线程都的栈帧都会包含一个锁记录的结构，内部可以存储锁定对象的 `Mark Word`
 
-![image-20220317183003930](Z:\Public\images\image-20220317183003930-1767677416915-85.png)
+![image-20220317183003930](http://public.file.lvshuhuai.cn/images\image-20220317183003930-1767677416915-85.png)
 
 让锁记录中 `Object reference` 指向锁对象，并尝试用 `cas` 替换 `Object` 的 `Mark Word`，将 `Mark Word` 的值存 入锁记录
 
-![image-20220317183043247](Z:\Public\images\image-20220317183043247-1767677468806-87.png)
+![image-20220317183043247](http://public.file.lvshuhuai.cn/images\image-20220317183043247-1767677468806-87.png)
 
 如果 `cas` 替换成功，对象头中存储了 锁记录地址和状态 `00`，表示由该线程给对象加锁，这时图示如下
 
-![image-20220317183112363](Z:\Public\images\image-20220317183112363-1767677528545-89.png)
+![image-20220317183112363](http://public.file.lvshuhuai.cn/images\image-20220317183112363-1767677528545-89.png)
 
 如果 `cas` 失败，有两种情况
 
 - 如果是其它线程已经持有了该 `Object` 的轻量级锁，这时表明有竞争，进入锁膨胀过程
 - 如果是自己执行了 `synchronized` 锁重入，那么再添加一条 `Lock Record` 作为重入的计数
 
-![image-20220317183158959](Z:\Public\images\image-20220317183158959-1767677638836-91.png)
+![image-20220317183158959](http://public.file.lvshuhuai.cn/images\image-20220317183158959-1767677638836-91.png)
 
 当退出 `synchronized` 代码块（解锁时）如果有取值为 `null` 的锁记录，表示有重入，这时重置锁记录，表示重入计数减一
 
-![image-20220317183219677](Z:\Public\images\image-20220317183219677-1767677731184-93.png)
+![image-20220317183219677](http://public.file.lvshuhuai.cn/images\image-20220317183219677-1767677731184-93.png)
 
 - 当退出 `synchronized` 代码块（解锁时）锁记录的值不为 `null`，这时使用 `cas` 将 `Mark Word` 的值恢复给对象头
 
@@ -1360,13 +1360,13 @@ public static void method1() {
 
 当 Thread-1 进行轻量级加锁时，Thread-0 已经对该对象加了轻量级锁
 
-![image-20220317183453057](Z:\Public\images\image-20220317183453057-1767678983122-95.png)
+![image-20220317183453057](http://public.file.lvshuhuai.cn/images\image-20220317183453057-1767678983122-95.png)
 
 这时 Thread-1 加轻量级锁失败，进入锁膨胀流程 
 - 即为 `Object` 对象申请 Monitor 锁，让 `Object` 指向重量级锁地址 
 - 然后自己进入 Monitor 的 `EntryList BLOCKED`
 
-![image-20220317183547387](Z:\Public\images\image-20220317183547387-1767679001905-97.png)
+![image-20220317183547387](http://public.file.lvshuhuai.cn/images\image-20220317183547387-1767679001905-97.png)
 
 当 Thread-0 退出同步块解锁时，使用 `cas` 将 Mark Word 的值恢复给对象头，失败。这时会进入重量级解锁 流程，即按照 Monitor 地址找到 Monitor 对象，设置 Owner 为 `null`，唤醒 `EntryList` 中 `BLOCKED` 线程
 

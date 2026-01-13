@@ -6,7 +6,7 @@
 
 #### 原理之 wait / notify
 
-![image-20220317191950175](Z:\Public\images\image-20220317191950175-1768292205675-1.png)
+![image-20220317191950175](http://public.file.lvshuhuai.cn/images\image-20220317191950175-1768292205675-1.png)
 
 - Owner 线程发现条件不满足，调用 wait 方法，即可进入 WaitSet 变为 WAITING 状态 
 - BLOCKED 和 WAITING 的线程都处于阻塞状态，不占用 CPU 时间片 
@@ -351,7 +351,7 @@ synchronized(lock) {
 - JDK 中，join 的实现、Future 的实现，采用的就是此模式 
 - 因为要等待另一方的结果，因此归类到同步模式
 
-![image-20220304134602353](Z:\Public\images\image-20220304134602353-1768295491565-3.png)
+![image-20220304134602353](http://public.file.lvshuhuai.cn/images\image-20220304134602353-1768295491565-3.png)
 
 **实现**
 
@@ -583,7 +583,7 @@ public final synchronized void join(long millis)
 
 如果需要在多个类之间使用 GuardedObject 对象，作为参数传递不是很方便，因此设计一个用来解耦的中间类， 这样不仅能够解耦【结果等待者】和【结果生产者】，还能够同时支持多个任务的管理。
 
-![image-20220304141821782](Z:\Public\images\image-20220304141821782-1768297035430-5.png)
+![image-20220304141821782](http://public.file.lvshuhuai.cn/images\image-20220304141821782-1768297035430-5.png)
 
 新增 id 用来标识 Guarded Object
 
@@ -734,7 +734,7 @@ public static void main(String[] args) throws InterruptedException {
 - 消息队列是有容量限制的，满时不会再加入数据，空时不会再消耗数据 
 - JDK 中各种阻塞队列，采用的就是这种模式
 
-![image-20220304142831627](Z:\Public\images\image-20220304142831627-1768297096495-7.png)
+![image-20220304142831627](http://public.file.lvshuhuai.cn/images\image-20220304142831627-1768297096495-7.png)
 
 **实现**
 
@@ -928,21 +928,21 @@ LockSupport.unpark(t1);
   - 如果这时线程还在运行，那么下次他调用 park 时，仅是消耗掉备用干粮，不需停留继续前进 
     - 因为背包空间有限，多次调用 unpark 仅会补充一份备用干粮
 
-![image-20220304144415441](Z:\Public\images\image-20220304144415441-1768299051666-9.png)
+![image-20220304144415441](http://public.file.lvshuhuai.cn/images\image-20220304144415441-1768299051666-9.png)
 
 1. 当前线程调用 Unsafe.park() 方法
 2. 检查 _counter ，本情况为 0，这时，获得 _mutex 互斥锁
 3. 线程进入 _cond 条件变量阻塞
 4. 设置 _counter = 0
 
-![image-20220304144548871](Z:\Public\images\image-20220304144548871-1768299125836-11.png)
+![image-20220304144548871](http://public.file.lvshuhuai.cn/images\image-20220304144548871-1768299125836-11.png)
 
 1. 调用 Unsafe.unpark(Thread_0) 方法，设置 _counter 为 1
 2. 唤醒 _cond 条件变量中的 Thread_0
 3. Thread_0 恢复运行
 4. 设置 _counter 为 0
 
-![image-20220304144626180](Z:\Public\images\image-20220304144626180-1768299137810-13.png)
+![image-20220304144626180](http://public.file.lvshuhuai.cn/images\image-20220304144626180-1768299137810-13.png)
 
 1. 调用 Unsafe.unpark(Thread_0) 方法，设置 _counter 为 1
 2. 当前线程调用 Unsafe.park() 方法
@@ -951,7 +951,7 @@ LockSupport.unpark(t1);
 
 ### 重新理解线程状态转换
 
-![image-20220304151245960](Z:\Public\images\image-20220304151245960-1768299435221-15.png)
+![image-20220304151245960](http://public.file.lvshuhuai.cn/images\image-20220304151245960-1768299435221-15.png)
 
 假设有线程 `Thread t`
 
