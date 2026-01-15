@@ -1402,7 +1402,7 @@ public static void method3() {
 
 #### 可打断
 
-可打断指的是处于阻塞状态等待锁的线程可以被打断等待。注意`lock.lockInterruptibly()`和`lock.trylock()`方法是可打断的,`lock.lock()`不是。可打断的意义在于避免得不到锁的线程无限制地等待下去，防止死锁的一种方式。
+可打断指的是处于阻塞状态等待锁的线程可以被打断等待。注意 `lock.lockInterruptibly()` 和 `lock.trylock()` 方法是可打断的，`lock.lock()` 不是。可打断的意义在于避免得不到锁的线程无限制地等待下去，防止死锁的一种方式。
 
 示例
 
