@@ -40,15 +40,15 @@ public static void main(String[] args) throws InterruptedException {
 
 初始状态， t 线程刚开始从主内存读取了 run 的值到工作内存。
 
-![image-20220305192346249](Z:\Public\images\image-20220305192346249-1768471662809-21.png)
+![image-20220305192346249](http://public.file.lvshuhuai.cn/images\image-20220305192346249-1768471662809-21.png)
 
 因为 t 线程要频繁从主内存中读取 run 的值，JIT 编译器会将 run 的值缓存至自己工作内存中的高速缓存中， 减少对主存中 run 的访问，提高效率
 
-![image-20220305192416102](Z:\Public\images\image-20220305192416102-1768471696575-23.png)
+![image-20220305192416102](http://public.file.lvshuhuai.cn/images\image-20220305192416102-1768471696575-23.png)
 
 1 秒之后，main 线程修改了 run 的值，并同步至主存，而 t 是从自己工作内存中的高速缓存中读取这个变量 的值，结果永远是旧值
 
-![image-20220305192512523](Z:\Public\images\image-20220305192512523-1768471704970-25.png)
+![image-20220305192512523](http://public.file.lvshuhuai.cn/images\image-20220305192512523-1768471704970-25.png)
 
 #### 解决方法
 
