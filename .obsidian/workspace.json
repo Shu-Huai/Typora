@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "需求问题解决/Docker 部署 Overleaf.md",
+                "file": "笔记/人工智能/数学/熵.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Docker 部署 Overleaf"
+              "title": "熵"
             }
           },
           {
@@ -123,7 +123,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "笔记/专业课/软件形式化方法（1）.md",
+                "file": "笔记/人工智能/数学/熵.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -133,7 +133,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "软件形式化方法（1） 的反向链接列表"
+              "title": "熵 的反向链接列表"
             }
           },
           {
@@ -179,12 +179,11 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
-      "bases:创建新数据库": false,
+      "bases:新建数据库": false,
       "switcher:打开快速切换": false,
       "graph:查看关系图谱": false,
       "canvas:新建白板": false,
@@ -195,7 +194,24 @@
   },
   "active": "0f3d3d5c72fa69c0",
   "lastOpenFiles": [
+    "组会/2026.01.22 组会进展.md",
+    "组会/Untitled.md",
+    "笔记/开发/Java路线/Java 并发编程/Untitled.md",
+    "笔记/开发/Java路线/Java 并发编程/Java 并发编程 05——共享模型之不可变.md",
+    "笔记/开发/Java路线/Java 并发编程/Java 并发编程 04——共享模型之无锁.md",
+    "Untitled 9.md",
+    "笔记/开发/Java路线/Java 并发编程/Java 并发编程 01——进程与线程.md",
+    "笔记/开发/Java路线/Java 并发编程/Java 并发编程 02——共享模型之管程.md",
+    "笔记/开发/Java路线/Java 并发编程/Java 并发编程 03——共享模型之内存.md",
+    "笔记/开发/Java路线/Java 并发编程/Java 并发编程 05.md",
+    "笔记/人工智能/数学/InfoNCE.md",
+    "笔记/人工智能/数学/Untitled.md",
+    "笔记/人工智能/数学/NCE.md",
+    "笔记/人工智能/数学/互信息.md",
+    "笔记/人工智能/数学/KL 散度.md",
     "笔记/开发/服务器/Docker.md",
+    "笔记/人工智能/数学/交叉熵损失.md",
+    "笔记/人工智能/数学/熵.md",
     "需求问题解决/Docker 部署 Overleaf.md",
     "笔记/开发/服务器/HTTPS.md",
     "[acme.sh.md",
@@ -204,23 +220,6 @@
     "笔记/开发/服务器/ACME 协议.md",
     "笔记/开发/服务器/Untitled.md",
     "Let's Encrypt.md",
-    "笔记/开发/实现原理/力扣复杂度分析.md",
-    "ACME.md",
-    "笔记/经典算法/停机问题.md",
-    "笔记/开发/服务器/ACME.md",
-    "组会/2025.12.11 组会进展.md",
-    "组会/Untitled 9 (copy).md",
-    "组会/Untitled 9.md",
-    "Untitled 9.md",
-    "组会/2025.12.04 组会进展.md",
-    "论文/图文对齐/Unsupervised Discovery of Multimodal Links in Multi-image, Multi-sentence Documents.md",
-    "论文/图文对齐/Untitled.md",
-    "Untitled 8.md",
-    "实验室杂货/审稿/1218-NEUNET-D-25-03023_R1_reviewer.md",
-    "实验室杂货/审稿/Untitled.md",
-    "八股文/Java后端/面试题/垃圾回收.md",
-    "八股文/Java后端/面试题/几种线程创建方法.md",
-    "八股文/Java后端/面试题/为什么有了 HTTP 还需要 WebSocket.md",
     "笔记/开发/Java路线/JVM 学习",
     "笔记/开发/Java路线/Java 基础语法",
     "笔记/经典算法",
