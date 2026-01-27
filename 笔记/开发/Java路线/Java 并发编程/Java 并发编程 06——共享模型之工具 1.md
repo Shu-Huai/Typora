@@ -1,4 +1,4 @@
-# Java 并发编程 06——共享模型之工具 
+# Java 并发编程 06——共享模型之工具 1
 
 ## 线程池
 
@@ -281,24 +281,24 @@ public class ThreadPoolTest {
 
 ### ThreadPoolExecutor
 
-<img src="Z:\Public\images\image-20220311171237519-1768909704661-92.png" alt="image-20220311171237519" style="zoom:67%;" />
+<img src="http://public.file.lvshuhuai.cn/images\image-20220311171237519-1768909704661-92.png" alt="image-20220311171237519" style="zoom:67%;" />
 
 说明：
 
-- ScheduledThreadPoolExecutor是带调度的线程池
-- ThreadPoolExecutor是不带调度的线程池
+- `ScheduledThreadPoolExecutor` 是带调度的线程池
+- `ThreadPoolExecutor` 是不带调度的线程池
 
 #### 线程池状态
 
-ThreadPoolExecutor 使用 int 的高 3 位来表示线程池状态，低 29 位表示线程数量
+`ThreadPoolExecutor` 使用 int 的高 3 位来表示线程池状态，低 29 位表示线程数量
 
-|   状态名   | 高3位 | 接收新任务 | 处理阻塞队列任务 |                    说明                    |
-| :--------: | :---: | :--------: | :--------------: | :----------------------------------------: |
-|  RUNNING   |  111  |     Y      |        Y         |                                            |
-|  SHUTDOWN  |  000  |     N      |        Y         | 不会接收新任务，但会处理阻塞队列剩余 任务  |
-|    STOP    |  001  |     N      |        N         | 会中断正在执行的任务，并抛弃阻塞队列 任务  |
-|  TIDYING   |  010  |            |                  | 任务全执行完毕，活动线程为 0 即将进入 终结 |
-| TERMINATED |  011  |            |                  |                  终结状态                  |
+|   状态名   | 高3位 | 接收新任务 | 处理阻塞队列任务 |                   说明                    |
+| :--------: | :---: | :--------: | :--------------: | :---------------------------------------: |
+|  RUNNING   |  111  |     Y      |        Y         |                                           |
+|  SHUTDOWN  |  000  |     N      |        Y         | 不会接收新任务，但会处理阻塞队列剩余任务  |
+|    STOP    |  001  |     N      |        N         | 会中断正在执行的任务，并抛弃阻塞队列任务  |
+|  TIDYING   |  010  |            |                  | 任务全执行完毕，活动线程为 0 即将进入终结 |
+| TERMINATED |  011  |            |                  |                 终结状态                  |
 
 从数字上比较，TERMINATED > TIDYING > STOP > SHUTDOWN > RUNNING 
 
@@ -323,12 +323,12 @@ public ThreadPoolExecutor(int corePoolSize,
                           RejectedExecutionHandler handler)
 ```
 
-- corePoolSize 核心线程数目 (最多保留的线程数) 
+- corePoolSize 核心线程数目（最多保留的线程数）
 - maximumPoolSize 最大线程数目 
-- keepAliveTime 生存时间 - 针对救急线程 
-- unit 时间单位 - 针对救急线程 
+- keepAliveTime 生存时间，针对救急线程 
+- unit 时间单位 针对救急线程 
 - workQueue 阻塞队列 
-- threadFactory 线程工厂 - 可以为线程创建时起个好名字 
+- threadFactory 线程工厂，可以为线程创建时起个好名字 
 - handler 拒绝策略
 
 #### 工作方式
@@ -337,46 +337,51 @@ public ThreadPoolExecutor(int corePoolSize,
 graph LR
 
 subgraph 阻塞队列
-size=2
-t3(任务3)
-t4(任务4)
+    queue[容量=2]
 end
 
-subgraph 线程池c-2,m=3
-ct1(核心线程1)
-ct2(核心线程2)
-mt1(救急线程1)
-ct1 --> t1(任务1)
-ct2 --> t2(任务2)
+subgraph 线程池_核心2_最大3
+    ct1[核心线程1]
+    ct2[核心线程2]
+    mt1[救急线程1]
+    t1[任务1]
+    t2[任务2]
+    
+    ct1 --> t1
+    ct2 --> t2
 end
-t1(任务1)
+
+%% 连接阻塞队列（可选）
+queue --> ct1
+queue --> ct2
+queue --> mt1
 
 style ct1 fill:#ccf,stroke:#f66,stroke-width:2px
 style ct2 fill:#ccf,stroke:#f66,stroke-width:2px
-style mt1 fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray:5,5
+style mt1 fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5 5
 ```
 
-- 线程池中刚开始没有线程，当一个任务提交给线程池后，线程池会创建一个新线程来执行任务。 
+- 线程池中刚开始没有线程，当一个任务提交给线程池后，线程池会创建一个新线程来执行任务。
 
-- 当线程数达到 corePoolSize 并没有线程空闲，这时再加入任务，新加的任务会被加入workQueue 队列排 队，直到有空闲的线程。 
+- 当线程数达到 corePoolSize 并没有线程空闲，这时再加入任务，新加的任务会被加入 workQueue 队列排队，直到有空闲的线程。
 
-- 如果队列选择了有界队列，那么任务超过了队列大小时，会创建 maximumPoolSize - corePoolSize 数目的线程来救急。 
+- 如果队列选择了有界队列，那么任务超过了队列大小时，会创建 maximumPoolSize - corePoolSize 数目的线程来救急。
 
-- 如果线程到达 maximumPoolSize 仍然有新任务这时会执行拒绝策略。拒绝策略 jdk 提供了 4 种实现，其它 著名框架也提供了实现
+- 如果线程到达 maximumPoolSize 仍然有新任务这时会执行拒绝策略。拒绝策略 jdk 提供了 4 种实现，其它著名框架也提供了实现
 
   - AbortPolicy 让调用者抛出 RejectedExecutionException 异常，这是默认策略
   - CallerRunsPolicy 让调用者运行任务 
   - DiscardPolicy 放弃本次任务 
-  - DiscardOldestPolicy 放弃队列中最早的任务，本任务取而代之 
-  - Dubbo 的实现，在抛出 RejectedExecutionException 异常之前会记录日志，并 dump 线程栈信息，方 便定位问题 
-  - Netty 的实现，是创建一个新线程来执行任务 
+  - DiscardOldestPolicy 放弃队列中最早的任务，本任务取而代之
+  - Dubbo 的实现，在抛出 RejectedExecutionException 异常之前会记录日志，并 dump 线程栈信息，方便定位问题
+  - Netty 的实现，是创建一个新线程来执行任务
   - ActiveMQ 的实现，带超时等待（60s）尝试放入队列，类似我们之前自定义的拒绝策略 
   - PinPoint 的实现，它使用了一个拒绝策略链，会逐一尝试策略链中每种拒绝策略
 
-- 当高峰过去后，超过corePoolSize 的救急线程如果一段时间没有任务做，需要结束节省资源，这个时间由 keepAliveTime 和 unit 来控制。
+- 当高峰过去后，超过 corePoolSize 的救急线程如果一段时间没有任务做，需要结束节省资源，这个时间由 keepAliveTime 和 unit 来控制。
 
 
-![image-20220311174119508](Z:\Public\images\image-20220311174119508-1768909743873-94.png)
+![image-20220311174119508](http://public.file.lvshuhuai.cn/images\image-20220311174119508-1768909743873-94.png)
 
 根据这个构造方法，JDK Executors 类中提供了众多工厂方法来创建各种用途的线程池。
 
@@ -403,7 +408,7 @@ public ThreadPoolExecutor(int corePoolSize,
 }
 ```
 
-默认工厂以及默认构造线程的方法：
+默认工厂以及默认构造线程的方法
 
 ```java
 DefaultThreadFactory() {
@@ -502,7 +507,7 @@ new Thread(() -> {
 11:48:17.503 c.TestSynchronousQueue [t1] - 2 putted... 
 ```
 
-> **评价** 整个线程池表现为线程数会根据任务量不断增长，没有上限，当任务执行完毕，空闲 1分钟后释放线 程。 适合任务数比较密集，但每个任务执行时间较短的情况
+> **评价** 整个线程池表现为线程数会根据任务量不断增长，没有上限，当任务执行完毕，空闲 1 分钟后释放线程。适合任务数比较密集，但每个任务执行时间较短的情况
 
 #### newSingleThreadExecutor
 
@@ -517,13 +522,13 @@ public static ExecutorService newSingleThreadExecutor() {
 
 使用场景： 
 
-希望多个任务排队执行。线程数固定为 1，任务数多于 1 时，会放入无界队列排队。任务执行完毕，这唯一的线程 也不会被释放。 
+希望多个任务排队执行。线程数固定为 1，任务数多于 1 时，会放入无界队列排队。任务执行完毕，这唯一的线程也不会被释放。
 
 区别：
 
 - 自己创建一个单线程串行执行任务，如果任务执行失败而终止那么没有任何补救措施，而线程池还会新建一 个线程，保证池的正常工作
 - Executors.newSingleThreadExecutor() 线程个数始终为1，不能修改
-  - FinalizableDelegatedExecutorService 应用的是装饰器模式，在调用构造方法时将ThreadPoolExecutor对象传给了内部的ExecutorService接口。只对外暴露了 ExecutorService 接口，因此不能调用 ThreadPoolExecutor 中特有的方法，也不能重新设置线程池的大小。
+  - FinalizableDelegatedExecutorService 应用的是装饰器模式，在调用构造方法时将 ThreadPoolExecutor 对象传给了内部的 ExecutorService 接口。只对外暴露了 ExecutorService 接口，因此不能调用 ThreadPoolExecutor 中特有的方法，也不能重新设置线程池的大小。
 - Executors.newFixedThreadPool(1) 初始时为1，以后还可以修改
   - 对外暴露的是 ThreadPoolExecutor 对象，可以强转后调用 setCorePoolSize 等方法进行修改
 
@@ -550,7 +555,7 @@ void execute(Runnable command);
     throws InterruptedException, ExecutionException, TimeoutException;
 ```
 
-测试submit
+测试 submit
 
 ```java
 private static void method1(ExecutorService pool) throws InterruptedException, ExecutionException {
@@ -575,7 +580,7 @@ public static void main(String[] args) throws ExecutionException, InterruptedExc
 18:36:59.034 c.TestSubmit [main] - ok
 ```
 
-测试invokeAll
+测试 invokeAll
 
 ```java
 private static void method2(ExecutorService pool) throws InterruptedException {
@@ -622,7 +627,7 @@ public static void main(String[] args) throws ExecutionException, InterruptedExc
 19:33:20.051 c.TestSubmit [main] - 3
 ```
 
-测试invokeAny
+测试 invokeAny
 
 ```java
 private static void method3(ExecutorService pool) throws InterruptedException, ExecutionException {
@@ -810,13 +815,13 @@ public class TestShutDown {
 
 **定义**
 
-让有限的工作线程（Worker Thread）来轮流异步处理无限多的任务。也可以将其归类为分工模式，它的典型实现 就是线程池，也体现了经典设计模式中的享元模式。
+让有限的工作线程（Worker Thread）来轮流异步处理无限多的任务。也可以将其归类为分工模式，它的典型实现就是线程池，也体现了经典设计模式中的享元模式。
 
-例如，海底捞的服务员（线程），轮流处理每位客人的点餐（任务），如果为每位客人都配一名专属的服务员，那 么成本就太高了（对比另一种多线程设计模式：Thread-Per-Message） 
+例如，海底捞的服务员（线程），轮流处理每位客人的点餐（任务），如果为每位客人都配一名专属的服务员，那么成本就太高了（对比另一种多线程设计模式：Thread-Per-Message）
 
-注意，不同任务类型应该使用不同的线程池，这样能够避免饥饿，并能提升效率 
+注意，不同任务类型应该使用不同的线程池，这样能够避免饥饿，并能提升效率
 
-例如，如果一个餐馆的工人既要招呼客人（任务类型A），又要到后厨做菜（任务类型B）显然效率不咋地，分成 服务员（线程池A）与厨师（线程池B）更为合理，当然你能想到更细致的分工
+例如，如果一个餐馆的工人既要招呼客人（任务类型 A），又要到后厨做菜（任务类型 B）显然效率不咋地，分成服务员（线程池 A）与厨师（线程池 B）更为合理，当然你能想到更细致的分工
 
 **饥饿**
 
@@ -825,10 +830,10 @@ public class TestShutDown {
 - 两个工人是同一个线程池中的两个线程 
 
 - 他们要做的事情是：为客人点餐和到后厨做菜，这是两个阶段的工作 
-  - 客人点餐：必须先点完餐，等菜做好，上菜，在此期间处理点餐的工人必须等待 
-  - 后厨做菜：没啥说的，做就是了 
-- 比如工人A 处理了点餐任务，接下来它要等着 工人B 把菜做好，然后上菜，他俩也配合的蛮好 
-- 但现在同时来了两个客人，这个时候工人A 和工人B 都去处理点餐了，这时没人做饭了，饥饿
+  - 客人点餐：必须先点完餐，等菜做好，上菜，在此期间处理点餐的工人必须等待
+  - 后厨做菜：没啥说的，做就是了
+- 比如工人 A 处理了点餐任务，接下来它要等着工人 B 把菜做好，然后上菜，他俩也配合的蛮好
+- 但现在同时来了两个客人，这个时候工人 A 和工人 B 都去处理点餐了，这时没人做饭了，饥饿
 
 ```java
 public class TestDeadLock {
@@ -884,7 +889,7 @@ public class TestDeadLock {
 17:08:41.339 c.TestDeadLock [pool-1-thread-1] - 处理点餐... 
 ```
 
-解决方法可以增加线程池的大小，不过不是根本解决方案，还是前面提到的，不同的任务类型，采用不同的线程 池，例如：
+解决方法可以增加线程池的大小，不过不是根本解决方案，还是前面提到的，不同的任务类型，采用不同的线程池，例如：
 
 ```java
 public class TestDeadLock {
@@ -937,14 +942,14 @@ public class TestDeadLock {
 
 **创建多少线程池合适**
 
-- 过小会导致程序不能充分地利用系统资源、容易导致饥饿 
+- 过小会导致程序不能充分地利用系统资源、容易导致饥饿
 - 过大会导致更多的线程上下文切换，占用更多内存
 
 **CPU 密集型运算**
 
 通常采用 `cpu 核数 + 1` 能够实现最优的 CPU 利用率，+1 是保证当线程由于页缺失故障（操作系统）或其它原因 导致暂停时，额外的这个线程就能顶上去，保证 CPU 时钟周期不被浪费
 
- **I/O 密集型运算**
+**I/O 密集型运算**
 
 CPU 不总是处于繁忙状态，例如，当你执行业务计算时，这时候会使用 CPU 资源，但当你执行 I/O 操作时、远程 RPC 调用时，包括进行数据库操作时，这时候 CPU 就闲下来了，你可以利用多线程提高它的利用率。 
 
@@ -962,7 +967,7 @@ CPU 不总是处于繁忙状态，例如，当你执行业务计算时，这时�
 
 ### 任务调度线程池
 
-在『任务调度线程池』功能加入之前(JDK1.3)，可以使用 java.util.Timer 来实现定时功能，Timer 的优点在于简单易用，但 由于所有任务都是由同一个线程来调度，因此所有任务都是串行执行的，同一时间只能有一个任务在执行，前一个 任务的延迟或异常都将会影响到之后的任务。
+在『任务调度线程池』功能加入之前（JDK 1.3），可以使用 java.util.Timer 来实现定时功能，Timer 的优点在于简单易用，但由于所有任务都是由同一个线程来调度，因此所有任务都是串行执行的，同一时间只能有一个任务在执行，前一个 任务的延迟或异常都将会影响到之后的任务。
 
 ```java
 public static void main(String[] args) {
@@ -995,7 +1000,7 @@ public static void main(String[] args) {
 20:46:12.448 c.TestTimer [Timer-0] - task 2 
 ```
 
-使用 ScheduledExecutorService 改写：
+使用 ScheduledExecutorService 改写
 
 ```java
 ScheduledExecutorService executor = Executors.newScheduledThreadPool(2);
@@ -1016,7 +1021,7 @@ executor.schedule(() -> {
 任务2，执行时间：Thu Jan 03 12:45:17 CST 2019 
 ```
 
-scheduleAtFixedRate 例子：
+scheduleAtFixedRate 例子
 
 ```java
 ScheduledExecutorService pool = Executors.newScheduledThreadPool(1);
@@ -1036,7 +1041,7 @@ pool.scheduleAtFixedRate(() -> {
 21:45:47.215 c.TestTimer [pool-1-thread-1] - running... 
 ```
 
-scheduleAtFixedRate 例子（任务执行时间超过了间隔时间）：
+scheduleAtFixedRate 例子（任务执行时间超过了间隔时间）
 
 ```java
 ScheduledExecutorService pool = Executors.newScheduledThreadPool(1);
@@ -1057,7 +1062,7 @@ pool.scheduleAtFixedRate(() -> {
 21:44:37.362 c.TestTimer [pool-1-thread-1] - running...
 ```
 
-scheduleWithFixedDelay 例子：
+scheduleWithFixedDelay 例子
 
 ```java
 ScheduledExecutorService pool = Executors.newScheduledThreadPool(1);
@@ -1068,7 +1073,7 @@ pool.scheduleWithFixedDelay(()-> {
 }, 1, 1, TimeUnit.SECONDS);
 ```
 
-输出分析：一开始，延时 1s，scheduleWithFixedDelay 的间隔是 上一个任务结束 <-> 延时 <-> 下一个任务开始 所 以间隔都是 3s
+输出分析：一开始，延时 1s，scheduleWithFixedDelay 的间隔是上一个任务结束 <-> 延时 <-> 下一个任务开始所以间隔都是 3s
 
 ```sh
 21:40:55.078 c.TestTimer [main] - start... 
@@ -1078,7 +1083,9 @@ pool.scheduleWithFixedDelay(()-> {
 21:41:05.147 c.TestTimer [pool-1-thread-1] - running... 
 ```
 
-> **评价** 整个线程池表现为：线程数固定，任务数多于线程数时，会放入无界队列排队。任务执行完毕，这些线 程也不会被释放。用来执行延迟或反复执行的任务
+> **评价**
+>
+> 整个线程池表现为：线程数固定，任务数多于线程数时，会放入无界队列排队。任务执行完毕，这些线 程也不会被释放。用来执行延迟或反复执行的任务
 
 #### 应用之定时任务
 
@@ -1137,14 +1144,12 @@ java.lang.ArithmeticException: / by zero
  at java.lang.Thread.run(Thread.java:748) 
 ```
 
-
-
 #### 方法2：使用 Future
 
 说明：
 
-- lambda表达式内要有返回值，编译器才能将其识别为Callable，否则将识别为Runnable，也就不能用FutureTask
-- 方法中如果出异常，`futuretask.get`会返回这个异常，否者正常返回。
+- lambda 表达式内要有返回值，编译器才能将其识别为 Callable，否则将识别为 Runnable，也就不能用 FutureTask
+- 方法中如果出异常，`futuretask.get` 会返回这个异常，否者正常返回。
 
 ```java
 ExecutorService pool = Executors.newFixedThreadPool(1);
@@ -1173,50 +1178,45 @@ Caused by: java.lang.ArithmeticException: / by zero
  at java.lang.Thread.run(Thread.java:748) 
 ```
 
-
-
 ### Tomcat 线程池
 
 Tomcat 在哪里用到了线程池呢
 
 ```mermaid
 graph LR
-
-subgraph Connector->NIO EndPoint
-t1(LimitLatch)
-t2(Acceptor)
-t3(SocketChannel 1)
-t4(SocketChannel 2)
-t5(Poller)
-subgraph Executor
-t7(worker1)
-t8(worker2)
-end
-t1 --> t2
-t2 --> t3
-t2 --> t4
-t3 --有读--> t5
-t4 --有读--> t5
-t5 --socketProcessor--> t7
-t5 --socketProcessor--> t8
-end
-
-
+  subgraph "Connector to NIO EndPoint"
+    t1(LimitLatch)
+    t2(Acceptor)
+    t3(SocketChannel 1)
+    t4(SocketChannel 2)
+    t5(Poller)
+    
+    subgraph Executor
+      t7(worker1)
+      t8(worker2)
+    end
+    
+    t1 --> t2
+    t2 --> t3
+    t2 --> t4
+    t3 --有读--> t5
+    t4 --有读--> t5
+    t5 --socketProcessor--> t7
+    t5 --socketProcessor--> t8
+  end
 ```
 
-- LimitLatch 用来限流，可以控制最大连接个数，类似 J.U.C 中的 Semaphore 后面再讲 
-- Acceptor 只负责【接收新的 socket 连接】 
-- Poller 只负责监听 socket channel 是否有【可读的 I/O 事件】 
-- 一旦可读，封装一个任务对象（socketProcessor），提交给 Executor 线程池处理 
+- LimitLatch 用来限流，可以控制最大连接个数，类似 J.U.C 中的 Semaphore 后面再讲
+- Acceptor 只负责【接收新的 socket 连接】
+- Poller 只负责监听 socket channel 是否有【可读的 I/O 事件】
+- 一旦可读，封装一个任务对象（socketProcessor），提交给 Executor 线程池处理
 - Executor 线程池中的工作线程最终负责【处理请求】
 
+Tomcat 线程池扩展了 ThreadPoolExecutor，行为稍有不同
 
-
-Tomcat 线程池扩展了 ThreadPoolExecutor，行为稍有不同 
-
-- 如果总线程数达到 maximumPoolSize 
-  - 这时不会立刻抛 RejectedExecutionException 异常 
-  - 而是再次尝试将任务放入队列，如果还失败，才抛出 RejectedExecutionException 异常 
+- 如果总线程数达到 maximumPoolSize
+  - 这时不会立刻抛 RejectedExecutionException 异常
+  - 而是再次尝试将任务放入队列，如果还失败，才抛出 RejectedExecutionException 异常
 
 源码 tomcat-7.0.42
 
@@ -1281,27 +1281,36 @@ Executor 线程配置
 |      `maxQueueSize`       | Integer.MAX_VALUE |                 队列长度                  |
 | `prestartminSpareThreads` |       false       |      核心线程是否在服务器启动时启动       |
 
-![image-20220312104017979](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220312104017979.png)
+```mermaid
+graph LR
+    add("添加新任务")
+    core("提交任务 < 核心线程")
+    max("提交任务 < 最大线程")
+    queue("加入队列")
+    emergency("创建救急线程")
 
+    add --> core
+    core -->|是| queue
+    core -->|否| max
+    max -->|是| emergency
+    max -->|否| queue
+```
 
+### Fork/Join
 
-#### Fork/Join
+#### 概念
 
-##### 概念 
+Fork/Join 是 JDK 1.7 加入的新的线程池实现，它体现的是一种分治思想，适用于能够进行任务拆分的 cpu 密集型运算
 
-Fork/Join 是 JDK 1.7 加入的新的线程池实现，它体现的是一种分治思想，适用于能够进行任务拆分的 cpu 密集型 运算 
+所谓的任务拆分，是将一个大任务拆分为算法上相同的小任务，直至不能拆分可以直接求解。跟递归相关的一些计 算，如归并排序、斐波那契数列、都可以用分治思想进行求解
 
-所谓的任务拆分，是将一个大任务拆分为算法上相同的小任务，直至不能拆分可以直接求解。跟递归相关的一些计 算，如归并排序、斐波那契数列、都可以用分治思想进行求解 
-
-Fork/Join 在分治的基础上加入了多线程，可以把每个任务的分解和合并交给不同的线程来完成，进一步提升了运 算效率 
+Fork/Join 在分治的基础上加入了多线程，可以把每个任务的分解和合并交给不同的线程来完成，进一步提升了运算效率
 
 Fork/Join 默认会创建与 cpu 核心数大小相同的线程池
 
+#### 应用之求和
 
-
-##### <font color='green'>应用之求和</font>
-
-提交给 Fork/Join 线程池的任务需要继承 RecursiveTask（有返回值）或 RecursiveAction（没有返回值），例如下 面定义了一个对 1~n 之间的整数求和的任务
+提交给 Fork/Join 线程池的任务需要继承 RecursiveTask（有返回值）或 RecursiveAction（没有返回值），例如下面定义了一个对 1~n 之间的整数求和的任务
 
 ```java
 @Slf4j(topic = "c.AddTask")
@@ -1361,7 +1370,32 @@ public static void main(String[] args) {
 
 用图来表示
 
-![image-20220312104252674](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220312104252674.png)
+```mermaid
+graph LR
+    t1["t1 5 + {4}"]
+    t2["t2 4 + {3}"]
+    t3["t3 3 + {2}"]
+    t0s["t0 2 + {1}"]
+    t0["t0"]
+    r["结果"]
+
+    %% 正向计算链
+    t1 -- "{4}" --> t2
+    t2 -- "{3}" --> t3
+    t3 -- "{2}" --> t0s
+    t0s -- "{1}" --> t0
+
+    %% 反向汇总结果
+    t2 -. "-10" .-> t1
+    t3 -. "-6" .-> t2
+    t0s -. "-3" .-> t3
+    t0 -. "-1" .-> t0s
+
+    %% 最终结果
+    t1 -. "15" .-> r
+`
+
+```
 
 改进
 
@@ -1429,36 +1463,53 @@ public static void main(String[] args) {
 
 用图来表示
 
-![image-20220312104428504](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220312104428504.png)
+```mermaid
+graph LR
+    t1["t1 {1,3} + {4,5}"]
+    t2["t2 {1,2} + {3,3}"]
+    t3["t3"]
+    t0["t0"]
+    r["结果"]
 
+    %% 正向集合流
+    t1 -- "{1,3}" --> t2
+    t1 -- "{4,5}" --> t3
+    t2 -- "{1,2}" --> t0
+    t2 -. "{3,3}" .-> t0
 
+    %% 反向数值流
+    t2 -. "6" .-> t1
+    t3 -. "9" .-> t1
+    t0 -. "3" .-> t2
+    t0 -. "3" .-> t3
+    t1 -. "15" .-> r
 
+```
 
+## JUC
 
-## <font color='blue'>*AQS 原理</font>
+### AQS 原理
 
-### 概述
+#### 概述
 
-全称是 AbstractQueuedSynchronizer，是阻塞式锁和相关的同步器工具的框架 
+全称是 AbstractQueuedSynchronizer，是阻塞式锁和相关的同步器工具的框架
 
-特点： 
+特点
 
-- 用 state 属性来表示资源的状态（分独占模式和共享模式），子类需要定义如何维护这个状态，控制如何获取 锁和释放锁 
-  - getState - 获取 state 状态 
-  - setState - 设置 state 状态 
-  - compareAndSetState - cas 机制设置 state 状态 
-  - 独占模式是只有一个线程能够访问资源，而共享模式可以允许多个线程访问资源 
-- 提供了基于 FIFO 的等待队列，类似于 Monitor 的 EntryList 
+- 用 state 属性来表示资源的状态（分独占模式和共享模式），子类需要定义如何维护这个状态，控制如何获取锁和释放锁
+  - getState - 获取 state 状态
+  - setState - 设置 state 状态
+  - compareAndSetState - cas 机制设置 state 状态
+  - 独占模式是只有一个线程能够访问资源，而共享模式可以允许多个线程访问资源
+- 提供了基于 FIFO 的等待队列，类似于 Monitor 的 EntryList
 - 条件变量来实现等待、唤醒机制，支持多个条件变量，类似于 Monitor 的 WaitSet
 
+子类主要实现这样一些方法（默认抛出 UnsupportedOperationException）
 
-
-子类主要实现这样一些方法（默认抛出 UnsupportedOperationException） 
-
-- tryAcquire 
-- tryRelease 
-- tryAcquireShared 
-- tryReleaseShared 
+- tryAcquire
+- tryRelease
+- tryAcquireShared
+- tryReleaseShared
 - isHeldExclusively
 
 获取锁的姿势
@@ -1479,11 +1530,9 @@ if (tryRelease(arg)) {
 }
 ```
 
+#### 实现不可重入锁
 
-
-### 实现不可重入锁
-
-##### **自定义同步器**
+**自定义同步器**
 
 ```java
 final class MySync extends AbstractQueuedSynchronizer {
@@ -1519,9 +1568,7 @@ final class MySync extends AbstractQueuedSynchronizer {
 }
 ```
 
-
-
-##### **自定义锁** 
+**自定义锁** 
 
 有了自定义同步器，很容易复用 AQS ，实现一个功能完备的自定义锁
 
@@ -1606,147 +1653,13 @@ lock.lock();
 log.debug("locking...");
 ```
 
+### ReentrantLock 原理
 
+<img src="http://public.file.lvshuhuai.cn/images\image-20220312235320716.png" alt="image-20220312235320716" style="zoom:50%;" />
 
-###  心得
+#### 非公平锁实现原理
 
-
-
-##### **起源** 
-
-早期程序员会自己通过一种同步器去实现另一种相近的同步器，例如用可重入锁去实现信号量，或反之。这显然不 够优雅，于是在 JSR166（java 规范提案）中创建了 AQS，提供了这种通用的同步器机制。
-
-
-
-##### **目标**
-
-AQS 要实现的功能目标 
-
-- 阻塞版本获取锁 acquire 和非阻塞的版本尝试获取锁 tryAcquire 
-- 获取锁超时机制
-- 通过打断取消机制 
-- 独占机制及共享机制 
-- 条件不满足时的等待机制
-
-要实现的性能目标 
-
-> Instead, the primary performance goal here is scalability: to predictably maintain efficiency even, or especially, when synchronizers are contended.
-
-
-
-##### **设计**
-
- AQS 的基本思想其实很简单 
-
-获取锁的逻辑
-
-```java
-while(state 状态不允许获取) {
-    if(队列中还没有此线程) {
-        入队并阻塞
-    }
-}
-当前线程出队
-```
-
-释放锁的逻辑
-
-```java
-if(state 状态允许了) {
-    恢复阻塞的线程(s)
-}
-```
-
-要点 
-
-- 原子维护 state 状态 
-- 阻塞及恢复线程 
-- 维护队列
-
-
-
-1) state 设计 
-   - state 使用 volatile 配合 cas 保证其修改时的原子性 
-   - state 使用了 32bit int 来维护同步状态，因为当时使用 long 在很多平台下测试的结果并不理想 
-
-2. 阻塞恢复设计 
-   - 早期的控制线程暂停和恢复的 api 有 suspend 和 resume，但它们是不可用的，因为如果先调用的 resume  那么 suspend 将感知不到 
-   - 解决方法是使用 park & unpark 来实现线程的暂停和恢复，具体原理在之前讲过了，先 unpark 再 park 也没 问题 
-   - park & unpark 是针对线程的，而不是针对同步器的，因此控制粒度更为精细 
-   - park 线程还可以通过 interrupt 打断 
-3. 队列设计 
-   - 使用了 FIFO 先入先出队列，并不支持优先级队列 
-   - 设计时借鉴了 CLH 队列，它是一种单向无锁队列
-
-![image-20220312234238685](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220312234238685.png)
-
-队列中有 head 和 tail 两个指针节点，都用 volatile 修饰配合 cas 使用，每个节点有 state 维护节点状态 入队伪代码，只需要考虑 tail 赋值的原子性
-
-```java
-do {
-    // 原来的 tail
-    Node prev = tail;
-    // 用 cas 在原来 tail 的基础上改为 node
-} while(tail.compareAndSet(prev, node))
-```
-
-出队伪代码
-
-```java
-// prev 是上一个节点
-while((Node prev=node.prev).state != 唤醒状态) {
-}
-// 设置头节点
-head = node;
-```
-
-CLH 好处： 
-
-- 无锁，使用自旋
-- 快速，无阻塞
-
-AQS 在一些方面改进了 CLH
-
-```java
-private Node enq(final Node node) {
-    for (;;) {
-        Node t = tail;
-        // 队列中还没有元素 tail 为 null
-        if (t == null) {
-            // 将 head 从 null -> dummy
-            if (compareAndSetHead(new Node()))
-                tail = head;
-        } else {
-            // 将 node 的 prev 设置为原来的 tail
-            node.prev = t;
-            // 将 tail 从原来的 tail 设置为 node
-            if (compareAndSetTail(t, node)) {
-                // 原来 tail 的 next 设置为 node
-                t.next = node;
-                return t;
-            }
-        }
-    }
-}
-```
-
-
-
-##### 主要用到 AQS 的并发工具类
-
-![image-20220312235232687](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220312235232687.png)
-
-
-
-
-
-## ReentrantLock 原理
-
-![image-20220312235320716](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220312235320716.png)
-
-### 非公平锁实现原理
-
-##### 加锁解锁流程
+**加锁解锁流程**
 
 先从构造器开始看，默认为非公平锁实现
 
@@ -1758,44 +1671,46 @@ public ReentrantLock() {
 
 NonfairSync 继承自 AQS 没有竞争时
 
-![image-20220314153311208](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220314153311208.png)
+![image-20220314153311208](http://public.file.lvshuhuai.cn/images\image-20220314153311208.png)
 
 第一个竞争出现时
 
-![image-20220314153333551](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220314153333551.png)
+![image-20220314153333551](http://public.file.lvshuhuai.cn/images\image-20220314153333551.png)
 
 Thread-1 执行了
 
 1. CAS 尝试将 state 由 0 改为 1，结果失败
-2. 进入 tryAcquire 逻辑，这时 state 已经是1，结果仍然失败
+2. 进入 tryAcquire 逻辑，这时 state 已经是 1，结果仍然失败
 3. 接下来进入 addWaiter 逻辑，构造 Node 队列 
    - 图中黄色三角表示该 Node 的 waitStatus 状态，其中 0 为默认正常状态 
    - Node 的创建是懒惰的 
    - 其中第一个 Node 称为 Dummy（哑元）或哨兵，用来占位，并不关联线程
 
-![image-20220314153434087](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220314153434087.png)
+![image-20220314153434087](http://public.file.lvshuhuai.cn/images\image-20220314153434087-1769418314472-6.png)
 
-当前线程进入 acquireQueued 逻辑 
+当前线程进入 acquireQueued 逻辑
+
+![image-20220314153526384](http://public.file.lvshuhuai.cn/images\image-20220314153526384.png)
 
 1. acquireQueued 会在一个死循环中不断尝试获得锁，失败后进入 park 阻塞
 2. 如果自己是紧邻着 head（排第二位），那么再次 tryAcquire 尝试获取锁，当然这时 state 仍为 1，失败
-3. 进入 shouldParkAfterFailedAcquire 逻辑，将前驱 node，即 head 的 waitStatus 改为 -1，这次返回 false![image-20220314153526384](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220314153526384.png)
+3. 进入 shouldParkAfterFailedAcquire 逻辑，将前驱 node，即 head 的 waitStatus 改为 -1，这次返回 false
 4. shouldParkAfterFailedAcquire 执行完毕回到 acquireQueued ，再次 tryAcquire 尝试获取锁，当然这时 state 仍为 1，失败
 5. 当再次进入 shouldParkAfterFailedAcquire 时，这时因为其前驱 node 的 waitStatus 已经是 -1，这次返回 true
 6. 进入 parkAndCheckInterrupt， Thread-1 park（灰色表示）
 
-![image-20220314153708216](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220314153708216.png)
+![image-20220314153708216](http://public.file.lvshuhuai.cn/images\image-20220314153708216.png)
 
 再次有多个线程经历上述过程竞争失败，变成这个样子
 
-![image-20220314154029099](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220314154029099.png)
+![image-20220314154029099](http://public.file.lvshuhuai.cn/images\image-20220314154029099-1769421598389-10.png)
 
 Thread-0 释放锁，进入 tryRelease 流程，如果成功 
 
 - 设置 exclusiveOwnerThread 为 null 
 - state = 0
 
-![image-20220314153831407](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220314153831407.png)
+![image-20220314153831407](http://public.file.lvshuhuai.cn/images\image-20220314153831407-1769421609874-12.png)
 
 当前队列不为 null，并且 head 的 waitStatus = -1，进入 unparkSuccessor 流程 
 
@@ -1803,7 +1718,7 @@ Thread-0 释放锁，进入 tryRelease 流程，如果成功
 
 回到 Thread-1 的 acquireQueued 流程
 
-![image-20220314153919958](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220314153919958.png)
+![image-20220314153919958](http://public.file.lvshuhuai.cn/images\image-20220314153919958-1769421622259-14.png)
 
 如果加锁成功（没有竞争），会设置 
 
@@ -1813,14 +1728,14 @@ Thread-0 释放锁，进入 tryRelease 流程，如果成功
 
 如果这时候有其它线程来竞争（非公平的体现），例如这时有 Thread-4 来了
 
-![image-20220314154048958](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220314154048958.png)
+![image-20220314154048958](http://public.file.lvshuhuai.cn/images\image-20220314154048958-1769421645619-16.png)
 
 如果不巧又被 Thread-4 占了先 
 
 - Thread-4 被设置为 exclusiveOwnerThread，state = 1 
 - Thread-1 再次进入 acquireQueued 流程，获取锁失败，重新进入 park 阻塞
 
-##### 加锁源码
+**加锁源码**
 
 ```java
 // Sync 继承自 AQS
@@ -2005,15 +1920,15 @@ static final class NonfairSync extends Sync {
 
 总结：
 
-- 调用`lock`，尝试将state从0修改为1
-  - 成功：将owner设为当前线程
-  - 失败：调用`acquire`->`tryAcquire`->`nonfairTryAcquire`，判断state=0则获得锁，或者state不为0但当前线程持有锁则重入锁，以上两种情况`tryAcquire`返回true，剩余情况返回false。
+- 调用 `lock`，尝试将 state 从 0 修改为 1
+  - 成功：将 owner 设为当前线程
+  - 失败：调用 `acquire`->`tryAcquire`->`nonfairTryAcquire`，判断 state=0 则获得锁，或者 state 不为 0 但当前线程持有锁则重入锁，以上两种情况`tryAcquire` 返回 true，剩余情况返回 false。
     - true：获得锁
-    - false：调用`acquireQueued(addWaiter(Node.EXCLUSIVE), arg)`,其中`addwiter`将关联线程的节点插入AQS队列尾部，进入`acquireQueued`中的for循环:
+    - false：调用 `acquireQueued(addWaiter(Node.EXCLUSIVE), arg)`，其中 `addwiter` 将关联线程的节点插入 AQS 队列尾部，进入 `acquireQueued` 中的 for 循环
       - 如果当前节点是头节点，并尝试获得锁成功，将当前节点设为头节点，清除此节点信息，返回打断标记。
-      - 调用`shoudParkAfterFailure`,第一次调用返回false，并将前驱节点改为-1，第二次循环如果再进入此方法，会进入阻塞并检查打断的方法。
+      - 调用 `shoudParkAfterFailure`，第一次调用返回 false，并将前驱节点改为 -1，第二次循环如果再进入此方法，会进入阻塞并检查打断的方法。
 
-##### 解锁源码
+**解锁源码**
 
 ```java
 // Sync 继承自 AQS
@@ -2084,16 +1999,14 @@ static final class NonfairSync extends Sync {
 
 总结：
 
-- `unlock`->`syn.release`(1)->`tryRelease`(1),如果当前线程并不持有锁，抛异常。state减去1,如果之后state为0，解锁成功，返回true；如果仍大于0，表示解锁不完全，当前线程依旧持有锁，返回false。
-- 返回true：检查AQS队列第一个节点状态图是否为`SIGNAL`(意味着有责任唤醒其后记节点)，如果有，调用`unparkSuccessor`。
-  - 再`unparkSuccessor`中，不考虑已取消的节点, 从 AQS 队列从后至前找到队列最前面需要 unpark 的节点，如果有，将其唤醒。
-- 返回false：
+- `unlock`->`syn.release`(1)->`tryRelease`(1)，如果当前线程并不持有锁，抛异常。state 减去 1，如果之后 state 为 0，解锁成功，返回 true；如果仍大于 0，表示解锁不完全，当前线程依旧持有锁，返回 false。
+- 返回 true：检查 AQS 队列第一个节点状态图是否为 `SIGNAL`（意味着有责任唤醒其后记节点），如果有，调用 `unparkSuccessor`。
+  - 再 `unparkSuccessor` 中，不考虑已取消的节点，从 AQS 队列从后至前找到队列最前面需要 unpark 的节点，如果有，将其唤醒。
+- 返回 false
 
+#### 可重入原理
 
-
-### 可重入原理
-
-当持有锁的线程再次尝试获取锁时，会将state的值加1，state表示锁的重入量。
+当持有锁的线程再次尝试获取锁时，会将 state 的值加 1，state 表示锁的重入量。
 
 ```java
 static final class NonfairSync extends Sync {
@@ -2139,13 +2052,11 @@ static final class NonfairSync extends Sync {
 }
 ```
 
-
-
-### 可打断原理
+#### 可打断原理
 
 **不可打断模式**
 
-在此模式下，即使它被打断，仍会驻留在 AQS 队列中，并将打断信号存储在一个interrupt变量中。一直要等到获得锁后方能得知自己被打断了,并且调用`selfInterrupt`方法打断自己。
+在此模式下，即使它被打断，仍会驻留在 AQS 队列中，并将打断信号存储在一个 interrupt 变量中。一直要等到获得锁后方能得知自己被打断了，并且调用 `selfInterrupt` 方法打断自己。
 
 ```java
 // Sync 继承自 AQS
@@ -2246,11 +2157,9 @@ static final class NonfairSync extends Sync {
 }
 ```
 
+#### 公平锁实现原理
 
-
-### 公平锁实现原理
-
-简而言之，公平与非公平的区别在于，公平锁中的tryAcquire方法被重写了，新来的线程即便得知了锁的state为0，也要先判断等待队列中是否还有线程等待，只有当队列没有线程等待式，才获得锁。
+简而言之，公平与非公平的区别在于，公平锁中的 tryAcquire 方法被重写了，新来的线程即便得知了锁的 state 为 0，也要先判断等待队列中是否还有线程等待，只有当队列没有线程等待式，才获得锁。
 
 ```java
 static final class FairSync extends Sync {
@@ -2308,66 +2217,60 @@ static final class FairSync extends Sync {
 }
 ```
 
-
-
-### 条件变量实现原理
+#### 条件变量实现原理
 
 每个条件变量其实就对应着一个等待队列，其实现类是 ConditionObject
 
+**await 流程**
 
-
-#### await 流程
-
-开始 Thread-0 持有锁，调用 await，进入 ConditionObject 的 addConditionWaiter 流程 
+开始 Thread-0 持有锁，调用 await，进入 ConditionObject 的 addConditionWaiter 流程
 
 创建新的 Node 状态为 -2（Node.CONDITION），关联 Thread-0，加入等待队列尾部
 
-![image-20220314171543622](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220314171543622.png)
+![image-20220314171543622](http://public.file.lvshuhuai.cn/images\image-20220314171543622.png)
 
 接下来进入 AQS 的 fullyRelease 流程，释放同步器上的锁
 
-![image-20220314171600661](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220314171600661.png)
+![image-20220314171600661](http://public.file.lvshuhuai.cn/images\image-20220314171600661-1769423468343-19.png)
 
 unpark AQS 队列中的下一个节点，竞争锁，假设没有其他竞争线程，那么 Thread-1 竞争成功
 
-![image-20220314171619415](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220314171619415.png)
+![image-20220314171619415](http://public.file.lvshuhuai.cn/images\image-20220314171619415-1769423481014-21.png)
 
 park 阻塞 Thread-0
 
-![image-20220314171637949](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220314171637949.png)
+![image-20220314171637949](http://public.file.lvshuhuai.cn/images\image-20220314171637949.png)
 
 总结：
 
-- 创建一个节点，关联当前线程，并插入到当前Condition队列的尾部
-- 调用`fullRelease`，完全释放同步器中的锁，并记录当前线程的锁重入数
-- 唤醒(park)AQS队列中的第一个线程
-- 调用park方法，阻塞当前线程。
+- 创建一个节点，关联当前线程，并插入到当前 Condition 队列的尾部
+- 调用 `fullRelease`，完全释放同步器中的锁，并记录当前线程的锁重入数
+- 唤醒 AQS 队列中的第一个线程
+- 调用 park 方法，阻塞当前线程。
 
-
-
-#### signal 流程
+**signal 流程**
 
 假设 Thread-1 要来唤醒 Thread-0
 
-![image-20220314171703144](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220314171703144.png)
+![image-20220314171703144](http://public.file.lvshuhuai.cn/images\image-20220314171703144.png)
 
 进入 ConditionObject 的 doSignal 流程，取得等待队列中第一个 Node，即 Thread-0 所在 Node
 
-![image-20220314171727397](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220314171727397.png)
+![image-20220314171727397](http://public.file.lvshuhuai.cn/images\image-20220314171727397.png)
 
 执行 transferForSignal 流程，将该 Node 加入 AQS 队列尾部，将 Thread-0 的 waitStatus 改为 0，Thread-3 的 waitStatus 改为 -1
 
-![image-20220314171749467](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220314171749467.png)
+![image-20220314171749467](http://public.file.lvshuhuai.cn/images\image-20220314171749467.png)
 
 Thread-1 释放锁，进入 unlock 流程，略
 
 总结：
 
-- 当前持有锁的线程唤醒等待队列中的线程，调用doSignal或doSignalAll方法，将等待队列中的第一个（或全部）节点插入到AQS队列中的尾部。
-- 将插入的节点的状态从Condition设置为0，将插入节点的前一个节点的状态设置为-1（意味着要承担唤醒后一个节点的责任）
-- 当前线程释放锁，parkAQS队列中的第一个节点线程。
+- 当前持有锁的线程唤醒等待队列中的线程，调用 doSignal 或 doSignalAll 方法，将等待队列中的第一个（或全部）节点插入到 AQS 队列中的尾部。
+- 将插入的节点的状态从 Condition 设置为 0，将插入节点的前一个节点的状态设置为 -1（意味着要承担唤醒后一个节点的责任）
+- 当前线程释放锁，park AQS 队列中的第一个节点线程。
 
-#### 源码
+**源码**
 
 ```java
 public class ConditionObject implements Condition, java.io.Serializable {
@@ -2679,13 +2582,9 @@ public class ConditionObject implements Condition, java.io.Serializable {
 
 ```
 
+### 读写锁
 
-
-## 读写锁
-
-
-
-### ReentrantReadWriteLock
+#### ReentrantReadWriteLock
 
 当读操作远远高于写操作时，这时候使用`读写锁`让`读-读`可以并发，提高性能。 类似于数据库中的`select ... from ... lock in share mode` 
 
@@ -2774,8 +2673,6 @@ new Thread(() -> {
 
 `写锁-写锁`也是相互阻塞的，这里就不测试了
 
-
-
 **注意事项** 
 
 - 读锁不支持条件变量 
@@ -2832,31 +2729,70 @@ class CachedData {
 }
 ```
 
+#### 应用之缓存
 
-
-### <font color='green'>* 应用之缓存</font>
-
-##### 缓存更新策略
+**缓存更新策略**
 
 更新时，是先清缓存还是先更新数据库 
 
 **先清缓存**
 
-![image-20220314184059810](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220314184059810.png)
+```mermaid
+sequenceDiagram
+    participant B as B
+    participant A as A
+    participant C as 缓存
+    participant D as 数据库
+
+    B->>C: 1) 清空缓存
+    A->>D: 2) 查询数据库(x=1)
+    A->>C: 3) 将查询结果放入缓存(x=1)
+    B->>D: 4) 将新数据存入库(x=2)
+    A->>C: 5) 后续查询将一直是旧值(x=1)！！！
+
+```
 
 **先更新数据库**
 
 ![image-20220314184117264](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220314184117264.png)
 
+```mermaid
+sequenceDiagram
+    participant B as B
+    participant A as A
+    participant C as 缓存
+    participant D as 数据库
+
+    B->>D: 1) 将新数据存入库(x=2)
+    A->>C: 2) 查询缓存(x=1) !!!
+    B->>C: 3) 清空缓存
+    A->>D: 4) 查询数据库(x=2)
+    A->>C: 5) 后续查询可以得到新值(x=2)
+
+```
+
+
+
 补充一种情况，假设查询线程 A 查询数据时恰好缓存数据由于时间到期失效，或是第一次查询
 
-![image-20220314184138172](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220314184138172.png)
+```mermaid
+sequenceDiagram
+    participant B as B
+    participant A as A
+    participant C as 缓存
+    participant D as 数据库
+
+    A->>D: 1) 缓存没有，查询数据库(x=1)
+    B->>D: 2) 将新数据存入库(x=2)
+    B->>C: 3) 清空缓存
+    A->>C: 4) 将查询结果放入缓存(x=1)
+    A->>C: 5) 后续查询将一直是旧值(x=1)！！！
+
+```
 
 这种情况的出现几率非常小，见 facebook 论文
 
-
-
-##### 读写锁实现一致性缓存
+**读写锁实现一致性缓存**
 
 使用读写锁实现一个简单的按需加载缓存
 
@@ -2940,37 +2876,33 @@ class GenericCachedDao<T> {
 >
 > - 以上实现体现的是读写锁的应用，保证缓存和数据库的一致性，但有下面的问题没有考虑 
 >
->   - 适合读多写少，如果写操作比较频繁，以上实现性能低 
+>     - 适合读多写少，如果写操作比较频繁，以上实现性能低 
 >
->   - 没有考虑缓存容量 
+>     - 没有考虑缓存容量 
 >
->   - 没有考虑缓存过期 
+>     - 没有考虑缓存过期 
 >
->   - 只适合单机 
+>     - 只适合单机 
 >
->   - 并发性还是低，目前只会用一把锁 
+>     - 并发性还是低，目前只会用一把锁 
 >
->   - 更新方法太过简单粗暴，清空了所有 key（考虑按类型分区或重新设计 key） 
+>     - 更新方法太过简单粗暴，清空了所有 key（考虑按类型分区或重新设计 key） 
 >
 > - 乐观锁实现：用 CAS 去更新
 
+#### 读写锁原理
 
-
-### <font color='blue'>\* 读写锁原理</font>
-
-#### 图解流程
+**图解流程**
 
 读写锁用的是同一个 Sycn 同步器，因此等待队列、state 等也是同一个
 
-
-
 **t1 w.lock，t2 r.lock**
 
-1） t1 成功上锁，流程与 ReentrantLock 加锁相比没有特殊之处，不同是写锁状态占了 state 的低 16 位，而读锁 使用的是 state 的高 16 位
+t1 成功上锁，流程与 ReentrantLock 加锁相比没有特殊之处，不同是写锁状态占了 state 的低 16 位，而读锁 使用的是 state 的高 16 位
 
-![image-20220314191716969](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220314191716969.png)
+![image-20220314191716969](http://public.file.lvshuhuai.cn/images\image-20220314191716969-1769495517385-27.png)
 
-2）t2 执行 r.lock，这时进入读锁的 sync.acquireShared(1) 流程，首先会进入 tryAcquireShared 流程。如果有写 锁占据，那么 tryAcquireShared 返回 -1 表示失败
+t2 执行 r.lock，这时进入读锁的 sync.acquireShared(1) 流程，首先会进入 tryAcquireShared 流程。如果有写 锁占据，那么 tryAcquireShared 返回 -1 表示失败
 
 > tryAcquireShared 返回值表示 
 >
@@ -2978,53 +2910,51 @@ class GenericCachedDao<T> {
 > - 0 表示成功，但后继节点不会继续唤醒 
 > - 正数表示成功，而且数值是还有几个后继节点需要唤醒，读写锁返回 1
 
-![image-20220314191820931](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220314191820931.png)
+![image-20220314191820931](http://public.file.lvshuhuai.cn/images\image-20220314191820931-1769495584655-29.png)
 
-3）这时会进入 sync.doAcquireShared(1) 流程，首先也是调用 addWaiter 添加节点，不同之处在于节点被设置为 Node.SHARED 模式而非 Node.EXCLUSIVE 模式，注意此时 t2 仍处于活跃状态
+这时会进入 sync.doAcquireShared(1) 流程，首先也是调用 addWaiter 添加节点，不同之处在于节点被设置为 Node.SHARED 模式而非 Node.EXCLUSIVE 模式，注意此时 t2 仍处于活跃状态
 
-![image-20220314191835250](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220314191835250.png)
+![image-20220314191835250](http://public.file.lvshuhuai.cn/images\image-20220314191835250-1769495628659-31.png)
 
-4）t2 会看看自己的节点是不是老二，如果是，还会再次调用 tryAcquireShared(1) 来尝试获取锁 
+t2 会看看自己的节点是不是老二，如果是，还会再次调用 tryAcquireShared(1) 来尝试获取锁 
 
-5）如果没有成功，在 doAcquireShared 内 for (;;) 循环一次，把前驱节点的 waitStatus 改为 -1，再 for (;;) 循环一 次尝试 tryAcquireShared(1) 如果还不成功，那么在 parkAndCheckInterrupt() 处 park
+如果没有成功，在 doAcquireShared 内 for (;;) 循环一次，把前驱节点的 waitStatus 改为 -1，再 for (;;) 循环一 次尝试 tryAcquireShared(1) 如果还不成功，那么在 parkAndCheckInterrupt() 处 park
 
-![image-20220314191859644](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220314191859644.png)
+![image-20220314191859644](http://public.file.lvshuhuai.cn/images\image-20220314191859644-1769495647728-33.png)
 
 **t3 r.lock，t4 w.lock** 
 
 这种状态下，假设又有 t3 加读锁和 t4 加写锁，这期间 t1 仍然持有锁，就变成了下面的样子
 
-![image-20220314191927467](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220314191927467.png)
-
-
+![image-20220314191927467](http://public.file.lvshuhuai.cn/images\image-20220314191927467-1769495720732-35.png)
 
 **t1 w.unlock** 
 
 这时会走到写锁的 sync.release(1) 流程，调用 sync.tryRelease(1) 成功，变成下面的样子
 
-![image-20220314191953466](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220314191953466.png)
+![image-20220314191953466](http://public.file.lvshuhuai.cn/images\image-20220314191953466-1769495736307-37.png)
 
 接下来执行唤醒流程 sync.unparkSuccessor，即让老二恢复运行，这时 t2 在 doAcquireShared 内 parkAndCheckInterrupt() 处恢复运行 
 
 这回再来一次 for (;;) 执行 tryAcquireShared 成功则让读锁计数加一
 
-![image-20220314192033493](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220314192033493.png)
+![image-20220314192033493](http://public.file.lvshuhuai.cn/images\image-20220314192033493-1769495746259-39.png)
 
 这时 t2 已经恢复运行，接下来 t2 调用 setHeadAndPropagate(node, 1)，它原本所在节点被置为头节点
 
-![image-20220314192048242](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220314192048242.png)
+![image-20220314192048242](http://public.file.lvshuhuai.cn/images\image-20220314192048242-1769495755904-41.png)
 
 事情还没完，在 setHeadAndPropagate 方法内还会检查下一个节点是否是 shared，如果是则调用 doReleaseShared() 将 head 的状态从 -1 改为 0 并唤醒老二，这时 t3 在 doAcquireShared 内 parkAndCheckInterrupt() 处恢复运行
 
-![image-20220314192104962](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220314192104962.png)
+![image-20220314192104962](http://public.file.lvshuhuai.cn/images\image-20220314192104962-1769495775785-43.png)
 
 这回再来一次 for (;;) 执行 tryAcquireShared 成功则让读锁计数加一
 
-![image-20220314192123102](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220314192123102.png)
+![image-20220314192123102](http://public.file.lvshuhuai.cn/images\image-20220314192123102-1769495852848-45.png)
 
 这时 t3 已经恢复运行，接下来 t3 调用 setHeadAndPropagate(node, 1)，它原本所在节点被置为头节点
 
-![image-20220314192145552](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220314192145552.png)
+![image-20220314192145552](http://public.file.lvshuhuai.cn/images\image-20220314192145552-1769495863629-47.png)
 
 下一个节点不是 shared 了，因此不会继续唤醒 t4 所在节点
 
@@ -3032,21 +2962,19 @@ class GenericCachedDao<T> {
 
 t2 进入 sync.releaseShared(1) 中，调用 tryReleaseShared(1) 让计数减一，但由于计数还不为零
 
-![image-20220314192222303](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220314192222303.png)
+![image-20220314192222303](http://public.file.lvshuhuai.cn/images\image-20220314192222303-1769495874296-49.png)
 
 t3 进入 sync.releaseShared(1) 中，调用 tryReleaseShared(1) 让计数减一，这回计数为零了，进入 doReleaseShared() 将头节点从 -1 改为 0 并唤醒老二，即
 
-![image-20220314192239120](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220314192239120.png)
+![image-20220314192239120](http://public.file.lvshuhuai.cn/images\image-20220314192239120-1769495887960-51.png)
 
 之后 t4 在 acquireQueued 中 parkAndCheckInterrupt 处恢复运行，再次 for (;;) 这次自己是老二，并且没有其他 竞争，tryAcquire(1) 成功，修改头结点，流程结束
 
-![image-20220314192254698](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220314192254698.png)
-
-
+![image-20220314192254698](http://public.file.lvshuhuai.cn/images\image-20220314192254698-1769495902802-53.png)
 
 #### 源码分析
 
-##### **写锁上锁流程**
+**写锁上锁流程**
 
 ```java
 static final class NonfairSync extends Sync {
@@ -3120,18 +3048,16 @@ static final class NonfairSync extends Sync {
 总结：
 
 - `lock` -> `syn.acquire`  ->`tryAquire`
-  - 如果有锁：
-    - 如果是写锁或者锁持有者不为自己，返回false
-    - 如果时写锁且为自己持有，则重入
-  - 如果无锁：
-    - 判断无序阻塞并设置state成功后，将owner设为自己，返回true
+    - 如果有锁：
+        - 如果是写锁或者锁持有者不为自己，返回 false
+        - 如果时写锁且为自己持有，则重入
+    - 如果无锁：
+        - 判断无序阻塞并设置 state 成功后，将 owner 设为自己，返回 true
 - 成功，则获得了锁
 - 失败：
-  - 调用`acquireQueued(addWaiter(Node.EXCLUSIVE), arg)`进入阻塞队列，将节点状态设置为EXCLUSIVE，之后的逻辑与之前的aquireQueued类似。
+    - 调用 `acquireQueued(addWaiter(Node.EXCLUSIVE), arg)` 进入阻塞队列，将节点状态设置为 EXCLUSIVE，之后的逻辑与之前的 aquireQueued 类似。
 
-
-
-##### **写锁释放流程**
+**写锁释放流程**
 
 ```java
 static final class NonfairSync extends Sync {
@@ -3175,21 +3101,18 @@ static final class NonfairSync extends Sync {
 
 - `unlock`->`syn.release`->`tryRelease`
 
-  - state状态减少
-    - 如果减为零，表示解锁成功，返回true
-    - 没有减为0，当前线程依旧持有锁
+    - state 状态减少
+        - 如果减为零，表示解锁成功，返回 true
+        - 没有减为 0，当前线程依旧持有锁
 
 - 成功：解锁成功
 
-  - 如果ASQ队列不为空，则唤醒第一个节点。
+    - 如果 ASQ 队列不为空，则唤醒第一个节点。
 
 - 失败：解锁失败。
 
-  
 
-
-
-##### **读锁上锁流程**
+**读锁上锁流程**
 
 ```java
 static final class NonfairSync extends Sync {
@@ -3352,20 +3275,18 @@ static final class NonfairSync extends Sync {
 总结：
 
 - `lock`->`syn.acquireShare`->`tryAcquireShare`
-  - 如果其他线程持有写锁：则失败，返回-1
-  - 否则：判断无需等待后，将state加上一个写锁的单位，返回1
-- 返回值大于等于0：成功
-- 返回值小于0：
-  - 调用doAcquireShare，类似之前的aquireQueued,将当前线程关联节点，状态设置为SHARE，插入AQS队列尾部。在for循环中判断当前节点的前驱节点是否为头节点
-    - 是：调用`tryAcquireShare`
-      - 如果返回值大于等于0，则获取锁成功，并调用`setHeadAndPropagate`，出队，并不断唤醒AQS队列中的状态为SHARE的节点，直到下一个节点为EXCLUSIVE。记录打断标记，之后退出方法（不返回打断标记）
-  - 判断是否在失败后阻塞
-    - 是：阻塞住，并监测打断信号。
-    - 否则：将前驱节点状态设为-1。（下一次循环就又要阻塞了）
+    - 如果其他线程持有写锁：则失败，返回 -1
+    - 否则：判断无需等待后，将 state 加上一个写锁的单位，返回1
+- 返回值大于等于 0：成功
+- 返回值小于 0：
+    - 调用 doAcquireShare，类似之前的 aquireQueued，将当前线程关联节点，状态设置为 SHARE，插入 AQS 队列尾部。在 for 循环中判断当前节点的前驱节点是否为头节点
+        - 是：调用 `tryAcquireShare`
+            - 如果返回值大于等于 0，则获取锁成功，并调用 `setHeadAndPropagate`，出队，并不断唤醒 AQS 队列中的状态为 SHARE 的节点，直到下一个节点为 EXCLUSIVE。记录打断标记，之后退出方法（不返回打断标记）
+    - 判断是否在失败后阻塞
+        - 是：阻塞住，并监测打断信号。
+        - 否则：将前驱节点状态设为 -1。（下一次循环就又要阻塞了）
 
-
-
-##### **读锁释放流程**
+**读锁释放流程**
 
 ```java
 static final class NonfairSync extends Sync {
@@ -3427,13 +3348,11 @@ static final class NonfairSync extends Sync {
 
 总结：
 
-- `unlock`->`releaseShared`->`tryReleaseShared`,将state减去一个share单元，最后state为0则返回true，不然返回false。
-- 返回tue：调用`doReleaseShare`,唤醒队列中的节点。
-- 返回false：解锁不完全。
+- `unlock`->`releaseShared`->`tryReleaseShared`，将 state 减去一个 share 单元，最后 state 为 0 则返回 true，不然返回 false。
+- 返回 tue：调用 `doReleaseShare`，唤醒队列中的节点。
+- 返回 false：解锁不完全。
 
-
-
-###  StampedLock
+####  StampedLock
 
 该类自 JDK 8 加入，是为了进一步优化读性能，它的特点是在使用读锁、写锁时都必须配合【戳】使用 加解读锁
 
@@ -3449,7 +3368,7 @@ long stamp = lock.writeLock();
 lock.unlockWrite(stamp);
 ```
 
-乐观读，StampedLock 支持 tryOptimisticRead() 方法（乐观读），读取完毕后需要做一次 戳校验 如果校验通 过，表示这期间确实没有写操作，数据可以安全使用，如果校验没通过，需要重新获取读锁，保证数据安全。
+乐观读，StampedLock 支持 tryOptimisticRead() 方法（乐观读），读取完毕后需要做一次戳校验，如果校验通过，表示这期间确实没有写操作，数据可以安全使用，如果校验没通过，需要重新获取读锁，保证数据安全。
 
 ```java
 long stamp = lock.tryOptimisticRead();
@@ -3459,7 +3378,7 @@ if(!lock.validate(stamp)){
 }
 ```
 
-提供一个`数据容器类`内部分别使用读锁保护数据的`read()`方法，写锁保护数据的`write()`方法
+提供一个`数据容器类`内部分别使用读锁保护数据的 `read()` 方法，写锁保护数据的 `write()` 方法
 
 ```JAVA
 class DataContainerStamped {
@@ -3564,13 +3483,9 @@ public static void main(String[] args) {
 > - StampedLock 不支持条件变量 
 > - StampedLock 不支持可重入
 
+### Semaphore
 
-
-## Semaphore
-
-
-
-### 基本使用
+#### 基本使用
 
 [ˈsɛməˌfɔr] 信号量，用来限制能同时访问共享资源的线程上限。
 
@@ -3629,15 +3544,11 @@ public static void main(String[] args) {
 
 说明：
 
-- Semaphore有两个构造器：`Semaphore(int permits)`和`Semaphore(int permits,boolean fair)`
-- permits表示允许同时访问共享资源的线程数。
-- fair表示公平与否，与之前的ReentrantLock一样。
+- Semaphore 有两个构造器：`Semaphore(int permits)` 和 `Semaphore(int permits,boolean fair)`
+- permits 表示允许同时访问共享资源的线程数。
+- fair 表示公平与否，与之前的 ReentrantLock一样。
 
-
-
-### <font color='green'>\* Semaphore 应用</font>
-
-
+#### Semaphore 应用
 
 semaphore 限制对共享资源的使用 
 
@@ -3699,35 +3610,29 @@ class Pool {
 }
 ```
 
+#### Semaphore 原理
 
+**加锁解锁流程**
 
-### <font color='blue'>* Semaphore 原理</font>
-
-
-
-#### 加锁解锁流程
-
-Semaphore有点像一个停车场，permits就好像停车位数量，当线程获得了permits就像是获得了停车位，然后停车场显示空余车位减一。 
+Semaphore 有点像一个停车场，permits 就好像停车位数量，当线程获得了 permits 就像是获得了停车位，然后停车场显示空余车位减一。 
 
 刚开始，permits（state）为 3，这时 5 个线程来获取资源
 
-![image-20220315211610470](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220315211610470.png)
+![image-20220315211610470](http://public.file.lvshuhuai.cn/images\image-20220315211610470.png)
 
 假设其中 Thread-1，Thread-2，Thread-4 cas 竞争成功，而 Thread-0 和 Thread-3 竞争失败，进入 AQS 队列 park 阻塞
 
-![image-20220315211646132](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220315211646132.png)
+![image-20220315211646132](http://public.file.lvshuhuai.cn/images\image-20220315211646132.png)
 
 这时 Thread-4 释放了 permits，状态如下
 
-![image-20220315211712384](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220315211712384.png)
+![image-20220315211712384](http://public.file.lvshuhuai.cn/images\image-20220315211712384.png)
 
 接下来 Thread-0 竞争成功，permits 再次设置为 0，设置自己为 head 节点，断开原来的 head 节点，unpark 接 下来的 Thread-3 节点，但由于 permits 是 0，因此 Thread-3 在尝试不成功后再次进入 park 状态
 
-![image-20220315211741166](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220315211741166.png)
+![image-20220315211741166](http://public.file.lvshuhuai.cn/images\image-20220315211741166.png)
 
-
-
-#### 源码分析
+**源码分析**
 
 ```java
 static final class NonfairSync extends Sync {
@@ -3865,28 +3770,24 @@ private void doReleaseShared() {
 }
 ```
 
-##### 加锁流程总结：
+**加锁流程总结**：
 
 - `acquire`->`acquireSharedInterruptibly(1)`->`tryAcquireShared(1)`->`nonfairTryAcquireShared(1)`,如果资源用完了，返回负数，`tryAcquireShared`返回负数，表示失败。否则返回正数，`tryAcquireShared`返回正数,表示成功。
-  - 如果成功，获取信号量成功。
-  - 如果失败，调用`doAcquireSharedInterruptibly`,进入for循环：
-    - 如果当前驱节点为头节点，调用`tryAcquireShared`尝试获取锁
-      - 如果结果大于等于0，表明获取锁成功，调用`setHeadAndPropagate`，将当前节点设为头节点，之后又调用`doReleaseShared`，唤醒后继节点。
-    - 调用`shoudParkAfterFailure`,第一次调用返回false，并将前驱节点改为-1，第二次循环如果再进入此方法，会进入阻塞并检查打断的方法。
+    - 如果成功，获取信号量成功。
+    - 如果失败，调用`doAcquireSharedInterruptibly`,进入for循环：
+        - 如果当前驱节点为头节点，调用`tryAcquireShared`尝试获取锁
+            - 如果结果大于等于0，表明获取锁成功，调用`setHeadAndPropagate`，将当前节点设为头节点，之后又调用`doReleaseShared`，唤醒后继节点。
+        - 调用`shoudParkAfterFailure`,第一次调用返回false，并将前驱节点改为-1，第二次循环如果再进入此方法，会进入阻塞并检查打断的方法。
 
-##### 解锁流程总结：
+**解锁流程总结**：
 
 - `release`->`sync.releaseShared(1)`->`tryReleaseShared(1)`,只要不发生整数溢出，就返回true
-  - 如果返回true，调用`doReleaseShared`，唤醒后继节点。
-  - 如果返回false，解锁失败。
-
-
+    - 如果返回true，调用`doReleaseShared`，唤醒后继节点。
+    - 如果返回false，解锁失败。
 
 #### 为什么要有 PROPAGATE
 
-
-
-## CountdownLatch
+### CountdownLatch
 
 用来进行线程同步协作，等待所有线程完成倒计时。 
 
@@ -3932,7 +3833,7 @@ public static void main(String[] args) throws InterruptedException {
 18:44:02.782 c.TestCountDownLatch [main] - wait end... 
 ```
 
-相比于join，CountDownLatch能配合线程池使用。
+相比于 join，CountDownLatch 能配合线程池使用。
 
 ```java
 public static void main(String[] args) throws InterruptedException {
@@ -3968,9 +3869,7 @@ public static void main(String[] args) throws InterruptedException {
 }
 ```
 
-
-
-### <font color='green'>\* 应用之同步等待多线程准备完毕</font>
+#### 应用之同步等待多线程准备完毕
 
 ```java
 AtomicInteger num = new AtomicInteger(0);
@@ -4015,9 +3914,7 @@ t9(100%)]
 游戏开始... 
 ```
 
-
-
-### <font color='green'>\* 应用之同步等待多个远程调用结束</font>
+#### 应用之同步等待多个远程调用结束
 
 ```java
 @RestController
@@ -4062,7 +3959,7 @@ public class TestCountDownlatchController {
 }
 ```
 
-rest远程调用
+rest 远程调用
 
 ```java
 RestTemplate restTemplate = new RestTemplate();
@@ -4110,13 +4007,11 @@ service.shutdown();
 
 说明：
 
-- 这种等待多个带有返回值的任务的场景，还是用future比较合适，CountdownLatch适合任务没有返回值的场景。
+- 这种等待多个带有返回值的任务的场景，还是用 future 比较合适，CountdownLatch 适合任务没有返回值的场景。
 
+### CyclicBarrier
 
-
-## CyclicBarrier
-
-CountdownLatch的缺点在于不能重用，见下：
+CountdownLatch 的缺点在于不能重用，见下：
 
 ```java
 private static void test1() {
@@ -4144,11 +4039,9 @@ private static void test1() {
 }
 ```
 
-想要重复使用CountdownLatch进行同步，必须创建多个CountDownLatch对象。
+想要重复使用 CountdownLatch 进行同步，必须创建多个 CountDownLatch 对象。
 
-
-
-[ˈsaɪklɪk ˈbæriɚ] 循环栅栏，用来进行线程协作，等待线程满足某个计数。构造时设置『计数个数』，每个线程执 行到某个需要“同步”的时刻调用 await() 方法进行等待，当等待的线程数满足『计数个数』时，继续执行
+[ˈsaɪklɪk ˈbæriɚ] 循环栅栏，用来进行线程协作，等待线程满足某个计数。构造时设置『计数个数』，每个线程执行到某个需要“同步”的时刻调用 await() 方法进行等待，当等待的线程数满足『计数个数』时，继续执行
 
 ```java
 CyclicBarrier cb = new CyclicBarrier(2); // 个数为2时才会继续执行
@@ -4175,1539 +4068,7 @@ new Thread(()->{
 
 > **注意** 
 >
-> - CyclicBarrier 与 CountDownLatch 的主要区别在于 CyclicBarrier 是可以重用的 CyclicBarrier 可以被比 喻为『人满发车』
-> - CountDownLatch的计数和阻塞方法是分开的两个方法，而CyclicBarrier是一个方法。
-> - CyclicBarrier的构造器还有一个Runnable类型的参数，在计数为0时会执行其中的run方法。
-
-
-
-## 线程安全集合类概述
-
-![image-20220316174115768](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220316174115768.png)
-
-线程安全集合类可以分为三大类： 
-
-- 遗留的线程安全集合如`Hashtable`，` Vector `
-- 使用`Collections`装饰的线程安全集合，如： 
-  - `Collections.synchronizedCollection `
-  - `Collections.synchronizedList `
-  - `Collections.synchronizedMap `
-  - `Collections.synchronizedSet `
-  - `Collections.synchronizedNavigableMap `
-  - `Collections.synchronizedNavigableSet  `
-  - `Collections.synchronizedSortedMap `
-  - `Collections.synchronizedSortedSet `
-  - 说明：以上集合均采用修饰模式设计，将非线程安全的集合包装后，在调用方法时包裹了一层synchronized代码块。其并发性并不比遗留的安全集合好。
-- java.util.concurrent.*
-
-重点介绍`java.util.concurrent.* `下的线程安全集合类，可以发现它们有规律，里面包含三类关键词： Blocking、CopyOnWrite、Concurrent
-
-- Blocking 大部分实现基于锁，并提供用来阻塞的方法 
-- CopyOnWrite 之类容器修改开销相对较重 
-- Concurrent 类型的容器
-  - 内部很多操作使用 cas 优化，一般可以提供较高吞吐量 
-  - 弱一致性
-    - 遍历时弱一致性，例如，当利用迭代器遍历时，如果容器发生修改，迭代器仍然可以继续进行遍 历，这时内容是旧的 
-    - 求大小弱一致性，size 操作未必是 100% 准确 
-    - 读取弱一致性
-
-> 遍历时如果发生了修改，对于非安全容器来讲，使用 **fail-fast** 机制也就是让遍历立刻失败，抛出 ConcurrentModificationException，不再继续遍历
-
-
-
-## ConcurrentHashMap
-
-### <font color='green'>应用之单词计数</font>
-
-**搭建练习环境：**
-
-```java
-public class Test {
-    public static void main(String[] args){
-        //在main方法中实现两个接口
-    }
-	
-    //开启26个线程，每个线程调用get方法获取map，从对应的文件读取单词并存储到list中，最后调用accept方法进行统计。
-    public static <V> void  calculate(Supplier<Map<String,V>> supplier, BiConsumer<Map<String,V>, List<String>> consumer) {
-        Map<String, V> map = supplier.get();
-        CountDownLatch count = new CountDownLatch(26);
-        for (int i = 1; i < 27; i++) {
-            int k = i;
-            new Thread(()->{
-                ArrayList<String> list = new ArrayList<>();
-                read(list,k);
-                consumer.accept(map,list);
-                count.countDown();
-            }).start();
-        }
-        try {
-            count.await();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.out.println(map.toString());
-    }
-	//读单词方法的实现
-    public static void read(List<String> list,int i){
-        try{
-            String element;
-            BufferedReader reader = new BufferedReader(new FileReader(i + ".txt"));
-            while((element = reader.readLine()) != null){
-                list.add(element);
-            }
-        }catch (IOException e){
-
-        }
-    }
-	//生成测试数据
-    public void construct(){
-        String str = "abcdefghijklmnopqrstuvwxyz";
-        ArrayList<String> list = new ArrayList<>();
-        for (int i = 0; i < str.length(); i++) {
-            for (int j = 0; j < 200; j++) {
-                list.add(String.valueOf(str.charAt(i)));
-            }
-        }
-        Collections.shuffle(list);
-        for (int i = 0; i < 26; i++) {
-            try (PrintWriter out = new PrintWriter(new FileWriter(i + 1 + ".txt"))) {
-                String collect = list.subList(i * 200, (i + 1) * 200).stream().collect(Collectors.joining("\n"));
-                out.println(collect);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-}
-```
-
-##### 实现一：
-
-```java
-demo(
-    // 创建 map 集合
-    // 创建 ConcurrentHashMap 对不对？
-    () -> new ConcurrentHashMap<String, Integer>(),
-    // 进行计数
-    (map, words) -> {
-        for (String word : words) {
-            Integer counter = map.get(word);
-            int newValue = counter == null ? 1 : counter + 1;
-            map.put(word, newValue);
-        }
-    }
-);
-```
-
-输出：
-
-```sh
-{a=186, b=192, c=187, d=184, e=185, f=185, g=176, h=185, i=193, j=189, k=187, l=157, m=189, n=181, o=180, p=178, q=185, r=188, s=181, t=183, u=177, v=186, w=188, x=178, y=189, z=186}
-47
-```
-
-错误原因：
-
-- ConcurrentHashMap虽然每个方法都是线程安全的，但是多个方法的组合并不是线程安全的。
-
-
-
-##### 正确答案一：
-
-```java
-demo(
-    () -> new ConcurrentHashMap<String, LongAdder>(),
-    (map, words) -> {
-        for (String word : words) {
-            // 注意不能使用 putIfAbsent，此方法返回的是上一次的 value，首次调用返回 null
-            map.computeIfAbsent(word, (key) -> new LongAdder()).increment();
-        }
-    }
-);
-```
-
-说明：
-
-- computIfAbsent方法的作用是：当map中不存在以参数1为key对应的value时，会将参数2函数式接口的返回值作为value，put进map中，然后返回该value。如果存在key，则直接返回value
-- 以上两部均是线程安全的。
-
-
-
-##### 正确答案二：
-
-```java
-demo(
-    () -> new ConcurrentHashMap<String, Integer>(),
-    (map, words) -> {
-        for (String word : words) {
-            // 函数式编程，无需原子变量
-            map.merge(word, 1, Integer::sum);
-        }
-    }
-);
-```
-
-
-
-### <font color='blue'>\* ConcurrentHashMap 原理</font>
-
-
-
-#### JDK 7 HashMap 并发死链
-
-
-
-##### 测试代码
-
-注意 
-
-- 要在 JDK 7 下运行，否则扩容机制和 hash 的计算方法都变了
-- 以下测试代码是精心准备的，不要随便改动
-
-```java
-public static void main(String[] args) {
-    // 测试 java 7 中哪些数字的 hash 结果相等
-    System.out.println("长度为16时，桶下标为1的key");
-    for (int i = 0; i < 64; i++) {
-        if (hash(i) % 16 == 1) {
-            System.out.println(i);
-        }
-    }
-    System.out.println("长度为32时，桶下标为1的key");
-    for (int i = 0; i < 64; i++) {
-        if (hash(i) % 32 == 1) {
-            System.out.println(i);
-        }
-    }
-    // 1, 35, 16, 50 当大小为16时，它们在一个桶内
-    final HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
-    // 放 12 个元素
-    map.put(2, null);
-    map.put(3, null);
-    map.put(4, null);
-    map.put(5, null);
-    map.put(6, null);
-    map.put(7, null);
-    map.put(8, null);
-    map.put(9, null);
-    map.put(10, null);
-    map.put(16, null);
-    map.put(35, null);
-    map.put(1, null);
-    System.out.println("扩容前大小[main]:"+map.size());
-    new Thread() {
-        @Override
-        public void run() {
-            // 放第 13 个元素, 发生扩容
-            map.put(50, null);
-            System.out.println("扩容后大小[Thread-0]:"+map.size());
-        }
-    }.start();
-    new Thread() {
-        @Override
-        public void run() {
-            // 放第 13 个元素, 发生扩容
-            map.put(50, null);
-            System.out.println("扩容后大小[Thread-1]:"+map.size());
-        }
-    }.start();
-}
-final static int hash(Object k) {
-    int h = 0;
-    if (0 != h && k instanceof String) {
-        return sun.misc.Hashing.stringHash32((String) k);
-    }
-    h ^= k.hashCode();
-    h ^= (h >>> 20) ^ (h >>> 12);
-    return h ^ (h >>> 7) ^ (h >>> 4);
-}
-```
-
-
-
-##### 死链复现
-
-调试工具使用 idea 
-
-在 HashMap 源码 590 行加断点
-
-```java
-int newCapacity = newTable.length;
-```
-
-断点的条件如下，目的是让 HashMap 在扩容为 32 时，并且线程为 Thread-0 或 Thread-1 时停下来
-
-```java
-newTable.length==32 &&
- (
- Thread.currentThread().getName().equals("Thread-0")||
- Thread.currentThread().getName().equals("Thread-1")
- )
-```
-
-断点暂停方式选择 Thread，否则在调试 Thread-0 时，Thread-1 无法恢复运行 
-
-运行代码，程序在预料的断点位置停了下来，输出
-
-```sh
-长度为16时，桶下标为1的key 
-1 
-16 
-35 
-50 
-长度为32时，桶下标为1的key 
-1 
-35 
-扩容前大小[main]:12 
-```
-
-接下来进入扩容流程调试 
-
-在 HashMap 源码 594 行加断点
-
-```java
-Entry<K,V> next = e.next; // 593
-if (rehash) // 594
-// ...
-```
-
-这是为了观察 e 节点和 next 节点的状态，Thread-0 单步执行到 594 行，再 594 处再添加一个断点（条件 Thread.currentThread().getName().equals("Thread-0")）
-
-这时可以在 Variables 面板观察到 e 和 next 变量，使用`view as -> Object`查看节点状态
-
-```java
-e (1)->(35)->(16)->null 
-next (35)->(16)->null 
-```
-
-在 Threads 面板选中 Thread-1 恢复运行，可以看到控制台输出新的内容如下，Thread-1 扩容已完成
-
-```java
-newTable[1] (35)->(1)->null 
-```
-
-```sh
-扩容后大小:13 
-```
-
-这时 Thread-0 还停在 594 处， Variables 面板变量的状态已经变化为
-
-```java
-e (1)->null 
-next (35)->(1)->null 
-```
-
-为什么呢，因为 Thread-1 扩容时链表也是后加入的元素放入链表头，因此链表就倒过来了，但 Thread-1 虽然结 果正确，但它结束后 Thread-0 还要继续运行 
-
-接下来就可以单步调试（F8）观察死链的产生了 
-
-下一轮循环到 594，将 e 搬迁到 newTable 链表头
-
-```java
-newTable[1] (1)->null 
-e (35)->(1)->null 
-next (1)->null
-```
-
-下一轮循环到 594，将 e 搬迁到 newTable 链表头
-
-```java
-newTable[1] (35)->(1)->null 
-e (1)->null 
-next null 
-```
-
-再看看源码
-
-```java
-e.next = newTable[1];
-// 这时 e (1,35)
-// 而 newTable[1] (35,1)->(1,35) 因为是同一个对象
-newTable[1] = e; 
-// 再尝试将 e 作为链表头, 死链已成
-e = next;
-// 虽然 next 是 null, 会进入下一个链表的复制, 但死链已经形成了
-```
-
-##### **源码分析**
-
-HashMap 的并发死链发生在扩容时
-
-```java
-// 将 table 迁移至 newTable
-void transfer(Entry[] newTable, boolean rehash) { 
-    int newCapacity = newTable.length;
-    for (Entry<K,V> e : table) {
-        while(null != e) {
-            Entry<K,V> next = e.next;
-            // 1 处
-            if (rehash) {
-                e.hash = null == e.key ? 0 : hash(e.key);
-            }
-            int i = indexFor(e.hash, newCapacity);
-            // 2 处
-            // 将新元素加入 newTable[i], 原 newTable[i] 作为新元素的 next
-            e.next = newTable[i];
-            newTable[i] = e;
-            e = next;
-        }
-    }
-}
-```
-
-假设 map 中初始元素是
-
-```java
-原始链表，格式：[下标] (key,next)
-[1] (1,35)->(35,16)->(16,null)
-线程 a 执行到 1 处 ，此时局部变量 e 为 (1,35)，而局部变量 next 为 (35,16) 线程 a 挂起
-线程 b 开始执行
-第一次循环
-[1] (1,null)
-第二次循环
-[1] (35,1)->(1,null)
-第三次循环
-[1] (35,1)->(1,null)
-[17] (16,null)
-切换回线程 a，此时局部变量 e 和 next 被恢复，引用没变但内容变了：e 的内容被改为 (1,null)，而 next 的内
-容被改为 (35,1) 并链向 (1,null)
-第一次循环
-[1] (1,null)
-第二次循环，注意这时 e 是 (35,1) 并链向 (1,null) 所以 next 又是 (1,null)
-[1] (35,1)->(1,null)
-第三次循环，e 是 (1,null)，而 next 是 null，但 e 被放入链表头，这样 e.next 变成了 35 （2 处）
-[1] (1,35)->(35,1)->(1,35)
-已经是死链了
-```
-
-**小结**
-
-- 究其原因，是因为在多线程环境下使用了非线程安全的 map 集合 
-- JDK 8 虽然将扩容算法做了调整，不再将元素加入链表头（而是保持与扩容前一样的顺序），但仍不意味着能 够在多线程环境下能够安全扩容，还会出现其它问题（如扩容丢数据）
-
-
-
-#### JDK 8 ConcurrentHashMap
-
-##### 重要属性和内部类
-
-```java
-// 默认为 0
-// 当初始化时, 为 -1
-// 当扩容时, 为 -(1 + 扩容线程数)
-// 当初始化或扩容完成后，为 下一次的扩容的阈值大小
-private transient volatile int sizeCtl;
-// 整个 ConcurrentHashMap 就是一个 Node[]
-static class Node<K,V> implements Map.Entry<K,V> {}
-// hash 表
-transient volatile Node<K,V>[] table;
-// 扩容时的 新 hash 表
-private transient volatile Node<K,V>[] nextTable;
-// 扩容时如果某个 bin 迁移完毕, 用 ForwardingNode 作为旧 table bin 的头结点
-static final class ForwardingNode<K,V> extends Node<K,V> {}
-// 用在 compute 以及 computeIfAbsent 时, 用来占位, 计算完成后替换为普通 Node
-static final class ReservationNode<K,V> extends Node<K,V> {}
-// 作为 treebin 的头节点, 存储 root 和 first
-static final class TreeBin<K,V> extends Node<K,V> {}
-// 作为 treebin 的节点, 存储 parent, left, right
-static final class TreeNode<K,V> extends Node<K,V> {}
-```
-
-
-
-##### 重要方法
-
-```java
-// 获取 Node[] 中第 i 个 Node
-static final <K,V> Node<K,V> tabAt(Node<K,V>[] tab, int i)
- 
-// cas 修改 Node[] 中第 i 个 Node 的值, c 为旧值, v 为新值
-static final <K,V> boolean casTabAt(Node<K,V>[] tab, int i, Node<K,V> c, Node<K,V> v)
- 
-// 直接修改 Node[] 中第 i 个 Node 的值, v 为新值
-static final <K,V> void setTabAt(Node<K,V>[] tab, int i, Node<K,V> v)
-```
-
-
-
-##### 构造器分析
-
-可以看到实现了懒惰初始化，在构造方法中仅仅计算了 table 的大小，以后在第一次使用时才会真正创建
-
-```java
-public ConcurrentHashMap(int initialCapacity, float loadFactor, int concurrencyLevel) {
-    if (!(loadFactor > 0.0f) || initialCapacity < 0 || concurrencyLevel <= 0)
-        throw new IllegalArgumentException();
-    if (initialCapacity < concurrencyLevel) // Use at least as many bins
-        initialCapacity = concurrencyLevel; // as estimated threads
-    long size = (long)(1.0 + (long)initialCapacity / loadFactor);
-    // tableSizeFor 仍然是保证计算的大小是 2^n, 即 16,32,64 ... 
-    int cap = (size >= (long)MAXIMUM_CAPACITY) ?
-        MAXIMUM_CAPACITY : tableSizeFor((int)size);
-    this.sizeCtl = cap;
-}
-```
-
-
-
-##### get流程
-
-```java
-public V get(Object key) {
-    Node<K,V>[] tab; Node<K,V> e, p; int n, eh; K ek;
-    // spread 方法能确保返回结果是正数
-    int h = spread(key.hashCode());
-    if ((tab = table) != null && (n = tab.length) > 0 &&
-        (e = tabAt(tab, (n - 1) & h)) != null) {
-        // 如果头结点已经是要查找的 key
-        if ((eh = e.hash) == h) {
-            if ((ek = e.key) == key || (ek != null && key.equals(ek)))
-                return e.val;
-        }
-        // hash 为负数表示该 bin 在扩容中或是 treebin, 这时调用 find 方法来查找
-        else if (eh < 0)
-            return (p = e.find(h, key)) != null ? p.val : null;
-        // 正常遍历链表, 用 equals 比较
-        while ((e = e.next) != null) {
-            if (e.hash == h &&
-                ((ek = e.key) == key || (ek != null && key.equals(ek))))
-                return e.val;
-        }
-    }
-    return null;
-}
-```
-
-总结：
-
-- 如果table不为空且长度大于0且索引位置有元素
-  - if 头节点key的hash值相等
-    - 头节点的key指向同一个地址或者equals
-      - 返回value
-  - else if 头节点的hash为负数（bin在扩容或者是treebin）
-    - 调用find方法查找
-  - 进入循环（e不为空）：
-    - 节点key的hash值相等，且key指向同一个地址或equals
-      - 返回value
-- 返回null
-
-
-
-##### put 流程 
-
-以下数组简称（table），链表简称（bin）
-
-```java
-public V put(K key, V value) {
-    return putVal(key, value, false);
-}
-final V putVal(K key, V value, boolean onlyIfAbsent) {
-    if (key == null || value == null) throw new NullPointerException();
-    // 其中 spread 方法会综合高位低位, 具有更好的 hash 性
-    int hash = spread(key.hashCode());
-    int binCount = 0;
-    for (Node<K,V>[] tab = table;;) {
-        // f 是链表头节点
-        // fh 是链表头结点的 hash
-        // i 是链表在 table 中的下标
-        Node<K,V> f; int n, i, fh;
-        // 要创建 table
-        if (tab == null || (n = tab.length) == 0)
-            // 初始化 table 使用了 cas, 无需 synchronized 创建成功, 进入下一轮循环
-            tab = initTable();
-        // 要创建链表头节点
-        else if ((f = tabAt(tab, i = (n - 1) & hash)) == null) {
-            // 添加链表头使用了 cas, 无需 synchronized
-            if (casTabAt(tab, i, null,
-                         new Node<K,V>(hash, key, value, null)))
-                break;
-        }
-        // 帮忙扩容
-        else if ((fh = f.hash) == MOVED)
-            // 帮忙之后, 进入下一轮循环
-            tab = helpTransfer(tab, f);
-        else {
-            V oldVal = null;
-            // 锁住链表头节点
-            synchronized (f) {
-                // 再次确认链表头节点没有被移动
-                if (tabAt(tab, i) == f) {
-                    // 链表
-                    if (fh >= 0) {
-                        binCount = 1;
-                        // 遍历链表
-                        for (Node<K,V> e = f;; ++binCount) {
-                            K ek;
-                            // 找到相同的 key
-                            if (e.hash == hash &&
-                                ((ek = e.key) == key ||
-                                 (ek != null && key.equals(ek)))) {
-                                oldVal = e.val;
-                                // 更新
-                                if (!onlyIfAbsent)
-                                    e.val = value;
-                                break;
-                            }
-                            Node<K,V> pred = e;
-                            // 已经是最后的节点了, 新增 Node, 追加至链表尾
-                            if ((e = e.next) == null) {
-                                pred.next = new Node<K,V>(hash, key,
-                                                          value, null);
-                                break;
-                            }
-                        }
-                    }
-                    // 红黑树
-                    else if (f instanceof TreeBin) {
-                        Node<K,V> p;
-                        binCount = 2;
-                        // putTreeVal 会看 key 是否已经在树中, 是, 则返回对应的 TreeNode
-                        if ((p = ((TreeBin<K,V>)f).putTreeVal(hash, key,
-                                                              value)) != null) {
-                            oldVal = p.val;
-                            if (!onlyIfAbsent)
-                                p.val = value;
-                        }
-                    }
-                }
-                // 释放链表头节点的锁
-            }
-
-            if (binCount != 0) { 
-                if (binCount >= TREEIFY_THRESHOLD)
-                    // 如果链表长度 >= 树化阈值(8), 进行链表转为红黑树
-                    treeifyBin(tab, i);
-                if (oldVal != null)
-                    return oldVal;
-                break;
-            }
-        }
-    }
-    // 增加 size 计数
-    addCount(1L, binCount);
-    return null;
-}
-private final Node<K,V>[] initTable() {
-    Node<K,V>[] tab; int sc;
-    while ((tab = table) == null || tab.length == 0) {
-        if ((sc = sizeCtl) < 0)
-            Thread.yield();
-        // 尝试将 sizeCtl 设置为 -1（表示初始化 table）
-        else if (U.compareAndSwapInt(this, SIZECTL, sc, -1)) {
-            // 获得锁, 创建 table, 这时其它线程会在 while() 循环中 yield 直至 table 创建
-            try {
-                if ((tab = table) == null || tab.length == 0) {
-                    int n = (sc > 0) ? sc : DEFAULT_CAPACITY;
-                    Node<K,V>[] nt = (Node<K,V>[])new Node<?,?>[n];
-                    table = tab = nt;
-                    sc = n - (n >>> 2);
-                }
-            } finally {
-                sizeCtl = sc;
-            }
-            break;
-        }
-    }
-    return tab;
-}
-// check 是之前 binCount 的个数
-private final void addCount(long x, int check) {
-    CounterCell[] as; long b, s;
-    if (
-        // 已经有了 counterCells, 向 cell 累加
-        (as = counterCells) != null ||
-        // 还没有, 向 baseCount 累加
-        !U.compareAndSwapLong(this, BASECOUNT, b = baseCount, s = b + x)
-    ) {
-        CounterCell a; long v; int m;
-        boolean uncontended = true;
-        if (
-            // 还没有 counterCells
-            as == null || (m = as.length - 1) < 0 ||
-            // 还没有 cell
-            (a = as[ThreadLocalRandom.getProbe() & m]) == null ||
-            // cell cas 增加计数失败
-            !(uncontended = U.compareAndSwapLong(a, CELLVALUE, v = a.value, v + x))
-        ) {
-            // 创建累加单元数组和cell, 累加重试
-            fullAddCount(x, uncontended);
-            return;
-        }
-        if (check <= 1)
-            return;
-        // 获取元素个数
-        s = sumCount();
-    }
-    if (check >= 0) {
-        Node<K,V>[] tab, nt; int n, sc;
-        while (s >= (long)(sc = sizeCtl) && (tab = table) != null &&
-               (n = tab.length) < MAXIMUM_CAPACITY) {
-            int rs = resizeStamp(n);
-            if (sc < 0) {
-                if ((sc >>> RESIZE_STAMP_SHIFT) != rs || sc == rs + 1 ||
-                    sc == rs + MAX_RESIZERS || (nt = nextTable) == null ||
-                    transferIndex <= 0)
-                    break;
-                // newtable 已经创建了，帮忙扩容
-                if (U.compareAndSwapInt(this, SIZECTL, sc, sc + 1))
-                    transfer(tab, nt);
-            }
-            // 需要扩容，这时 newtable 未创建
-            else if (U.compareAndSwapInt(this, SIZECTL, sc,
-                                         (rs << RESIZE_STAMP_SHIFT) + 2))
-                transfer(tab, null);
-            s = sumCount();
-        }
-    }
-}
-```
-
-总结：
-
-- 进入for循环：
-  - if  table为null或者长度 为0
-    - 初始化表
-  - else if 索引处无节点
-    - 创建节点，填入key和value，放入table，退出循环
-  - else if 索引处节点的hash值为MOVE（ForwardingNode），表示正在扩容和迁移
-    - 帮忙
-  - else
-    - 锁住头节点
-      - if 再次确认头节点没有被移动
-        - if  头节点hash值大于0（表示这是一个链表）
-          - 遍历链表找到对应key，如果没有，创建。
-        - else if 节点为红黑树节点
-          - 调用`putTreeVal`查看是否有对应key的数节点
-            - 如果有且为覆盖模式，将值覆盖，返回旧值
-            - 如果没有，创建并插入，返回null
-      - 解锁
-    - if binCount不为0
-      - 如果binCount大于树化阈值8
-        - 树化
-      - 如果旧值不为null
-        - 返回旧值
-      - break
-- 增加size计数
-- return null
-
-
-
-##### size 计算流程 
-
-size 计算实际发生在 put，remove 改变集合元素的操作之中 
-
-- 没有竞争发生，向 baseCount 累加计数 
-- 有竞争发生，新建 counterCells，向其中的一个 cell 累加计
-  - counterCells 初始有两个 cell 
-  - 如果计数竞争比较激烈，会创建新的 cell 来累加计数
-
-```java
-public int size() {
-    long n = sumCount();
-    return ((n < 0L) ? 0 :
-            (n > (long)Integer.MAX_VALUE) ? Integer.MAX_VALUE :
-            (int)n);
-}
-final long sumCount() {
-    CounterCell[] as = counterCells; CounterCell a;
-    // 将 baseCount 计数与所有 cell 计数累加
-    long sum = baseCount;
-    if (as != null) {
-        for (int i = 0; i < as.length; ++i) {
-            if ((a = as[i]) != null)
-                sum += a.value;
-        }
-    }
-    return sum;
-}
-```
-
-
-
-##### 总结
-
-**Java 8** 数组（Node） +（ 链表 Node | 红黑树 TreeNode ） 以下数组简称（table），链表简称（bin） 
-
-- 初始化，使用 cas 来保证并发安全，懒惰初始化 table 
-- 树化，当 table.length < 64 时，先尝试扩容，超过 64 时，并且 bin.length > 8 时，会将链表树化，树化过程 会用 synchronized 锁住链表头 
-- put，如果该 bin 尚未创建，只需要使用 cas 创建 bin；如果已经有了，锁住链表头进行后续 put 操作，元素 添加至 bin 的尾部 
-- get，无锁操作仅需要保证可见性，扩容过程中 get 操作拿到的是 ForwardingNode 它会让 get 操作在新 table 进行搜索 
-- 扩容，扩容时以 bin 为单位进行，需要对 bin 进行 synchronized，但这时妙的是其它竞争线程也不是无事可 做，它们会帮助把其它 bin 进行扩容，扩容时平均只有 1/6 的节点会把复制到新 table 中 
-- size，元素个数保存在 baseCount 中，并发时的个数变动保存在 CounterCell[] 当中。最后统计数量时累加 即可
-
-源码分析 http://www.importnew.com/28263.html 
-
-其它实现 [Cliff Click's high scale lib](https://github.com/boundary/high-scale-lib)
-
-
-
-#### JDK 7 ConcurrentHashMap
-
-它维护了一个 segment 数组，每个 segment 对应一把锁 
-
-- 优点：如果多个线程访问不同的 segment，实际是没有冲突的，这与 jdk8 中是类似的 
-- 缺点：Segments 数组默认大小为16，这个容量初始化指定后就不能改变了，并且不是懒惰初始化
-
-
-
-##### 构造器分析
-
-```java
-public ConcurrentHashMap(int initialCapacity, float loadFactor, int concurrencyLevel) {
-    if (!(loadFactor > 0) || initialCapacity < 0 || concurrencyLevel <= 0)
-        throw new IllegalArgumentException();
-    if (concurrencyLevel > MAX_SEGMENTS)
-        concurrencyLevel = MAX_SEGMENTS;
-    // ssize 必须是 2^n, 即 2, 4, 8, 16 ... 表示了 segments 数组的大小
-    int sshift = 0;
-    int ssize = 1;
-    while (ssize < concurrencyLevel) {
-        ++sshift;
-        ssize <<= 1;
-    }
-    // segmentShift 默认是 32 - 4 = 28
-    this.segmentShift = 32 - sshift;
-    // segmentMask 默认是 15 即 0000 0000 0000 1111
-    this.segmentMask = ssize - 1;
-    if (initialCapacity > MAXIMUM_CAPACITY)
-        initialCapacity = MAXIMUM_CAPACITY;
-    int c = initialCapacity / ssize;
-    if (c * ssize < initialCapacity)
-        ++c;
-    int cap = MIN_SEGMENT_TABLE_CAPACITY;
-    while (cap < c)
-        cap <<= 1;
-    // 创建 segments and segments[0]
-    Segment<K,V> s0 =
-        new Segment<K,V>(loadFactor, (int)(cap * loadFactor),
-                         (HashEntry<K,V>[])new HashEntry[cap]);
-    Segment<K,V>[] ss = (Segment<K,V>[])new Segment[ssize];
-    UNSAFE.putOrderedObject(ss, SBASE, s0); // ordered write of segments[0]
-    this.segments = ss;
-}
-```
-
-构造完成，如下图所示
-
-![image-20220317180837785](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220317180837785.png)
-
-可以看到 ConcurrentHashMap 没有实现懒惰初始化，空间占用不友好 
-
-其中 this.segmentShift 和 this.segmentMask 的作用是决定将 key 的 hash 结果匹配到哪个 segment 
-
-例如，根据某一 hash 值求 segment 位置，先将高位向低位移动 this.segmentShift 位
-
-![image-20220317180919562](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220317180919562.png)
-
-结果再与 this.segmentMask 做位于运算，最终得到 1010 即下标为 10 的 segment
-
-![image-20220317180935914](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220317180935914.png)
-
-##### put 流程
-
-```java
-public V put(K key, V value) {
-    Segment<K,V> s;
-    if (value == null)
-        throw new NullPointerException();
-    int hash = hash(key);
-    // 计算出 segment 下标
-    int j = (hash >>> segmentShift) & segmentMask;
-
-    // 获得 segment 对象, 判断是否为 null, 是则创建该 segment
-    if ((s = (Segment<K,V>)UNSAFE.getObject 
-         (segments, (j << SSHIFT) + SBASE)) == null) {
-        // 这时不能确定是否真的为 null, 因为其它线程也发现该 segment 为 null,
-        // 因此在 ensureSegment 里用 cas 方式保证该 segment 安全性
-        s = ensureSegment(j);
-    }
-    // 进入 segment 的put 流程
-    return s.put(key, hash, value, false);
-}
-```
-
-segment 继承了可重入锁（ReentrantLock），它的 put 方法为
-
-```java
-final V put(K key, int hash, V value, boolean onlyIfAbsent) {
-    // 尝试加锁
-    HashEntry<K,V> node = tryLock() ? null :
-    // 如果不成功, 进入 scanAndLockForPut 流程
-    // 如果是多核 cpu 最多 tryLock 64 次, 进入 lock 流程
-    // 在尝试期间, 还可以顺便看该节点在链表中有没有, 如果没有顺便创建出来
-    scanAndLockForPut(key, hash, value);
-
-    // 执行到这里 segment 已经被成功加锁, 可以安全执行
-    V oldValue;
-    try {
-        HashEntry<K,V>[] tab = table;
-        int index = (tab.length - 1) & hash;
-        HashEntry<K,V> first = entryAt(tab, index);
-        for (HashEntry<K,V> e = first;;) {
-            if (e != null) {
-                // 更新
-                K k;
-                if ((k = e.key) == key ||
-                    (e.hash == hash && key.equals(k))) { 
-                    oldValue = e.value;
-                    if (!onlyIfAbsent) {
-                        e.value = value;
-                        ++modCount;
-                    } break;
-                }
-                e = e.next;
-            }
-            else {
-                // 新增
-                // 1) 之前等待锁时, node 已经被创建, next 指向链表头
-                if (node != null)
-                    node.setNext(first);
-                else
-                    // 2) 创建新 node
-                    node = new HashEntry<K,V>(hash, key, value, first);
-                int c = count + 1; 
-                // 3) 扩容
-                if (c > threshold && tab.length < MAXIMUM_CAPACITY)
-                    rehash(node);
-                else
-                    // 将 node 作为链表头
-                    setEntryAt(tab, index, node);
-                ++modCount;
-                count = c;
-                oldValue = null;
-                break;
-            }
-        }
-    } finally {
-        unlock();
-    }
-    return oldValue;
-}
-```
-
-##### rehash 流程 
-
-发生在 put 中，因为此时已经获得了锁，因此 rehash 时不需要考虑线程安全
-
-```java
-private void rehash(HashEntry<K,V> node) {
-    HashEntry<K,V>[] oldTable = table;
-    int oldCapacity = oldTable.length;
-    int newCapacity = oldCapacity << 1;
-    threshold = (int)(newCapacity * loadFactor);
-    HashEntry<K,V>[] newTable =
-        (HashEntry<K,V>[]) new HashEntry[newCapacity];
-    int sizeMask = newCapacity - 1;
-    for (int i = 0; i < oldCapacity ; i++) {
-        HashEntry<K,V> e = oldTable[i];
-        if (e != null) {
-            HashEntry<K,V> next = e.next;
-            int idx = e.hash & sizeMask;
-            if (next == null) // Single node on list
-                newTable[idx] = e;
-            else { // Reuse consecutive sequence at same slot
-                HashEntry<K,V> lastRun = e;
-                int lastIdx = idx;
-                // 过一遍链表, 尽可能把 rehash 后 idx 不变的节点重用
-                for (HashEntry<K,V> last = next;
-                     last != null;
-                     last = last.next) {
-                    int k = last.hash & sizeMask;
-                    if (k != lastIdx) {
-                        lastIdx = k;
-                        lastRun = last;
-                    }
-                }
-                newTable[lastIdx] = lastRun;
-                // 剩余节点需要新建
-                for (HashEntry<K,V> p = e; p != lastRun; p = p.next) {
-                    V v = p.value;
-                    int h = p.hash;
-                    int k = h & sizeMask;
-                    HashEntry<K,V> n = newTable[k];
-                    newTable[k] = new HashEntry<K,V>(h, p.key, v, n);
-                }
-            }
-        }
-    }
-    // 扩容完成, 才加入新的节点
-    int nodeIndex = node.hash & sizeMask; // add the new node
-    node.setNext(newTable[nodeIndex]);
-    newTable[nodeIndex] = node;
-
-    // 替换为新的 HashEntry table
-    table = newTable;
-}
-```
-
-附，调试代码
-
-```java
-public static void main(String[] args) {
-    ConcurrentHashMap<Integer, String> map = new ConcurrentHashMap<>();
-    for (int i = 0; i < 1000; i++) {
-        int hash = hash(i);
-        int segmentIndex = (hash >>> 28) & 15;
-        if (segmentIndex == 4 && hash % 8 == 2) {
-            System.out.println(i + "\t" + segmentIndex + "\t" + hash % 2 + "\t" + hash % 4 +
-                               "\t" + hash % 8);
-        }
-    }
-    map.put(1, "value");
-    map.put(15, "value"); // 2 扩容为 4 15 的 hash%8 与其他不同
-    map.put(169, "value");
-    map.put(197, "value"); // 4 扩容为 8
-    map.put(341, "value");
-    map.put(484, "value");
-    map.put(545, "value"); // 8 扩容为 16
-    map.put(912, "value");
-    map.put(941, "value");
-    System.out.println("ok");
-}
-private static int hash(Object k) {
-    int h = 0;
-    if ((0 != h) && (k instanceof String)) {
-        return sun.misc.Hashing.stringHash32((String) k);
-    }
-    h ^= k.hashCode();
-    // Spread bits to regularize both segment and index locations,
-    // using variant of single-word Wang/Jenkins hash.
-    h += (h << 15) ^ 0xffffcd7d;
-    h ^= (h >>> 10);
-    h += (h << 3);
-    h ^= (h >>> 6);
-    h += (h << 2) + (h << 14);
-    int v = h ^ (h >>> 16);
-    return v;
-}
-```
-
-##### get 流程 
-
-get 时并未加锁，用了 UNSAFE 方法保证了可见性，扩容过程中，get 先发生就从旧表取内容，get 后发生就从新 表取内容
-
-```java
-public V get(Object key) {
-    Segment<K,V> s; // manually integrate access methods to reduce overhead
-    HashEntry<K,V>[] tab;
-    int h = hash(key);
-    // u 为 segment 对象在数组中的偏移量
-    long u = (((h >>> segmentShift) & segmentMask) << SSHIFT) + SBASE;
-    // s 即为 segment
-    if ((s = (Segment<K,V>)UNSAFE.getObjectVolatile(segments, u)) != null &&
-        (tab = s.table) != null) {
-        for (HashEntry<K,V> e = (HashEntry<K,V>) UNSAFE.getObjectVolatile
-             (tab, ((long)(((tab.length - 1) & h)) << TSHIFT) + TBASE);
-             e != null; e = e.next) {
-            K k;
-            if ((k = e.key) == key || (e.hash == h && key.equals(k)))
-                return e.value;
-        }
-    }
-    return null;
-}
-```
-
-##### size 计算流程
-
-- 计算元素个数前，先不加锁计算两次，如果前后两次结果如一样，认为个数正确返回 
-- 如果不一样，进行重试，重试次数超过 3，将所有 segment 锁住，重新计算个数返回
-
-```java
-public int size() {
-    // Try a few times to get accurate count. On failure due to
-    // continuous async changes in table, resort to locking.
-    final Segment<K,V>[] segments = this.segments;
-    int size;
-    boolean overflow; // true if size overflows 32 bits
-    long sum; // sum of modCounts
-    long last = 0L; // previous sum
-    int retries = -1; // first iteration isn't retry
-    try {
-        for (;;) {
-            if (retries++ == RETRIES_BEFORE_LOCK) {
-                // 超过重试次数, 需要创建所有 segment 并加锁
-                for (int j = 0; j < segments.length; ++j)
-                    ensureSegment(j).lock(); // force creation
-            }
-            sum = 0L;
-            size = 0;
-            overflow = false;
-            for (int j = 0; j < segments.length; ++j) {
-                Segment<K,V> seg = segmentAt(segments, j);
-                if (seg != null) {
-                    sum += seg.modCount;
-                    int c = seg.count;
-                    if (c < 0 || (size += c) < 0)
-                        overflow = true;
-                }
-            }
-            if (sum == last)
-                break;
-            last = sum;
-        }
-    } finally {
-        if (retries > RETRIES_BEFORE_LOCK) {
-            for (int j = 0; j < segments.length; ++j)
-                segmentAt(segments, j).unlock();
-        }
-    }
-    return overflow ? Integer.MAX_VALUE : size;
-}
-```
-
-
-
-## BlockingQueue
-
-
-
-### <font color='blue'>\* BlockingQueue 原理</font>
-
-#### 基本的入队出队
-
-```java
-public class LinkedBlockingQueue<E> extends AbstractQueue<E>
-    implements BlockingQueue<E>, java.io.Serializable {
-    static class Node<E> {
-        E item;
-        /**
- 		* 下列三种情况之一
- 		* - 真正的后继节点
- 		* - 自己, 发生在出队时
- 		* - null, 表示是没有后继节点, 是最后了
- 		*/
-        Node<E> next;
-        Node(E x) { item = x; }
-    }
-}
-```
-
-##### 初始化链表
-
-`last = head = new Node(null);`Dummy 节点用来占位，item 为 null
-
-![image-20220316215902936](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220316215902936.png)
-
-##### 当一个节点入队
-
-`last = last.next = node;`
-
-![image-20220316215925456](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220316215925456.png)
-
-再来一个节点入队`last = last.next = node;`
-
-![image-20220316215949461](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220316215949461.png)
-
-##### 出队
-
-```java
-//临时变量h用来指向哨兵
-Node<E> h = head;
-//first用来指向第一个元素
-Node<E> first = h.next;
-h.next = h; // help GC
-//head赋值为first，表示first节点就是下一个哨兵。
-head = first;
-E x = first.item;
-//删除first节点中的数据，表示真正成为了哨兵，第一个元素出队。
-first.item = null;
-return x;
-```
-
-`h = head`
-
-![image-20220317142826808](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220317142826808.png)
-
-`first = h.next`
-
-![image-20220317142906729](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220317142906729.png)
-
-`h.next = h`
-
-![image-20220317142924725](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220317142924725.png)
-
-`head = first`
-
-![image-20220317142942832](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220317142942832.png)
-
-```java
-E x = first.item;
-first.item = null;
-return x;
-```
-
-![image-20220317143001497](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220317143001497.png)
-
-
-
-#### 加锁分析
-
-**高明之处**在于用了两把锁和 dummy 节点 
-
-- 用一把锁，同一时刻，最多只允许有一个线程（生产者或消费者，二选一）执行 
-- 用两把锁，同一时刻，可以允许两个线程同时（一个生产者与一个消费者）执行 
-  - 消费者与消费者线程仍然串行 
-  - 生产者与生产者线程仍然串行
-
-
-
-线程安全分析 
-
-- 当节点总数大于 2 时（包括 dummy 节点），putLock 保证的是 last 节点的线程安全，takeLock 保证的是 head 节点的线程安全。两把锁保证了入队和出队没有竞争 
-- 当节点总数等于 2 时（即一个 dummy 节点，一个正常节点）这时候，仍然是两把锁锁两个对象，不会竞争 
-- 当节点总数等于 1 时（就一个 dummy 节点）这时 take 线程会被 notEmpty 条件阻塞，有竞争，会阻塞
-
-```java
-// 用于 put(阻塞) offer(非阻塞)
-private final ReentrantLock putLock = new ReentrantLock();
-// 用户 take(阻塞) poll(非阻塞)
-private final ReentrantLock takeLock = new ReentrantLock();
-```
-
-put 操作
-
-```java
-public void put(E e) throws InterruptedException {
-    //LinkedBlockingQueue不支持空元素
-    if (e == null) throw new NullPointerException();
-    int c = -1;
-    Node<E> node = new Node<E>(e);
-    final ReentrantLock putLock = this.putLock;
-    // count 用来维护元素计数
-    final AtomicInteger count = this.count;
-    putLock.lockInterruptibly();
-    try {
-        // 满了等待
-        while (count.get() == capacity) {
-            // 倒过来读就好: 等待 notFull
-            notFull.await();
-        }
-        // 有空位, 入队且计数加一
-        enqueue(node);
-        c = count.getAndIncrement(); 
-        // 除了自己 put 以外, 队列还有空位, 由自己叫醒其他 put 线程
-        if (c + 1 < capacity)
-            notFull.signal();
-    } finally {
-        putLock.unlock();
-    }
-    // 如果队列中有一个元素, 叫醒 take 线程
-    if (c == 0)
-        // 这里调用的是 notEmpty.signal() 而不是 notEmpty.signalAll() 是为了减少竞争
-        signalNotEmpty();
-}
-```
-
-take 操作
-
-```java
-public E take() throws InterruptedException {
-    E x;
-    int c = -1;
-    final AtomicInteger count = this.count;
-    final ReentrantLock takeLock = this.takeLock;
-    takeLock.lockInterruptibly();
-    try {
-        while (count.get() == 0) {
-            notEmpty.await();
-        }
-        x = dequeue();
-        c = count.getAndDecrement();
-        if (c > 1)
-            notEmpty.signal();
-    } finally {
-        takeLock.unlock();
-    }
-    // 如果队列中只有一个空位时, 叫醒 put 线程
-    // 如果有多个线程进行出队, 第一个线程满足 c == capacity, 但后续线程 c < capacity
-    if (c == capacity)
-        // 这里调用的是 notFull.signal() 而不是 notFull.signalAll() 是为了减少竞争
-        signalNotFull()
-        return x;
-}
-```
-
-> 由 put 唤醒 put 是为了避免信号不足
-
-
-
-#### 性能比较
-
-主要列举 LinkedBlockingQueue 与 ArrayBlockingQueue 的性能比较 
-
-- Linked 支持有界，Array 强制有界 
-- Linked 实现是链表，Array 实现是数组 
-- Linked 是懒惰的，而 Array 需要提前初始化 Node 数组 
-- Linked 每次入队会生成新 Node，而 Array 的 Node 是提前创建好的 
-- Linked 两把锁，Array 一把锁
-
-
-
-## ConcurrentLinkedQueue
-
-ConcurrentLinkedQueue 的设计与 LinkedBlockingQueue 非常像，也是 
-
-- 两把【锁】，同一时刻，可以允许两个线程同时（一个生产者与一个消费者）执行 
-- dummy 节点的引入让两把【锁】将来锁住的是不同对象，避免竞争 
-- 只是这【锁】使用了 cas 来实现
-
-
-
-事实上，ConcurrentLinkedQueue 应用还是非常广泛的 
-
-例如之前讲的 Tomcat 的 Connector 结构时，Acceptor 作为生产者向 Poller 消费者传递事件信息时，正是采用了 ConcurrentLinkedQueue 将 SocketChannel 给 Poller 使用
-
-```mermaid
-
-graph LR
-
-subgraph Connector->NIO EndPoint
-t1(LimitLatch)
-t2(Acceptor)
-t3(SocketChannel 1)
-t4(SocketChannel 2)
-t5(Poller)
-subgraph Executor
-t7(worker1)
-t8(worker2)
-end
-t1 --> t2
-t2 --> t3
-t2 --> t4
-t3 --有读--> t5
-t4 --有读--> t5
-t5 --socketProcessor--> t7
-t5 --socketProcessor--> t8
-end
-
-
-```
-
-
-
-### <font color='blue'>*ConcurrentLinkedQueue 原理</font>
-
-#### 模仿 ConcurrentLinkedQueue
-
-初始代码
-
-```java
-package cn.itcast.concurrent.thirdpart.test;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Queue;
-import java.util.concurrent.atomic.AtomicReference;
-public class Test3 {
-    public static void main(String[] args) {
-        MyQueue<String> queue = new MyQueue<>();
-        queue.offer("1");
-        queue.offer("2");
-        queue.offer("3");
-        System.out.println(queue);
-    }
-}
-class MyQueue<E> implements Queue<E> {
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for (Node<E> p = head; p != null; p = p.next.get()) {
-            E item = p.item;
-            if (item != null) {
-                sb.append(item).append("->");
-            }
-        }
-        sb.append("null");
-        return sb.toString();
-    }
-    @Override
-    public int size() {
-        return 0;
-    }
-    @Override
-    public boolean isEmpty() {
-        return false;
-    }
-    @Override
-    public boolean contains(Object o) {
-        return false;
-    }
-    @Override
-    public Iterator<E> iterator() {
-        return null;
-    }
-    @Override
-    public Object[] toArray() {
-        return new Object[0];
-    }
-    @Override
-    public <T> T[] toArray(T[] a) {
-        return null;
-    }
-    @Override
-    public boolean add(E e) {
-        return false;
-    }
-    @Override
-    public boolean remove(Object o) {
-        return false;
-    }
-    @Override
-    public boolean containsAll(Collection<?> c) {
-        return false;
-    }
-    @Override
-    public boolean addAll(Collection<? extends E> c) {
-        return false;
-    }
-    @Override
-    public boolean removeAll(Collection<?> c) {
-        return false;
-    }
-    @Override
-    public boolean retainAll(Collection<?> c) {
-        return false;
-    }
-    @Override
-    public void clear() {
-    }
-    @Override
-    public E remove() {
-        return null;
-    }
-    @Override
-    public E element() {
-        return null;
-    }
-    @Override
-    public E peek() {
-        return null;
-    }
-    public MyQueue() {
-        head = last = new Node<>(null, null);
-    }
-    private volatile Node<E> last;
-    private volatile Node<E> head;
-    private E dequeue() {
-        /*Node<E> h = head;
- 		Node<E> first = h.next;
- 		h.next = h;
- 		head = first;
-        E x = first.item;
- 		first.item = null;
- 		return x;*/
-        return null;
-    }
-    @Override
-    public E poll() {
-        return null;
-    }
-    @Override
-    public boolean offer(E e) {
-        return true;
-    }
-    static class Node<E> {
-        volatile E item;
-        public Node(E item, Node<E> next) {
-            this.item = item;
-            this.next = new AtomicReference<>(next);
-        }
-        AtomicReference<Node<E>> next;
-    }
-}
-```
-
-offer
-
-```java
-public boolean offer(E e) {
-    Node<E> n = new Node<>(e, null);
-    while(true) {
-        // 获取尾节点
-        AtomicReference<Node<E>> next = last.next;
-        // S1: 真正尾节点的 next 是 null, cas 从 null 到新节点
-        if(next.compareAndSet(null, n)) {
-            // 这时的 last 已经是倒数第二, next 不为空了, 其它线程的 cas 肯定失败
-            // S2: 更新 last 为倒数第一的节点
-            last = n;
-            return true;
-        }
-    }
-}
-```
-
-
-
-## CopyOnWriteArrayList
-
-`CopyOnWriteArraySet`是它的马甲 底层实现采用了 写入时拷贝 的思想，增删改操作会将底层数组拷贝一份，更 改操作在新数组上执行，这时不影响其它线程的**并发读**，**读写分离**。 以新增为例：
-
-```java
-public boolean add(E e) {
-    synchronized (lock) {
-        // 获取旧的数组
-        Object[] es = getArray();
-        int len = es.length;
-        // 拷贝新的数组（这里是比较耗时的操作，但不影响其它读线程）
-        es = Arrays.copyOf(es, len + 1);
-        // 添加新元素
-        es[len] = e;
-        // 替换旧的数组
-        setArray(es);
-        return true;
-    }
-}
-```
-
-> 这里的源码版本是 Java 11，在 Java 1.8 中使用的是可重入锁而不是 synchronized
-
-其它读操作并未加锁，例如：
-
-```java
-public void forEach(Consumer<? super E> action) {
-    Objects.requireNonNull(action);
-    for (Object x : getArray()) {
-        @SuppressWarnings("unchecked") E e = (E) x;
-        action.accept(e);
-    }
-}
-```
-
-适合『读多写少』的应用场景 
-
-##### get 弱一致性![image-20220317202641399](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220317202641399.png)
-
-| 时间点 |             操作             |
-| :----: | :--------------------------: |
-|   1    |     Thread-0 getArray()      |
-|   2    |     Thread-1 getArray()      |
-|   3    | Thread-1 setArray(arrayCopy) |
-|   4    |    Thread-0 array[index]     |
-
-> 不容易测试，但问题确实存在
-
-
-
-##### 迭代器弱一致性
-
-```java
-CopyOnWriteArrayList<Integer> list = new CopyOnWriteArrayList<>();
-list.add(1);
-list.add(2);
-list.add(3);
-Iterator<Integer> iter = list.iterator();
-new Thread(() -> {
-    list.remove(0);
-    System.out.println(list);
-}).start();
-sleep1s();
-//此时主线程的iterator依旧指向旧的数组。
-while (iter.hasNext()) {
-    System.out.println(iter.next());
-}
-```
-
-> 不要觉得弱一致性就不好 
->
-> - 数据库的 MVCC 都是弱一致性的表现 
-> - 并发高和一致性是矛盾的，需要权衡
+> - CyclicBarrier 与 CountDownLatch 的主要区别在于 CyclicBarrier 是可以重用的
+> - CyclicBarrier可以被比喻为『人满发车』
+> - CountDownLatch 的计数和阻塞方法是分开的两个方法，而 CyclicBarrier 是一个方法。
+> - CyclicBarrier 的构造器还有一个 Runnable 类型的参数，在计数为 0 时会执行其中的 run 方法。
