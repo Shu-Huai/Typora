@@ -316,7 +316,7 @@ printArray( stringArray  );
 
 ## 反射
 
-关于反射的详细解读，请看这篇文章 [Java 反射机制详解](https://javaguide.cn/java/basis/reflection.html) 。
+关于反射的详细解读，请看这篇文章 [[Java 反射]]。
 
 ### 什么是反射？
 
