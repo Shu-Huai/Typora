@@ -29,7 +29,7 @@ LLM 最核心的思想就是**语言建模（Language Modeling）**。所谓语�
 
 现代主流 LLM 大多建立在 Transformer 架构之上。虽然不同模型名字很多，例如 GPT、Llama、Qwen、Gemma、Mistral 等，但核心结构思想大致相近。
 
-<img src="Z:\Public\images\The-Transformer-model-architecture-taken-from-Attention-is-All-Your-Need-Vaswani-et-al.png" alt="The Transformer model architecture taken from &quot;Attention is All Your... | Download Scientific ..." style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\The-Transformer-model-architecture-taken-from-Attention-is-All-Your-Need-Vaswani-et-al.png" alt="The Transformer model architecture taken from &quot;Attention is All Your... | Download Scientific ..." style="zoom:50%;" />
 
 ### Tokenizer
 
@@ -56,7 +56,7 @@ Embedding 层把离散 token id 映射成连续向量。可以把它理解为“
 
 ### Transformer
 
-Transformer 是现代 LLM 的核心主体。它最关键的机制是 **Attention**，尤其是 **Self-Attention**。
+[[Transformer]] 是现代 LLM 的核心主体。它最关键的机制是[[注意力机制]]，尤其是 **Self-Attention**。
 
 Self-Attention 的直觉是：模型在处理当前 token 时，不是只看前一个 token，而是会动态参考上下文中其他位置的信息，并决定“应该重点关注谁”。
 
@@ -122,7 +122,7 @@ Attention 是 LLM 中最关键的技术思想之一。它解决的核心问题�
 
 因此，LLM 并不是简单地按顺序背文本，而是在每一层都不断重组上下文信息。
 
-<img src="Z:\Public\images\MultiHead.png" alt="The Transformer – Attention is all you need. - Michał Chromiak's blog" style="zoom: 67%;" />
+<img src="http://public.file.lvshuhuai.cn/images\MultiHead.png" alt="The Transformer – Attention is all you need. - Michał Chromiak's blog" style="zoom: 67%;" />
 
 很多后续能力，例如长文理解、指代消解、条件约束、跨句信息整合，本质上都与 Attention 机制密切相关。
 

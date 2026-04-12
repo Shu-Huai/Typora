@@ -2,7 +2,7 @@
 
 ## Conversation State / Memory / State Management
 
-在 LLM 应用里，`Conversation State`、`Memory`、`State Management` 经常被一起提到，因为它们共同解决的是同一个问题：
+在[[大语言模型 LLM]] 应用里，`Conversation State`、`Memory`、`State Management` 经常被一起提到，因为它们共同解决的是同一个问题：
 
 > 模型本身不能跨请求天然记住一切，那么系统如何让它在多轮对话、多步骤任务、跨会话场景中持续正确工作？
 
@@ -24,7 +24,7 @@
 
 > **LLM 本身并不会跨请求永久记住当前对话状态。**
 
-从推理机制上看，Transformer 每次推理看到的只是这一次请求里的 token 序列。它会在本次前向计算中产生：
+从推理机制上看，[[Transformer]] 每次推理看到的只是这一次请求里的 token 序列。它会在本次前向计算中产生：
 
 - hidden states
 - attention weights
@@ -42,7 +42,7 @@
 
 所以，大模型跨请求能“记住”的信息，本质上只有两种来源：
 
-<img src="Z:\Public\images\DbL2RbXFRoMWA5CrOaGB8.png" alt="KV 缓存解析：优化 Transformer 推理效率 - Hugging Face 文档" style="zoom: 25%;" />
+<img src="http://public.file.lvshuhuai.cn/images\DbL2RbXFRoMWA5CrOaGB8.png" alt="KV 缓存解析：优化 Transformer 推理效率 - Hugging Face 文档" style="zoom: 25%;" />
 
 ### 参数记忆（Parametric Memory）
 
@@ -232,13 +232,13 @@ State Management 不是一个具体字段，也不是某一种存储技术。
 什么时候读？什么时候写？
 
 - 请求开始前读取 session state
-- 工具调用后写回 tool result
+- [[工具调用 Tool Calling]] 后写回 tool result
 - 回答结束后更新摘要
 - 满足条件时写入长期 memory
 
 ### 裁剪与合成（Selection / Composition）
 
-每次请求时，到底要把哪些内容组合成 prompt？
+每次请求时，到底要把哪些内容组合成[[提示词 Prompt]]？
 
 这一步通常是最核心、也最容易做差的部分。
 
@@ -416,7 +416,7 @@ LLM 读到这轮输入后，输出的不一定只是自然语言，它更理想�
 
 这个“建议”可以有不同表现形式。
 
-### 方式一：普通 Structured Output
+### 方式一：普通[[结构化输出 Structured Output]]
 
 例如模型直接返回：
 
@@ -458,7 +458,7 @@ LLM 读到这轮输入后，输出的不一定只是自然语言，它更理想�
 }
 ```
 
-这种写法在形态上和 function calling 很像，但本质上它调用的是**系统内部状态管理模块**，而不是外部世界。
+这种写法在形态上和[[函数调用 Function Calling]] 很像，但本质上它调用的是**系统内部状态管理模块**，而不是外部世界。
 
 ### 方式三：LLM 只提取字段，状态推进由后端控制
 
@@ -701,7 +701,7 @@ token 越多，调用越慢，花费越高。
 
 这类信息适合存在：
 
-- Redis
+- [[Redis]]
 - PostgreSQL
 - MySQL
 - MongoDB
@@ -710,7 +710,7 @@ token 越多，调用越慢，花费越高。
 
 ### 向量记忆库
 
-<img src="Z:\Public\images\878c50ffb2783e0dd8fddc78f40fa4ef444c23a9-2036x820.png" alt="Introducing Canopy: An easy, free, and flexible RAG framework powered by Pinecone | Pinecone" style="zoom: 50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\878c50ffb2783e0dd8fddc78f40fa4ef444c23a9-2036x820.png" alt="Introducing Canopy: An easy, free, and flexible RAG framework powered by Pinecone | Pinecone" style="zoom: 50%;" />
 
 适合存：
 

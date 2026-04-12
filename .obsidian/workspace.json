@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "笔记/开发/Java路线/Java 高级/Java 反射.md",
+                "file": "笔记/人工智能/Agent 开发/智能体 Agent.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Java 反射"
+              "title": "智能体 Agent"
             }
           },
           {
@@ -137,7 +137,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "笔记/开发/Java路线/Java 高级/Java 反射.md",
+                "file": "笔记/人工智能/Agent 开发/智能体 Agent.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -147,7 +147,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Java 反射 的反向链接列表"
+              "title": "智能体 Agent 的反向链接列表"
             }
           },
           {
@@ -208,6 +208,18 @@
   },
   "active": "700602d3f4c3a137",
   "lastOpenFiles": [
+    "笔记/人工智能/Agent 开发/结构化输出 Structured Output.md",
+    "笔记/人工智能/Agent 开发/智能体 Agent.md",
+    "笔记/人工智能/Agent 开发/Untitled.md",
+    "笔记/人工智能/Agent 开发/状态管理 State Management.md",
+    "笔记/人工智能/Agent 开发/工作流 Workflow.md",
+    "笔记/人工智能/Agent 开发/函数调用 Function Calling.md",
+    "笔记/人工智能/Agent 开发/工具调用 Tool Calling.md",
+    "笔记/人工智能/Agent 开发/提示词 Prompt.md",
+    "笔记/人工智能/Agent 开发/vLLM.md",
+    "笔记/人工智能/Agent 开发/多模态大语言模型 MLLM.md",
+    "笔记/人工智能/Agent 开发/大语言模型 LLM.md",
+    "笔记/开发/Java路线/Java 高级/Java 反射.md",
     "八股文/Java后端/Java 基础/Java 基础面试题 03.md",
     "组会/2026.01.22 组会进展.md",
     "组会/Untitled.md",
@@ -222,18 +234,6 @@
     "笔记/人工智能/数学/InfoNCE.md",
     "笔记/人工智能/数学/Untitled.md",
     "笔记/人工智能/数学/NCE.md",
-    "笔记/人工智能/数学/互信息.md",
-    "笔记/人工智能/数学/KL 散度.md",
-    "笔记/开发/服务器/Docker.md",
-    "笔记/人工智能/数学/交叉熵损失.md",
-    "笔记/人工智能/数学/熵.md",
-    "需求问题解决/Docker 部署 Overleaf.md",
-    "笔记/开发/服务器/HTTPS.md",
-    "[acme.sh.md",
-    "笔记/开发/服务器/acme.sh.md",
-    "笔记/开发/服务器/Let's Encrypt.md",
-    "笔记/开发/服务器/ACME 协议.md",
-    "笔记/开发/服务器/Untitled.md",
     "笔记/开发/Java路线/JVM 学习",
     "笔记/开发/Java路线/Java 基础语法",
     "笔记/经典算法",

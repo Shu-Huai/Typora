@@ -2,9 +2,9 @@
 
 ## 什么是 vLLM
 
-![vLLM](Z:\Public\images\vllm-logo-text-light.png)
+![vLLM](http://public.file.lvshuhuai.cn/images\vllm-logo-text-light.png)
 
-vLLM 不是模型，也不是“vision LLM”。它是一个**面向大模型推理与服务的高吞吐、内存高效的推理引擎**。
+vLLM 不是模型，也不是“vision LLM”。它是一个**面向[[大语言模型 LLM]] 推理与服务的高吞吐、内存高效的推理引擎**。
 
 你可以把它放在这条链路里理解：
 
@@ -21,10 +21,10 @@ vLLM 不是模型，也不是“vision LLM”。它是一个**面向大模型推
 
 - 显存占用大
 - 并发低
-- 长 prompt 拖慢整体吞吐
+- 长[[提示词 Prompt]] 拖慢整体吞吐
 - 批处理利用率差
 
-vLLM 的核心价值，就是围绕这些问题做系统级优化。你不要把 vLLM 理解成“另一个 Transformers”，更准确地说，它是一个**为推理场景重做调度、KV cache 管理、批处理和服务接口的系统**。
+vLLM 的核心价值，就是围绕这些问题做系统级优化。你不要把 vLLM 理解成“另一个 [[Transformer]]”，更准确地说，它是一个**为推理场景重做调度、KV cache 管理、批处理和服务接口的系统**。
 
 ## vLLM 最核心的三件事
 

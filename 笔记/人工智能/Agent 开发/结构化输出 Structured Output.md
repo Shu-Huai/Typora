@@ -2,9 +2,9 @@
 
 ## 从一个很自然的疑问开始
 
-在学习 LLM 应用时，很多人第一次接触 Structured Output，都会有一个非常自然的疑问：模型底层不是一直都只是在“预测下一个 token”吗？既然它本质上只是不断生成 token，为什么最后却能返回一个看起来很规整的 JSON，甚至还能稳定地符合某种固定的数据结构？这个问题如果不想清楚，后面学 API、Function Calling、工具调用、Agent 这些东西时，就很容易一直带着一种模糊感，觉得“好像会用”，但没有真正理解它为什么成立。
+在学习[[大语言模型 LLM]] 应用时，很多人第一次接触 Structured Output，都会有一个非常自然的疑问：模型底层不是一直都只是在“预测下一个 token”吗？既然它本质上只是不断生成 token，为什么最后却能返回一个看起来很规整的 JSON，甚至还能稳定地符合某种固定的数据结构？这个问题如果不想清楚，后面学 API、[[函数调用 Function Calling]]、[[工具调用 Tool Calling]]、Agent 这些东西时，就很容易一直带着一种模糊感，觉得“好像会用”，但没有真正理解它为什么成立。
 
-这个问题的答案是，模型的本质并没有变。它仍然是在生成 token，并没有在底层突然变成某种数据库引擎，也没有突然开始“理解对象”或者“理解 JSON Schema”到类似编译器那样的程度。变化发生在应用接口这一层。也就是说，API 会把任务包装成一种更明确的约束：你不是在自由地生成一段自然语言，而是在一个指定结构的边界内完成输出。OpenAI 官方把这种能力称为 Structured Outputs，它的核心目标不是让模型“尽量输出 JSON”，而是让模型输出遵守你提供的 JSON Schema。这个差别非常关键，因为它决定了 Structured Output 不是一种单纯的提示技巧，而是一种明确的接口能力。citeturn0search0turn0search1
+这个问题的答案是，模型的本质并没有变。它仍然是在生成 token，并没有在底层突然变成某种数据库引擎，也没有突然开始“理解对象”或者“理解 JSON Schema”到类似编译器那样的程度。变化发生在应用接口这一层。也就是说，API 会把任务包装成一种更明确的约束：你不是在自由地生成一段自然语言，而是在一个指定结构的边界内完成输出。OpenAI 官方把这种能力称为 Structured Outputs，它的核心目标不是让模型“尽量输出 JSON”，而是让模型输出遵守你提供的 JSON Schema。这个差别非常关键，因为它决定了 Structured Output 不是一种单纯的提示技巧，而是一种明确的接口能力。
 
 所以，从工程角度去理解，Structured Output 并不神秘。它并不是在改变模型“生成文本”的本质，而是在改变“你希望模型生成什么样的文本”以及“系统如何约束和解释这些文本”。过去你可能让模型自由回答一个问题，现在你要求它必须按某种结构返回结果；过去结果主要是给人看的，现在结果更多是给程序消费的。这个转变，正是从普通聊天式调用走向应用开发时最重要的一步之一。
 
@@ -14,7 +14,7 @@ Structured Output，核心就是一句话：
 
 > **让模型按你预先规定的数据结构返回结果，而不是随意返回一段自然语言。**
 
-<img src="Z:\Public\images\structured-outputs-process.png" alt="Structured Outputs: Everything You Should Know" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\structured-outputs-process.png" alt="Structured Outputs: Everything You Should Know" style="zoom:50%;" />
 
 这里的“结构”，通常用 **JSON Schema** 来描述。也就是说，你不只是告诉模型“请返回 JSON”，而是进一步规定：
 
@@ -29,7 +29,7 @@ Structured Output，核心就是一句话：
 
 ## 为什么需要它
 
-如果只用普通 prompt，比如：
+如果只用普通[[提示词 Prompt]]，比如：
 
 > 请严格返回 JSON，不要输出别的内容
 
@@ -62,7 +62,7 @@ Structured Output，核心就是一句话：
 - 普通输出：写作文
 - Structured Output：按表单填空
 
-从这个角度看，Structured Output 其实是 LLM 应用工程化的一部分。它不是为了“让回答更整齐”，而是为了让模型输出真正能进入你的程序逻辑里，成为数据库字段、前端组件数据、工作流节点参数或者工具调用参数。很多人学 LLM API 时会觉得“为什么不能直接用 prompt 解决”，本质上是因为他们还停留在“把模型当聊天机器人”的视角；而一旦进入应用视角，就会发现，数据结构约束是绕不过去的。
+从这个角度看，Structured Output 其实是 LLM 应用工程化的一部分。它不是为了“让回答更整齐”，而是为了让模型输出真正能进入你的程序逻辑里，成为数据库字段、前端组件数据、[[工作流 Workflow]] 节点参数或者工具调用参数。很多人学 LLM API 时会觉得“为什么不能直接用 prompt 解决”，本质上是因为他们还停留在“把模型当聊天机器人”的视角；而一旦进入应用视角，就会发现，数据结构约束是绕不过去的。
 
 ## 它和普通输出、JSON mode、Function Calling 的区别
 
@@ -200,7 +200,7 @@ OpenAI 公开讲过，它是“两段式”实现：一段是**训练层**，让
 
 它的核心过程可以概括成这样。首先，系统把你给的 JSON Schema 转成一个 **context-free grammar，CFG，上下文无关文法**。这个文法描述的是：什么样的 JSON 串在这个 schema 下是合法的。然后，在生成时，每出一个 token，系统都会根据“已经生成的前缀 + 这份 CFG”计算出“下一步哪些 token 还是合法的”。最后，把所有不合法 token 的概率直接压成 0，只在合法集合里继续采样。官方原话就是：他们会在每一步根据 grammar 算出 valid tokens，然后对下一步采样做 mask，使 invalid tokens 的概率降为 0。
 
-<img src="Z:\Public\images\hq720.jpg" alt="Structured Output from LLMs: Grammars, Regex, and State Machines" style="zoom: 80%;" />
+<img src="http://public.file.lvshuhuai.cn/images\hq720.jpg" alt="Structured Output from LLMs: Grammars, Regex, and State Machines" style="zoom: 80%;" />
 
 这意味着，`strict: true` 的关键实现点，其实在**解码器外围的约束层**，而不是单纯在模型权重内部。模型负责“在合法候选里，哪个更像它想说的”；约束层负责“哪些候选压根不允许出现”。你可以把它理解成：模型像一个会写字的人，`strict: true` 像一个实时语法警察，站在旁边，每写一个 token 就检查一下，凡是不可能通向合法 schema 的 token，一律不准写。
 
@@ -266,8 +266,6 @@ OpenAI 公开讲过，它是“两段式”实现：一段是**训练层**，让
 - 分类标签
 
 那就不应该只是“希望模型输出”，而应该明确写进 `required`。
-
----
 
 ### `additionalProperties: false`
 

@@ -2,7 +2,7 @@
 
 ## 什么是 MLLM
 
-MLLM，Multimodal Large Language Model，多模态大语言模型。它可以看成是在 LLM 的基础上，引入了图像、音频、视频、文档页面等非文本输入能力的模型系统。
+MLLM，Multimodal Large Language Model，多[[模态]]大语言模型。它可以看成是在 [[大语言模型 LLM]] 的基础上，引入了图像、音频、视频、文档页面等非文本输入能力的模型系统。
 
 如果说 LLM 主要处理“文本到文本”的问题，那么 MLLM 处理的是“多模态输入到文本输出”的问题。它不仅能读文字，还能看图、看表格、看截图、看文档版面，甚至理解视频帧和音频片段。
 
@@ -38,7 +38,7 @@ LLM 的输入通常是：
 2. 对齐或映射模块
 3. LLM 主体
 
-![RS-LLaVA: A Large Vision-Language Model for Joint Captioning and Question Answering in Remote ...](Z:\Public\images\remotesensing-16-01477-g002-550.jpg)
+![RS-LLaVA: A Large Vision-Language Model for Joint Captioning and Question Answering in Remote ...](http://public.file.lvshuhuai.cn/images\remotesensing-16-01477-g002-550.jpg)
 
 可以写成：
 
@@ -90,7 +90,7 @@ LLM 的输入通常是：
 - 这些特征经过映射模块，变成 LLM 可接收的表示
 - 然后和文本一起进入后续语言模型
 
-<img src="Z:\Public\images\vision-transformers-8.png" alt="Vision Transformers (ViT) Explained | Pinecone" style="zoom: 20%;" />
+<img src="http://public.file.lvshuhuai.cn/images\vision-transformers-8.png" alt="Vision Transformers (ViT) Explained | Pinecone" style="zoom: 20%;" />
 
 所以，MLLM 拿到的不是一段简单 OCR 文本，而是**图像的语义表示**。也正因为如此，MLLM 才不仅能读图中的文字，还能理解：
 

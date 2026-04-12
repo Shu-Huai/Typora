@@ -8,11 +8,11 @@
 
 ### 一个直接定义
 
-<img src="Z:\Public\images\agent_workflow.png" alt="Agent Workflow" style="zoom:20%;" />
+<img src="http://public.file.lvshuhuai.cn/images\agent_workflow.png" alt="Agent Workflow" style="zoom:20%;" />
 
 在 Agent 工程里，Workflow 可以理解为一层**任务编排层**。它并不直接回答“模型会不会说话”“OCR 能不能识别”“某个工具能不能调”，而是回答另一组更工程化的问题：先做什么，再做什么；在哪些条件下切换路径；失败时如何回退；整个任务在什么条件下结束。
 
-所以，Workflow 的重点从来不是某一个节点本身有多强，而是**这些节点如何被组织成一条可执行、可恢复、可治理的流程**。你可以把它看成一个有状态的执行图：输入进入系统后，不是直接扔给一个巨大 prompt，而是按照预先设计好的步骤流动。
+所以，Workflow 的重点从来不是某一个节点本身有多强，而是**这些节点如何被组织成一条可执行、可恢复、可治理的流程**。你可以把它看成一个有状态的执行图：输入进入系统后，不是直接扔给一个巨大[[提示词 Prompt]]，而是按照预先设计好的步骤流动。
 
 ### 一个更工程化的理解
 
@@ -20,7 +20,7 @@
 
 > **State Machine（状态机） + Task Orchestration（任务编排） + Optional LLM Nodes（可选的 LLM 节点）**
 
-这个表达很有用，因为它提醒我们：Workflow 的核心并不在于“用了 LLM”，而在于“有没有明确的状态、步骤和流转关系”。LLM 在这个体系里通常只是某些节点的实现方式，有时负责分类，有时负责生成，有时负责选择工具，但它并不等于 Workflow 本身。
+这个表达很有用，因为它提醒我们：Workflow 的核心并不在于“用了[[大语言模型 LLM]]”，而在于“有没有明确的状态、步骤和流转关系”。LLM 在这个体系里通常只是某些节点的实现方式，有时负责分类，有时负责生成，有时负责选择工具，但它并不等于 Workflow 本身。
 
 ## 为什么需要 Workflow
 
@@ -36,7 +36,7 @@ Workflow 的价值，就在于把这些隐式过程显式化。它把不稳定�
 
 ### State（状态）
 
-<img src="Z:\Public\images\context-window.png" alt="Conversation state | OpenAI API" style="zoom: 40%;" />
+<img src="http://public.file.lvshuhuai.cn/images\context-window.png" alt="Conversation state | OpenAI API" style="zoom: 40%;" />
 
 状态表示“当前任务做到哪里了”。例如在订票系统里，状态里可能既有已经拿到的信息，也有仍然缺失的字段，还可能保存上一步工具调用结果和最终待返回的答案。
 
@@ -90,11 +90,11 @@ Workflow 的价值，就在于把这些隐式过程显式化。它把不稳定�
 
 这是最容易混淆的地方。
 
-<img src="Z:\Public\images\function-calling-diagram-steps.png" alt="Function calling | OpenAI API" style="zoom: 20%;" />
+<img src="http://public.file.lvshuhuai.cn/images\function-calling-diagram-steps.png" alt="Function calling | OpenAI API" style="zoom: 20%;" />
 
 ### Tool Calling 是什么
 
-Tool Calling 关注的是：**模型如何调用一个工具**。它通常关心的是调用哪个工具、传什么参数、工具返回什么结果、这些结果又如何重新进入模型上下文。
+[[工具调用 Tool Calling]] 关注的是：**模型如何调用一个工具**。它通常关心的是调用哪个工具、传什么参数、工具返回什么结果、这些结果又如何重新进入模型上下文。
 
 因此，Tool Calling 更像一个局部动作机制。它描述的是某个节点内部如何完成一次工具调用闭环，而不是整个任务从开始到结束如何运行。
 
@@ -132,7 +132,7 @@ Workflow 关心的则是更大的问题：整个任务按什么顺序推进，�
 
 几个常见的可视化 workflow 工具可以作为代表。**FastGPT** 偏向知识库问答、AI 应用和工作流搭建，适合做问答路由、RAG、变量更新和条件分支。**Coze** 更偏应用平台，强调把插件、LLM、代码块组合成业务流程。**Dify** 提供 Workflow 和 Chatflow 两类应用形态，便于直接把流程做成可调用的应用。**Flowise** 则明确面向 AI Agents 和 LLM workflows，并引入了 Flow State 之类的概念，适合更复杂的多节点流程。
 
-<img src="Z:\Public\images\flow-intro1.png" alt="img" style="zoom:50%;" />
+<img src="http://public.file.lvshuhuai.cn/images\flow-intro1.png" alt="img" style="zoom:50%;" />
 
 不过，可视化 workflow 并不意味着“只是拖拖拽拽”。当流程稍微复杂起来，节点命名、变量传递、分支控制、异常处理和复用结构仍然是工程问题。它只是把这些问题放到了一个更可视、也更适合快速迭代的环境里。
 
