@@ -64,7 +64,7 @@
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -137,7 +137,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "笔记/人工智能/Agent 开发/智能体 Agent.md",
+                "file": "笔记/开发/服务器/Docker.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -147,7 +147,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "智能体 Agent 的反向链接列表"
+              "title": "Docker 的反向链接列表"
             }
           },
           {
@@ -197,7 +197,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
-      "bases:新建数据库": false,
+      "bases:创建新数据库": false,
       "switcher:打开快速切换": false,
       "graph:查看关系图谱": false,
       "canvas:新建白板": false,
@@ -206,11 +206,14 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "700602d3f4c3a137",
+  "active": "38c44a3339b39491",
   "lastOpenFiles": [
+    "笔记/人工智能/Agent 开发/虚拟大型语言模型 vLLM.md",
+    "笔记/人工智能/Agent 开发/模型上下文协议 MCP.md",
+    "笔记/人工智能/Agent 开发/MCP.md",
+    "笔记/人工智能/Agent 开发/Untitled.md",
     "笔记/人工智能/Agent 开发/结构化输出 Structured Output.md",
     "笔记/人工智能/Agent 开发/智能体 Agent.md",
-    "笔记/人工智能/Agent 开发/Untitled.md",
     "笔记/人工智能/Agent 开发/状态管理 State Management.md",
     "笔记/人工智能/Agent 开发/工作流 Workflow.md",
     "笔记/人工智能/Agent 开发/函数调用 Function Calling.md",
@@ -231,9 +234,6 @@
     "笔记/开发/Java路线/Java 并发编程/Java 并发编程 02——共享模型之管程.md",
     "笔记/开发/Java路线/Java 并发编程/Java 并发编程 03——共享模型之内存.md",
     "笔记/开发/Java路线/Java 并发编程/Java 并发编程 05.md",
-    "笔记/人工智能/数学/InfoNCE.md",
-    "笔记/人工智能/数学/Untitled.md",
-    "笔记/人工智能/数学/NCE.md",
     "笔记/开发/Java路线/JVM 学习",
     "笔记/开发/Java路线/Java 基础语法",
     "笔记/经典算法",
