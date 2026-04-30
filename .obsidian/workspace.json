@@ -11,10 +11,14 @@
             "id": "700602d3f4c3a137",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "关系图谱"
+              "type": "markdown",
+              "state": {
+                "file": "笔记/人工智能/Agent 开发/Harness Engineering.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Harness Engineering"
             }
           }
         ]
@@ -36,7 +40,8 @@
             "state": {
               "type": "file-explorer",
               "state": {
-                "sortOrder": "alphabetical"
+                "sortOrder": "alphabetical",
+                "autoReveal": false
               },
               "icon": "lucide-folder-closed",
               "title": "文件列表"
@@ -107,11 +112,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "笔记/人工智能/Agent 开发/Harness Engineering.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "出链"
+              "title": "Harness Engineering 的出链列表"
             }
           },
           {
@@ -148,6 +154,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "bases:新建数据库": false,
       "switcher:打开快速切换": false,
       "graph:查看关系图谱": false,
       "canvas:新建白板": false,
@@ -158,6 +165,18 @@
   },
   "active": "700602d3f4c3a137",
   "lastOpenFiles": [
+    "笔记/人工智能/Agent 开发/LangChain.md",
+    "笔记/人工智能/Agent 开发/Harness Engineering.md",
+    "Public/images/harness-anthropic-coding-agent.png",
+    "Public/images/harness-anthropic-agent-loop.png",
+    "Public/images/harness-anthropic-evaluator-optimizer.png",
+    "Public/images/harness-anthropic-orchestrator-workers.png",
+    "Public/images/harness-anthropic-parallelization.png",
+    "Public/images/harness-anthropic-routing.png",
+    "Public/images/harness-anthropic-prompt-chaining.png",
+    "Public/images/harness-anthropic-augmented-llm.png",
+    "Public/images",
+    "Public",
     "笔记/开发/Java路线/JVM 学习/JVM.md",
     "笔记/开发/Java路线/JVM 学习/JVM19——JVM监控及诊断工具命令行篇.md",
     "笔记/开发/Java路线/JVM 学习/JVM01——JVM与Java体系结构.md",
@@ -167,8 +186,6 @@
     "笔记/人工智能/Agent 开发/OpenAI-compatible API.md",
     "笔记/人工智能/Agent 开发/LangGraph.md",
     "笔记/人工智能/Agent 开发/LangChain4j.md",
-    "笔记/人工智能/Agent 开发/LangChain.md",
-    "笔记/人工智能/Agent 开发/Harness.md",
     "笔记/人工智能/Agent 开发/状态管理 State Management.md",
     "笔记/人工智能/Agent 开发/智能体 Agent.md",
     "笔记/人工智能/Agent 开发/虚拟大型语言模型 vLLM.md",
@@ -183,7 +200,6 @@
     "笔记/人工智能/Agent 开发/多模态大语言模型 MLLM.md",
     "笔记/人工智能/Agent 开发/大语言模型 LLM.md",
     "笔记/开发/Java路线/Java.md",
-    "JVM 生态中的[[大语言模型 LLM.md",
     "笔记/开发/Java路线/JVM 学习",
     "笔记/开发/Java路线/Java 基础语法",
     "笔记/经典算法",
@@ -192,12 +208,7 @@
     "笔记/开发/Untitled Folder",
     "笔记/开发/实现原理/力扣复杂度分析",
     "笔记/开发/实现原理/Untitled Folder",
-    "笔记/开发/实现原理",
-    "笔记/人工智能",
     "高等数学（1）-2.png",
-    "高等数学（1）-1.png",
-    "高等数学（1）.png",
-    "笔记/考研/assets/高等数学（1）/file-20241201234837926.png",
-    "笔记/考研/assets/高等数学（1）/file-20241201234717504.png"
+    "高等数学（1）-1.png"
   ]
 }
