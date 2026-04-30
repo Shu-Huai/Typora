@@ -20,6 +20,8 @@
 
 所以，从应用开发的角度看，**Prompt 更接近“任务协议”而不是“提问技巧”**。
 
+![Prompt Example](http://public.file.lvshuhuai.cn/images\prompt-dair-introduction.png)
+
 ## 为什么 Prompt 重要
 
 LLM 本质上是在做下一 token 预测。它并不会天然知道你这轮到底是要它“聊天”、还是“抽取字段”、还是“调用工具”、还是“返回 JSON”。这些都需要由 Prompt 来界定。
@@ -27,6 +29,8 @@ LLM 本质上是在做下一 token 预测。它并不会天然知道你这轮到
 Prompt 做得越清楚，模型行为通常越稳定；Prompt 模糊，模型就只能猜。很多人把 Prompt Engineering 想得很玄，其实最核心的原则很朴素：
 
 **把任务说清楚，把边界说清楚，把输出格式说清楚。**
+
+![Few-shot Prompting](http://public.file.lvshuhuai.cn/images\prompt-dair-few-shot.png)
 
 一个好的 Prompt，通常至少回答了下面几个问题：
 
@@ -80,6 +84,8 @@ Prompt 做得越清楚，模型行为通常越稳定；Prompt 模糊，模型就
 
 把它们拼起来，就比一句泛泛的“帮我看看这份合同”强很多。
 
+![Meta Prompting](http://public.file.lvshuhuai.cn/images\prompt-dair-meta-prompting.png)
+
 ## Prompt 不只是纯文本块：消息结构的出现
 
 在现代 API 里，Prompt 常常不是一整块字符串，而是一组带身份的消息。最常见的形式是：
@@ -91,6 +97,8 @@ Prompt 做得越清楚，模型行为通常越稳定；Prompt 模糊，模型就
 - `tool`
 
 这意味着：**Prompt 在应用层已经被结构化了。**
+
+![Chat Templates](http://public.file.lvshuhuai.cn/images\prompt-huggingface-chat-templates.png)
 
 也就是说，你传给模型服务的，不一定是单个字符串，而可能是这样的消息数组：
 
@@ -169,7 +177,7 @@ LLM 本体是模型参数和网络结构本身，例如 GPT、Qwen、Llama。模
 
 ### API 是什么
 
-像 `Chat Completions`、`Responses API`，它们不是模型本体，而是**调用模型的接口协议**。
+像 [`Chat Completions`](https://platform.openai.com/docs/guides/text?api-mode=chat)、[`Responses API`](https://platform.openai.com/docs/guides/text?api-mode=responses)，它们不是模型本体，而是**调用模型的接口协议**。
 
 它们负责做的是：
 
@@ -216,6 +224,8 @@ Prompt 处在应用层和模型层之间。
 
 如果你的目标是学现代 LLM 应用，而不是只学“聊天”，那更值得优先理解 Responses API 这套思路。
 
+![Prompt Chaining](http://public.file.lvshuhuai.cn/images\prompt-dair-prompt-chaining.png)
+
 ### 两者的本质关系
 
 - Chat Completions：更像聊天接口
@@ -252,7 +262,7 @@ messages / role
 
 **模型接受的是 token 序列；role 只是上层消息协议，它会在下层被转换成控制标记或特殊 token。**
 
-### 什么是 chat template
+### 什么是 [chat template](https://huggingface.co/docs/transformers/chat_templating)
 
 chat template 可以理解成“把结构化消息翻译成模型输入”的模板。
 
@@ -275,6 +285,8 @@ chat template 可以理解成“把结构化消息翻译成模型输入”的模
 再把这串内容送去 tokenizer。
 
 不同模型使用的 chat template 不一定一样，这也是为什么“同一个模型，换了模板，效果会明显不同”。
+
+![Active Prompt](http://public.file.lvshuhuai.cn/images\prompt-dair-active-prompt.png)
 
 ### `<|message|>` 这类标记是什么
 
@@ -299,6 +311,8 @@ chat template 可以理解成“把结构化消息翻译成模型输入”的模
 ## tool calling 其实仍然属于 Prompt 体系
 
 工具调用看起来很像“模型会操作外部世界”，但底层机制仍然是 Prompt 协议的延伸。
+
+![ReAct Prompting](http://public.file.lvshuhuai.cn/images\prompt-dair-react.png)
 
 典型过程是：
 
@@ -359,3 +373,5 @@ chat template 可以理解成“把结构化消息翻译成模型输入”的模
 ```
 
 这个 Prompt 已经具备了应用场景里比较重要的四件事：角色、任务、约束、输出格式。
+
+![Chain of Thought Prompting](http://public.file.lvshuhuai.cn/images\prompt-dair-chain-of-thought.png)

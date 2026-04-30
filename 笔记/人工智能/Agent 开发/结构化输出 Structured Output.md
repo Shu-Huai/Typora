@@ -1,4 +1,4 @@
-# Structured Output 学习笔记
+# 结构化输出 Structured Output
 
 ## 从一个很自然的疑问开始
 

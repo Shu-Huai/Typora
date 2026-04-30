@@ -4,6 +4,8 @@
 
 工具调用，指的是：**让模型不仅能输出自然语言，还能输出一段结构化的“调用指令”，由你的程序或平台去真正执行外部能力，再把结果回传给模型继续完成任务。**
 
+![Tool Calling Flow](http://public.file.lvshuhuai.cn/images\tool-calling-flow.png)
+
 这句话里有三个关键词：
 
 1. **结构化指令**
@@ -22,7 +24,7 @@
 
 > **模型负责决策，系统负责执行。**
 
-这也是现代 Agent 系统的最小动作单元。没有工具调用，模型只能“说得像会做事”；有了工具调用，模型才开始“真的能做事”。
+这也是现代[[智能体 Agent]] 系统的最小动作单元。没有工具调用，模型只能“说得像会做事”；有了工具调用，模型才开始“真的能做事”。
 
 ## 为什么工具调用这么重要
 
@@ -56,6 +58,8 @@
 - **没有工具调用**：是一个会说话的模型
 - **有工具调用**：开始变成一个能干活的系统
 
+![Agent Components](http://public.file.lvshuhuai.cn/images\tool-calling-agent-components.png)
+
 ## 工具调用和普通 Prompt 的区别
 
 初学者很容易误会，以为工具调用只是“把函数说明写到 prompt 里”。这不准确。
@@ -77,6 +81,8 @@
 也就是说：
 
 > **Prompt 是任务说明，Tools 是能力清单。**
+
+![LangChain Tool Calling](http://public.file.lvshuhuai.cn/images\tool-calling-langchain-cover.png)
 
 两者会共同影响模型行为，但不属于同一层。
 
@@ -118,7 +124,7 @@
 
 ### 参数模式 `parameters` / schema
 
-这通常使用 JSON Schema 表达，用来定义：
+这通常使用 [JSON Schema](https://json-schema.org/) 表达，用来定义：
 
 - 参数有哪些
 - 每个参数是什么类型
@@ -200,6 +206,8 @@
 
 这个例子里，工具调用完整地体现了四步：
 
+![Agent Loop](http://public.file.lvshuhuai.cn/images\tool-calling-agent-loop.png)
+
 1. 用户提出任务
 2. 模型决定调用工具
 3. 系统执行工具
@@ -256,6 +264,8 @@
 但真实系统不是这样。
 
 工具调用通常是一个 **loop**，原因有三个。
+
+![ReAct Tool Use](http://public.file.lvshuhuai.cn/images\tool-calling-react.png)
 
 ### 模型可能连续调用多个工具
 
@@ -356,7 +366,9 @@ while True:
 
 这个循环的本质就是：
 
-> **模型负责决定下一步，系统负责让下一步真的发生。*
+> **模型负责决定下一步，系统负责让下一步真的发生。**
+
+如果工具来自外部标准协议，它也可能不是本地函数，而是通过 [MCP](https://modelcontextprotocol.io/introduction) 暴露出来的远程能力。
 
 ## 错误处理比“成功路径”更重要
 
@@ -398,9 +410,11 @@ while True:
 
 错误分层清楚，后续排查和日志分析才不会混乱。
 
+![Tool Routing](http://public.file.lvshuhuai.cn/images\tool-calling-routing.png)
+
 ## 工具调用和结构化输出的关系
 
-工具调用几乎总是建立在结构化输出之上。
+工具调用几乎总是建立在[[结构化输出 Structured Output]] 之上。
 
 因为工具调用至少要求模型能稳定产出：
 
@@ -483,6 +497,8 @@ LLM 本质上一直是在生成 token。
 也就是说：
 
 > 不是“自然语言后处理猜测”，而是“结构化输出后按协议包装”。
+
+![Tool Parallelization](http://public.file.lvshuhuai.cn/images\tool-calling-parallelization.png)
 
 ### 能确定的部分
 

@@ -4,13 +4,15 @@
 
 Function Calling，通常可翻译为**函数调用**。它的核心含义是：
 
+![Function Calling Flow](http://public.file.lvshuhuai.cn/images\function-calling-flow.png)
+
 [[大语言模型 LLM]] 在对话过程中，不只是输出普通文本，还可以输出一种**结构化的调用意图**，告诉外部程序：
 
 - 要调用哪个函数
 - 这个函数需要什么参数
 - 参数的具体值是什么
 
-这里要注意，**模型本身并不会真的执行函数**。真正执行函数的是你的后端程序、Agent 框架，或者某个工具运行环境。
+这里要注意，**模型本身并不会真的执行函数**。真正执行函数的是你的后端程序、[[智能体 Agent]] 框架，或者某个工具运行环境。
 
 也就是说，Function Calling 的本质不是“模型会运行代码”，而是“模型会按照约定的格式，表达它希望调用某个函数”。
 
@@ -54,6 +56,8 @@ Function Calling，通常可翻译为**函数调用**。它的核心含义是：
 > **Function Calling ⊂ Tool Calling**
 
 也就是说，函数调用通常只是工具调用的一种具体实现形式。
+
+![Tool Calling](http://public.file.lvshuhuai.cn/images\function-calling-langchain-tool-calling.png)
 
 ### Function Calling 更强调“函数签名”
 
@@ -110,17 +114,19 @@ Tool Calling 关注的是：
 
 这是一个比较典型的“函数接口式”用法。
 
-但随着 Agent 体系发展，模型接入的能力越来越复杂，已经不只是几个本地函数，而可能是：
+但随着[[智能体 Agent]] 体系发展，模型接入的能力越来越复杂，已经不只是几个本地函数，而可能是：
 
 - web search
 - file search
 - code interpreter
-- remote MCP
+- [[模型上下文协议 MCP]]
 - computer use
 - 邮件与日历系统
 - 数据分析流水线
 
 这时再只用 Function Calling 来描述，就显得太窄了。
+
+![Agent Components](http://public.file.lvshuhuai.cn/images\function-calling-agent-components.png)
 
 所以现在更常见的理解是：
 
@@ -160,6 +166,8 @@ def search_order(order_id: str):
 
 模型要做的是：
 
+![ReAct Tool Use](http://public.file.lvshuhuai.cn/images\function-calling-react.png)
+
 - 判断现在该用哪个工具
 - 决定工具使用顺序
 - 根据上一步结果继续调用下一个工具
@@ -198,6 +206,8 @@ def search_order(order_id: str):
 
 这是理解两者关系时非常重要的一点。
 
+在具体框架里，这个抽象通常会被称为 [Tool Calling](https://docs.langchain.com/oss/python/langchain/tools)；如果外部能力通过标准协议暴露，也可能来自 [MCP](https://modelcontextprotocol.io/introduction) server。
+
 ## 一个完整调用链示例
 
 下面用一个最小闭环来说明。
@@ -209,6 +219,8 @@ def search_order(order_id: str):
 ### 第一步：模型理解任务
 
 模型判断：需要先查天气，再根据天气结果进行语言生成。
+
+![Agent Loop](http://public.file.lvshuhuai.cn/images\function-calling-agent-loop.png)
 
 ### 第二步：模型输出工具调用意图
 
@@ -245,3 +257,5 @@ def search_order(order_id: str):
 
 - 从接口形式看，是 Function Calling
 - 从系统能力看，是 Tool Calling
+
+![Tool Routing](http://public.file.lvshuhuai.cn/images\function-calling-routing.png)
