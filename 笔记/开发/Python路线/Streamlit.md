@@ -284,7 +284,7 @@ st.line_chart(df, x="epoch", y=["accuracy", "f1"])
 
 ## 状态管理：`st.session_state`
 
-由于 Streamlit 会频繁 rerun，普通变量不能跨操作保存状态。[`st.session_state`](https://docs.streamlit.io/develop/api-reference/caching-and-state/st.session_state) 用来保存当前用户会话中的状态。
+由于 Streamlit 会频繁 rerun，普通变量不能跨操作保存状态。[st.session_state](https://docs.streamlit.io/develop/api-reference/caching-and-state/st.session_state) 用来保存当前用户会话中的状态。
 
 它适合保存：
 
@@ -619,7 +619,7 @@ with tab_history:
 
 ### 多页面结构
 
-对于稍微正式的工具，推荐使用 [`st.Page + st.navigation`](https://docs.streamlit.io/develop/concepts/multipage-apps/page-and-navigation)。
+对于稍微正式的工具，推荐使用 [st.Page + st.navigation](https://docs.streamlit.io/develop/concepts/multipage-apps/page-and-navigation)。
 
 ![Streamlit 多页面 set_page_config 示例](http://public.file.lvshuhuai.cn/images\streamlit-multipage-set-page-config.jpg)
 

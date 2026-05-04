@@ -109,7 +109,7 @@ Skill 负责定义任务方法。
 
 ## `SKILL.md`：入口、触发器与调度规则
 
-[`SKILL.md`](https://github.com/openai/skills/blob/main/skills/.system/skill-creator/SKILL.md) 是 Skill 的核心入口。它既是说明书，也是调度文件。一个设计良好的 `SKILL.md` 不是把所有资料都塞进去，而是清楚说明这个 Skill 的使用条件、边界、执行过程和资源组织方式。
+[SKILL.md](https://github.com/openai/skills/blob/main/skills/.system/skill-creator/SKILL.md) 是 Skill 的核心入口。它既是说明书，也是调度文件。一个设计良好的 `SKILL.md` 不是把所有资料都塞进去，而是清楚说明这个 Skill 的使用条件、边界、执行过程和资源组织方式。
 
 ![Example Skill Detail](http://public.file.lvshuhuai.cn/images\skills-openai-screenshot-1.png)
 

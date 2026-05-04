@@ -101,7 +101,7 @@ POST /v1/responses
 
 ## Chat Completions：对话生成接口
 
-[`POST /v1/chat/completions`](https://platform.openai.com/docs/api-reference/chat) 是 OpenAI-compatible API 中最重要的接口。它接收一组对话消息，返回模型生成的一条 assistant 消息。
+[POST /v1/chat/completions](https://platform.openai.com/docs/api-reference/chat) 是 OpenAI-compatible API 中最重要的接口。它接收一组对话消息，返回模型生成的一条 assistant 消息。
 
 ![Chat Templates](http://public.file.lvshuhuai.cn/images\openai-compatible-api-chat-templates.png)
 
@@ -355,7 +355,7 @@ session.addAssistantMessage(answer);
 
 ## Embeddings：文本向量化接口
 
-[`POST /v1/embeddings`](https://platform.openai.com/docs/api-reference/embeddings) 用来把文本编码成向量。它不生成自然语言回复，而是返回一个浮点数数组。这个数组可以用于语义相似度计算、检索、聚类、去重、推荐等任务。
+[POST /v1/embeddings](https://platform.openai.com/docs/api-reference/embeddings) 用来把文本编码成向量。它不生成自然语言回复，而是返回一个浮点数数组。这个数组可以用于语义相似度计算、检索、聚类、去重、推荐等任务。
 
 ![Embeddings Indexing](http://public.file.lvshuhuai.cn/images\openai-compatible-api-embeddings-indexing.png)
 
@@ -604,7 +604,7 @@ System.out.println(cosineSimilarity(v1, v3));
 
 ## Streaming：流式响应格式
 
-[`stream: true`](https://platform.openai.com/docs/api-reference/chat/create#chat-create-stream) 表示服务端不等完整回答生成完再返回，而是一边生成一边返回多个 chunk。客户端需要逐块读取并拼接。
+[stream: true](https://platform.openai.com/docs/api-reference/chat/create#chat-create-stream) 表示服务端不等完整回答生成完再返回，而是一边生成一边返回多个 chunk。客户端需要逐块读取并拼接。
 
 ![Qwen](http://public.file.lvshuhuai.cn/images\openai-compatible-api-qwen-logo.jpg)
 
@@ -832,7 +832,7 @@ public class OpenAICompatibleStreamingDemo {
 
 ## Tool Calls：工具调用及其流式格式
 
-[`tool_calls`](https://platform.openai.com/docs/guides/function-calling) [[工具调用 Tool Calling]] 是模型生成的“函数调用意图”。它不是模型真的执行了函数，而是模型输出一个结构化对象，告诉客户端：应该调用哪个函数、传哪些参数。真正的函数执行发生在你的程序里。
+[tool_calls](https://platform.openai.com/docs/guides/function-calling) [[工具调用 Tool Calling]] 是模型生成的“函数调用意图”。它不是模型真的执行了函数，而是模型输出一个结构化对象，告诉客户端：应该调用哪个函数、传哪些参数。真正的函数执行发生在你的程序里。
 
 ![Tool Calling Flow](http://public.file.lvshuhuai.cn/images\openai-compatible-api-tool-calling-flow.png)
 

@@ -155,7 +155,7 @@ Spring Boot + Spring AI 作为 MCP Client
 
 ## ChatClient 与一次模型调用：Prompt、Message、Options、Response
 
-Spring AI 里最常用的入口是 [`ChatClient`](https://docs.spring.io/spring-ai/reference/api/chatclient.html)。它是与 AI Model 通信的 fluent API，支持同步调用和流式调用。你日常写业务代码时，通常不会直接操作底层 HTTP 请求，而是围绕 `ChatClient` 构造一次模型调用。
+Spring AI 里最常用的入口是 [ChatClient](https://docs.spring.io/spring-ai/reference/api/chatclient.html)。它是与 AI Model 通信的 fluent API，支持同步调用和流式调用。你日常写业务代码时，通常不会直接操作底层 HTTP 请求，而是围绕 `ChatClient` 构造一次模型调用。
 
 一个最小调用长这样：
 
