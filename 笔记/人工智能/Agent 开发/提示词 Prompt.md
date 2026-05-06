@@ -177,7 +177,7 @@ LLM 本体是模型参数和网络结构本身，例如 GPT、Qwen、Llama。模
 
 ### API 是什么
 
-像 [`Chat Completions`](https://platform.openai.com/docs/guides/text?api-mode=chat)、[`Responses API`](https://platform.openai.com/docs/guides/text?api-mode=responses)，它们不是模型本体，而是**调用模型的接口协议**。
+像 [Chat Completions](https://platform.openai.com/docs/guides/text?api-mode=chat)、[Responses API](https://platform.openai.com/docs/guides/text?api-mode=responses)，它们不是模型本体，而是**调用模型的接口协议**。
 
 它们负责做的是：
 
