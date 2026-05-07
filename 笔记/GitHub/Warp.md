@@ -12,7 +12,7 @@
 
 ![Warp Agentic Development Environment 主界面](http://public.file.lvshuhuai.cn/images\warp-ade-hero.png)
 
-[`warpdotdev/warp`](https://github.com/warpdotdev/warp) 是 Warp 的客户端开源仓库。Warp 官方将它定义为 **[Agentic Development Environment](https://www.warp.dev/)**，也就是“以终端为入口的智能开发环境”。它不是一个单纯的 [shell](https://en.wikipedia.org/wiki/Shell_(computing))，不是一个普通 [CLI](https://en.wikipedia.org/wiki/Command-line_interface) 工具，也不是传统意义上的 [IDE](https://en.wikipedia.org/wiki/Integrated_development_environment) 插件；它的产品形态更接近：
+[warpdotdev/warp](https://github.com/warpdotdev/warp) 是 Warp 的客户端开源仓库。Warp 官方将它定义为 **[Agentic Development Environment](https://www.warp.dev/)**，也就是“以终端为入口的智能开发环境”。它不是一个单纯的 [shell](https://en.wikipedia.org/wiki/Shell_(computing))，不是一个普通 [CLI](https://en.wikipedia.org/wiki/Command-line_interface) 工具，也不是传统意义上的 [IDE](https://en.wikipedia.org/wiki/Integrated_development_environment) 插件；它的产品形态更接近：
 
 ```text
 现代终端模拟器 + 代码编辑器 + Git/代码审查面板 + AI Agent 对话环境 + 团队知识与自动化工作流入口
