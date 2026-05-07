@@ -8,16 +8,18 @@
 
 ## 项目定位与 DDNS 闭环
 
-ddns-go 的核心目标很明确：自动获得当前机器或网络出口的公网 IPv4 / IPv6 地址，并把这个地址同步到域名解析服务商中对应的解析记录。它解决的不是“如何购买域名”或“如何搭建服务器”，而是动态公网 IP 场景下的域名记录自动更新问题。
+![DDNS 自动更新闭环](http://public.file.lvshuhuai.cn/images\ddns-go-ddns-workflow.png)
 
-很多家庭宽带、NAS、软路由、个人服务器、实验室服务器都会遇到类似问题：
+[ddns-go](https://github.com/jeessy2/ddns-go) 的核心目标很明确：自动获得当前机器或网络出口的公网 [IPv4](https://en.wikipedia.org/wiki/IPv4) / [IPv6](https://en.wikipedia.org/wiki/IPv6) 地址，并把这个地址同步到域名解析服务商中对应的解析记录。它解决的不是“如何购买域名”或“如何搭建服务器”，而是[动态 DNS（DDNS）](https://en.wikipedia.org/wiki/Dynamic_DNS) 场景下的域名记录自动更新问题。
+
+很多家庭宽带、[NAS](https://en.wikipedia.org/wiki/Network-attached_storage)、软路由、个人服务器、实验室服务器都会遇到类似问题：
 
 - 机器本身可以对外提供服务；
-- 域名也已经购买并托管到某个 DNS 服务商；
+- 域名也已经购买并托管到某个 [DNS](https://www.cloudflare.com/learning/dns/what-is-dns/) 服务商；
 - 但是公网 IP 可能变化，尤其是家宽、动态 IPv6、运营商重新分配地址、路由器重启之后；
 - 一旦 IP 变化，旧的 A / AAAA 记录就失效，域名仍然指向旧地址。
 
-ddns-go 的作用就是把这件事自动化。它不是代理服务器，也不是内网穿透工具，它并不帮你打通 NAT，也不帮你绕过运营商没有公网地址的问题。它假设你至少有一个能被外部访问的公网 IPv4 或 IPv6，然后负责把这个地址同步到 DNS 记录。
+ddns-go 的作用就是把这件事自动化。它不是代理服务器，也不是内网穿透工具，它并不帮你打通 [NAT](https://en.wikipedia.org/wiki/Network_address_translation)，也不帮你绕过运营商没有公网地址的问题。它假设你至少有一个能被外部访问的公网 IPv4 或 IPv6，然后负责把这个地址同步到 DNS 记录。
 
 可以把它的业务闭环抽象成下面这条链路：
 
@@ -39,11 +41,13 @@ ddns-go 的作用就是把这件事自动化。它不是代理服务器，也不
 等待下一次定时检查
 ```
 
-这条链路看上去简单，但它背后涉及几个典型工程问题：后台服务如何长期运行、配置如何持久化、不同 DNS 服务商 API 如何适配、IP 获取如何兼容 IPv4/IPv6、失败后如何恢复、Web 管理界面如何保护密钥。这些点组合起来，ddns-go 就不只是一个“脚本”，而是一个轻量级 Go 运维自动化项目。
+这条链路看上去简单，但它背后涉及几个典型工程问题：后台服务如何长期运行、配置如何持久化、不同 DNS 服务商 [API](https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Client-side_APIs/Introduction) 如何适配、IP 获取如何兼容 IPv4/IPv6、失败后如何恢复、Web 管理界面如何保护密钥。这些点组合起来，ddns-go 就不只是一个“脚本”，而是一个轻量级 [Go](https://go.dev/) 运维自动化项目。
 
 ### A 记录、AAAA 记录与 DDNS 的关系
 
-域名解析里，A 记录通常对应 IPv4 地址，AAAA 记录通常对应 IPv6 地址。ddns-go 的配置也自然分成 IPv4 和 IPv6 两组：IPv4 可以启用或关闭，IPv6 也可以启用或关闭，每组都可以配置获取方式和域名列表。
+![DNS 记录类型示意](http://public.file.lvshuhuai.cn/images\ddns-go-network-architecture.png)
+
+域名解析里，[A 记录](https://www.cloudflare.com/learning/dns/dns-records/dns-a-record/) 通常对应 IPv4 地址，[AAAA 记录](https://www.cloudflare.com/learning/dns/dns-records/dns-aaaa-record/) 通常对应 IPv6 地址。ddns-go 的配置也自然分成 IPv4 和 IPv6 两组：IPv4 可以启用或关闭，IPv6 也可以启用或关闭，每组都可以配置获取方式和域名列表。
 
 一个典型场景如下：
 
@@ -52,7 +56,7 @@ home.example.com  A     1.2.3.4
 home.example.com  AAAA  2409:xxxx:xxxx::1234
 ```
 
-如果用户的 IPv4 或 IPv6 地址发生变化，ddns-go 就会尝试把上述记录更新成新地址。这里的“动态”不是 DNS 协议本身动态，而是由程序定时检测并调用 DNS 服务商的 HTTP API 来完成更新。
+如果用户的 IPv4 或 IPv6 地址发生变化，ddns-go 就会尝试把上述记录更新成新地址。这里的“动态”不是 DNS 协议本身动态，而是由程序定时检测并调用 DNS 服务商的 [HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview) API 来完成更新。
 
 ### 它适合的部署场景
 
@@ -62,7 +66,7 @@ ddns-go 最常见的运行环境包括：
 - 软路由或旁路由；
 - 有公网 IPv6 的 Windows / macOS / Linux 机器；
 - 云服务器上需要同步某些动态网络地址的特殊场景；
-- OpenWrt、Docker、系统服务等后台运行环境。
+- [OpenWrt](https://openwrt.org/)、[Docker](https://docs.docker.com/get-started/docker-overview/)、系统服务等后台运行环境。
 
 其中最典型的是家庭或实验室网络。比如用户在家里放了一台 NAS，希望通过 `nas.example.com` 访问。只要公网 IP 变化，ddns-go 就自动更新解析记录，用户无需登录阿里云、腾讯云、Cloudflare 控制台手动修改。
 
@@ -78,7 +82,7 @@ ddns-go 最常见的运行环境包括：
 
 ## 运行、部署与配置入口
 
-ddns-go 是一个长期运行型程序。它既可以直接以前台进程方式运行，也可以安装成系统服务，还可以放进 Docker 容器中。README 中明确给出了系统运行、Docker 运行、IPv6 使用、Webhook、Callback 等配置入口。项目支持 Mac、Windows、Linux，也支持 ARM、x86、RISC-V 架构；支持阿里云、腾讯云、Dnspod、Cloudflare、华为云、Callback、百度云、Porkbun、GoDaddy、Namecheap、NameSilo、Dynadot、DNSLA、EdgeOne、IBM NS1 Connect、雨云等多种服务商。
+ddns-go 是一个长期运行型程序。它既可以直接以前台进程方式运行，也可以安装成系统服务，还可以放进 Docker 容器中。[README](https://github.com/jeessy2/ddns-go#readme) 中明确给出了系统运行、Docker 运行、IPv6 使用、[Webhook](https://en.wikipedia.org/wiki/Webhook)、[Callback](https://en.wikipedia.org/wiki/Callback_%28computer_programming%29) 等配置入口。项目支持 Mac、Windows、Linux，也支持 ARM、x86、RISC-V 架构；支持阿里云、腾讯云、Dnspod、Cloudflare、华为云、Callback、百度云、Porkbun、GoDaddy、Namecheap、NameSilo、Dynadot、DNSLA、EdgeOne、IBM NS1 Connect、雨云等多种服务商。
 
 ### 系统服务方式
 
@@ -122,6 +126,8 @@ http://localhost:9876
 
 ### Docker 方式
 
+![Docker 镜像层示意](http://public.file.lvshuhuai.cn/images\ddns-go-docker-image-layers.webp)
+
 Docker 方式适合 Linux 主机、群晖、软路由等环境。最常见写法是：
 
 ```bash
@@ -155,6 +161,8 @@ docker run -d \
 
 ### 配置项不是简单表单，而是运行时模型
 
+![ddns-go DNS 服务商配置界面](http://public.file.lvshuhuai.cn/images\ddns-go-provider-config.png)
+
 ddns-go 的 Web 页面看起来是一个配置表单，但从源码角度看，它实际对应一个配置模型。核心配置在 `config/config.go` 中。`DnsConfig` 被拆成 IPv4、IPv6、DNS 服务商、TTL、HTTP 请求网卡等部分。
 
 源码中的结构可以概括为：
@@ -187,6 +195,8 @@ type DNS struct {
 
 ### IPv4 / IPv6 获取方式
 
+![ddns-go IPv6 网卡获取配置](http://public.file.lvshuhuai.cn/images\ddns-go-ipv6-network-card.png)
+
 ddns-go 支持多种 IP 获取方式。一般可以理解为三类：
 
 1. 通过外部 URL 获取
@@ -204,6 +214,8 @@ ddns-go 支持多种 IP 获取方式。一般可以理解为三类：
 URL 获取简单，但依赖外部接口；网卡获取更贴近本机真实网络，但要求用户知道目标网卡；命令获取自由度最高，但也最容易因为脚本输出格式、权限、编码等问题出错。
 
 ### Webhook 与 Callback 的区别
+
+![Callback 更新链路示意](http://public.file.lvshuhuai.cn/images\ddns-go-callback-update.png)
 
 这两个概念容易混淆，但它们在 ddns-go 里的语义不同。
 
@@ -299,6 +311,8 @@ dns.RunTimer(time.Duration(*every) * time.Second)
 这个顺序很重要。DDNS 不是程序启动后立刻盲目调用服务商 API，而是先处理配置，再启动 Web，再确认网络，再进入定时任务。对于这种网络工具，等待网络可用是必要的，否则开机自启时很容易在网络尚未就绪时失败。
 
 ### Web 服务不是主业务，但它是配置入口
+
+![ddns-go Web 配置界面](http://public.file.lvshuhuai.cn/images\ddns-go-web-ui.png)
 
 `main.go` 中的 `runWebServer()` 注册了多个 HTTP 路由，包括：
 
@@ -416,7 +430,7 @@ YAML 反序列化
 
 第二，如果配置文件里没有用户名和密码，源码会设置 `NotAllowWanAccess = true`。这是一种安全兜底：未初始化的 Web 配置界面不应该直接暴露在公网。
 
-保存配置时，源码使用 YAML 序列化，并以 `0600` 权限写入配置文件。这个权限设置也很合理，因为配置文件里包含 DNS API 凭据，理论上只应该被当前运行用户读取和写入。
+保存配置时，源码使用 [YAML](https://yaml.org/) 序列化，并以 `0600` 权限写入配置文件。这个权限设置也很合理，因为配置文件里包含 DNS API 凭据，理论上只应该被当前运行用户读取和写入。
 
 ### web/auth.go：Web 配置界面的安全边界
 
@@ -440,7 +454,7 @@ ddns-go 的 Web 页面会暴露敏感配置，所以认证逻辑必须单独讲�
 
 静态资源也不是完全裸奔的。`AuthAssert` 会保护静态文件等资源；如果配置文件为空且程序启动超过 3 小时，又有公网来源访问，就返回 403。这体现了项目对“初始化阶段被公网扫到”的风险有所考虑。
 
-但这不代表可以随意把 ddns-go 暴露到公网。README 也提醒，如果启用公网访问，建议通过 Nginx 等反向代理启用 HTTPS。原因很直接：DNS 服务商凭据、登录 Cookie、Web 配置内容都属于敏感信息，裸 HTTP 暴露在公网有被截获和爆破的风险。
+但这不代表可以随意把 ddns-go 暴露到公网。README 也提醒，如果启用公网访问，建议通过 [Nginx](https://nginx.org/) 等反向代理启用 [HTTPS](https://developer.mozilla.org/en-US/docs/Glossary/HTTPS)。原因很直接：DNS 服务商凭据、登录 Cookie、Web 配置内容都属于敏感信息，裸 HTTP 暴露在公网有被截获和爆破的风险。
 
 ## 关键设计：适配器、缓存、失败恢复与扩展点
 
@@ -466,7 +480,7 @@ ddns-go 的代码量不算巨大，但几个设计点很典型，适合从工程
 调用添加/更新记录
 ```
 
-每个服务商文件，例如 `alidns.go`、`cloudflare.go`、`dnspod.go`、`tencent_cloud.go`，则负责具体 API 细节。这是典型的适配器模式。
+每个服务商文件，例如 `alidns.go`、`cloudflare.go`、`dnspod.go`、`tencent_cloud.go`，则负责具体 API 细节。这是典型的[适配器模式](https://refactoring.guru/design-patterns/adapter)。
 
 它的优点是：
 
@@ -530,7 +544,7 @@ config.ExecWebhook(&domains, &conf)
 
 源码中可以看到它处理了两类兼容：
 
-- 旧密码如果不是 bcrypt 哈希，则进行哈希后保存；
+- 旧密码如果不是 [bcrypt](https://en.wikipedia.org/wiki/Bcrypt) 哈希，则进行哈希后保存；
 - 兼容 v5.0.0 之前的配置文件，把旧结构迁移到新的 `DnsConf` 数组结构中。
 
 这说明 ddns-go 的配置模型经历过演进：从单配置逐渐变成支持多个 DNS 配置块。项目讲解时不应该只说“它有配置文件”，而应该说明配置文件也是项目版本演进的一部分。
@@ -597,12 +611,14 @@ dig home.example.com AAAA
 
 ### 安全建议
 
+![通过 DNS Challenge 申请 HTTPS 证书](http://public.file.lvshuhuai.cn/images\ddns-go-https-dns-challenge.png)
+
 ddns-go 的 Web 页面里保存了 DNS 服务商凭据，因此安全边界要格外清楚。
 
 建议遵守以下原则：
 
 - 不要随意把 `9876` 端口暴露到公网；
-- 如果必须公网访问，使用 Nginx / Caddy / Traefik 等反向代理加 HTTPS；
+- 如果必须公网访问，使用 Nginx / [Caddy](https://caddyserver.com/) / [Traefik](https://traefik.io/traefik/) 等反向代理加 HTTPS；
 - 登录密码不要使用弱密码；
 - DNS API 凭据尽量使用最小权限；
 - 配置文件目录不要给过宽权限；
@@ -610,7 +626,7 @@ ddns-go 的 Web 页面里保存了 DNS 服务商凭据，因此安全边界要�
 - 不要在公开截图、日志、教程中暴露 ID、Secret、Token；
 - 使用 `-noweb` 可以在配置完成后关闭 Web 服务，只保留后台 DDNS 任务。
 
-其中“最小权限”很重要。比如 Cloudflare API Token 可以只授权某个 Zone 的 DNS 编辑权限，而不是给全账号全局权限。阿里云、腾讯云等也应尽量使用受限策略，而不是主账号 AK/SK。
+其中“最小权限”很重要。比如 [Cloudflare API Token](https://developers.cloudflare.com/fundamentals/api/get-started/create-token/) 可以只授权某个 Zone 的 DNS 编辑权限，而不是给全账号全局权限。阿里云、腾讯云等也应尽量使用受限策略，而不是主账号 AK/SK。
 
 ### 新增一个 DNS 服务商应该怎么做
 
