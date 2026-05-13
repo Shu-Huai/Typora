@@ -182,7 +182,7 @@ graph = builder.compile()
 
 ## State：LangGraph 的中心，不是附属品
 
-![Short vs long](Z:\Public\images\short-vs-long.png)
+![Short vs long](http://public.file.lvshuhuai.cn/images\short-vs-long.png)
 
 在普通脚本里，状态经常是零散的变量：
 
@@ -367,7 +367,7 @@ A -> 模型判断 -> 可能去 B / C / D / 工具调用 / 追问用户 / 结束
 
 如果 LangGraph 只是把 if-else 画成图，那它价值不大。它真正重要的能力是 persistence，也就是状态持久化。
 
-![Checkpoints](Z:\Public\images\checkpoints.jpg)
+![Checkpoints](http://public.file.lvshuhuai.cn/images\checkpoints.jpg)
 
 这里有几个核心词：
 
@@ -450,7 +450,7 @@ send_email
 
 LangGraph 把这部分做成运行时能力，所以它更适合真实业务系统，而不是只适合 demo。
 
-![img](Z:\Public\images\69cbb0374cf06727c05d6a53_opengpts-authorize-1.png)
+![img](http://public.file.lvshuhuai.cn/images\69cbb0374cf06727c05d6a53_opengpts-authorize-1.png)
 
 ## Memory：短期记忆和长期记忆
 

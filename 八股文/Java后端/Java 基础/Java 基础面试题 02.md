@@ -696,7 +696,7 @@ System.out.println(aa==bb); // true
 
 更多关于字符串常量池的介绍可以看一下 [Java 内存区域详解](https://javaguide.cn/java/jvm/memory-area.html) 这篇文章。
 
-### String s1 = new String("abc");这句话创建了几个字符串对象？
+### String s1 = new String("abc"); 这句话创建了几个字符串对象？
 
 先说答案：会创建 1 或 2 个字符串对象。
 

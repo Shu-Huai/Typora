@@ -20,7 +20,7 @@
 
 ### Checked Exception 和 Unchecked Exception 有什么区别？
 
-**Checked Exception** 即受检查异常 ，Java 代码在编译过程中，如果受检查异常没有被 `catch`或者`throws` 关键字处理的话，就没办法通过编译。
+**Checked Exception** 即受检查异常 ，Java 代码在编译过程中，如果受检查异常没有被 `catch` 或者 `throws` 关键字处理的话，就没办法通过编译。
 
 比如下面这段 IO 操作的代码：
 
@@ -32,8 +32,8 @@
 
 `RuntimeException` 及其子类都统称为非受检查异常，常见的有（建议记下来，日常开发中会经常用到）：
 
-- `NullPointerException`(空指针错误)
-- `IllegalArgumentException`(参数错误比如方法入参类型错误)
+- `NullPointerException`（空指针错误）
+- `IllegalArgumentException`（参数错误比如方法入参类型错误）
 - `NumberFormatException`（字符串转换为数字格式错误，`IllegalArgumentException`的子类）
 - `ArrayIndexOutOfBoundsException`（数组越界错误）
 - `ClassCastException`（类型转换错误）
@@ -54,10 +54,10 @@
 
 ### Throwable 类常用方法有哪些？
 
-- `String getMessage()`: 返回异常发生时的详细信息
-- `String toString()`: 返回异常发生时的简要描述
-- `String getLocalizedMessage()`: 返回异常对象的本地化信息。使用 `Throwable` 的子类覆盖这个方法，可以生成本地化信息。如果子类没有覆盖该方法，则该方法返回的信息与 `getMessage()`返回的结果相同
-- `void printStackTrace()`: 在控制台上打印 `Throwable` 对象封装的异常信息
+- `String getMessage()`：返回异常发生时的详细信息
+- `String toString()`：返回异常发生时的简要描述
+- `String getLocalizedMessage()`：返回异常对象的本地化信息。使用 `Throwable` 的子类覆盖这个方法，可以生成本地化信息。如果子类没有覆盖该方法，则该方法返回的信息与 `getMessage()`返回的结果相同
+- `void printStackTrace()`：在控制台上打印 `Throwable` 对象封装的异常信息
 
 ### try-catch-finally 如何使用？
 
@@ -143,7 +143,7 @@ Catch Exception -> RuntimeException
 1. 程序所在的线程死亡。
 2. 关闭 CPU。
 
-相关 issue：https://github.com/Snailclimb/JavaGuide/issues/190。
+相关 issue：[https://github.com/Snailclimb/JavaGuide/issues/190](https://github.com/Snailclimb/JavaGuide/issues/190)。
 
 进阶一下：从字节码角度分析 `try catch finally` 这个语法糖背后的实现原理。
 
@@ -156,7 +156,7 @@ Catch Exception -> RuntimeException
 
 > 面对必须要关闭的资源，我们总是应该优先使用 `try-with-resources` 而不是 `try-finally`。随之产生的代码更简短，更清晰，产生的异常对我们也更有用。`try-with-resources` 语句让我们更容易编写必须要关闭的资源的代码，若采用 `try-finally` 则几乎做不到这点。
 
-Java 中类似于`InputStream`、`OutputStream`、`Scanner`、`PrintWriter` 等的资源都需要我们调用 `close()` 方法来手动关闭，一般情况下我们都是通过`try-catch-finally`语句来实现这个需求，如下
+Java 中类似于 `InputStream`、`OutputStream`、`Scanner`、`PrintWriter` 等的资源都需要我们调用 `close()` 方法来手动关闭，一般情况下我们都是通过 `try-catch-finally` 语句来实现这个需求，如下
 
 ```java
 //读取文本文件的内容
@@ -227,14 +227,14 @@ ArrayList<E> extends AbstractList<E>
 
 ### 泛型的使用方式有哪几种？
 
-泛型一般有三种使用方式:**泛型类**、**泛型接口**、**泛型方法**。
+泛型一般有三种使用方式：**泛型类**、**泛型接口**、**泛型方法**。
 
 #### 泛型类
 
 ```java
-//此处T可以随便写为任意标识，常见的如T、E、K、V等形式的参数常用于表示泛型
-//在实例化泛型类时，必须指定T的具体类型
-public class Generic<T>{
+// 此处 T 可以随便写为任意标识，常见的如 T、E、K、V 等形式的参数常用于表示泛型
+// 在实例化泛型类时，必须指定T的具体类型
+public class Generic<T> {
 
     private T key;
 
@@ -242,7 +242,7 @@ public class Generic<T>{
         this.key = key;
     }
 
-    public T getKey(){
+    public T getKey() {
         return key;
     }
 }
@@ -287,32 +287,32 @@ class GeneratorImpl implements Generator<String> {
 #### 泛型方法
 
 ```java
-   public static < E > void printArray( E[] inputArray )
-   {
-         for ( E element : inputArray ){
-            System.out.printf( "%s ", element );
-         }
-         System.out.println();
-    }
+public static <E> void printArray(E[] inputArray )
+{
+     for (E element: inputArray) {
+        System.out.printf("%s ", element);
+     }
+     System.out.println();
+}
 ```
 
 使用
 
 ```java
 // 创建不同类型数组：Integer, Double 和 Character
-Integer[] intArray = { 1, 2, 3 };
-String[] stringArray = { "Hello", "World" };
-printArray( intArray  );
-printArray( stringArray  );
+Integer[] intArray = {1, 2, 3};
+String[] stringArray = {"Hello", "World"};
+printArray(intArray);
+printArray(stringArray);
 ```
 
-> 注意: `public static < E > void printArray( E[] inputArray )` 一般被称为静态泛型方法;在 java 中泛型只是一个占位符，必须在传递类型后才能使用。类在实例化时才能真正的传递类型参数，由于静态方法的加载先于类的实例化，也就是说类中的泛型还没有传递真正的类型参数，静态的方法的加载就已经完成了，所以静态泛型方法是没有办法使用类上声明的泛型的。只能使用自己声明的 `<E>`
+> 注意：`public static <E> void printArray(E[] inputArray)` 一般被称为静态泛型方法；在 java 中泛型只是一个占位符，必须在传递类型后才能使用。类在实例化时才能真正的传递类型参数，由于静态方法的加载先于类的实例化，也就是说类中的泛型还没有传递真正的类型参数，静态的方法的加载就已经完成了，所以静态泛型方法是没有办法使用类上声明的泛型的。只能使用自己声明的 `<E>`
 
 ### 项目中哪里用到了泛型？
 
 - 自定义接口通用返回结果 `CommonResult<T>` 通过参数 `T` 可根据具体的返回类型动态指定结果的数据类型
 - 定义 `Excel` 处理类 `ExcelUtil<T>` 用于动态指定 `Excel` 导出的数据类型
-- 构建集合工具类（参考 `Collections` 中的 `sort`, `binarySearch` 方法）。
+- 构建集合工具类（参考 `Collections` 中的 `sort`，`binarySearch` 方法）。
 
 ## 反射
 
@@ -320,7 +320,7 @@ printArray( stringArray  );
 
 ### 什么是反射？
 
-简单来说，Java 反射 (Reflection) 是一种**在程序运行时，动态地获取类的信息并操作类或对象（方法、属性）的能力**。
+简单来说，Java 反射（Reflection）是一种**在程序运行时，动态地获取类的信息并操作类或对象（方法、属性）的能力**。
 
 通常情况下，我们写的代码在编译时类型就已经确定了，要调用哪个方法、访问哪个字段都是明确的。但反射允许我们在**运行时**才去探知一个类有哪些方法、哪些属性、它的构造函数是怎样的，甚至可以动态地创建对象、调用方法或修改属性，哪怕这些方法或属性是私有的。
 
@@ -383,7 +383,7 @@ public class DebugInvocationHandler implements InvocationHandler {
 
 ## 代理
 
-关于 Java 代理的详细介绍，可以看看笔者写的 [Java 代理模式详解](https://javaguide.cn/java/basis/proxy.html)这篇文章。
+关于 Java 代理的详细介绍，可以看看笔者写的 [[Java 代理模式详解]] 这篇文章。
 
 ### 如何实现动态代理？
 
@@ -407,7 +407,7 @@ CGLIB 是一个第三方的代码生成库。它的原理与 JDK 完全不同，
 
 静态代理和动态代理的核心差异在于 **代理关系的确定时机、实现灵活性及维护成本** 。
 
-| 对比维度         | 静态代理 (Static Proxy)                                      | 动态代理 (Dynamic Proxy)                                     |
+| 对比维度         | 静态代理（Static Proxy）                                     | 动态代理（Dynamic Proxy）                                    |
 | ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | 代理关系确定时机 | 编译期（编译后生成固定的 `.class` 字节码文件）               | 运行时（动态生成代理类字节码并加载到 JVM）                   |
 | 实现方式         | 手动编写代理类，需与目标类实现同一接口，一对一绑定           | 无需手动编写代理类，通过 `Handler`/`Interceptor` 封装增强逻辑，一对多复用 |
@@ -423,7 +423,7 @@ CGLIB 是一个第三方的代码生成库。它的原理与 JDK 完全不同，
 
 ### 介绍一下动态代理在框架中的实际应用场景
 
-动态代理最典型的应用场景就是**Spring AOP**。
+动态代理最典型的应用场景就是 **Spring AOP**。
 
 AOP（Aspect-Oriented Programming，面向切面编程）能够将那些与业务无关，却为业务模块所共同调用的逻辑或责任（例如事务处理、日志管理、权限控制等）封装起来，便于减少系统的重复代码，降低模块间的耦合度，并有利于未来的可拓展性和可维护性。
 
@@ -462,7 +462,7 @@ JDK 提供了很多内置的注解（比如 `@Override`、`@Deprecated`），同
 
 ## SPI
 
-关于 SPI 的详细解读，请看这篇文章 [Java SPI 机制详解](https://javaguide.cn/java/basis/spi.html) 。
+关于 SPI 的详细解读，请看这篇文章 [[Java SPI 机制详解]] 。
 
 ### 何谓 SPI？
 
@@ -498,7 +498,7 @@ SPI 将服务接口和具体的服务实现分离开来，将服务调用方和�
 
 ## 序列化和反序列化
 
-关于序列化和反序列化的详细解读，请看这篇文章 [Java 序列化详解](https://javaguide.cn/java/basis/serialization.html) ，里面涉及到的知识点和面试题更全面。
+关于序列化和反序列化的详细解读，请看这篇文章 [[Java 序列化详解]]，里面涉及到的知识点和面试题更全面。
 
 ### 什么是序列化？什么是反序列化？
 
@@ -526,7 +526,7 @@ SPI 将服务接口和具体的服务实现分离开来，将服务调用方和�
 
 ![img](http://public.file.lvshuhuai.cn/images\a478c74d-2c48-40ae-9374-87aacf05188c.png)
 
-https://www.corejavaguru.com/java/serialization/interview-questions-1
+[https://www.corejavaguru.com/java/serialization/interview-questions-1](https://www.corejavaguru.com/java/serialization/interview-questions-1)
 
 ### 序列化协议对应于 TCP/IP 4 层模型的哪一层？
 
@@ -573,9 +573,9 @@ JDK 自带的序列化方式一般不会用 ，因为序列化效率低并且存
 
 关于 I/O 的详细解读，请看下面这几篇文章，里面涉及到的知识点和面试题更全面。
 
-- [Java IO 基础知识总结](https://javaguide.cn/java/io/io-basis.html)
-- [Java IO 设计模式总结](https://javaguide.cn/java/io/io-design-patterns.html)
-- [Java IO 模型详解](https://javaguide.cn/java/io/io-model.html)
+- [[Java IO 基础知识总结]]
+- [[Java IO 设计模式总结]]
+- [[Java IO 模型详解]]
 
 ### Java IO 流了解吗？
 
@@ -597,11 +597,11 @@ Java IO 流的 40 多个类都是从如下 4 个抽象类基类中派生出来�
 
 ### Java IO 中的设计模式有哪些？
 
-参考答案：[Java IO 设计模式总结](https://javaguide.cn/java/io/io-design-patterns.html)
+参考答案：[[Java IO 设计模式总结]]
 
 ### BIO、NIO 和 AIO 的区别？
 
-参考答案：[Java IO 模型详解](https://javaguide.cn/java/io/io-model.html)
+参考答案：[[Java IO 模型详解]]
 
 ## 语法糖
 
@@ -624,4 +624,4 @@ for (String s : strs) {
 
 Java 中最常用的语法糖主要有泛型、自动拆装箱、变长参数、枚举、内部类、增强 for 循环、try-with-resources 语法、lambda 表达式等。
 
-关于这些语法糖的详细解读，请看这篇文章 [Java 语法糖详解](https://javaguide.cn/java/basis/syntactic-sugar.html) 。
+关于这些语法糖的详细解读，请看这篇文章 [[Java 语法糖详解]]。
