@@ -53,7 +53,7 @@ MySQL 成功可以归功于在**生态、功能和运维**这三个层面上的�
 
 **第二，从核心技术功能上看，它非常强大且均衡。**
 
-- **强大的事务支持：** 这是它作为关系型数据库的立身之本。值得一提的是，InnoDB 默认的可重复读（REPEATABLE-READ）隔离级别，通过 MVCC 和 Next-Key Lock 机制，很大程度上避免了幻读问题，这在很多其他数据库中都需要更高的隔离级别才能做到，兼顾了性能和一致性。详细介绍可以阅读笔者写的这篇文章：[MySQL 事务隔离级别详解](https://javaguide.cn/database/mysql/transaction-isolation-level.html)。
+- **强大的事务支持：** 这是它作为关系型数据库的立身之本。值得一提的是，InnoDB 默认的可重复读（REPEATABLE-READ）隔离级别，通过 MVCC 和 Next-Key Lock 机制，很大程度上避免了幻读问题，这在很多其他数据库中都需要更高的隔离级别才能做到，兼顾了性能和一致性。详细介绍可以阅读笔者写的这篇文章：[[MySQL 事务隔离级别详解]]。
 - **优秀的性能和可扩展性：** MySQL 本身经过了海量互联网业务的严酷考验，单机性能非常出色。更重要的是，它围绕着水平扩展，形成了一套非常成熟的架构方案，比如主从复制、读写分离、以及通过中间件实现的分库分表。这让它能够支撑从初创公司到大型互联网平台的各种规模的业务。
 
 **第三，从运维和使用角度看，它非常‘亲民’。**
@@ -160,7 +160,7 @@ TIMESTAMP 只需要使用 4 个字节的存储空间，但是 DATETIME 需要耗
 
 如果应用场景不涉及时区转换，或者希望应用程序完全控制时区逻辑，并且需要表示 2038 年之后的时间，`DATETIME` 是更稳妥的选择。
 
-关于两者的详细对比以及日期存储类型选择建议，请参考我写的这篇文章： [MySQL 时间类型数据存储建议](https://javaguide.cn/database/mysql/some-thoughts-on-database-storage-time.html)。
+关于两者的详细对比以及日期存储类型选择建议，请参考我写的这篇文章：[[MySQL 日期类型选择建议]]
 
 ### NULL 和 '' 的区别是什么？
 
@@ -226,7 +226,7 @@ MySQL 中没有专门的布尔类型，`BOOL` 和 `BOOLEAN` 是 `TINYINT(1)` 的
 
 ## MySQL 基础架构
 
-> 建议配合 [SQL 语句在 MySQL 中的执行过程](https://javaguide.cn/database/mysql/how-sql-executed-in-mysql.html) 这篇文章来理解 MySQL 基础架构。另外，“一个 SQL 语句在 MySQL 中的执行流程”也是面试中比较常问的一个问题。
+> 建议配合 [[SQL 语句在 MySQL 中的执行过程]]这篇文章来理解 MySQL 基础架构。另外，“一个 SQL 语句在 MySQL 中的执行流程”也是面试中比较常问的一个问题。
 
 下图是 MySQL 的一个简要架构图，从下图你可以很清晰的看到客户端的一条 SQL 语句在 MySQL 内部是如何执行的。
 
@@ -286,8 +286,8 @@ mysql> SHOW VARIABLES  LIKE '%storage_engine%';
 
 如果你想要深入了解每个存储引擎以及它们之间的区别，推荐你去阅读以下 MySQL 官方文档对应的介绍(面试不会问这么细，了解即可)：
 
-- InnoDB 存储引擎详细介绍：https://dev.mysql.com/doc/refman/8.0/en/innodb-storage-engine.html 。
-- 其他存储引擎详细介绍：https://dev.mysql.com/doc/refman/8.0/en/storage-engines.html 。
+- InnoDB 存储引擎详细介绍：[MySQL :: MySQL 8.0 Reference Manual :: 17 The InnoDB Storage Engine](https://dev.mysql.com/doc/refman/8.0/en/innodb-storage-engine.html)。
+- 其他存储引擎详细介绍：[MySQL :: MySQL 8.0 Reference Manual :: 18 Alternative Storage Engines](https://dev.mysql.com/doc/refman/8.0/en/storage-engines.html)。
 
 ![img](https://oss.javaguide.cn/github/javaguide/mysql/image-20220510155143458.png)
 
@@ -301,7 +301,7 @@ MySQL 存储引擎采用的是 **插件式架构** ，支持多种存储引擎�
 
 你还可以根据 MySQL 定义的存储引擎实现标准接口来编写一个属于自己的存储引擎。这些非官方提供的存储引擎可以称为第三方存储引擎，区别于官方存储引擎。像目前最常用的 InnoDB 其实刚开始就是一个第三方存储引擎，后面由于过于优秀，其被 Oracle 直接收购了。
 
-MySQL 官方文档也有介绍到如何编写一个自定义存储引擎，地址：https://dev.mysql.com/doc/internals/en/custom-engine.html 。
+MySQL 官方文档也有介绍到如何编写一个自定义存储引擎，地址：[MySQL: Welcome](https://dev.mysql.com/doc/dev/mysql-server/latest/)。
 
 ### MyISAM 和 InnoDB 有什么区别？
 
@@ -315,7 +315,7 @@ MySQL 5.5 版本之后，InnoDB 是 MySQL 的默认存储引擎。
 
 #### 是否支持行级锁
 
-MyISAM 只有表级锁(table-level locking)，而 InnoDB 支持行级锁(row-level locking)和表级锁,默认为行级锁。
+MyISAM 只有表级锁（table-level locking），而 InnoDB 支持行级锁（row-level locking）和表级锁，默认为行级锁。
 
 也就说，MyISAM 一锁就是锁住了整张表，这在并发写的情况下是多么滴憨憨啊！这也是为什么 InnoDB 在并发写的时候，性能更牛皮了！
 
@@ -323,9 +323,9 @@ MyISAM 只有表级锁(table-level locking)，而 InnoDB 支持行级锁(row-lev
 
 MyISAM 不提供事务支持。
 
-InnoDB 提供事务支持，实现了 SQL 标准定义了四个隔离级别，具有提交(commit)和回滚(rollback)事务的能力。并且，InnoDB 默认使用的 REPEATABLE-READ（可重读）隔离级别是可以解决幻读问题发生的（基于 MVCC 和 Next-Key Lock）。
+InnoDB 提供事务支持，实现了 SQL 标准定义了四个隔离级别，具有提交（commit）和回滚（rollback）事务的能力。并且，InnoDB 默认使用的 REPEATABLE-READ（可重读）隔离级别是可以解决幻读问题发生的（基于 MVCC 和 Next-Key Lock）。
 
-关于 MySQL 事务的详细介绍，可以看看我写的这篇文章：[MySQL 事务隔离级别详解](https://javaguide.cn/database/mysql/transaction-isolation-level.html)。
+关于 MySQL 事务的详细介绍，可以看看我写的这篇文章：[[MySQL 事务隔离级别详解]]。
 
 #### 是否支持外键
 
@@ -359,7 +359,7 @@ MyISAM 不支持，而 InnoDB 支持。
 
 InnoDB 引擎中，其数据文件本身就是索引文件。相比 MyISAM，索引文件和数据文件是分离的，其表数据文件本身就是按 B+Tree 组织的一个索引结构，树的叶节点 data 域保存了完整的数据记录。
 
-详细区别，推荐你看看我写的这篇文章：[MySQL 索引详解](https://javaguide.cn/database/mysql/mysql-index.html)。
+详细区别，推荐你看看我写的这篇文章：[[MySQL 索引详解]]。
 
 #### 性能有差别。
 
@@ -367,11 +367,11 @@ InnoDB 的性能比 MyISAM 更强大，不管是在读写混合模式下还是�
 
 ![InnoDB 和 MyISAM 性能对比](https://oss.javaguide.cn/github/javaguide/mysql/innodb-myisam-performance-comparison.png)
 
-**8、数据缓存策略和机制实现不同。**
+#### 数据缓存策略和机制实现不同。
 
 InnoDB 使用缓冲池（Buffer Pool）缓存数据页和索引页，MyISAM 使用键缓存（Key Cache）仅缓存索引页而不缓存数据页。
 
-**总结**：
+#### 总结
 
 - InnoDB 支持行级别的锁粒度，MyISAM 不支持，只支持表级别的锁粒度。
 - MyISAM 不提供事务支持。InnoDB 提供事务支持，实现了 SQL 标准定义了四个隔离级别。
@@ -385,7 +385,7 @@ InnoDB 使用缓冲池（Buffer Pool）缓存数据页和索引页，MyISAM 使�
 
 ![常见的几种 MySQL 存储引擎对比](https://oss.javaguide.cn/github/javaguide/mysql/comparison-of-common-mysql-storage-engines.png)
 
-### [MyISAM 和 InnoDB 如何选择？](https://javaguide.cn/database/mysql/mysql-questions-01.html#myisam-和-innodb-如何选择)
+### MyISAM 和 InnoDB 如何选择？
 
 大多数时候我们使用的都是 InnoDB 存储引擎，在某些读密集的情况下，使用 MyISAM 也是合适的。不过，前提是你的项目不介意 MyISAM 不支持事务、崩溃恢复等缺点（可是~我们一般都会介意啊）。
 
@@ -395,27 +395,27 @@ InnoDB 使用缓冲池（Buffer Pool）缓存数据页和索引页，MyISAM 使�
 
 因此，对于咱们日常开发的业务系统来说，你几乎找不到什么理由使用 MyISAM 了，老老实实用默认的 InnoDB 就可以了！
 
-## [⭐️MySQL 索引](https://javaguide.cn/database/mysql/mysql-questions-01.html#⭐️mysql-索引)
+## MySQL 索引
 
-MySQL 索引相关的问题比较多，也非常重要，更详细的介绍可以阅读笔者写的这篇文章：[MySQL 索引详解](https://javaguide.cn/database/mysql/mysql-index.html) 。
+MySQL 索引相关的问题比较多，也非常重要，更详细的介绍可以阅读笔者写的这篇文章：[[MySQL 索引详解]]。
 
-### [索引是什么？](https://javaguide.cn/database/mysql/mysql-questions-01.html#索引是什么)
+### 索引是什么？
 
-**索引是一种用于快速查询和检索数据的数据结构，其本质可以看成是一种排序好的数据结构。**
+#### 索引是一种用于快速查询和检索数据的数据结构，其本质可以看成是一种排序好的数据结构
 
 索引的作用就相当于书的目录。打个比方：我们在查字典的时候，如果没有目录，那我们就只能一页一页地去找我们需要查的那个字，速度很慢；如果有目录了，我们只需要先去目录里查找字的位置，然后直接翻到那一页就行了。
 
 索引底层数据结构存在很多种类型，常见的索引结构有：B 树、 B+ 树 和 Hash、红黑树。在 MySQL 中，无论是 Innodb 还是 MyISAM，都使用了 B+ 树作为索引结构。
 
-**索引的优点：**
+#### 索引的优点
 
-1. **查询速度起飞 (主要目的)**：通过索引，数据库可以**大幅减少需要扫描的数据量**，直接定位到符合条件的记录，从而显著加快数据检索速度，减少磁盘 I/O 次数。
-2. **保证数据唯一性**：通过创建**唯一索引 (Unique Index)**,可以确保表中的某一列（或几列组合）的值是独一无二的，比如用户 ID、邮箱等。主键本身就是一种唯一索引。
+1. **查询速度起飞（主要目的）**：通过索引，数据库可以**大幅减少需要扫描的数据量**，直接定位到符合条件的记录，从而显著加快数据检索速度，减少磁盘 I/O 次数。
+2. **保证数据唯一性**：通过创建**唯一索引（Unique Index）**,可以确保表中的某一列（或几列组合）的值是独一无二的，比如用户 ID、邮箱等。主键本身就是一种唯一索引。
 3. **加速排序和分组**：如果查询中的 ORDER BY 或 GROUP BY 子句涉及的列建有索引，数据库往往可以直接利用索引已经排好序的特性，避免额外的排序操作，从而提升性能。
 
-**索引的缺点：**
+#### 索引的缺点
 
-1. **创建和维护耗时**：创建索引本身需要时间，特别是对大表操作时。更重要的是，当对表中的数据进行**增、删、改 (DML 操作)** 时，不仅要操作数据本身，相关的索引也必须动态更新和维护，这会**降低这些 DML 操作的执行效率**。
+1. **创建和维护耗时**：创建索引本身需要时间，特别是对大表操作时。更重要的是，当对表中的数据进行**增、删、改（DML 操作）** 时，不仅要操作数据本身，相关的索引也必须动态更新和维护，这会**降低这些 DML 操作的执行效率**。
 2. **占用存储空间**：索引本质上也是一种数据结构，需要以物理文件（或内存结构）的形式存储，因此会**额外占用一定的磁盘空间**。索引越多、越大，占用的空间也就越多。
 3. **可能被误用或失效**：如果索引设计不当，或者查询语句写得不好，数据库优化器可能不会选择使用索引（或者选错索引），反而导致性能下降。
 
@@ -427,63 +427,61 @@ MySQL 索引相关的问题比较多，也非常重要，更详细的介绍可�
 - **查询结果集占比过大**：如果要查询的数据占了整张表的大部分（比如超过 20%-30%），优化器可能会认为全表扫描更划算，因为通过索引多次回表（随机 I/O）的成本可能高于一次顺序的全表扫描。
 - **索引维护不当或统计信息过时**：导致优化器做出错误判断。
 
-### [索引为什么快？](https://javaguide.cn/database/mysql/mysql-questions-01.html#索引为什么快)
+### 索引为什么快？
 
 索引之所以快，核心原因是它**大大减少了磁盘 I/O 的次数**。
 
 它的本质是一种**排好序的数据结构**，就像书的目录，让我们不用一页一页地翻（全表扫描）。
 
-在 MySQL 中，这个数据结构是**B+树**。B+树结构主要从两方面做了优化：
+在 MySQL 中，这个数据结构是 **B+ 树**。B+ 树结构主要从两方面做了优化：
 
-1. B+树的特点是“矮胖”，一个千万数据的表，索引树的高度可能只有 3-4 层。这意味着，最多只需要**3-4 次磁盘 I/O**，就能精确定位到我想要的数据，而全表扫描可能需要成千上万次，所以速度极快。
-2. B+树的叶子节点是**用链表连起来的**。找到开头后，就能顺着链表**顺序读**下去，这对磁盘非常友好，还能触发预读。
+1. B+ 树的特点是“矮胖”，一个千万数据的表，索引树的高度可能只有 3-4 层。这意味着，最多只需要**3-4 次磁盘 I/O**，就能精确定位到我想要的数据，而全表扫描可能需要成千上万次，所以速度极快。
+2. B+ 树的叶子节点是**用链表连起来的**。找到开头后，就能顺着链表**顺序读**下去，这对磁盘非常友好，还能触发预读。
 
-### [MySQL 索引底层数据结构是什么？](https://javaguide.cn/database/mysql/mysql-questions-01.html#mysql-索引底层数据结构是什么)
+### MySQL 索引底层数据结构是什么？
 
-在 MySQL 中，MyISAM 引擎和 InnoDB 引擎都是使用 B+Tree 作为索引结构，详细介绍可以参考笔者写的这篇文章：[MySQL 索引详解](https://javaguide.cn/database/mysql/mysql-index.html)。
+在 MySQL 中，MyISAM 引擎和 InnoDB 引擎都是使用 B+Tree 作为索引结构，详细介绍可以参考笔者写的这篇文章：[[MySQL 索引详解]]。
 
-### [为什么 InnoDB 没有使用哈希作为索引的数据结构？](https://javaguide.cn/database/mysql/mysql-questions-01.html#为什么-innodb-没有使用哈希作为索引的数据结构)
+### 为什么 InnoDB 没有使用哈希作为索引的数据结构？
 
 > 我发现很多求职者甚至是面试官对这个问题都有误解，他们想当然的认为 MySQL 底层并没有使用哈希或者 B 树作为索引的数据结构。
 >
 > 实际上，不论是提问还是回答这个问题都要区分好存储引擎。像 MEMORY 引擎就同时支持哈希和 B 树。
 
-哈希索引的底层是哈希表。它的优点是，在进行**精确的等值查询**时，理论上时间复杂度是 **O(1)** ，速度极快。比如 `WHERE id = 123`。
+哈希索引的底层是哈希表。它的优点是，在进行**精确的等值查询**时，理论上时间复杂度是 $O(1)$，速度极快。比如 `WHERE id = 123`。
 
 但是，它有几个对于通用数据库来说是致命的缺点：
 
-1. **不支持范围查询:** 这是最主要的原因。哈希函数的一个特点是它会把相邻的输入值（比如 `id=100` 和 `id=101`）映射到哈希表中完全不相邻的位置。这种顺序的破坏，使得我们无法处理像 `WHERE age > 30` 或 `BETWEEN 100 AND 200`这样的范围查询。要完成这种查询，哈希索引只能退化为全表扫描。
-2. **不支持排序:** 同理，因为哈希值是无序的，所以我们无法利用哈希索引来优化 `ORDER BY` 子句。
-3. **不支持部分索引键查询:** 对于联合索引，比如`(col1, col2)`，哈希索引必须使用所有索引列进行查询，它无法单独利用 `col1` 来加速查询。
-4. **哈希冲突问题:** 当不同的键产生相同的哈希值时，需要额外的链表或开放寻址来解决，这会降低性能。
+1. **不支持范围查询**：这是最主要的原因。哈希函数的一个特点是它会把相邻的输入值（比如 `id=100` 和 `id=101`）映射到哈希表中完全不相邻的位置。这种顺序的破坏，使得我们无法处理像 `WHERE age > 30` 或 `BETWEEN 100 AND 200`这样的范围查询。要完成这种查询，哈希索引只能退化为全表扫描。
+2. **不支持排序**：同理，因为哈希值是无序的，所以我们无法利用哈希索引来优化 `ORDER BY` 子句。
+3. **不支持部分索引键查询**：对于联合索引，比如`(col1, col2)`，哈希索引必须使用所有索引列进行查询，它无法单独利用 `col1` 来加速查询。
+4. **哈希冲突问题**：当不同的键产生相同的哈希值时，需要额外的链表或开放寻址来解决，这会降低性能。
 
 鉴于数据库查询中范围查询和排序是极其常见的操作，一个不支持这些功能的索引结构，显然不能作为默认的、通用的索引类型。
 
-### [为什么 InnoDB 没有使用 B 树作为索引的数据结构？](https://javaguide.cn/database/mysql/mysql-questions-01.html#为什么-innodb-没有使用-b-树作为索引的数据结构)
+### 为什么 InnoDB 没有使用 B 树作为索引的数据结构？
 
-B 树和 B+树都是优秀的多路平衡搜索树，非常适合磁盘存储，因为它们都很“矮胖”，能最大化地利用每一次磁盘 I/O。
+B 树和 B+ 树都是优秀的多路平衡搜索树，非常适合磁盘存储，因为它们都很“矮胖”，能最大化地利用每一次磁盘 I/O。
 
-但 B+树是 B 树的一个增强版，它针对数据库场景做了几个关键优化：
+但 B+ 树是 B 树的一个增强版，它针对数据库场景做了几个关键优化：
 
-1. **I/O 效率更高:** 在 B+树中，只有叶子节点才存储数据（或数据指针），而非叶子节点只存储索引键。因为非叶子节点不存数据，所以它们可以容纳更多的索引键。这意味着 B+树的“扇出”更大，在同样的数据量下，B+树通常会比 B 树更矮，也就意味着查找数据所需的磁盘 I/O 次数更少。
-2. **查询性能更稳定:** 在 B+树中，任何一次查询都必须从根节点走到叶子节点才能找到数据，所以查询路径的长度是固定的。而在 B 树中，如果运气好，可能在非叶子节点就找到了数据，但运气不好也得走到叶子，这导致查询性能不稳定。
-3. **对范围查询极其友好:** 这是 B+树最核心的优势。它的所有叶子节点之间通过一个双向链表连接。当我们执行一个范围查询（比如 `WHERE id > 100`）时，只需要通过树形结构找到 `id=100` 的叶子节点，然后就可以沿着链表向后顺序扫描，而无需再回溯到上层节点。这使得范围查询的效率大大提高。
+1. **I/O 效率更高**：在 B+ 树中，只有叶子节点才存储数据（或数据指针），而非叶子节点只存储索引键。因为非叶子节点不存数据，所以它们可以容纳更多的索引键。这意味着 B+ 树的“扇出”更大，在同样的数据量下，B+ 树通常会比 B 树更矮，也就意味着查找数据所需的磁盘 I/O 次数更少。
+2. **查询性能更稳定**：在 B+ 树中，任何一次查询都必须从根节点走到叶子节点才能找到数据，所以查询路径的长度是固定的。而在 B 树中，如果运气好，可能在非叶子节点就找到了数据，但运气不好也得走到叶子，这导致查询性能不稳定。
+3. **对范围查询极其友好**：这是 B+ 树最核心的优势。它的所有叶子节点之间通过一个双向链表连接。当我们执行一个范围查询（比如 `WHERE id > 100`）时，只需要通过树形结构找到 `id=100` 的叶子节点，然后就可以沿着链表向后顺序扫描，而无需再回溯到上层节点。这使得范围查询的效率大大提高。
 
-### [什么是覆盖索引？](https://javaguide.cn/database/mysql/mysql-questions-01.html#什么是覆盖索引)
+### 什么是覆盖索引？
 
-如果一个索引包含（或者说覆盖）所有需要查询的字段的值，我们就称之为 **覆盖索引（Covering Index）**。
+如果一个索引包含（或者说覆盖）所有需要查询的字段的值，我们就称之为**覆盖索引（Covering Index）**。
 
 在 InnoDB 存储引擎中，非主键索引的叶子节点包含的是主键的值。这意味着，当使用非主键索引进行查询时，数据库会先找到对应的主键值，然后再通过主键索引来定位和检索完整的行数据。这个过程被称为“回表”。
 
 **覆盖索引即需要查询的字段正好是索引的字段，那么直接根据该索引，就可以查到数据了，而无需回表查询。**
 
-### [请解释一下 MySQL 的联合索引及其最左前缀原则](https://javaguide.cn/database/mysql/mysql-questions-01.html#请解释一下-mysql-的联合索引及其最左前缀原则)
+### 请解释一下 MySQL 的联合索引及其最左前缀原则
 
-使用表中的多个字段创建索引，就是 **联合索引**，也叫 **组合索引** 或 **复合索引**。
+使用表中的多个字段创建索引，就是**联合索引**，也叫**组合索引**或**复合索引**。
 
 以 `score` 和 `name` 两个字段建立联合索引：
-
-
 
 ```sql
 ALTER TABLE `cus_order` ADD INDEX id_score_name(score, name);
@@ -499,9 +497,7 @@ ALTER TABLE `cus_order` ADD INDEX id_score_name(score, name);
 
 我们这里简单演示一下最左前缀匹配的效果。
 
-1、创建一个名为 `student` 的表，这张表只有 `id`、`name`、`class` 这 3 个字段。
-
-
+创建一个名为 `student` 的表，这张表只有 `id`、`name`、`class` 这 3 个字段。
 
 ```sql
 CREATE TABLE `student` (
@@ -513,11 +509,9 @@ CREATE TABLE `student` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ```
 
-2、下面我们分别测试三条不同的 SQL 语句。
+下面我们分别测试三条不同的 SQL 语句。
 
 ![img](https://oss.javaguide.cn/github/javaguide/database/mysql/leftmost-prefix-matching-rule.png)
-
-
 
 ```sql
 # 可以命中索引
@@ -538,34 +532,32 @@ SELECT * FROM student WHERE class = 'lIrm08RYVk';
 
 MySQL 8.0.13 版本引入了索引跳跃扫描（Index Skip Scan，简称 ISS），它可以在某些索引查询场景下提高查询效率。在没有 ISS 之前，不满足最左前缀匹配原则的联合索引查询中会执行全表扫描。而 ISS 允许 MySQL 在某些情况下避免全表扫描，即使查询条件不符合最左前缀。不过，这个功能比较鸡肋， 和 Oracle 中的没法比，MySQL 8.0.31 还报告了一个 bug：[Bug #109145 Using index for skip scan cause incorrect result](https://bugs.mysql.com/bug.php?id=109145)（后续版本已经修复）。个人建议知道有这个东西就好，不需要深究，实际项目也不一定能用上。
 
-### [SELECT * 会导致索引失效吗？](https://javaguide.cn/database/mysql/mysql-questions-01.html#select-会导致索引失效吗)
+### SELECT * 会导致索引失效吗？
 
 `SELECT *` 不会直接导致索引失效（如果不走索引大概率是因为 where 查询范围过大导致的），但它可能会带来一些其他的性能问题比如造成网络传输和数据处理的浪费、无法使用索引覆盖。
 
-### [哪些字段适合创建索引？](https://javaguide.cn/database/mysql/mysql-questions-01.html#哪些字段适合创建索引)
+### 哪些字段适合创建索引？
 
-- **不为 NULL 的字段**：索引字段的数据应该尽量不为 NULL，因为对于数据为 NULL 的字段，数据库较难优化。如果字段频繁被查询，但又避免不了为 NULL，建议使用 0,1,true,false 这样语义较为清晰的短值或短字符作为替代。
+- **不为 NULL 的字段**：索引字段的数据应该尽量不为 NULL，因为对于数据为 NULL 的字段，数据库较难优化。如果字段频繁被查询，但又避免不了为 NULL，建议使用 `0,1,true,false` 这样语义较为清晰的短值或短字符作为替代。
 - **被频繁查询的字段**：我们创建索引的字段应该是查询操作非常频繁的字段。
 - **被作为条件查询的字段**：被作为 WHERE 条件查询的字段，应该被考虑建立索引。
 - **频繁需要排序的字段**：索引已经排序，这样查询可以利用索引的排序，加快排序查询时间。
 - **被经常频繁用于连接的字段**：经常用于连接的字段可能是一些外键列，对于外键列并不一定要建立外键，只是说该列涉及到表与表的关系。对于频繁被连接查询的字段，可以考虑建立索引，提高多表连接查询的效率。
 
-### [索引失效的原因有哪些？](https://javaguide.cn/database/mysql/mysql-questions-01.html#索引失效的原因有哪些)
+### 索引失效的原因有哪些？
 
-1. 创建了组合索引，但查询条件未遵守最左匹配原则;
-2. 在索引列上进行计算、函数、类型转换等操作;
-3. 以 % 开头的 LIKE 查询比如 `LIKE '%abc';`;
-4. 查询条件中使用 OR，且 OR 的前后条件中有一个列没有索引，涉及的索引都不会被使用到;
-5. IN 的取值范围较大时会导致索引失效，走全表扫描(NOT IN 和 IN 的失效场景相同);
-6. 发生[隐式转换](https://javaguide.cn/database/mysql/index-invalidation-caused-by-implicit-conversion.html);
+1. 创建了组合索引，但查询条件未遵守最左匹配原则
+2. 在索引列上进行计算、函数、类型转换等操作
+3. 以 % 开头的 LIKE 查询比如 `LIKE '%abc';`
+4. 查询条件中使用 OR，且 OR 的前后条件中有一个列没有索引，涉及的索引都不会被使用到
+5. IN 的取值范围较大时会导致索引失效，走全表扫描（NOT IN 和 IN 的失效场景相同）
+6. [[MySQL 隐式转换造成索引失效]]
 
-## [MySQL 查询缓存](https://javaguide.cn/database/mysql/mysql-questions-01.html#mysql-查询缓存)
+## MySQL 查询缓存
 
 MySQL 查询缓存是查询结果缓存。执行查询语句的时候，会先查询缓存，如果缓存中有对应的查询结果，就会直接返回。
 
 `my.cnf` 加入以下配置，重启 MySQL 开启查询缓存
-
-
 
 ```properties
 query_cache_type=1
@@ -573,8 +565,6 @@ query_cache_size=600000
 ```
 
 MySQL 执行以下命令也可以开启查询缓存
-
-
 
 ```properties
 set global  query_cache_type=1;
@@ -591,8 +581,6 @@ set global  query_cache_size=600000;
 
 **缓存虽然能够提升数据库的查询性能，但是缓存同时也带来了额外的开销，每次查询后都要做一次缓存操作，失效后还要销毁。** 因此，开启查询缓存要谨慎，尤其对于写密集的应用来说更是如此。如果开启，要注意合理控制缓存空间大小，一般来说其大小设置为几十 MB 比较合适。此外，还可以通过 `sql_cache` 和 `sql_no_cache` 来控制某个查询语句是否需要缓存：
 
-
-
 ```sql
 SELECT sql_no_cache COUNT(*) FROM usr;
 ```
@@ -601,17 +589,13 @@ MySQL 5.6 开始，查询缓存已默认禁用。MySQL 8.0 开始，已经不再
 
 ![MySQL 8.0: Retiring Support for the Query Cache](https://oss.javaguide.cn/github/javaguide/mysql/mysql8.0-retiring-support-for-the-query-cache.png)
 
-## [⭐️MySQL 日志](https://javaguide.cn/database/mysql/mysql-questions-01.html#⭐️mysql-日志)
+## MySQL 日志
 
-上诉问题的答案可以在[《Java 面试指北》(付费，点击链接领取优惠卷)](https://javaguide.cn/zhuanlan/java-mian-shi-zhi-bei.html) 的 **「技术面试题篇」** 中找到。
+[[MySQL 三大日志详解]]
 
-![《Java 面试指北》技术面试题篇](https://oss.javaguide.cn/javamianshizhibei/technical-interview-questions.png)
+## MySQL 事务
 
-文章地址：https://www.yuque.com/snailclimb/mf2z3k/zr4kfk （密码获取：https://t.zsxq.com/avfM0）。
-
-## [⭐️MySQL 事务](https://javaguide.cn/database/mysql/mysql-questions-01.html#⭐️mysql-事务)
-
-### [什么是事务？](https://javaguide.cn/database/mysql/mysql-questions-01.html#什么是事务)
+### 什么是事务？
 
 我们设想一个场景，这个场景中我们需要插入多条相关联的数据到数据库，不幸的是，这个过程可能会遇到下面这些问题：
 
@@ -633,7 +617,7 @@ MySQL 5.6 开始，查询缓存已默认禁用。MySQL 8.0 开始，已经不再
 
 ![事务示意图](https://oss.javaguide.cn/github/javaguide/mysql/%E4%BA%8B%E5%8A%A1%E7%A4%BA%E6%84%8F%E5%9B%BE.png)
 
-### [什么是数据库事务？](https://javaguide.cn/database/mysql/mysql-questions-01.html#什么是数据库事务)
+### 什么是数据库事务？
 
 大多数情况下，我们在谈论事务的时候，如果没有特指**分布式事务**，往往指的就是**数据库事务**。
 
@@ -641,9 +625,7 @@ MySQL 5.6 开始，查询缓存已默认禁用。MySQL 8.0 开始，已经不再
 
 **那数据库事务有什么作用呢？**
 
-简单来说，数据库事务可以保证多个对数据库的操作（也就是 SQL 语句）构成一个逻辑上的整体。构成这个逻辑上的整体的这些数据库操作遵循：**要么全部执行成功,要么全部不执行** 。
-
-
+简单来说，数据库事务可以保证多个对数据库的操作（也就是 SQL 语句）构成一个逻辑上的整体。构成这个逻辑上的整体的这些数据库操作遵循：**要么全部执行成功，要么全部不执行** 。
 
 ```sql
 # 开启一个事务
@@ -669,7 +651,7 @@ COMMIT;
 
 ![AID->C](https://oss.javaguide.cn/github/javaguide/mysql/AID-%3EC.png)
 
-另外，DDIA 也就是 [《Designing Data-Intensive Application（数据密集型应用系统设计）》](https://book.douban.com/subject/30329536/) 的作者在他的这本书中如是说：
+另外，DDIA 也就是[《Designing Data-Intensive Application（数据密集型应用系统设计）》](https://book.douban.com/subject/30329536/)的作者在他的这本书中如是说：
 
 > Atomicity, isolation, and durability are properties of the database, whereas consis‐
 > tency (in the ACID sense) is a property of the application. The application may rely
@@ -678,23 +660,23 @@ COMMIT;
 >
 > 翻译过来的意思是：原子性，隔离性和持久性是数据库的属性，而一致性（在 ACID 意义上）是应用程序的属性。应用可能依赖数据库的原子性和隔离属性来实现一致性，但这并不仅取决于数据库。因此，字母 C 不属于 ACID 。
 
-《Designing Data-Intensive Application（数据密集型应用系统设计）》这本书强推一波，值得读很多遍！豆瓣有接近 90% 的人看了这本书之后给了五星好评。另外，中文翻译版本已经在 GitHub 开源，地址：https://github.com/Vonng/ddia 。
+《Designing Data-Intensive Application（数据密集型应用系统设计）》这本书强推一波，值得读很多遍！豆瓣有接近 90% 的人看了这本书之后给了五星好评。另外，中文翻译版本已经在 GitHub 开源，地址：[Vonng/ddia: 《Designing Data-Intensive Application》DDIA 第一版 / 第二版 中文翻译](https://github.com/Vonng/ddia)。
 
 ![img](https://oss.javaguide.cn/github/javaguide/books/ddia.png)
 
-### [并发事务带来了哪些问题?](https://javaguide.cn/database/mysql/mysql-questions-01.html#并发事务带来了哪些问题)
+### 并发事务带来了哪些问题？
 
 在典型的应用程序中，多个事务并发运行，经常会操作相同的数据来完成各自的任务（多个用户对同一数据进行操作）。并发虽然是必须的，但可能会导致以下的问题。
 
-#### [脏读（Dirty read）](https://javaguide.cn/database/mysql/mysql-questions-01.html#脏读-dirty-read)
+#### 脏读（Dirty read）
 
 一个事务读取数据并且对数据进行了修改，这个修改对其他事务来说是可见的，即使当前事务没有提交。这时另外一个事务读取了这个还未提交的数据，但第一个事务突然回滚，导致数据并没有被提交到数据库，那第二个事务读取到的就是脏数据，这也就是脏读的由来。
 
-例如：事务 1 读取某表中的数据 A=20，事务 1 修改 A=A-1，事务 2 读取到 A = 19,事务 1 回滚导致对 A 的修改并未提交到数据库， A 的值还是 20。
+例如：事务 1 读取某表中的数据 A=20，事务 1 修改 A=A-1，事务 2 读取到 A = 19，事务 1 回滚导致对 A 的修改并未提交到数据库， A 的值还是 20。
 
 ![脏读](https://oss.javaguide.cn/github/javaguide/database/mysql/concurrency-consistency-issues-dirty-reading.png)
 
-#### [丢失修改（Lost to modify）](https://javaguide.cn/database/mysql/mysql-questions-01.html#丢失修改-lost-to-modify)
+#### 丢失修改（Lost to modify）
 
 在一个事务读取一个数据时，另外一个事务也访问了该数据，那么在第一个事务中修改了这个数据后，第二个事务也修改了这个数据。这样第一个事务内的修改结果就被丢失，因此称为丢失修改。
 
@@ -702,7 +684,7 @@ COMMIT;
 
 ![丢失修改](https://oss.javaguide.cn/github/javaguide/database/mysql/concurrency-consistency-issues-missing-modifications.png)
 
-#### [不可重复读（Unrepeatable read）](https://javaguide.cn/database/mysql/mysql-questions-01.html#不可重复读-unrepeatable-read)
+#### 不可重复读（Unrepeatable read）
 
 指在一个事务内多次读同一数据。在这个事务还没有结束时，另一个事务也访问该数据。那么，在第一个事务中的两次读数据之间，由于第二个事务的修改导致第一个事务两次读取的数据可能不太一样。这就发生了在一个事务内两次读到的数据是不一样的情况，因此称为不可重复读。
 
@@ -710,7 +692,7 @@ COMMIT;
 
 ![不可重复读](https://oss.javaguide.cn/github/javaguide/database/mysql/concurrency-consistency-issues-unrepeatable-read.png)
 
-#### [幻读（Phantom read）](https://javaguide.cn/database/mysql/mysql-questions-01.html#幻读-phantom-read)
+#### 幻读（Phantom read）
 
 幻读与不可重复读类似。它发生在一个事务读取了几行数据，接着另一个并发事务插入了一些数据时。在随后的查询中，第一个事务就会发现多了一些原本不存在的记录，就好像发生了幻觉一样，所以称为幻读。
 
@@ -718,7 +700,7 @@ COMMIT;
 
 ![幻读](https://oss.javaguide.cn/github/javaguide/database/mysql/concurrency-consistency-issues-phantom-read.png)
 
-### [不可重复读和幻读有什么区别？](https://javaguide.cn/database/mysql/mysql-questions-01.html#不可重复读和幻读有什么区别)
+### 不可重复读和幻读有什么区别？
 
 - 不可重复读的重点是内容修改或者记录减少比如多次读取一条记录发现其中某些记录的值被修改；
 - 幻读的重点在于记录新增比如多次执行同一条查询语句（DQL）时，发现查到的记录增加了。
@@ -727,34 +709,34 @@ COMMIT;
 
 举个例子：执行 `delete` 和 `update` 操作的时候，可以直接对记录加锁，保证事务安全。而执行 `insert` 操作的时候，由于记录锁（Record Lock）只能锁住已经存在的记录，为了避免插入新记录，需要依赖间隙锁（Gap Lock）。也就是说执行 `insert` 操作的时候需要依赖 Next-Key Lock（Record Lock+Gap Lock） 进行加锁来保证不出现幻读。
 
-### [并发事务的控制方式有哪些？](https://javaguide.cn/database/mysql/mysql-questions-01.html#并发事务的控制方式有哪些)
+### 并发事务的控制方式有哪些？
 
 MySQL 中并发事务的控制方式无非就两种：**锁** 和 **MVCC**。锁可以看作是悲观控制的模式，多版本并发控制（MVCC，Multiversion concurrency control）可以看作是乐观控制的模式。
 
-**锁** 控制方式下会通过锁来显式控制共享资源而不是通过调度手段，MySQL 中主要是通过 **读写锁** 来实现并发控制。
+**锁**控制方式下会通过锁来显式控制共享资源而不是通过调度手段，MySQL 中主要是通过**读写锁**来实现并发控制。
 
 - **共享锁（S 锁）**：又称读锁，事务在读取记录的时候获取共享锁，允许多个事务同时获取（锁兼容）。
 - **排他锁（X 锁）**：又称写锁/独占锁，事务在修改记录的时候获取排他锁，不允许多个事务同时获取。如果一个记录已经被加了排他锁，那其他事务不能再对这条记录加任何类型的锁（锁不兼容）。
 
-读写锁可以做到读读并行，但是无法做到写读、写写并行。另外，根据根据锁粒度的不同，又被分为 **表级锁(table-level locking)** 和 **行级锁(row-level locking)** 。InnoDB 不光支持表级锁，还支持行级锁，默认为行级锁。行级锁的粒度更小，仅对相关的记录上锁即可（对一行或者多行记录加锁），所以对于并发写入操作来说， InnoDB 的性能更高。不论是表级锁还是行级锁，都存在共享锁（Share Lock，S 锁）和排他锁（Exclusive Lock，X 锁）这两类。
+读写锁可以做到读读并行，但是无法做到写读、写写并行。另外，根据根据锁粒度的不同，又被分为**表级锁(table-level locking)**和**行级锁(row-level locking)** 。InnoDB 不光支持表级锁，还支持行级锁，默认为行级锁。行级锁的粒度更小，仅对相关的记录上锁即可（对一行或者多行记录加锁），所以对于并发写入操作来说， InnoDB 的性能更高。不论是表级锁还是行级锁，都存在共享锁（Share Lock，S 锁）和排他锁（Exclusive Lock，X 锁）这两类。
 
 **MVCC** 是多版本并发控制方法，即对一份数据会存储多个版本，通过事务的可见性来保证事务能看到自己应该看到的版本。通常会有一个全局的版本分配器来为每一行数据设置版本号，版本号是唯一的。
 
-MVCC 在 MySQL 中实现所依赖的手段主要是: **隐藏字段、read view、undo log**。
+MVCC 在 MySQL 中实现所依赖的手段主要是：**隐藏字段、read view、undo log**。
 
 - undo log : undo log 用于记录某行数据的多个版本的数据。
 - read view 和 隐藏字段 : 用来判断当前版本数据的可见性。
 
-关于 InnoDB 对 MVCC 的具体实现可以看这篇文章：[InnoDB 存储引擎对 MVCC 的实现](https://javaguide.cn/database/mysql/innodb-implementation-of-mvcc.html) 。
+关于 InnoDB 对 MVCC 的具体实现可以看这篇文章：[[InnoDB 存储引擎对 MVCC 的实现]]。
 
-### [SQL 标准定义了哪些事务隔离级别?](https://javaguide.cn/database/mysql/mysql-questions-01.html#sql-标准定义了哪些事务隔离级别)
+### SQL 标准定义了哪些事务隔离级别？
 
 SQL 标准定义了四种事务隔离级别，用来平衡事务的隔离性（Isolation）和并发性能。级别越高，数据一致性越好，但并发性能可能越低。这四个级别是：
 
-- **READ-UNCOMMITTED(读取未提交)** ：最低的隔离级别，允许读取尚未提交的数据变更，可能会导致脏读、幻读或不可重复读。这种级别在实际应用中很少使用，因为它对数据一致性的保证太弱。
-- **READ-COMMITTED(读取已提交)** ：允许读取并发事务已经提交的数据，可以阻止脏读，但是幻读或不可重复读仍有可能发生。这是大多数数据库（如 Oracle, SQL Server）的默认隔离级别。
-- **REPEATABLE-READ(可重复读)** ：对同一字段的多次读取结果都是一致的，除非数据是被本身事务自己所修改，可以阻止脏读和不可重复读，但幻读仍有可能发生。MySQL InnoDB 存储引擎的默认隔离级别正是 REPEATABLE READ。并且，InnoDB 在此级别下通过 MVCC（多版本并发控制） 和 Next-Key Locks（间隙锁+行锁） 机制，在很大程度上解决了幻读问题。
-- **SERIALIZABLE(可串行化)** ：最高的隔离级别，完全服从 ACID 的隔离级别。所有的事务依次逐个执行，这样事务之间就完全不可能产生干扰，也就是说，该级别可以防止脏读、不可重复读以及幻读。
+- **READ-UNCOMMITTED（读取未提交）**：最低的隔离级别，允许读取尚未提交的数据变更，可能会导致脏读、幻读或不可重复读。这种级别在实际应用中很少使用，因为它对数据一致性的保证太弱。
+- **READ-COMMITTED（读取已提交）**：允许读取并发事务已经提交的数据，可以阻止脏读，但是幻读或不可重复读仍有可能发生。这是大多数数据库（如 Oracle, SQL Server）的默认隔离级别。
+- **REPEATABLE-READ（可重复读）**：对同一字段的多次读取结果都是一致的，除非数据是被本身事务自己所修改，可以阻止脏读和不可重复读，但幻读仍有可能发生。MySQL InnoDB 存储引擎的默认隔离级别正是 REPEATABLE READ。并且，InnoDB 在此级别下通过 MVCC（多版本并发控制） 和 Next-Key Locks（间隙锁+行锁） 机制，在很大程度上解决了幻读问题。
+- **SERIALIZABLE（可串行化）**：最高的隔离级别，完全服从 ACID 的隔离级别。所有的事务依次逐个执行，这样事务之间就完全不可能产生干扰，也就是说，该级别可以防止脏读、不可重复读以及幻读。
 
 | 隔离级别         | 脏读 (Dirty Read) | 不可重复读 (Non-Repeatable Read) | 幻读 (Phantom Read)    |
 | ---------------- | ----------------- | -------------------------------- | ---------------------- |
@@ -763,14 +745,12 @@ SQL 标准定义了四种事务隔离级别，用来平衡事务的隔离性（I
 | REPEATABLE READ  | ×                 | ×                                | √ (标准) / ≈× (InnoDB) |
 | SERIALIZABLE     | ×                 | ×                                | ×                      |
 
-### [MySQL 的默认隔离级别是什么?](https://javaguide.cn/database/mysql/mysql-questions-01.html#mysql-的默认隔离级别是什么)
+### MySQL 的默认隔离级别是什么？
 
 MySQL InnoDB 存储引擎的默认隔离级别是 **REPEATABLE READ**。可以通过以下命令查看：
 
 - MySQL 8.0 之前：`SELECT @@tx_isolation;`
 - MySQL 8.0 及之后：`SELECT @@transaction_isolation;`
-
-
 
 ```sql
 mysql> SELECT @@tx_isolation;
@@ -781,36 +761,36 @@ mysql> SELECT @@tx_isolation;
 +-----------------+
 ```
 
-关于 MySQL 事务隔离级别的详细介绍，可以看看我写的这篇文章：[MySQL 事务隔离级别详解](https://javaguide.cn/database/mysql/transaction-isolation-level.html)。
+关于 MySQL 事务隔离级别的详细介绍，可以看看我写的这篇文章：[[MySQL 事务隔离级别详解]]。
 
-### [MySQL 的隔离级别是基于锁实现的吗？](https://javaguide.cn/database/mysql/mysql-questions-01.html#mysql-的隔离级别是基于锁实现的吗)
+### MySQL 的隔离级别是基于锁实现的吗？
 
 MySQL 的隔离级别基于锁和 MVCC 机制共同实现的。
 
 SERIALIZABLE 隔离级别是通过锁来实现的，READ-COMMITTED 和 REPEATABLE-READ 隔离级别是基于 MVCC 实现的。不过， SERIALIZABLE 之外的其他隔离级别可能也需要用到锁机制，就比如 REPEATABLE-READ 在当前读情况下需要使用加锁读来保证不会出现幻读。
 
-## [MySQL 锁](https://javaguide.cn/database/mysql/mysql-questions-01.html#mysql-锁)
+## MySQL 锁
 
 锁是一种常见的并发事务的控制方式。
 
-### [表级锁和行级锁了解吗？有什么区别？](https://javaguide.cn/database/mysql/mysql-questions-01.html#表级锁和行级锁了解吗-有什么区别)
+### 表级锁和行级锁了解吗？有什么区别？
 
-MyISAM 仅仅支持表级锁(table-level locking)，一锁就锁整张表，这在并发写的情况下性非常差。InnoDB 不光支持表级锁(table-level locking)，还支持行级锁(row-level locking)，默认为行级锁。
+MyISAM 仅仅支持表级锁（table-level locking），一锁就锁整张表，这在并发写的情况下性非常差。InnoDB 不光支持表级锁（table-level locking），还支持行级锁（row-level locking），默认为行级锁。
 
 行级锁的粒度更小，仅对相关的记录上锁即可（对一行或者多行记录加锁），所以对于并发写入操作来说， InnoDB 的性能更高。
 
-**表级锁和行级锁对比**：
+#### 表级锁和行级锁对比
 
 - **表级锁：** MySQL 中锁定粒度最大的一种锁（全局锁除外），是针对非索引字段加的锁，对当前操作的整张表加锁，实现简单，资源消耗也比较少，加锁快，不会出现死锁。不过，触发锁冲突的概率最高，高并发下效率极低。表级锁和存储引擎无关，MyISAM 和 InnoDB 引擎都支持表级锁。
 - **行级锁：** MySQL 中锁定粒度最小的一种锁，是 **针对索引字段加的锁** ，只针对当前操作的行记录进行加锁。 行级锁能大大减少数据库操作的冲突。其加锁粒度最小，并发度高，但加锁的开销也最大，加锁慢，会出现死锁。行级锁和存储引擎有关，是在存储引擎层面实现的。
 
-### [行级锁的使用有什么注意事项？](https://javaguide.cn/database/mysql/mysql-questions-01.html#行级锁的使用有什么注意事项)
+### 行级锁的使用有什么注意事项？
 
 InnoDB 的行锁是针对索引字段加的锁，表级锁是针对非索引字段加的锁。当我们执行 `UPDATE`、`DELETE` 语句时，如果 `WHERE`条件中字段没有命中唯一索引或者索引失效的话，就会导致扫描全表对表中的所有行记录进行加锁。这个在我们日常工作开发中经常会遇到，一定要多多注意！！！
 
 不过，很多时候即使用了索引也有可能会走全表扫描，这是因为 MySQL 优化器的原因。
 
-### [InnoDB 有哪几类行锁？](https://javaguide.cn/database/mysql/mysql-questions-01.html#innodb-有哪几类行锁)
+### InnoDB 有哪几类行锁？
 
 InnoDB 行锁是通过对索引数据页上的记录加锁实现的，MySQL InnoDB 支持三种行锁定方式：
 
@@ -820,7 +800,7 @@ InnoDB 行锁是通过对索引数据页上的记录加锁实现的，MySQL Inno
 
 **在 InnoDB 默认的隔离级别 REPEATABLE-READ 下，行锁默认使用的是 Next-Key Lock。但是，如果操作的索引是唯一索引或主键，InnoDB 会对 Next-Key Lock 进行优化，将其降级为 Record Lock，即仅锁住索引本身，而不是范围。**
 
-### [共享锁和排他锁呢？](https://javaguide.cn/database/mysql/mysql-questions-01.html#共享锁和排他锁呢)
+### 共享锁和排他锁呢？
 
 不论是表级锁还是行级锁，都存在共享锁（Share Lock，S 锁）和排他锁（Exclusive Lock，X 锁）这两类：
 
@@ -836,8 +816,6 @@ InnoDB 行锁是通过对索引数据页上的记录加锁实现的，MySQL Inno
 
 由于 MVCC 的存在，对于一般的 `SELECT` 语句，InnoDB 不会加任何锁。不过， 你可以通过以下语句显式加共享锁或排他锁。
 
-
-
 ```sql
 # 共享锁 可以在 MySQL 5.7 和 MySQL 8.0 中使用
 SELECT ... LOCK IN SHARE MODE;
@@ -847,7 +825,7 @@ SELECT ... FOR SHARE;
 SELECT ... FOR UPDATE;
 ```
 
-### [意向锁有什么作用？](https://javaguide.cn/database/mysql/mysql-questions-01.html#意向锁有什么作用)
+### 意向锁有什么作用？
 
 如果需要用到表锁的话，如何判断表中的记录没有行锁呢，一行一行遍历肯定是不行，性能太差。我们需要用到一个叫做意向锁的东东来快速判断是否可以对某个表使用表锁。
 
@@ -876,11 +854,9 @@ SELECT ... FOR UPDATE;
 
 ![img](https://oss.javaguide.cn/github/javaguide/mysql/image-20220511171419081.png)
 
-### [当前读和快照读有什么区别？](https://javaguide.cn/database/mysql/mysql-questions-01.html#当前读和快照读有什么区别)
+### 当前读和快照读有什么区别？
 
 **快照读**（一致性非锁定读）就是单纯的 `SELECT` 语句，但不包括下面这两类 `SELECT` 语句：
-
-
 
 ```sql
 SELECT ... FOR UPDATE
@@ -905,8 +881,6 @@ SELECT ... FOR SHARE;
 
 当前读的一些常见 SQL 语句类型如下：
 
-
-
 ```sql
 # 对读的记录加一个X锁
 SELECT...FOR UPDATE
@@ -920,13 +894,11 @@ UPDATE...
 DELETE...
 ```
 
-### [自增锁有了解吗？](https://javaguide.cn/database/mysql/mysql-questions-01.html#自增锁有了解吗)
+### 自增锁有了解吗？
 
 > 不太重要的一个知识点，简单了解即可。
 
-关系型数据库设计表的时候，通常会有一列作为自增主键。InnoDB 中的自增主键会涉及一种比较特殊的表级锁— **自增锁（AUTO-INC Locks）** 。
-
-
+关系型数据库设计表的时候，通常会有一列作为自增主键。InnoDB 中的自增主键会涉及一种比较特殊的表级锁——**自增锁（AUTO-INC Locks）** 。
 
 ```sql
 CREATE TABLE `sequence_id` (
@@ -937,7 +909,7 @@ CREATE TABLE `sequence_id` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ```
 
-更准确点来说，不仅仅是自增主键，`AUTO_INCREMENT`的列都会涉及到自增锁，毕竟非主键也可以设置自增长。
+更准确点来说，不仅仅是自增主键，`AUTO_INCREMENT` 的列都会涉及到自增锁，毕竟非主键也可以设置自增长。
 
 如果一个事务正在插入数据到有自增列的表时，会先获取自增锁，拿不到就可能会被阻塞住。这里的阻塞行为只是自增锁行为的其中一种，可以理解为自增锁就是一个接口，其具体的实现有多种。具体的配置项为 `innodb_autoinc_lock_mode` （MySQL 5.1.22 引入），可以选择的值如下：
 
@@ -955,11 +927,11 @@ CREATE TABLE `sequence_id` (
 
 最后，再推荐一篇文章：[为什么 MySQL 的自增主键不单调也不连续](https://draveness.me/whys-the-design-mysql-auto-increment/) 。
 
-## [⭐️MySQL 性能优化](https://javaguide.cn/database/mysql/mysql-questions-01.html#⭐️mysql-性能优化)
+## MySQL 性能优化
 
-关于 MySQL 性能优化的建议总结，请看这篇文章：[MySQL 高性能优化规范建议总结](https://javaguide.cn/database/mysql/mysql-high-performance-optimization-specification-recommendations.html) 。
+关于 MySQL 性能优化的建议总结，请看这篇文章：[[MySQL 高性能优化规范建议总结]]
 
-### [能用 MySQL 直接存储文件（比如图片）吗？](https://javaguide.cn/database/mysql/mysql-questions-01.html#能用-mysql-直接存储文件-比如图片-吗)
+### 能用 MySQL 直接存储文件（比如图片）吗？
 
 可以是可以，直接存储文件对应的二进制数据即可。不过，还是建议不要在数据库中存储文件，会严重影响数据库性能，消耗过多存储空间。
 
@@ -971,7 +943,7 @@ CREATE TABLE `sequence_id` (
 
 **数据库只存储文件地址信息，文件由文件存储服务负责存储。**
 
-### [MySQL 如何存储 IP 地址？](https://javaguide.cn/database/mysql/mysql-questions-01.html#mysql-如何存储-ip-地址)
+### MySQL 如何存储 IP 地址？
 
 可以将 IP 地址转换成整形数据存储，性能更好，占用空间也更小。
 
@@ -982,27 +954,17 @@ MySQL 提供了两个方法来处理 ip 地址
 
 插入数据前，先用 `INET_ATON()` 把 ip 地址转为整型，显示数据时，使用 `INET_NTOA()` 把整型的 ip 地址转为地址显示即可。
 
-### [有哪些常见的 SQL 优化手段？](https://javaguide.cn/database/mysql/mysql-questions-01.html#有哪些常见的-sql-优化手段)
-
-[《Java 面试指北》(付费)](https://javaguide.cn/zhuanlan/java-mian-shi-zhi-bei.html) 的 **「技术面试题篇」** 有一篇文章详细介绍了常见的 SQL 优化手段，非常全面，清晰易懂！
-
-![常见的 SQL 优化手段](https://oss.javaguide.cn/javamianshizhibei/javamianshizhibei-sql-optimization.png)
-
-文章地址：https://www.yuque.com/snailclimb/mf2z3k/abc2sv （密码获取：https://t.zsxq.com/avfM0）。
-
-### [如何分析 SQL 的性能？](https://javaguide.cn/database/mysql/mysql-questions-01.html#如何分析-sql-的性能)
+### 如何分析 SQL 的性能？
 
 我们可以使用 `EXPLAIN` 命令来分析 SQL 的 **执行计划** 。执行计划是指一条 SQL 语句在经过 MySQL 查询优化器的优化会后，具体的执行方式。
 
 `EXPLAIN` 并不会真的去执行相关的语句，而是通过 **查询优化器** 对语句进行分析，找出最优的查询方案，并显示对应的信息。
 
-`EXPLAIN` 适用于 `SELECT`, `DELETE`, `INSERT`, `REPLACE`, 和 `UPDATE`语句，我们一般分析 `SELECT` 查询较多。
+`EXPLAIN` 适用于 `SELECT`，`DELETE`，`INSERT`，`REPLACE` 和 `UPDATE`语句，我们一般分析 `SELECT` 查询较多。
 
 我们这里简单来演示一下 `EXPLAIN` 的使用。
 
 `EXPLAIN` 的输出格式如下：
-
-
 
 ```sql
 mysql> EXPLAIN SELECT `score`,`name` FROM `cus_order` ORDER BY `score` DESC;
@@ -1031,32 +993,32 @@ mysql> EXPLAIN SELECT `score`,`name` FROM `cus_order` ORDER BY `score` DESC;
 | filtered      | 按表条件过滤后，留存的记录数的百分比         |
 | Extra         | 附加信息                                     |
 
-篇幅问题，我这里只是简单介绍了一下 MySQL 执行计划，详细介绍请看：[SQL 的执行计划](https://javaguide.cn/database/mysql/mysql-query-execution-plan.html)这篇文章。
+篇幅问题，我这里只是简单介绍了一下 MySQL 执行计划，详细介绍请看：[[MySQL 执行计划分析]]这篇文章。
 
-### [读写分离和分库分表了解吗？](https://javaguide.cn/database/mysql/mysql-questions-01.html#读写分离和分库分表了解吗)
+### 读写分离和分库分表了解吗？
 
-读写分离和分库分表相关的问题比较多，于是，我单独写了一篇文章来介绍：[读写分离和分库分表详解](https://javaguide.cn/high-performance/read-and-write-separation-and-library-subtable.html)。
+读写分离和分库分表相关的问题比较多，于是，我单独写了一篇文章来介绍：[[MySQL 读写分离和分库分表详解]]。
 
-### [深度分页如何优化？](https://javaguide.cn/database/mysql/mysql-questions-01.html#深度分页如何优化)
+### 深度分页如何优化？
 
-[深度分页介绍及优化建议](https://javaguide.cn/high-performance/deep-pagination-optimization.html)
+[[MySQL 深度分页介绍及优化建议]]
 
-### [数据冷热分离如何做？](https://javaguide.cn/database/mysql/mysql-questions-01.html#数据冷热分离如何做)
+### 数据冷热分离如何做？
 
-[数据冷热分离详解](https://javaguide.cn/high-performance/data-cold-hot-separation.html)
+[[数据冷热分离详解]]
 
-### [MySQL 性能怎么优化？](https://javaguide.cn/database/mysql/mysql-questions-01.html#mysql-性能怎么优化)
+### MySQL 性能怎么优化？
 
 MySQL 性能优化是一个系统性工程，涉及多个方面，在面试中不可能面面俱到。因此，建议按照“点-线-面”的思路展开，从核心问题入手，再逐步扩展，展示出你对问题的思考深度和解决能力。
 
-**1. 抓住核心：慢 SQL 定位与分析**
+#### 抓住核心：慢 SQL 定位与分析
 
 性能优化的第一步永远是找到瓶颈。面试时，建议先从 **慢 SQL 定位和分析** 入手，这不仅能展示你解决问题的思路，还能体现你对数据库性能监控的熟练掌握：
 
 - **监控工具：** 介绍常用的慢 SQL 监控工具，如 **MySQL 慢查询日志**、**Performance Schema** 等，说明你对这些工具的熟悉程度以及如何通过它们定位问题。
 - **EXPLAIN 命令：** 详细说明 `EXPLAIN` 命令的使用，分析查询计划、索引使用情况，可以结合实际案例展示如何解读分析结果，比如执行顺序、索引使用情况、全表扫描等。
 
-**2. 由点及面：索引、表结构和 SQL 优化**
+#### 由点及面：索引、表结构和 SQL 优化
 
 定位到慢 SQL 后，接下来就要针对具体问题进行优化。 这里可以重点介绍索引、表结构和 SQL 编写规范等方面的优化技巧：
 
@@ -1064,7 +1026,7 @@ MySQL 性能优化是一个系统性工程，涉及多个方面，在面试中�
 - **表结构优化：** 优化表结构设计，包括选择合适的字段类型、避免冗余字段、合理使用范式和反范式设计等等。
 - **SQL 优化：** 避免使用 `SELECT *`、尽量使用具体字段、使用连接查询代替子查询、合理使用分页查询、批量操作等，都是 SQL 编写过程中需要注意的细节。
 
-**3. 进阶方案：架构优化**
+#### 进阶方案：架构优化
 
 当面试官对基础优化知识比较满意时，可能会深入探讨一些架构层面的优化方案。以下是一些常见的架构优化策略：
 
@@ -1073,13 +1035,13 @@ MySQL 性能优化是一个系统性工程，涉及多个方面，在面试中�
 - **数据冷热分离**：根据数据的访问频率和业务重要性，将数据分为冷数据和热数据，冷数据一般存储在低成本、低性能的介质中，热数据存储在高性能存储介质中。
 - **缓存机制：** 使用 Redis 等缓存中间件，将热点数据缓存到内存中，减轻数据库压力。这个非常常用，提升效果非常明显，性价比极高！
 
-**4. 其他优化手段**
+#### 其他优化手段
 
 除了慢 SQL 定位、索引优化和架构优化，还可以提及一些其他优化手段，展示你对 MySQL 性能调优的全面理解：
 
 - **连接池配置：** 配置合理的数据库连接池（如 **连接池大小**、**超时时间** 等），能够有效提升数据库连接的效率，避免频繁的连接开销。
 - **硬件配置：** 提升硬件性能也是优化的重要手段之一。使用高性能服务器、增加内存、使用 **SSD** 硬盘等硬件升级，都可以有效提升数据库的整体性能。
 
-**5.总结**
+#### 总结
 
-在面试中，建议按优先级依次介绍慢 SQL 定位、[索引优化](https://javaguide.cn/database/mysql/mysql-index.html)、表结构设计和 [SQL 优化](https://javaguide.cn/high-performance/sql-optimization.html)等内容。架构层面的优化，如[读写分离和分库分表](https://javaguide.cn/high-performance/read-and-write-separation-and-library-subtable.html)、[数据冷热分离](https://javaguide.cn/high-performance/data-cold-hot-separation.html) 应作为最后的手段，除非在特定场景下有明显的性能瓶颈，否则不应轻易使用，因其引入的复杂性会带来额外的维护成本。
+在面试中，建议按优先级依次介绍慢 SQL 定位、索引优化、表结构设计和 SQL 优化等内容。架构层面的优化，如读写分离和分库分表、数据冷热分离应作为最后的手段，除非在特定场景下有明显的性能瓶颈，否则不应轻易使用，因其引入的复杂性会带来额外的维护成本。
