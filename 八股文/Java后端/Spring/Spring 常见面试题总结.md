@@ -383,15 +383,11 @@ Spring 中 Bean 的作用域通常有下面几种：
 
 xml 方式：
 
-
-
 ```xml
 <bean id="..." class="..." scope="singleton"></bean>
 ```
 
 注解方式：
-
-
 
 ```java
 @Bean
@@ -410,8 +406,6 @@ Spring 框架中的 Bean 是否线程安全，取决于其作用域和状态。
 prototype 作用域下，每次获取都会创建一个新的 bean 实例，不存在资源竞争问题，所以不存在线程安全问题。singleton 作用域下，IoC 容器中只有唯一的 bean 实例，可能会存在资源竞争问题（取决于 Bean 是否有状态）。如果这个 bean 是有状态的话，那就存在线程安全问题（有状态 Bean 是指包含可变的成员变量的对象）。
 
 有状态 Bean 示例：
-
-
 
 ```java
 // 定义了一个购物车类，其中包含一个保存用户的购物车里商品的 List
@@ -433,8 +427,6 @@ public class ShoppingCart {
 
 无状态 Bean 示例：
 
-
-
 ```java
 // 定义了一个用户服务，它仅包含业务逻辑而不保存任何状态。
 @Component
@@ -454,8 +446,6 @@ public class UserService {
 3. **使用同步机制**: 利用 `synchronized` 或 `ReentrantLock` 来进行同步控制，确保线程安全。
 
 这里以 `ThreadLocal` 为例，演示一下 `ThreadLocal` 保存用户登录信息的场景：
-
-
 
 ```java
 public class UserThreadLocal {
@@ -497,8 +487,6 @@ public class UserThreadLocal {
 
 `AbstractAutowireCapableBeanFactory` 的 `doCreateBean()` 方法中能看到依次执行了这 4 个阶段：
 
-
-
 ```java
 protected Object doCreateBean(final String beanName, final RootBeanDefinition mbd, final @Nullable Object[] args)
     throws BeanCreationException {
@@ -536,8 +524,6 @@ Spring 中提供的 `Aware` 接口主要有：
 
 `BeanPostProcessor` 接口是 Spring 为修改 Bean 提供的强大扩展点。
 
-
-
 ```java
 public interface BeanPostProcessor {
 
@@ -559,8 +545,6 @@ public interface BeanPostProcessor {
 
 `InitializingBean` 和 `init-method` 是 Spring 为 Bean 初始化提供的扩展点。
 
-
-
 ```java
 public interface InitializingBean {
  // 初始化逻辑
@@ -569,8 +553,6 @@ public interface InitializingBean {
 ```
 
 指定 `init-method` 方法，指定初始化方法：
-
-
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -588,8 +570,6 @@ public interface InitializingBean {
 1. 整体上可以简单分为四步：实例化 —> 属性赋值 —> 初始化 —> 销毁。
 2. 初始化这一步涉及到的步骤比较多，包含 `Aware` 接口的依赖注入、`BeanPostProcessor` 在初始化前后的处理以及 `InitializingBean` 和 `init-method` 的初始化操作。
 3. 销毁这一步会注册相关销毁回调接口，最后通过 `DisposableBean` 和 `destory-method` 进行销毁。
-
-最后，再分享一张清晰的图解（图源：[如何记忆 Spring Bean 的生命周期]（https://chaycao.github.io/2020/02/15/如何记忆Spring-Bean的生命周期.html））。
 
 ![img](Z:\Public\images\spring-bean-lifestyle.png)
 
@@ -648,8 +628,6 @@ AOP 切面编程涉及到的一些专业术语：
 
 1、通常使用 `@Order` 注解直接定义切面顺序
 
-
-
 ```java
 // 值越小优先级越高
 @Order(3)
@@ -659,8 +637,6 @@ public class LoggingAspect implements Ordered {
 ```
 
 **2、实现 `Ordered` 接口重写 `getOrder` 方法。**
-
-
 
 ```java
 @Component
@@ -685,7 +661,7 @@ MVC 是模型（Model）、视图（View）、控制器（Controller）的简写
 
 ![img](Z:\Public\images\image-20210809181452421.png)
 
-网上有很多人说 MVC 不是设计模式，只是软件设计规范，我个人更倾向于 MVC 同样是众多设计模式中的一种。**[java-design-patterns](https://github.com/iluwatar/java-design-patterns)**项目中就有关于 MVC 的相关介绍。
+网上有很多人说 MVC 不是设计模式，只是软件设计规范，我个人更倾向于 MVC 同样是众多设计模式中的一种。**[java-design-patterns](https://github.com/iluwatar/java-design-patterns)** 项目中就有关于 MVC 的相关介绍。
 
 ![img](Z:\Public\images\159b3d3e70dd45e6afa81bf06d09264e.png)
 
@@ -761,8 +737,6 @@ MVC 是一种设计模式，Spring MVC 是一款很优秀的 MVC 框架。Spring
 
 推荐使用注解的方式统一异常处理，具体会使用到 `@ControllerAdvice` + `@ExceptionHandler` 这两个注解。
 
-
-
 ```java
 @ControllerAdvice
 @ResponseBody
@@ -783,8 +757,6 @@ public class GlobalExceptionHandler {
 这种异常处理方式下，会给所有或者指定的 `Controller` 织入异常处理的逻辑（AOP），当 `Controller` 中的方法抛出异常的时候，由被 `@ExceptionHandler` 注解修饰的方法进行处理。
 
 `ExceptionHandlerMethodResolver` 中 `getMappedMethod` 方法决定了异常具体被哪个被 `@ExceptionHandler` 注解修饰的方法处理异常。
-
-
 
 ```java
 @Nullable
