@@ -10,7 +10,7 @@
 - **Linux 本质是指 Linux 内核**：严格来讲，Linux 这个词本身只表示 Linux 内核，单独的 Linux 内核并不能成为一个可以正常工作的操作系统。所以，就有了各种 Linux 发行版。
 - **Linux 之父（林纳斯·本纳第克特·托瓦兹 Linus Benedict Torvalds）**：一个编程领域的传奇式人物，真大佬！我辈崇拜敬仰之楷模。他是 **Linux 内核**的最早作者，随后发起了这个开源项目，担任 Linux 内核的首要架构师。他还发起了 Git 这个开源项目，并为主要的开发者。
 
-![Linux 之父](Z:\Public\images\linux-father.png)
+![Linux 之父](http://public.file.lvshuhuai.cn/images\linux-father.png)
 
 ### Linux 诞生
 
@@ -20,11 +20,11 @@
 
 1991 年，Linus Torvalds 开源了 Linux 内核。Linux 以一只可爱的企鹅作为标志，象征着敢作敢为、热爱生活。
 
-![OPINION: Make the switch to a Linux operating system | Opinion ...](Z:\Public\images\Linux-Logo.png)
+![OPINION: Make the switch to a Linux operating system | Opinion ...](http://public.file.lvshuhuai.cn/images\Linux-Logo.png)
 
 ### 常见的 Linux 发行版本
 
-![Linux 操作系统](Z:\Public\images\linux-1779086458194-38.png)
+![Linux 操作系统](http://public.file.lvshuhuai.cn/images\linux-1779086458194-38.png)
 
 Linus Torvalds 开源的只是 Linux 内核，我们上面也提到了操作系统内核的作用。一些组织或厂商将 Linux 内核与各种软件和文档包装起来，并提供系统安装界面和系统配置、设定与管理工具，就构成了 Linux 的发行版本。
 
@@ -69,7 +69,7 @@ inode 是 Linux/Unix 文件系统的基础。那 inode 到是什么？有什么�
 - **inode**：记录文件的属性信息，可以使用 `stat` 命令查看 inode 信息。
 - **block**：实际文件的内容，如果一个文件大于一个块时候，那么将占用多个 block，但是一个块只能存放一个文件。（因为数据是由 inode 指向的，如果有两个文件的数据存放在同一个块中，就会乱套了）
 
-![文件inode信息](Z:\Public\images\文件inode信息-DGIIRYlI.png)
+![文件inode信息](http://public.file.lvshuhuai.cn/images\文件inode信息-DGIIRYlI.png)
 
 可以看出，Linux/Unix 操作系统使用 inode 区分不同的文件。这样做的好处是，即使文件名被修改或删除，文件的 inode 号码不会改变，从而可以避免一些因文件重命名、移动或删除导致的错误。同时，inode 也可以提供更高的文件系统性能，因为 inode 的访问速度非常快，可以直接通过 inode 号码定位到文件的元数据信息，无需遍历整个文件系统。
 
@@ -129,7 +129,7 @@ srwxrwxrwx  1 user  group    0 Apr 14 10:00 socket
 
 Linux 使用一种称为目录树的层次结构来组织文件和目录。目录树由根目录（/）作为起始点，向下延伸，形成一系列的目录和子目录。每个目录可以包含文件和其他子目录。结构层次鲜明，就像一棵倒立的树。
 
-![Linux的目录结构](Z:\Public\images\Linux目录树-DzjzZEII.png)
+![Linux的目录结构](http://public.file.lvshuhuai.cn/images\Linux目录树-DzjzZEII.png)
 
 **常见目录说明：**
 
@@ -155,11 +155,11 @@ Linux 使用一种称为目录树的层次结构来组织文件和目录。目�
 
 推荐一个 Linux 命令快查网站，非常不错，大家如果遗忘某些命令或者对某些命令不理解都可以在这里得到解决。Linux 命令在线速查手册：[Linux命令搜索引擎 命令，Linux Linux命令搜索引擎 命令详解：最专业的Linux命令大全，内容包含Linux命令手册、详解、学习，值得收藏的Linux命令速查手册。 - Linux 命令搜索引擎](https://wangchujiang.com/linux-command/)。
 
-![ Linux 命令快查](Z:\Public\images\linux-command-search.png)
+![ Linux 命令快查](http://public.file.lvshuhuai.cn/images\linux-command-search.png)
 
 另外，[shell.how](https://www.shell.how/) 这个网站可以用来解释常见命令的意思，对你学习 Linux 基本命令以及其他常用命令（如 Git、NPM）。
 
-![shell.how 使用示例](Z:\Public\images\shell-now.png)
+![shell.how 使用示例](http://public.file.lvshuhuai.cn/images\shell-now.png)
 
 ### 目录切换
 
@@ -234,7 +234,7 @@ Linux 中的打包文件一般是以 `.tar` 结尾的，压缩的命令一般是
 
 第一列的内容的信息解释如下：
 
-![img](Z:\Public\images\Linux权限解读-BGnXOuG0.png)
+![img](http://public.file.lvshuhuai.cn/images\Linux权限解读-BGnXOuG0.png)
 
 > 下面将详细讲解文件的类型、Linux 中权限以及文件有所有者、所在组、其它组具体是什么？
 
