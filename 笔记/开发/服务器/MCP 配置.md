@@ -1,6 +1,6 @@
 # MCP 配置
 
-![Make MCP Client | Make](Z:\Public\images\imageurl=https%3A%2F%2Fimages.ctfassets.net%2Fun655fb9wln6%2FO1jb0qQ6xvOJBCkbFGIpX%2F1e2e6cdf8c1f4b7603e7fc857d5a1e1a%2Fhero.jpeg)
+![Make MCP Client | Make](http://public.file.lvshuhuai.cn/images\imageurl=https%3A%2F%2Fimages.ctfassets.net%2Fun655fb9wln6%2FO1jb0qQ6xvOJBCkbFGIpX%2F1e2e6cdf8c1f4b7603e7fc857d5a1e1a%2Fhero.jpeg)
 
 ## Redis
 

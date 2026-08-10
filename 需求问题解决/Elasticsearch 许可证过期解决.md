@@ -99,7 +99,7 @@ Elasticsearch 没有启动成功
 Elasticsearch trial license 已过期，需要切换到 Basic 许可证，或者重新安装有效许可证。
 ```
 
-![License Management UI in Kibana.](Z:\Public\images\License-Management-UI-1-1.png)
+![License Management UI in Kibana.](http://public.file.lvshuhuai.cn/images\License-Management-UI-1-1.png)
 
 ## 解决办法
 
