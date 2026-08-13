@@ -24,7 +24,7 @@ counter 是明文存储（不是秘密），HOTP 每用一次递增一次：前�
 
 ### 验证码计算
 
-![](Z:\Public\images\key-pulse-otp-flow.svg)
+![](http://public.file.lvshuhuai.cn/images\key-pulse-otp-flow.svg)
 
 实现是 RFC 4226（HOTP）和 RFC 6238（TOTP）标准算法，代码在 `modules/otp/`：
 

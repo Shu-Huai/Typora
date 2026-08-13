@@ -23,7 +23,7 @@ POST /api/bill/ai/parse (bookId, type, text)
   → finally 写 ai_bill_parse_log（无论成败）
 ```
 
-![](Z:\Public\images\where-money-ai-parse-flow.svg)
+![](http://public.file.lvshuhuai.cn/images\where-money-ai-parse-flow.svg)
 
 ### 提示词设计
 
