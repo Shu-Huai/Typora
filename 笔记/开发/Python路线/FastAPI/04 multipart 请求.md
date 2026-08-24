@@ -107,7 +107,7 @@ def register(
 
 文件上传依赖 multipart 编码。请求体被 boundary 分隔成多个 part，表单字段是纯文本 part，文件 part 额外携带 filename 属性。
 
-![](Z:\Public\images\fastapi-form-file.png)
+![](http://public.file.lvshuhuai.cn/images\fastapi-form-file.png)
 
 上图展示了一个 multipart 请求的分包结构：每个 part 以 --boundary 开头，Content-Disposition 声明字段名与文件名。FastAPI 解析时靠每个 part 的 name 与路径操作函数的参数名匹配。
 
