@@ -8,7 +8,7 @@ NoSQL（Not Only SQL 的缩写）泛指非关系型的数据库，主要针对�
 
 NoSQL 数据库代表：HBase、Cassandra、MongoDB、Redis。
 
-![img](http://public.file.lvshuhuai.cn/images\sql-nosql-tushi.png)
+![img](Z:/Public/images/sql-nosql-tushi.png)
 
 ## SQL 和 NoSQL 有什么区别？
 
@@ -36,11 +36,11 @@ NoSQL 数据库非常适合许多现代应用程序，例如移动、Web 和游�
 
 NoSQL 数据库主要可以分为下面四种类型：
 
-- **键值**：键值数据库是一种较简单的数据库，其中每个项目都包含键和值。这是极为灵活的 NoSQL 数据库类型，因为应用可以完全控制 value 字段中存储的内容，没有任何限制。Redis 和 DynanoDB 是两款非常流行的键值数据库。
+- **键值**：键值数据库是一种较简单的数据库，其中每个项目都包含键和值。这是极为灵活的 NoSQL 数据库类型，因为应用可以完全控制 `value` 字段中存储的内容，没有任何限制。Redis 和 DynanoDB 是两款非常流行的键值数据库。
 - **文档**：文档数据库中的数据被存储在类似于 JSON（JavaScript 对象表示法）对象的文档中，非常清晰直观。每个文档包含成对的字段和值。这些值通常可以是各种类型，包括字符串、数字、布尔值、数组或对象等，并且它们的结构通常与开发者在代码中使用的对象保持一致。MongoDB 就是一款非常流行的文档数据库。
 - **图形**：图形数据库旨在轻松构建和运行与高度连接的数据集一起使用的应用程序。图形数据库的典型使用案例包括社交网络、推荐引擎、欺诈检测和知识图形。Neo4j 和 Giraph 是两款非常流行的图形数据库。
 - **宽列**：宽列存储数据库非常适合需要存储大量的数据。Cassandra 和 HBase 是两款非常流行的宽列存储数据库。
 
 下面这张图片来源于 [微软的官方文档 | 关系数据与 NoSQL 数据](https://learn.microsoft.com/en-us/dotnet/architecture/cloud-native/relational-vs-nosql-data)。
 
-![NoSQL 数据模型](http://public.file.lvshuhuai.cn/images\types-of-nosql-datastores.png)
+![NoSQL 数据模型](Z:/Public/images/types-of-nosql-datastores.png)

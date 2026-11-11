@@ -2,11 +2,11 @@
 
 初入编程世界时，前辈们总会教导我们，系统设计应遵循 **MVC（Model - View - Controller）** 架构。MVC 架构就像一个精巧的齿轮组，将整个系统清晰地划分为 Model（模型）、View（视图）和 Controller（控制器）三个层次。它巧妙地把用户视图和业务处理隔离开来，再通过控制器将它们紧密连接，如同搭建起一座沟通的桥梁，实现了表现与逻辑的完美解耦，是软件分层架构中的经典范式。
 
-<img src="http://public.file.lvshuhuai.cn/images\640.webp" alt="图片" style="zoom:50%;" />
+<img src="Z:/Public/images/640.webp" alt="图片" style="zoom:50%;" />
 
 MVC 分层架构是架构领域中最为基础和简单的分层方式。当我们依据这种架构构建项目时，通常会创建三个关键目录：controller、service 和 dao，它们分别对应着表现层、逻辑层和数据访问层。
 
-<img src="http://public.file.lvshuhuai.cn/images\640-1757050682468-1.webp" alt="图片" style="zoom:50%;" />
+<img src="Z:/Public/images/640-1757050682468-1.webp" alt="图片" style="zoom:50%;" />
 
 下面，我们来详细了解一下每层的具体作用：
 
@@ -27,7 +27,7 @@ MVC 分层架构是架构领域中最为基础和简单的分层方式。当我�
 
 为了解决这些问题，我们可以参考《alibaba java 开发手册》，在 Service 层之下新增一个通用业务处理层——Manager 层。
 
-<img src="http://public.file.lvshuhuai.cn/images\640-1757050682468-2.webp" alt="图片" style="zoom:50%;" />
+<img src="Z:/Public/images/640-1757050682468-2.webp" alt="图片" style="zoom:50%;" />
 
 在这个新的分层架构中，Manager 层与 Service 层相互协作，各司其职。Manager 层提供原子性的服务接口，就像一个个标准化的零件；而 Service 层则根据业务逻辑的需求，对这些原子接口进行编排组合，构建出完整的业务流程。
 
@@ -45,7 +45,7 @@ Manager 层作为通用业务处理层，具有以下显著特征：
 
 1. **复杂业务处理** ：对于复杂的业务场景，Service 层负责准备好所需的数据，并将其传递给 Manager 层。Manager 层负责业务的编排和事务的处理，并且不允许相互调用，避免出现事务嵌套的问题。
 2. **通用业务 DAO 封装** ：Manager 层专注于编写不包含业务逻辑的 SQL 语言，对通用业务进行 DAO 层的封装，提高代码的复用性和可维护性。
-3. **复杂查询拆分** ：为了避免复杂的 join 查询对数据库造成过大压力，我们可以在 Manager 层对复杂查询进行拆分，将其转化为多个简单的查询，减轻数据库的负担。
+3. **复杂查询拆分** ：为了避免复杂的 `join` 查询对数据库造成过大压力，我们可以在 Manager 层对复杂查询进行拆分，将其转化为多个简单的查询，减轻数据库的负担。
 
 需要注意的是，对于简单的业务场景，我们可以不使用 Manager 层，以免增加系统的复杂度。
 
@@ -57,7 +57,7 @@ Manager 层作为通用业务处理层，具有以下显著特征：
 
 这时，产品提出了一个新的需求：在 APP 中展示用户信息时，如果用户不存在，需要自动为用户创建一个新用户。同时，HTML5 页面需要保留之前的逻辑，即不需要创建用户。
 
-<img src="http://public.file.lvshuhuai.cn/images\640-1757050682468-3.webp" alt="图片" style="zoom:50%;" />
+<img src="Z:/Public/images/640-1757050682468-3.webp" alt="图片" style="zoom:50%;" />
 
 在传统的三层架构下，逻辑层的边界变得模糊不清，表现层也不得不承担一部分业务逻辑。我们通常会在表现层 Controller 中添加业务逻辑处理代码，将获取用户和创建用户的接口进行编排。
 

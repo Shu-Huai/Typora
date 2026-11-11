@@ -6,8 +6,8 @@
 
 在典型的互联网系统中，一般都会采用：
 
-- **MySQL**：作为权威数据源（System of Record），负责持久化、复杂查询、事务。[[MySQL]]
-- **Redis**：作为缓存或计数器，负责高 QPS、低延迟访问。[[Redis简介]]
+- **MySQL**：作为权威数据源（`System` of Record），负责持久化、复杂查询、事务。[[MySQL]]
+- **Redis**：作为缓存或计数器，负责高 QPS、低延迟访问。[[Redis 简介]]
 
 两者彼此独立，当存在“**一份数据，两份存储**”时，就不可避免出现：
 
@@ -34,11 +34,11 @@
 
 ## 方案一：旁路缓存（Cache-Aside）模式
 
-[[Redis缓存问题#旁路缓存模式]]
+[[Redis 缓存问题#旁路缓存模式]]
 
 > 读多写少，优先推荐的通用方案。
 
-<img src="http://public.file.lvshuhuai.cn/images\image-20251201211911775.png" alt="image-20251201211911775" style="zoom:50%;" />
+<img src="Z:/Public/images/image-20251201211911775.png" alt="image-20251201211911775" style="zoom:50%;" />
 
 ### 核心思想
 
@@ -59,8 +59,10 @@
 
 如果采用“**更新 MySQL + 更新 Redis**”的方式，在高并发下会出现如下时序：
 
-1. 请求 A 更新 MySQL（值更新为 100），**暂未更新 Redis**；
-2. 请求 B 更新 MySQL（更新为 80），并立刻更新 Redis = 80；
+1. 请求 A 更新 MySQL（值更新为
+100. ，**暂未更新 Redis**；
+2. 请求 B 更新 MySQL（更新为
+80. ，并立刻更新 Redis = 80；
 3. 请求 A 再更新 Redis = 100（旧值），把 B 的新结果覆盖了。
 
 最终 Redis 中是 **错误的旧值 100**。  
@@ -115,7 +117,7 @@
 
 > 目标：在高频写场景下，**强提升写性能**，同时保证最终一致性。
 
-<img src="http://public.file.lvshuhuai.cn/images\image-20251201211931365.png" alt="image-20251201211931365" style="zoom:50%;" />
+<img src="Z:/Public/images/image-20251201211931365.png" alt="image-20251201211931365" style="zoom:50%;" />
 
 ### 场景举例：直播点赞 / 实时计数器
 
@@ -186,7 +188,7 @@
 
 ## 方案三：双写 TCC 方案（强一致）
 
-<img src="http://public.file.lvshuhuai.cn/images\image-20251201211837586.png" alt="image-20251201211837586" style="zoom:50%;" />
+<img src="Z:/Public/images/image-20251201211837586.png" alt="image-20251201211837586" style="zoom:50%;" />
 
 > 目标：**牺牲部分性能和复杂度，换取强一致性**，适用于转账、支付等金融级场景。
 

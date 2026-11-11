@@ -1,4 +1,4 @@
-# 说一下 `ArrayDeque` 和 `LinkedList` 的区别
+# 说一下 ArrayDeque 和 LinkedList 的区别
 
 ## 回顾 `LinkedList`
 
@@ -101,7 +101,7 @@ Java 没有提供标准的栈接口（很好奇为什么不提供），而是放
 
 可以看到，在每次搬运 $K$ 个次数后，随后的 $K - 1$ 次入栈操作就只是简单的 $O(1)$ 操作，$K$ 次入栈操作涉及到 $K$ 个数据搬运和 $K$ 次赋值操作。那我们从整体看，如果把复杂度较高的 1 次入栈操作的耗时，均摊到其他复杂度较低的操作上，就等于说 1 次入栈操作只需要搬运 1 个数据和 1 次赋值操作，所以入栈的均摊时间复杂度就是 $O(1)$。
 
-![img](http://public.file.lvshuhuai.cn/images\09c46fa6-9170-46aa-9088-7f7bc561100f.png)
+![img](Z:/Public/images/09c46fa6-9170-46aa-9088-7f7bc561100f.png)
 
 ### 使用数组实现队列结构
 
@@ -116,13 +116,13 @@ Java 没有提供标准的栈接口（很好奇为什么不提供），而是放
 
 但是我们发现，栈的 `top == n` 表示栈空间不足，扩容没有问题，而队列的 `tail == n` 却不一定表示队列空间不足。因为入队和出队发生在不同方向，有可能出现 `tail == n` 但队头依然有非常多剩余空间的情况。此时，扩容显得没有必要。
 
-![img](http://public.file.lvshuhuai.cn/images\6a8dc414-04c8-4beb-9012-6f6eb444bef5.png)
+![img](Z:/Public/images/6a8dc414-04c8-4beb-9012-6f6eb444bef5.png)
 
 那么，怎么避免没有必要的扩容和数据搬移呢？—— 循环数组。
 
 我们在逻辑上将数组的首尾相连，当 `tail == n` 时，如果数组头部还有空闲位置，我们就把 `tail` 指针调整到数组头部，在数组头部添加数据。我们下面要分析的 `ArrayDeque` 数据结构，就是采用了循环数组的实现。
 
-![img](http://public.file.lvshuhuai.cn/images\547ff63c-3776-48b7-92e4-f90bd8a3c00e.png)
+![img](Z:/Public/images/547ff63c-3776-48b7-92e4-f90bd8a3c00e.png)
 
 使用循环数组后，队列空和队列满的判断条件会发生变化：
 
@@ -271,8 +271,10 @@ size - 1 = 0 0 0 0 1 1 1 1 1 1     // 2^n - 1 的补码
 `calculateSize()` 是求离 `numElements` 最近的 2 的整数幂，即 `nextPow2` 问题。
 
 1. 首先，如果 `numElements` 小于 8（`MIN_INITIAL_CAPACITY`），则直接返回 8；  
-2. 否则执行 `nextPow2` 运算，经过五轮无符号右移和或运算，将 `numElements` 转换为从最高位开始后面都是 1 的数。再执行 +1 运算，就求出了最近的 2 的整数幂（最高有效位是 1，低位都是 0）；  
-3. 当 `numElements` 在 `2^30` 到 `2^ 31-1` 之间（即最高位是 0100 的数），计算后得到的 `nextPow2` 就是负数（最高位是 1000，低位都是 0），此时就需要右移一位，取 `2^30` 为初始容量。
+2. 否则执行 `nextPow2` 运算，经过五轮无符号右移和或运算，将 `numElements` 转换为从最高位开始后面都是 1 的数。再执行 +1 运算，就求出了最近的 2 的整数幂（最高有效位是 1，低位都是
+0. ；
+3. 当 `numElements` 在 `2^30` 到 `2^ 31-1` 之间（即最高位是 0100 的数），计算后得到的 `nextPow2` 就是负数（最高位是 1000，低位都是
+0. ，此时就需要右移一位，取 `2^30` 为初始容量。
 
 ```
 n = 0 0 0 0 1 x x x x x     // n
@@ -318,7 +320,7 @@ public void addFirst(E e) {
 
 其实在 `Deque` 接口上并不严格禁止存储 `null` 元素，但是会强烈建议 `Deque` 的实现不提供存储 `null` 值的能力。因为 `null` 通常会作为一个特殊值来判断队列是否为空。
 
-> While Deque implementations are not strictly required to prohibit the insertion of null elements, they are strongly encouraged to do so. Users of any Deque implementations that do allow null elements are strongly encouraged not to take advantage of the ability to insert nulls. This is so because null is used as a special return value by various methods to indicated that the deque is empty.
+> While Deque implementations are not strictly required to prohibit the insertion of null elements, they are strongly encouraged to do so. Users of any Deque implementations that do allow null elements are strongly encouraged not to take advantage of the ability to insert nulls. This is so because null is used as a special return `value` by various methods to indicated that the deque is empty.
 
 ```java
 public E pollFirst() {
@@ -369,7 +371,7 @@ private void doubleCapacity() {
 
 扩容操作
 
-![img](http://public.file.lvshuhuai.cn/images\fe3caeb8-cf26-4621-b6fe-7db4e86e6bbb.png)
+![img](Z:/Public/images/fe3caeb8-cf26-4621-b6fe-7db4e86e6bbb.png)
 
 **为什么没有看到 `ArrayList` 类似的 `MAX_ARRAY_SIZE` 最大容量限制？**
 

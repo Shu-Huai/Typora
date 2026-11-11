@@ -19,7 +19,7 @@ POP 的编程方式通常更为简单和直接，适合处理一些较简单的�
 
 POP 和 OOP 的性能差异主要取决于它们的运行机制，而不仅仅是编程范式本身。因此，简单地比较两者的性能是一个常见的误区（相关 issue : [面向过程：面向过程性能比面向对象高？？](https://github.com/Snailclimb/JavaGuide/issues/431) ）。
 
-![ POP 和 OOP  性能比较不合适](http://public.file.lvshuhuai.cn/images\pop-vs-oop-performance.png)
+![ POP 和 OOP  性能比较不合适](Z:/Public/images/pop-vs-oop-performance.png)
 
 在选择编程范式时，性能并不是唯一的考虑因素。代码的可维护性、可扩展性和开发效率同样重要。
 
@@ -88,7 +88,7 @@ public class Main {
 new 运算符，new 创建对象实例（对象实例在堆内存中），对象引用指向对象实例（对象引用存放在栈内存中）。
 
 - 一个对象引用可以指向 0 个或 1 个对象（一根绳子可以不系气球，也可以系一个气球）；
-- 一个对象可以有 n 个引用指向它（可以用 n 条绳子系住一个气球）。
+- 一个对象可以有 `n` 个引用指向它（可以用 `n` 条绳子系住一个气球）。
 
 ### 对象的相等和引用相等的区别
 
@@ -346,7 +346,7 @@ System.out.println(person1.getAddress() == person1Copy.getAddress());
 
 我专门画了一张图来描述浅拷贝、深拷贝、引用拷贝：
 
-![shallow&deep-copy](http://public.file.lvshuhuai.cn/images\shallow&deep-copy.png)
+![shallow&deep-copy](Z:/Public/images/shallow&deep-copy.png)
 
 ## Object
 
@@ -401,7 +401,7 @@ public final void wait() throws InterruptedException
 protected void finalize() throws Throwable { }
 ```
 
-### == 和 equals() 的区别
+### == 和 `equals()` 的区别
 
 **`==`** 对于基本类型和引用类型的作用效果是不同的：
 
@@ -440,7 +440,7 @@ System.out.println(42 == 42.0);// true
 
 `String` 中的 `equals` 方法是被重写过的，因为 `Object` 的 `equals` 方法是比较的对象的内存地址，而 `String` 的 `equals` 方法比较的是对象的值。
 
-当使用字符串字面量创建 `String` 类型的对象（如 `String aa = "ab"`）时，虚拟机会在常量池中查找有没有已经存在的值和要创建的值相同的对象，如果有就把它赋给当前引用；如果没有，就在常量池中创建一个 `String` 对象并赋给当前引用。但当使用`new`关键字创建对象（如 `String a = new String("ab")`）时，虚拟机总是会在堆内存中**创建一个新的对象**并使用常量池中的值（如果没有，会先在字符串常量池中创建字符串对象 "ab"）进行初始化，然后赋给当前引用。
+当使用字符串字面量创建 `String` 类型的对象（如 `String aa = "ab"`）时，虚拟机会在常量池中查找有没有已经存在的值和要创建的值相同的对象，如果有就把它赋给当前引用；如果没有，就在常量池中创建一个 `String` 对象并赋给当前引用。但当使用`new`关键字创建对象（如 `String a = new String("ab")`）时，虚拟机总是会在堆内存中**创建一个新的对象**并使用常量池中的值（如果没有，会先在字符串常量池中创建字符串对象 “ab”）进行初始化，然后赋给当前引用。
 
 `String` 类 `equals()` 方法：
 
@@ -468,35 +468,35 @@ public boolean equals(Object anObject) {
 }
 ```
 
-### hashCode() 有什么用？
+### `hashCode()` 有什么用？
 
 `hashCode()` 的作用是获取哈希码（`int` 整数），也称为散列码。这个哈希码的作用是确定该对象在哈希表中的索引位置。
 
-![hashCode() 方法](http://public.file.lvshuhuai.cn/images\java-hashcode-method.png)
+![hashCode() 方法](Z:/Public/images/java-hashcode-method.png)
 
 `hashCode()` 定义在 JDK 的 `Object` 类中，这就意味着 Java 中的任何类都包含有 `hashCode()` 函数。另外需要注意的是：`Object` 的 `hashCode()` 方法是本地方法，也就是用 C 语言或 C++ 实现的。
 
-> ⚠️ 注意：该方法在 **Oracle OpenJDK8** 中默认是 "使用线程局部状态来实现 Marsaglia's xor-shift 随机数生成", 并不是 "地址" 或者 "地址转换而来", 不同 JDK/VM 可能不同。在 **Oracle OpenJDK8** 中有六种生成方式 (其中第五种是返回地址), 通过添加 VM 参数: -XX:hashCode=4 启用第五种。参考源码:
+> ⚠️ 注意：该方法在 **Oracle OpenJDK8** 中默认是 “使用线程局部状态来实现 Marsaglia's xor-shift 随机数生成”, 并不是 “地址” 或者 “地址转换而来”, 不同 JDK/VM 可能不同。在 **Oracle OpenJDK8** 中有六种生成方式 (其中第五种是返回地址), 通过添加 VM 参数: -XX:`hashCode`=4 启用第五种。参考源码:
 >
-> - https://hg.openjdk.org/jdk8u/jdk8u/hotspot/file/87ee5ee27509/src/share/vm/runtime/globals.hpp（1127 行）
-> - https://hg.openjdk.org/jdk8u/jdk8u/hotspot/file/87ee5ee27509/src/share/vm/runtime/synchronizer.cpp（537 行开始）
+> - [globals.hpp 源码](https://hg.openjdk.org/jdk8u/jdk8u/hotspot/file/87ee5ee27509/src/share/vm/runtime/globals.hpp)（1127 行）
+> - [synchronizer.cpp 源码](https://hg.openjdk.org/jdk8u/jdk8u/hotspot/file/87ee5ee27509/src/share/vm/runtime/synchronizer.cpp)（537 行开始）
 
 ```java
 public native int hashCode();
 ```
 
-散列表存储的是键值对（key-value），它的特点是：**能根据“键”快速的检索出对应的“值”。这其中就利用到了散列码！（可以快速找到所需要的对象）**
+散列表存储的是键值对（`key`-`value`），它的特点是：**能根据“键”快速的检索出对应的“值”。这其中就利用到了散列码！（可以快速找到所需要的对象）**
 
-### 为什么要有 hashCode？
+### 为什么要有 `hashCode`？
 
-我们以“HashSet 如何检查重复”为例子来说明为什么要有 hashCode？
+我们以“`HashSet` 如何检查重复”为例子来说明为什么要有 `hashCode`？
 
-当我们把对象加入 HashSet 时，HashSet 会先调用对象的 `hashCode()` 方法，得到一个“哈希值”，并通过内部散列函数对这个哈希值再做一次简单的转换（比如取余），决定这条数据应该放进底层数组的哪一个桶（bucket，对应到底层数组的某个位置）：
+当我们把对象加入 `HashSet` 时，`HashSet` 会先调用对象的 `hashCode()` 方法，得到一个“哈希值”，并通过内部散列函数对这个哈希值再做一次简单的转换（比如取余），决定这条数据应该放进底层数组的哪一个桶（bucket，对应到底层数组的某个位置）：
 
 1. 如果该桶当前是空的，就直接将对象对应的节点插入到这个桶中。
-2. 如果该桶中已经有其他元素，HashSet 会在这个桶对应的链表或红黑树中逐个比较：
+2. 如果该桶中已经有其他元素，`HashSet` 会在这个桶对应的链表或红黑树中逐个比较：
     - 对于**哈希值不同**的节点，直接跳过；
-    - 对于**哈希值相同**的节点，则会进一步调用 equals() 方法来检查这两个对象是否“相等”：
+    - 对于**哈希值相同**的节点，则会进一步调用 `equals()` 方法来检查这两个对象是否“相等”：
         – 如果 `equals()` 返回 true，说明集合中已经存在与当前对象等价的元素，`HashSet` 就不会再次加入它；
         – 如果返回 false， 则认为是新元素，会将该对象作为一个新节点加入到**同一个桶**的链表或红黑树中。
 
@@ -524,7 +524,7 @@ public native int hashCode();
 
 相信大家看了我前面对 `hashCode()` 和 `equals()` 的介绍之后，下面这个问题已经难不倒你们了。
 
-### 为什么重写 equals() 时必须重写 hashCode() 方法？
+### 为什么重写 `equals()` 时必须重写 `hashCode()` 方法？
 
 因为两个相等的对象的 `hashCode` 值必须是相等。也就是说如果 `equals` 方法判断两个对象是相等的，那这两个对象的 `hashCode` 值也要相等。
 
@@ -537,11 +537,11 @@ public native int hashCode();
 - `equals` 方法判断两个对象是相等的，那这两个对象的 `hashCode` 值也要相等。
 - 两个对象有相同的 `hashCode` 值，他们也不一定是相等的（哈希碰撞）。
 
-更多关于 `hashCode()` 和 `equals()` 的内容可以查看：[Java hashCode() 和 equals()的若干问题解答](https://www.cnblogs.com/skywang12345/p/3324958.html)
+更多关于 `hashCode()` 和 `equals()` 的内容可以查看：[Java `hashCode()` 和 `equals()`的若干问题解答](https://www.cnblogs.com/skywang12345/p/3324958.html)
 
 ## String
 
-### String、StringBuffer、StringBuilder 的区别？
+### String、`StringBuffer`、`StringBuilder` 的区别？
 
 #### 可变性
 
@@ -569,7 +569,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
 
 `String` 中的对象是不可变的，也就可以理解为常量，线程安全。`AbstractStringBuilder` 是 `StringBuilder` 与 `StringBuffer` 的公共父类，定义了一些字符串的基本操作，如 `expandCapacity`、`append`、`insert`、`indexOf` 等公共方法。`StringBuffer` 对方法加了同步锁或者对调用的方法加了同步锁，所以是线程安全的。`StringBuilder` 并没有对方法进行加同步锁，所以是非线程安全的。
 
-![img](http://public.file.lvshuhuai.cn/images\stringbuffer-methods.png)
+![img](Z:/Public/images/stringbuffer-methods.png)
 
 #### 性能
 
@@ -604,14 +604,14 @@ public final class String implements java.io.Serializable, Comparable<String>, C
 > 补充（来自[issue 675](https://github.com/Snailclimb/JavaGuide/issues/675)）：在 Java 9 之后，`String`、`StringBuilder` 与 `StringBuffer` 的实现改用 `byte` 数组存储字符串。
 >
 > ```java
->public final class String implements java.io.Serializable,Comparable<String>, CharSequence {
+>public final class String implements `java.io.Serializable`,Comparable<String>, CharSequence {
 >     // @Stable 注解表示变量最多被修改一次，称为“稳定的”。
 >     @Stable
->     private final byte[] value;
+>     private final byte[] `value`;
 > }
 > 
 > abstract class AbstractStringBuilder implements Appendable, CharSequence {
->     byte[] value;
+>     byte[] `value`;
 > 
 > }
 > ```
@@ -622,13 +622,13 @@ public final class String implements java.io.Serializable, Comparable<String>, C
 >
 > JDK 官方就说了绝大部分字符串对象只包含 Latin-1 可表示的字符。
 >
-> ![img](http://public.file.lvshuhuai.cn/images\jdk9-string-latin1.png)
+> ![img](Z:/Public/images/jdk9-string-latin1.png)
 >
 > 如果字符串中包含的汉字超过 Latin-1 可表示范围内的字符，`byte` 和 `char` 所占用的空间是一样的。
 >
-> 这是官方的介绍：https://openjdk.java.net/jeps/254 。
+> 这是官方的介绍：[JEP 254](https://openjdk.java.net/jeps/254)。
 
-### 字符串拼接用“+” 还是 StringBuilder？
+### 字符串拼接用“+” 还是 `StringBuilder`？
 
 Java 语言本身并不支持运算符重载，“+”和“+=”是专门为 String 类重载过的运算符，也是 Java 中仅有的两个重载过的运算符。
 
@@ -641,7 +641,7 @@ String str4 = str1 + str2 + str3;
 
 上面的代码对应的字节码如下：
 
-![img](http://public.file.lvshuhuai.cn/images\image-20220422161637929.png)
+![img](Z:/Public/images/image-20220422161637929.png)
 
 可以看出，字符串对象通过“+”的字符串拼接方式，实际上是通过 `StringBuilder` 调用 `append()` 方法实现的，拼接完成之后调用 `toString()` 得到一个 `String` 对象 。
 
@@ -658,7 +658,7 @@ System.out.println(s);
 
 `StringBuilder` 对象是在循环内部被创建的，这意味着每循环一次就会创建一个 `StringBuilder` 对象。
 
-![img](http://public.file.lvshuhuai.cn/images\image-20220422161320823.png)
+![img](Z:/Public/images/image-20220422161320823.png)
 
 如果直接使用 `StringBuilder` 对象进行字符串拼接的话，就不会存在这个问题了。
 
@@ -671,13 +671,13 @@ for (String value : arr) {
 System.out.println(s);
 ```
 
-![img](http://public.file.lvshuhuai.cn/images\image-20220422162327415.png)
+![img](Z:/Public/images/image-20220422162327415.png)
 
 如果你使用 IDEA 的话，IDEA 自带的代码检查机制也会提示你修改代码。
 
-在 JDK 9 中，字符串相加“+”改为用动态方法 `makeConcatWithConstants()` 来实现，通过提前分配空间从而减少了部分临时对象的创建。然而这种优化主要针对简单的字符串拼接，如： `a+b+c` 。对于循环中的大量拼接操作，仍然会逐个动态分配内存（类似于两个两个 append 的概念），并不如手动使用 StringBuilder 来进行拼接效率高。这个改进是 JDK9 的 [JEP 280](https://openjdk.org/jeps/280) 提出的，关于这部分改进的详细介绍，推荐阅读这篇文章：还在无脑用 [StringBuilder？来重温一下字符串拼接吧](https://juejin.cn/post/7182872058743750715) 以及参考 [issue#2442](https://github.com/Snailclimb/JavaGuide/issues/2442)。
+在 JDK 9 中，字符串相加“+”改为用动态方法 `makeConcatWithConstants()` 来实现，通过提前分配空间从而减少了部分临时对象的创建。然而这种优化主要针对简单的字符串拼接，如： `a+b+c` 。对于循环中的大量拼接操作，仍然会逐个动态分配内存（类似于两个两个 append 的概念），并不如手动使用 `StringBuilder` 来进行拼接效率高。这个改进是 JDK9 的 [JEP 280](https://openjdk.org/jeps/280) 提出的，关于这部分改进的详细介绍，推荐阅读这篇文章：还在无脑用 [`StringBuilder`？来重温一下字符串拼接吧](https://juejin.cn/post/7182872058743750715) 以及参考 [issue#2442](https://github.com/Snailclimb/JavaGuide/issues/2442)。
 
-### String#equals() 和 Object#equals() 有何区别？
+### String#`equals()` 和 Object#`equals()` 有何区别？
 
 `String` 中的 `equals` 方法是被重写过的，比较的是 String 字符串的值是否相等。 `Object` 的 `equals` 方法是比较的对象的内存地址。
 
@@ -696,16 +696,16 @@ System.out.println(aa==bb); // true
 
 更多关于字符串常量池的介绍可以看一下 [Java 内存区域详解](https://javaguide.cn/java/jvm/memory-area.html) 这篇文章。
 
-### String s1 = new String("abc"); 这句话创建了几个字符串对象？
+### String s1 = new String(“abc”); 这句话创建了几个字符串对象？
 
 先说答案：会创建 1 或 2 个字符串对象。
 
-1. 字符串常量池中不存在 "abc"：会创建 2 个 字符串对象。一个在字符串常量池中，由 `ldc` 指令触发创建。一个在堆中，由 `new String()` 创建，并使用常量池中的 "abc" 进行初始化。
-2. 字符串常量池中已存在 "abc"：会创建 1 个 字符串对象。该对象在堆中，由 `new String()` 创建，并使用常量池中的 "abc" 进行初始化。
+1. 字符串常量池中不存在 “abc”：会创建 2 个 字符串对象。一个在字符串常量池中，由 `ldc` 指令触发创建。一个在堆中，由 `new String()` 创建，并使用常量池中的 “abc” 进行初始化。
+2. 字符串常量池中已存在 “abc”：会创建 1 个 字符串对象。该对象在堆中，由 `new String()` 创建，并使用常量池中的 “abc” 进行初始化。
 
 下面开始详细分析。
 
-如果字符串常量池中不存在字符串对象 “abc”，那么它首先会在字符串常量池中创建字符串对象 "abc"，然后在堆内存中再创建其中一个字符串对象 "abc"。
+如果字符串常量池中不存在字符串对象 “abc”，那么它首先会在字符串常量池中创建字符串对象 “abc”，然后在堆内存中再创建其中一个字符串对象 “abc”。
 
 示例代码（JDK 1.8）：
 
@@ -817,13 +817,13 @@ System.out.println(str4 == str5);//false
 
 > **注意**：比较 String 字符串的值是否相等，可以使用 `equals()` 方法。 `String` 中的 `equals` 方法是被重写过的。 `Object` 的 `equals` 方法是比较的对象的内存地址，而 `String` 的 `equals` 方法比较的是字符串的值是否相等。如果你使用 `==` 比较两个字符串是否相等的话，IDEA 还是提示你使用 `equals()` 方法替换。
 
-![img](http://public.file.lvshuhuai.cn/images\image-20210817123252441.png)
+![img](Z:/Public/images/image-20210817123252441.png)
 
 **对于编译期可以确定值的字符串，也就是常量字符串 ，jvm 会将其存入字符串常量池。并且，字符串常量拼接得到的字符串常量在编译阶段就已经被存放字符串常量池，这个得益于编译器的优化。**
 
 在编译过程中，Javac 编译器（下文中统称为编译器）会进行一个叫做 **常量折叠（Constant Folding）**的代码优化。《深入理解 Java 虚拟机》中是也有介绍到：
 
-![img](http://public.file.lvshuhuai.cn/images\image-20210817142715396.png)
+![img](Z:/Public/images/image-20210817142715396.png)
 
 常量折叠会把常量表达式的值求出来作为常量嵌在最终生成的代码中，这是 Javac 编译器会对源代码做的极少量优化措施之一（代码优化几乎都在即时编译器中进行）。
 

@@ -15,7 +15,7 @@
 9. 编译与解释并存；
 10. ……
 
-> **🐛 修正（参见：[issue#544](https://github.com/Snailclimb/JavaGuide/issues/544)）**：C++11 开始（2011 年的时候）,C++就引入了多线程库，在 windows、linux、macos 都可以使用`std::thread`和`std::async`来创建线程。参考链接：http://www.cplusplus.com/reference/thread/thread/?kw=thread
+> **🐛 修正（参见：[issue#544](https://github.com/Snailclimb/JavaGuide/issues/544)）**：C++11 开始（2011 年的时候），C++ 就引入了多线程库，在 Windows、Linux、macOS 都可以使用 `std::thread` 和 `std::async` 来创建线程。参考链接：[C++ thread](http://www.cplusplus.com/reference/thread/thread/?kw=thread)
 
 拓展一下：
 
@@ -38,13 +38,13 @@ Java 虚拟机（Java Virtual Machine，JVM）是运行 Java 字节码的虚拟�
 
 如下图所示，不同编程语言（Java、Groovy、Kotlin、JRuby、Clojure ...）通过各自的编译器编译成 `.class` 文件，并最终通过 JVM 在不同平台（Windows、Mac、Linux）上运行。
 
-![运行在 Java 虚拟机之上的编程语言](http://public.file.lvshuhuai.cn/images\java-virtual-machine-program-language-os.png)
+![运行在 Java 虚拟机之上的编程语言](Z:/Public/images/java-virtual-machine-program-language-os.png)
 
 **JVM 并不是只有一种！只要满足 JVM 规范，每个公司、组织或者个人都可以开发自己的专属 JVM。** 也就是说我们平时接触到的 HotSpot VM 仅仅是是 JVM 规范的一种实现而已。
 
-除了我们平时最常用的 HotSpot VM 外，还有 J9 VM、Zing VM、JRockit VM 等 JVM 。维基百科上就有常见 JVM 的对比：[Comparison of Java virtual machines](https://en.wikipedia.org/wiki/Comparison_of_Java_virtual_machines) ，感兴趣的可以去看看。并且，你可以在 [Java SE Specifications](https://docs.oracle.com/javase/specs/index.html) 上找到各个版本的 JDK 对应的 JVM 规范。
+除了我们平时最常用的 HotSpot VM 外，还有 J9 VM、Zing VM、JRockit VM 等 JVM 。维基百科上就有常见 JVM 的对比：[Comparison of Java virtual machines](https://en.wikipedia.org/wiki/Comparison_of_Java_virtual_machines) ，感兴趣的可以去看看。并且，你可以在 [Java SE Specifications](https://docs.oracle.com/javase/specs/`index`.html) 上找到各个版本的 JDK 对应的 JVM 规范。
 
-![img](http://public.file.lvshuhuai.cn/images\JavaSeSpecifications.jpg)
+![img](Z:/Public/images/JavaSeSpecifications.jpg)
 
 #### JDK 和 JRE
 
@@ -61,7 +61,7 @@ JRE 是运行已编译 Java 程序所需的环境，主要包含以下两个部�
 
 下图清晰展示了 JDK、JRE 和 JVM 的关系。
 
-![jdk-include-jre](http://public.file.lvshuhuai.cn/images\jdk-include-jre.png)
+![jdk-include-jre](Z:/Public/images/jdk-include-jre.png)
 
 不过，从 JDK 9 开始，就不需要区分 JDK 和 JRE 的关系了，取而代之的是模块系统（JDK 被重新组织成 94 个模块）+ [jlink](http://openjdk.java.net/jeps/282) 工具 (随 Java 9 一起发布的新命令行工具，用于生成自定义 Java 运行时映像，该映像仅包含给定应用程序所需的模块) 。并且，从 JDK 11 开始，Oracle 不再提供单独的 JRE 下载。
 
@@ -79,7 +79,7 @@ JRE 是运行已编译 Java 程序所需的环境，主要包含以下两个部�
 
 #### Java 程序从源代码到运行的过程如下图所示
 
-![Java程序转变为机器代码的过程](http://public.file.lvshuhuai.cn/images\java-code-to-machine-code.png)
+![Java 程序转变为机器代码的过程](Z:/Public/images/java-code-to-machine-code.png)
 
 我们需要格外注意的是 `.class->机器码` 这一步。在这一步 JVM 类加载器首先加载字节码文件，然后通过解释器逐行解释执行，这种方式的执行速度会相对比较慢。而且，有些方法和代码块是经常需要被调用的(也就是所谓的热点代码)，所以后面引进了 **JIT（Just in Time Compilation）** 编译器，而 JIT 属于运行时编译。当 JIT 编译器完成第一次编译后，其会将字节码对应的机器码保存下来，下次可以直接使用。而我们知道，机器码的运行效率肯定是高于 Java 解释器的。这也解释了我们为什么经常会说 **Java 是编译与解释共存的语言** 。
 
@@ -88,17 +88,17 @@ JRE 是运行已编译 Java 程序所需的环境，主要包含以下两个部�
 > - [基本功 | Java 即时编译器原理解析及实践 - 美团技术团队](https://tech.meituan.com/2020/10/22/java-jit-practice-in-meituan.html)
 > - [基于静态编译构建微服务应用 - 阿里巴巴中间件](https://mp.weixin.qq.com/s/4haTyXUmh8m-dBQaEzwDJw)
 
-![Java程序转变为机器代码的过程](http://public.file.lvshuhuai.cn/images\java-code-to-machine-code-with-jit.png)
+![Java 程序转变为机器代码的过程](Z:/Public/images/java-code-to-machine-code-with-jit.png)
 
 > HotSpot 采用了惰性评估(Lazy Evaluation)的做法，根据二八定律，消耗大部分系统资源的只有那一小部分的代码（热点代码），而这也就是 JIT 所需要编译的部分。JVM 会根据代码每次被执行的情况收集信息并相应地做出一些优化，因此执行的次数越多，它的速度就越快。
 
 JDK、JRE、JVM、JIT 这四者的关系如下图所示。
 
-![JDK、JRE、JVM、JIT 这四者的关系](http://public.file.lvshuhuai.cn/images\jdk-jre-jvm-jit.png)
+![JDK、JRE、JVM、JIT 这四者的关系](Z:/Public/images/jdk-jre-jvm-jit.png)
 
 下面这张图是 JVM 的大致结构模型。
 
-![JVM 的大致结构模型](http://public.file.lvshuhuai.cn/images\jvm-rough-structure-model.png)
+![JVM 的大致结构模型](Z:/Public/images/jvm-rough-structure-model.png)
 
 ### 为什么说 Java 语言“编译与解释并存”？
 
@@ -109,7 +109,7 @@ JDK、JRE、JVM、JIT 这四者的关系如下图所示。
 - **编译型**：[编译型语言](https://zh.wikipedia.org/wiki/編譯語言) 会通过[编译器](https://zh.wikipedia.org/wiki/編譯器)将源代码一次性翻译成可被该平台执行的机器码。一般情况下，编译语言的执行速度比较快，开发效率比较低。常见的编译性语言有 C、C++、Go、Rust 等等。
 - **解释型**：[解释型语言](https://zh.wikipedia.org/wiki/直譯語言)会通过[解释器](https://zh.wikipedia.org/wiki/直譯器)一句一句的将代码解释（interpret）为机器代码后再执行。解释型语言开发效率比较快，执行速度比较慢。常见的解释性语言有 Python、JavaScript、PHP 等等。
 
-![编译型语言和解释型语言](http://public.file.lvshuhuai.cn/images\compiled-and-interpreted-languages.png)
+![编译型语言和解释型语言](Z:/Public/images/compiled-and-interpreted-languages.png)
 
 根据维基百科介绍：
 
@@ -127,14 +127,14 @@ JDK 9 引入了一种新的编译模式 **AOT(Ahead of Time Compilation)** 。�
 
 #### JIT 与 AOT 两者的关键指标对比
 
-![JIT vs AOT](http://public.file.lvshuhuai.cn/images\jit-vs-aot.png)
+![JIT vs AOT](Z:/Public/images/jit-vs-aot.png)
 
 可以看出，AOT 的主要优势在于启动时间、内存占用和打包体积。JIT 的主要优势在于具备更高的极限处理能力，可以降低请求的最大延迟。
 
-提到 AOT 就不得不提 [GraalVM](https://www.graalvm.org/) 了！GraalVM 是一种高性能的 JDK（完整的 JDK 发行版本），它可以运行 Java 和其他 JVM 语言，以及 JavaScript、Python 等非 JVM 语言。 GraalVM 不仅能提供 AOT 编译，还能提供 JIT 编译。感兴趣的同学，可以去看看 GraalVM 的官方文档：https://www.graalvm.org/latest/docs/。如果觉得官方文档看着比较难理解的话，也可以找一些文章来看看，比如：
+提到 AOT 就不得不提 [GraalVM](https://www.graalvm.org/) 了！GraalVM 是一种高性能的 JDK（完整的 JDK 发行版本），它可以运行 Java 和其他 JVM 语言，以及 JavaScript、Python 等非 JVM 语言。GraalVM 不仅能提供 AOT 编译，还能提供 JIT 编译。感兴趣的同学，可以去看看 GraalVM 的官方文档：[官方文档](https://www.graalvm.org/latest/docs/)。如果觉得官方文档看着比较难理解的话，也可以找一些文章来看看，比如：
 
 - [基于静态编译构建微服务应用](https://mp.weixin.qq.com/s/4haTyXUmh8m-dBQaEzwDJw)
-- [走向 Native 化：Spring&Dubbo AOT 技术示例与原理讲解](https://cn.dubbo.apache.org/zh-cn/blog/2023/06/28/走向-native-化springdubbo-aot-技术示例与原理讲解/)
+- [走向 Native 化：Spring&Dubbo AOT 技术示例与原理讲解](https://cn.dubbo.apache.org/zh-cn/blog/2023/06/28/走向-native-化 springdubbo-aot-技术示例与原理讲解/)
 
 #### 既然 AOT 这么多优点，那为什么不全部使用这种编译方式呢？
 
@@ -156,7 +156,7 @@ JDK 9 引入了一种新的编译模式 **AOT(Ahead of Time Compilation)** 。�
 
 最后，简单总结一下 Oracle JDK 和 OpenJDK 的区别：
 
-1. **是否开源**：OpenJDK 是一个参考模型并且是完全开源的，而 Oracle JDK 是基于 OpenJDK 实现的，并不是完全开源的（个人观点：众所周知，JDK 原来是 SUN 公司开发的，后来 SUN 公司又卖给了 Oracle 公司，Oracle 公司以 Oracle 数据库而著名，而 Oracle 数据库又是闭源的，这个时候 Oracle 公司就不想完全开源了，但是原来的 SUN 公司又把 JDK 给开源了，如果这个时候 Oracle 收购回来之后就把他给闭源，必然会引起很多 Java 开发者的不满，导致大家对 Java 失去信心，那 Oracle 公司收购回来不就把 Java 烂在手里了吗！然后，Oracle 公司就想了个骚操作，这样吧，我把一部分核心代码开源出来给你们玩，并且我要和你们自己搞的 JDK 区分下，你们叫 OpenJDK，我叫 Oracle JDK，我发布我的，你们继续玩你们的，要是你们搞出来什么好玩的东西，我后续发布 Oracle JDK 也会拿来用一下，一举两得！）OpenJDK 开源项目：https://github.com/openjdk/jdk 。
+1. **是否开源**：OpenJDK 是一个参考模型并且是完全开源的，而 Oracle JDK 是基于 OpenJDK 实现的，并不是完全开源的（个人观点：众所周知，JDK 原来是 SUN 公司开发的，后来 SUN 公司又卖给了 Oracle 公司，Oracle 公司以 Oracle 数据库而著名，而 Oracle 数据库又是闭源的，这个时候 Oracle 公司就不想完全开源了，但是原来的 SUN 公司又把 JDK 给开源了，如果这个时候 Oracle 收购回来之后就把他给闭源，必然会引起很多 Java 开发者的不满，导致大家对 Java 失去信心，那 Oracle 公司收购回来不就把 Java 烂在手里了吗！然后，Oracle 公司就想了个骚操作，这样吧，我把一部分核心代码开源出来给你们玩，并且我要和你们自己搞的 JDK 区分下，你们叫 OpenJDK，我叫 Oracle JDK，我发布我的，你们继续玩你们的，要是你们搞出来什么好玩的东西，我后续发布 Oracle JDK 也会拿来用一下，一举两得！）OpenJDK 开源项目：[OpenJDK 开源项目](https://github.com/openjdk/jdk)。
 2. **是否免费**：Oracle JDK 会提供免费版本，但一般有时间限制。JDK17 之后的版本可以免费分发和商用，但是仅有 3 年时间，3 年后无法免费商用。不过，JDK8u221 之前只要不升级可以无限期免费。OpenJDK 是完全免费的。
 3. **功能性**：Oracle JDK 在 OpenJDK 的基础上添加了一些特有的功能和工具，比如 Java Flight Recorder（JFR，一种监控工具）、Java Mission Control（JMC，一种监控工具）等工具。不过，在 Java 11 之后，OracleJDK 和 OpenJDK 的功能基本一致，之前 OracleJDK 中的私有组件大多数也已经被捐赠给开源组织。
 4. **稳定性**：OpenJDK 不提供 LTS 服务，而 OracleJDK 大概每三年都会推出一个 LTS 版进行长期支持。不过，很多公司都基于 OpenJDK 提供了对应的和 OracleJDK 周期相同的 LTS 版。因此，两者稳定性其实也是差不多的。
@@ -166,13 +166,13 @@ JDK 9 引入了一种新的编译模式 **AOT(Ahead of Time Compilation)** 。�
 >
 > 答：
 >
-> 1. OpenJDK 是开源的，开源意味着你可以对它根据你自己的需要进行修改、优化，比如 Alibaba 基于 OpenJDK 开发了 Dragonwell8：https://github.com/alibaba/dragonwell8
+> 1. OpenJDK 是开源的，开源意味着你可以对它根据你自己的需要进行修改、优化，比如 Alibaba 基于 OpenJDK 开发了 [Dragonwell8](https://github.com/alibaba/dragonwell8)。
 > 2. OpenJDK 是商业免费的（这也是为什么通过 yum 包管理器上默认安装的 JDK 是 OpenJDK 而不是 Oracle JDK）。虽然 Oracle JDK 也是商业免费（比如 JDK 8），但并不是所有版本都是免费的。
 > 3. OpenJDK 更新频率更快。Oracle JDK 一般是每 6 个月发布一个新版本，而 OpenJDK 一般是每 3 个月发布一个新版本。（现在你知道为啥 Oracle JDK 更稳定了吧，先在 OpenJDK 试试水，把大部分问题都解决掉了才在 Oracle JDK 上发布）
 >
 > 基于以上这些原因，OpenJDK 还是有存在的必要的！
 
-![oracle jdk release cadence](http://public.file.lvshuhuai.cn/images\oracle-jdk-release-cadence.jpg)
+![oracle jdk release cadence](Z:/Public/images/oracle-jdk-`release`-cadence.jpg)
 
 #### Oracle JDK 和 OpenJDK 如何选择？
 
@@ -207,7 +207,7 @@ Java 中的注释有三种：
 
 用的比较多的还是单行注释和文档注释，多行注释在实际开发中使用的相对较少。
 
-![img](http://public.file.lvshuhuai.cn/images\image-20220714112336911.png)
+![img](Z:/Public/images/image-20220714112336911.png)
 
 在我们编写代码的时候，如果代码量比较少，我们自己或者团队其他成员还可以很轻易地看懂代码，但是当项目结构一旦复杂起来，我们就需要用到注释了。注释并不会执行(编译器在编译代码之前会把代码中的所有注释抹掉,字节码中不保留注释)，是我们程序员写给自己看的，注释是你的代码说明书，能够帮助看代码的人快速地理清代码之间的逻辑关系。因此，在写程序的时候随手加上注释是一个非常好的习惯。
 
@@ -233,7 +233,7 @@ Java 中的注释有三种：
 > 
 >
 > ```java
-> if (employee.isEligibleForFullBenefits())
+> if (`employee.isEligibleForFullBenefits()`)
 > ```
 
 ### 标识符和关键字的区别是什么？
@@ -268,7 +268,7 @@ Java 中的注释有三种：
 
 ⚠️ 注意：虽然 `true`, `false`, 和 `null` 看起来像关键字但实际上他们是字面值，同时你也不可以作为标识符来使用。
 
-官方文档：https://docs.oracle.com/javase/tutorial/java/nutsandbolts/_keywords.html
+官方文档：[Java 关键字文档](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/_keywords.html)
 
 ### 自增自减运算符
 
@@ -326,8 +326,8 @@ static final int hash(Object key) {
 
 Java 中有三种移位运算符：
 
-- `<<` :左移运算符，向左移若干位，高位丢弃，低位补零。`x << n`,相当于 x 乘以 2 的 n 次方(不溢出的情况下)。
-- `>>` :带符号右移，向右移若干位，高位补符号位，低位丢弃。正数高位补 0,负数高位补 1。`x >> n`,相当于 x 除以 2 的 n 次方。
+- `<<` :左移运算符，向左移若干位，高位丢弃，低位补零。`x << n`,相当于 `x` 乘以 2 的 `n` 次方(不溢出的情况下)。
+- `>>` :带符号右移，向右移若干位，高位补符号位，低位丢弃。正数高位补 0,负数高位补 1。`x >> n`,相当于 `x` 除以 2 的 `n` 次方。
 - `>>>` :无符号右移，忽略符号位，空位都以 0 补齐。
 
 虽然移位运算本质上可以分为左移和右移，但在实际应用中，右移操作需要考虑符号位的处理方式。
@@ -446,10 +446,10 @@ Java 中有 8 种基本数据类型，分别为：
 | 基本类型  | 位数 | 字节 | 默认值  | 取值范围                                                     |
 | :-------- | :--- | :--- | :------ | ------------------------------------------------------------ |
 | `byte`    | 8    | 1    | 0       | -128 ~ 127                                                   |
-| `short`   | 16   | 2    | 0       | -32768（-2^15） ~ 32767（2^15 - 1）                          |
+| `short`   | 16   | 2    | 0       | -32768（-$2^15$） ~ 32767（$2^15$ - 1）                          |
 | `int`     | 32   | 4    | 0       | -2147483648 ~ 2147483647                                     |
-| `long`    | 64   | 8    | 0L      | -9223372036854775808（-2^63） ~ 9223372036854775807（2^63 -1） |
-| `char`    | 16   | 2    | 'u0000' | 0 ~ 65535（2^16 - 1）                                        |
+| `long`    | 64   | 8    | 0L      | -9223372036854775808（-$2^63$） ~ 9223372036854775807（$2^63$ -1） |
+| `char`    | 16   | 2    | 'u0000' | 0 ~ 65535（$2^16$ - 1）                                        |
 | `float`   | 32   | 4    | 0f      | 1.4E-45 ~ 3.4028235E38                                       |
 | `double`  | 64   | 8    | 0d      | 4.9E-324 ~ 1.7976931348623157E308                            |
 | `boolean` | 1    |      | false   | true、false                                                  |
@@ -583,9 +583,9 @@ System.out.println(i1==i2);
 
 因此，答案是 `false` 。你答对了吗？
 
-记住：**所有整型包装类对象之间值的比较，全部使用 equals 方法比较**。
+记住：**所有整型包装类对象之间值的比较，全部使用 `equals` 方法比较**。
 
-![img](http://public.file.lvshuhuai.cn/images\up-1ae0425ce8646adfb768b5374951eeb820d.png)
+![img](Z:/Public/images/up-1ae0425ce8646adfb768b5374951eeb820d.png)
 
 ### 自动装箱与拆箱了解吗？原理是什么？
 
@@ -725,7 +725,7 @@ System.out.println(l + 1 == Long.MIN_VALUE); // true
 
 ### 成员变量与局部变量的区别？
 
-![img](http://public.file.lvshuhuai.cn/images\java-basis-variables-member-variable-vs-local-variable.png)
+![img](Z:/Public/images/java-basis-variables-member-variable-vs-local-variable.png)
 
 - **语法形式**：从语法形式上看，成员变量是属于类的，而局部变量是在代码块或方法中定义的变量或是方法的参数；成员变量可以被 `public`,`private`,`static` 等修饰符所修饰，而局部变量不能被访问控制修饰符及 `static` 所修饰；但是，成员变量和局部变量都能被 `final` 所修饰。
 - **存储方式**：从变量在内存中的存储方式来看，如果成员变量是使用 `static` 修饰的，那么这个成员变量是属于类的，如果没有使用 `static` 修饰，这个成员变量是属于实例的。而对象存在于堆内存，局部变量则存在于栈内存。
@@ -743,7 +743,7 @@ System.out.println(l + 1 == Long.MIN_VALUE); // true
 
 并且，如果一个变量没有被初始化，它的内存里存放的就是“垃圾值”——之前那块内存遗留下的任意数据。如果程序读取并使用了这个垃圾值，就会产生完全不可预测的结果，比如一个数字变成了随机数，一个对象引用变成了非法地址，这会直接导致程序崩溃或出现诡异的 bug。
 
-为了避免你拿到一个含有“垃圾值”的危险对象，Java干脆为所有成员变量提供了一个安全的默认值（如 null 或 0），作为一种**安全兜底机制**。
+为了避免你拿到一个含有“垃圾值”的危险对象，Java 干脆为所有成员变量提供了一个安全的默认值（如 null 或 0），作为一种**安全兜底机制**。
 
 成员变量与局部变量代码示例
 
@@ -784,7 +784,7 @@ public class VariableExample {
 
 静态变量也就是被 `static` 关键字修饰的变量。它可以被类的所有实例共享，无论一个类创建了多少个对象，它们都共享同一份静态变量。也就是说，静态变量只会被分配一次内存，即使创建多个对象，这样可以节省内存。
 
-![img](http://public.file.lvshuhuai.cn/images\java-basis-variables-static-variable.png)
+![img](Z:/Public/images/java-basis-variables-static-variable.png)
 
 静态变量是通过类名来访问的，例如`StaticVariableExample.staticVar`（如果被 `private`关键字修饰就无法这样访问了）。
 
@@ -959,8 +959,8 @@ public class Person {
 > 
 >
 > ```java
-> StringBuilder sb = new StringBuilder();
-> StringBuilder sb2 = new StringBuilder("HelloWorld");
+> `StringBuilder` sb = new `StringBuilder()`;
+> `StringBuilder` sb2 = new `StringBuilder`("HelloWorld");
 > ```
 >
 > 编译器必须挑选出具体执行哪个方法，它通过用各个方法给出的参数类型与特定方法调用所使用的值类型进行匹配来挑选出相应的方法。 如果编译器找不到匹配的参数， 就会产生编译时错误， 因为根本不存在匹配， 或者没有一个比其他的更好(这个过程被称为重载解析(overloading resolution))。

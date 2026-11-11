@@ -143,7 +143,7 @@ OpenID Connect（OIDC）是在 OAuth2 基础上扩展出来的身份认证协议
 1. 第三方系统把用户重定向到平台认证授权页面。
 2. 用户在平台完成登录并授权。
 3. 平台返回 authorization code 给第三方系统。
-4. 第三方系统后端用 code 换取 access token、id token 等。
+4. 第三方系统后端用 code 换取 access token、`id` token 等。
 5. 第三方系统校验 token，获取用户身份。
 6. 第三方系统建立自己的本地登录态。
 

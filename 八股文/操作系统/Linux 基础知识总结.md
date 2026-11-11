@@ -10,7 +10,7 @@
 - **Linux 本质是指 Linux 内核**：严格来讲，Linux 这个词本身只表示 Linux 内核，单独的 Linux 内核并不能成为一个可以正常工作的操作系统。所以，就有了各种 Linux 发行版。
 - **Linux 之父（林纳斯·本纳第克特·托瓦兹 Linus Benedict Torvalds）**：一个编程领域的传奇式人物，真大佬！我辈崇拜敬仰之楷模。他是 **Linux 内核**的最早作者，随后发起了这个开源项目，担任 Linux 内核的首要架构师。他还发起了 Git 这个开源项目，并为主要的开发者。
 
-![Linux 之父](http://public.file.lvshuhuai.cn/images\linux-father.png)
+![Linux 之父](Z:/Public/images/linux-father.png)
 
 ### Linux 诞生
 
@@ -20,11 +20,11 @@
 
 1991 年，Linus Torvalds 开源了 Linux 内核。Linux 以一只可爱的企鹅作为标志，象征着敢作敢为、热爱生活。
 
-![OPINION: Make the switch to a Linux operating system | Opinion ...](http://public.file.lvshuhuai.cn/images\Linux-Logo.png)
+![OPINION: Make the switch to a Linux operating system | Opinion ...](Z:/Public/images/Linux-Logo.png)
 
 ### 常见的 Linux 发行版本
 
-![Linux 操作系统](http://public.file.lvshuhuai.cn/images\linux-1779086458194-38.png)
+![Linux 操作系统](Z:/Public/images/linux-1779086458194-38.png)
 
 Linus Torvalds 开源的只是 Linux 内核，我们上面也提到了操作系统内核的作用。一些组织或厂商将 Linux 内核与各种软件和文档包装起来，并提供系统安装界面和系统配置、设定与管理工具，就构成了 Linux 的发行版本。
 
@@ -44,7 +44,7 @@ Linux 的发行版本可以大体分为两类：
 
 ### Linux 文件系统简介
 
-在 Linux 操作系统中，一切被操作系统管理的资源，如网络接口卡、磁盘驱动器、打印机、输入输出设备、普通文件或目录等，都被视为文件。这是 Linux 系统中一个重要的概念，即"一切都是文件"。
+在 Linux 操作系统中，一切被操作系统管理的资源，如网络接口卡、磁盘驱动器、打印机、输入输出设备、普通文件或目录等，都被视为文件。这是 Linux 系统中一个重要的概念，即“一切都是文件”。
 
 这种概念源自 UNIX 哲学，即将所有资源都抽象为文件的方式来进行管理和访问。Linux 的文件系统也借鉴了 UNIX 文件系统的设计理念。这种设计使得 Linux 系统可以通过统一的文件接口来管理和操作不同类型的资源，从而实现了一种统一的文件操作方式。例如，可以使用类似于读写文件的方式来对待网络接口、磁盘驱动器、设备文件等，使得操作和管理这些资源更加统一和简便。
 
@@ -69,7 +69,7 @@ inode 是 Linux/Unix 文件系统的基础。那 inode 到是什么？有什么�
 - **inode**：记录文件的属性信息，可以使用 `stat` 命令查看 inode 信息。
 - **block**：实际文件的内容，如果一个文件大于一个块时候，那么将占用多个 block，但是一个块只能存放一个文件。（因为数据是由 inode 指向的，如果有两个文件的数据存放在同一个块中，就会乱套了）
 
-![文件inode信息](http://public.file.lvshuhuai.cn/images\文件inode信息-DGIIRYlI.png)
+![文件 inode 信息](Z:/Public/images/文件 inode 信息-DGIIRYlI.png)
 
 可以看出，Linux/Unix 操作系统使用 inode 区分不同的文件。这样做的好处是，即使文件名被修改或删除，文件的 inode 号码不会改变，从而可以避免一些因文件重命名、移动或删除导致的错误。同时，inode 也可以提供更高的文件系统性能，因为 inode 的访问速度非常快，可以直接通过 inode 号码定位到文件的元数据信息，无需遍历整个文件系统。
 
@@ -129,7 +129,7 @@ srwxrwxrwx  1 user  group    0 Apr 14 10:00 socket
 
 Linux 使用一种称为目录树的层次结构来组织文件和目录。目录树由根目录（/）作为起始点，向下延伸，形成一系列的目录和子目录。每个目录可以包含文件和其他子目录。结构层次鲜明，就像一棵倒立的树。
 
-![Linux的目录结构](http://public.file.lvshuhuai.cn/images\Linux目录树-DzjzZEII.png)
+![Linux 的目录结构](Z:/Public/images/Linux 目录树-DzjzZEII.png)
 
 **常见目录说明：**
 
@@ -153,13 +153,13 @@ Linux 使用一种称为目录树的层次结构来组织文件和目录。目�
 
 下面只是给出了一些比较常用的命令。
 
-推荐一个 Linux 命令快查网站，非常不错，大家如果遗忘某些命令或者对某些命令不理解都可以在这里得到解决。Linux 命令在线速查手册：[Linux命令搜索引擎 命令，Linux Linux命令搜索引擎 命令详解：最专业的Linux命令大全，内容包含Linux命令手册、详解、学习，值得收藏的Linux命令速查手册。 - Linux 命令搜索引擎](https://wangchujiang.com/linux-command/)。
+推荐一个 Linux 命令快查网站，非常不错，大家如果遗忘某些命令或者对某些命令不理解都可以在这里得到解决。Linux 命令在线速查手册：[Linux 命令搜索引擎 命令，Linux Linux 命令搜索引擎 命令详解：最专业的 Linux 命令大全，内容包含 Linux 命令手册、详解、学习，值得收藏的 Linux 命令速查手册。 - Linux 命令搜索引擎](https://wangchujiang.com/linux-command/)。
 
-![ Linux 命令快查](http://public.file.lvshuhuai.cn/images\linux-command-search.png)
+![ Linux 命令快查](Z:/Public/images/linux-command-search.png)
 
 另外，[shell.how](https://www.shell.how/) 这个网站可以用来解释常见命令的意思，对你学习 Linux 基本命令以及其他常用命令（如 Git、NPM）。
 
-![shell.how 使用示例](http://public.file.lvshuhuai.cn/images\shell-now.png)
+![shell.how 使用示例](Z:/Public/images/shell-now.png)
 
 ### 目录切换
 
@@ -198,7 +198,7 @@ Linux 中的打包文件一般是以 `.tar` 结尾的，压缩的命令一般是
 
 命令：`tar -zcvf 打包压缩后的文件名 要打包压缩的文件`，其中：
 
-- z：调用 gzip 压缩命令进行压缩
+- `z`：调用 gzip 压缩命令进行压缩
 - c：打包文件
 - v：显示运行过程
 - f：指定文件名
@@ -209,7 +209,7 @@ Linux 中的打包文件一般是以 `.tar` 结尾的，压缩的命令一般是
 
 命令：`tar [-xvf] 压缩文件`
 
-其中 x 代表解压
+其中 `x` 代表解压
 
 示例：
 
@@ -230,11 +230,11 @@ Linux 中的打包文件一般是以 `.tar` 结尾的，压缩的命令一般是
 
 示例：在随意某个目录下 `ls -l`
 
-![img](data:image/png;base64,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)
+![img](Z:/Public/images/embedded_ab6d7c5a.png)
 
 第一列的内容的信息解释如下：
 
-![img](http://public.file.lvshuhuai.cn/images\Linux权限解读-BGnXOuG0.png)
+![img](Z:/Public/images/Linux 权限解读-BGnXOuG0.png)
 
 > 下面将详细讲解文件的类型、Linux 中权限以及文件有所有者、所在组、其它组具体是什么？
 
@@ -248,7 +248,7 @@ Linux 中的打包文件一般是以 `.tar` 结尾的，压缩的命令一般是
 
 - r：代表权限是可读，r 也可以用数字 4 表示
 - w：代表权限是可写，w 也可以用数字 2 表示
-- x：代表权限是可执行，x 也可以用数字 1 表示
+- `x`：代表权限是可执行，`x` 也可以用数字 1 表示
 
 **文件和目录权限的区别：**
 
@@ -260,7 +260,7 @@ Linux 中的打包文件一般是以 `.tar` 结尾的，压缩的命令一般是
 | -------- | --------------------------- |
 | r        | 可以使用 cat 查看文件的内容 |
 | w        | 可以修改文件的内容          |
-| x        | 可以将其运行为二进制文件    |
+| `x`        | 可以将其运行为二进制文件    |
 
 对于目录：
 
@@ -268,7 +268,7 @@ Linux 中的打包文件一般是以 `.tar` 结尾的，压缩的命令一般是
 | -------- | ------------------------ |
 | r        | 可以查看目录下列表       |
 | w        | 可以创建和删除目录下文件 |
-| x        | 可以使用 cd 进入目录     |
+| `x`        | 可以使用 cd 进入目录     |
 
 需要注意的是：**超级用户可以无视普通用户的权限，即使文件目录权限是 000，依旧可以访问。**
 
@@ -286,7 +286,7 @@ Linux 中的打包文件一般是以 `.tar` 结尾的，压缩的命令一般是
 
 `chmod u=rwx,g=rw,o=r aaa.txt` 或者 `chmod 764 aaa.txt`
 
-![img](data:image/png;base64,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)
+![img](Z:/Public/images/embedded_1a626ba2.png)
 
 **补充一个比较常用的东西：**
 

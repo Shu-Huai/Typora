@@ -22,7 +22,7 @@ Nginx 反向代理已经从“一个 Web 服务器”演变成现代后端架构
 
 ### 反向代理
 
-<img src="http://public.file.lvshuhuai.cn/images\image-20251201195137964.png" alt="image-20251201195137964" style="zoom:50%;" />
+<img src="Z:/Public/images/image-20251201195137964.png" alt="image-20251201195137964" style="zoom:50%;" />
 
 - **服务对象：服务器集群**
 - 典型场景：Nginx 放在所有后端服务前面，作为统一入口
@@ -159,7 +159,7 @@ Nginx 负责 TLS 握手和加解密，把解密后的 HTTP 请求转发给后端
 
 ## 缓存加速：让 Nginx 变成“超级 CDN 节点”
 
-<img src="http://public.file.lvshuhuai.cn/images\image-20251201195452432.png" alt="image-20251201195452432" style="zoom:50%;" />
+<img src="Z:/Public/images/image-20251201195452432.png" alt="image-20251201195452432" style="zoom:50%;" />
 
 图片里提到三点，我们系统化整理一下。
 
